@@ -11,5 +11,7 @@ namespace HR.Hospital.IRepository.Login
         /// </summary>
         /// <returns></returns>
         int Login(Model.Ooperationuser ooperationuser);
+
+        List<Model.Ooperationuser> ooperationusers();
     }
 }
