@@ -31,13 +31,6 @@ namespace HR.Hospital.Client
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //配置Redis缓存    ///如何使用参考文档https://www.cnblogs.com/ITCoNan/p/7409924.html
-            services.AddDistributedRedisCache(options =>
-            {
-                options.InstanceName = "school:class:student_";
-                options.Configuration = "169.254.224.180:6379,password=1234,defaultdatabase=1";
-            });
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
