@@ -1,0 +1,351 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+
+namespace HR.Hospital.Model
+{
+    public partial class hospitaldbContext : DbContext
+    {
+        public hospitaldbContext()
+        {
+        }
+
+        public hospitaldbContext(DbContextOptions<hospitaldbContext> options)
+            : base(options)
+        {
+        }
+
+        public virtual DbSet<Administrative> Administrative { get; set; }
+        public virtual DbSet<Area> Area { get; set; }
+        public virtual DbSet<Clinicuser> Clinicuser { get; set; }
+        public virtual DbSet<Hierarchy> Hierarchy { get; set; }
+        public virtual DbSet<Ooperationuser> Ooperationuser { get; set; }
+        public virtual DbSet<Operationroom> Operationroom { get; set; }
+        public virtual DbSet<Operations> Operations { get; set; }
+        public virtual DbSet<Operationscheduling> Operationscheduling { get; set; }
+        public virtual DbSet<Permission> Permission { get; set; }
+        public virtual DbSet<Position> Position { get; set; }
+        public virtual DbSet<Professional> Professional { get; set; }
+        public virtual DbSet<Professionalgroup> Professionalgroup { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<RolePermission> RolePermission { get; set; }
+        public virtual DbSet<Rulesettings> Rulesettings { get; set; }
+        public virtual DbSet<Shiftssetting> Shiftssetting { get; set; }
+        public virtual DbSet<Times> Times { get; set; }
+        public virtual DbSet<UserRole> UserRole { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseMySql("Server=169.254.224.180;User Id=root;Password=123456;Database=hospitaldb");
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Administrative>(entity =>
+            {
+                entity.ToTable("administrative");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.AdministrativeName).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.AdministrativeRemark).HasColumnType("varchar(100)");
+
+                entity.Property(e => e.Isoperation).HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Area>(entity =>
+            {
+                entity.ToTable("area");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.AreaName).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.AreaProperty).HasColumnType("int(11)");
+
+                entity.Property(e => e.AreaRemark).HasColumnType("varchar(100)");
+
+                entity.Property(e => e.Isnable).HasColumnType("int(11)");
+
+                entity.Property(e => e.OperatingNum).HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Clinicuser>(entity =>
+            {
+                entity.ToTable("clinicuser");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.Aadministrativeid).HasColumnType("int(11)");
+
+                entity.Property(e => e.ClinicUserName).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.ClinicUserRemark).HasColumnType("varchar(100)");
+
+                entity.Property(e => e.Jobnumber).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.Sex).HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Hierarchy>(entity =>
+            {
+                entity.ToTable("hierarchy");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.HierarchyName).HasColumnType("varchar(10)");
+            });
+
+            modelBuilder.Entity<Ooperationuser>(entity =>
+            {
+                entity.ToTable("ooperationuser");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.Account).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.Annualdays).HasColumnType("int(11)");
+
+                entity.Property(e => e.Enrollmentdate).HasColumnType("datetime");
+
+                entity.Property(e => e.Grade).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.HierarchyId).HasColumnType("int(11)");
+
+                entity.Property(e => e.Isarrange).HasColumnType("int(11)");
+
+                entity.Property(e => e.Jobnumber).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.OoperationUserName).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.OoperationUserRemark).HasColumnType("varchar(100)");
+
+                entity.Property(e => e.Phone).HasColumnType("varchar(11)");
+
+                entity.Property(e => e.PositionId).HasColumnType("int(11)");
+
+                entity.Property(e => e.ProfessionalId)
+                    .HasColumnName("professionalId")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Pwd).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.Roleid).HasColumnType("int(11)");
+
+                entity.Property(e => e.Sex).HasColumnType("int(11)");
+
+                entity.Property(e => e.Simplename).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.Userid).HasColumnType("int(11)");
+
+                entity.Property(e => e.Workage).HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Operationroom>(entity =>
+            {
+                entity.ToTable("operationroom");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.AreaId).HasColumnType("int(11)");
+
+                entity.Property(e => e.OperationName).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.OperationRemark).HasColumnType("varchar(100)");
+            });
+
+            modelBuilder.Entity<Operations>(entity =>
+            {
+                entity.ToTable("operations");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.DepartmentId).HasColumnType("int(11)");
+
+                entity.Property(e => e.OperationCreateTime).HasColumnType("char(10)");
+
+                entity.Property(e => e.OperationName).HasColumnType("varchar(50)");
+            });
+
+            modelBuilder.Entity<Operationscheduling>(entity =>
+            {
+                entity.ToTable("operationscheduling");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.AnesthesiologistId).HasColumnType("int(11)");
+
+                entity.Property(e => e.ApparatusUserId).HasColumnType("int(11)");
+
+                entity.Property(e => e.InpatientArea).HasColumnType("int(11)");
+
+                entity.Property(e => e.OperatingRoomId).HasColumnType("int(11)");
+
+                entity.Property(e => e.OperationId).HasColumnType("int(11)");
+
+                entity.Property(e => e.OperationRemark).HasColumnType("varchar(200)");
+
+                entity.Property(e => e.OperationUserId).HasColumnType("int(11)");
+
+                entity.Property(e => e.PatientId).HasColumnType("int(11)");
+
+                entity.Property(e => e.TableNumber).HasColumnType("int(11)");
+
+                entity.Property(e => e.TourUserId).HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Permission>(entity =>
+            {
+                entity.ToTable("permission");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.Createtime).HasColumnType("datetime");
+
+                entity.Property(e => e.Isnable).HasColumnType("int(11)");
+
+                entity.Property(e => e.PermissionsName).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.Pid).HasColumnType("int(11)");
+
+                entity.Property(e => e.Url).HasColumnType("varchar(100)");
+            });
+
+            modelBuilder.Entity<Position>(entity =>
+            {
+                entity.ToTable("position");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.PositionName).HasColumnType("varchar(50)");
+            });
+
+            modelBuilder.Entity<Professional>(entity =>
+            {
+                entity.ToTable("professional");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.ProfessionalName).HasColumnType("varchar(50)");
+            });
+
+            modelBuilder.Entity<Professionalgroup>(entity =>
+            {
+                entity.ToTable("professionalgroup");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.DepartmentId).HasColumnType("int(11)");
+
+                entity.Property(e => e.GroupLeader).HasColumnType("int(11)");
+
+                entity.Property(e => e.ProfessionalGroupColore).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.ProfessionalGroupName).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.TeachingId).HasColumnType("int(11)");
+
+                entity.Property(e => e.TeamMember).HasColumnType("varchar(50)");
+            });
+
+            modelBuilder.Entity<Role>(entity =>
+            {
+                entity.ToTable("role");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.Isnable).HasColumnType("int(11)");
+
+                entity.Property(e => e.PermissionName).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.RoleName).HasColumnType("varchar(50)");
+            });
+
+            modelBuilder.Entity<RolePermission>(entity =>
+            {
+                entity.ToTable("role_permission");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.Pid).HasColumnType("int(11)");
+
+                entity.Property(e => e.Rid).HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Rulesettings>(entity =>
+            {
+                entity.ToTable("rulesettings");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.OneTime).HasColumnType("datetime");
+
+                entity.Property(e => e.ShiftsId).HasColumnType("int(11)");
+
+                entity.Property(e => e.ThreeTime).HasColumnType("datetime");
+
+                entity.Property(e => e.TwoTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Types).HasColumnType("bit(1)");
+            });
+
+            modelBuilder.Entity<Shiftssetting>(entity =>
+            {
+                entity.ToTable("shiftssetting");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.Closingtime).HasColumnType("datetime");
+
+                entity.Property(e => e.Duration).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.Isclock).HasColumnType("int(11)");
+
+                entity.Property(e => e.Opentime).HasColumnType("datetime");
+
+                entity.Property(e => e.ShiftssettingName).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.Shiftssettingcolour).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.Shiftssettingtypeid).HasColumnType("int(11)");
+
+                entity.Property(e => e.Sortid).HasColumnType("int(11)");
+
+                entity.Property(e => e.Validday).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.Validtime).HasColumnType("varchar(50)");
+            });
+
+            modelBuilder.Entity<Times>(entity =>
+            {
+                entity.ToTable("times");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.DateTimes).HasColumnType("datetime");
+
+                entity.Property(e => e.Remark).HasColumnType("varchar(100)");
+
+                entity.Property(e => e.ShiftsId).HasColumnType("int(11)");
+
+                entity.Property(e => e.UserId).HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<UserRole>(entity =>
+            {
+                entity.ToTable("user_role");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.Rid).HasColumnType("int(11)");
+
+                entity.Property(e => e.Uid).HasColumnType("int(11)");
+            });
+        }
+    }
+}

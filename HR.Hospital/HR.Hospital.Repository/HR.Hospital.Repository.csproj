@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HR.Hospital.IRepository\HR.Hospital.IRepository.csproj" />
+    <ProjectReference Include="..\HR.Hospital.Model\HR.Hospital.Model.csproj" />
+  </ItemGroup>
+
+</Project>
