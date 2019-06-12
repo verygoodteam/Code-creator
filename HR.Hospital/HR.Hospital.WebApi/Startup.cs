@@ -36,7 +36,7 @@ namespace HR.Hospital.WebApi
             //注册跨域服务，允许所有来源
             services.AddCors(options =>
                 options.AddPolicy("AllowAnyCors",
-                p => p.AllowAnyOrigin())
+                p => p.WithOrigins().AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin().AllowCredentials())
             );
 
             //注册Cookie认证服务
