@@ -1,7 +1,7 @@
 ﻿using HR.Hospital.Model;
 using System;
-using System.Collections.Generic;
 using System.Text;
+using System.Collections.Generic;
 using HR.Hospital.Common;
 
 namespace HR.Hospital.IRepository.Clinical

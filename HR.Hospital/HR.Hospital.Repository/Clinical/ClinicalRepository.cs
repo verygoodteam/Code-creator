@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using HR.Hospital.Common;
 using HR.Hospital.IRepository.Clinical;
+using HR.Hospital.Common;
 using HR.Hospital.Model;
 
 namespace HR.Hospital.Repository.Clinical
