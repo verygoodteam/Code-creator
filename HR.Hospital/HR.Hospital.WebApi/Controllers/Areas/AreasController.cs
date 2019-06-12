@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using HR.Hospital.Common;
 using HR.Hospital.IRepository.Areas;
 using HR.Hospital.Model;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HR.Hospital.WebApi.Controllers.Areas
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AreaController : ControllerBase
+    public class AreasController : ControllerBase
     {
         public IAreaRepository AreaRepository { get; set; }
 
         //构造函数注入
-        public AreaController(IAreaRepository areaRepository)
+        public AreasController(IAreaRepository areaRepository)
         {
             AreaRepository = areaRepository;
         }
-
 
         /// <summary>
         /// 显示查询

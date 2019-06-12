@@ -52,9 +52,8 @@ namespace HR.Hospital.Repository.Areas
             return pageHelperArea;
         }
 
-
         /// <summary>
-        /// 获取单个Model
+        /// 获取单个对象
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
