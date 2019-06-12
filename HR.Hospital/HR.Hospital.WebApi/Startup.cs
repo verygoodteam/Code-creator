@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using HR.Hospital.IRepository.Areas;
 using HR.Hospital.IRepository.Clinical;
 using HR.Hospital.IRepository.OoperationUser;
+using HR.Hospital.IRepository.OperationRooms;
 using HR.Hospital.Model;
 using HR.Hospital.Repository.Areas;
 using HR.Hospital.Repository.Clinical;
 using HR.Hospital.Repository.OoperationUser;
+using HR.Hospital.Repository.OperationRooms;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -59,6 +61,10 @@ namespace HR.Hospital.WebApi
 
             //院区
             services.AddScoped<IAreaRepository, AreaRepository>();
+            //手术间映射关系
+            services.AddScoped<IOperationRoomRepository, OperationRoomRepository>();
+
+
 
         }
 

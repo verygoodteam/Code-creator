@@ -43,7 +43,7 @@ namespace HR.Hospital.WebApi.Controllers.OperationRooms
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("GetArea")]
+        [HttpGet("GetOperationRoom")]
         public OperationRoom GetOperationRoom(int id)
         {
             var area = OperationRoomRepository.GetOperationRoom(id);
@@ -68,8 +68,8 @@ namespace HR.Hospital.WebApi.Controllers.OperationRooms
         /// </summary>
         /// <param name="operationRoom"></param>
         /// <returns></returns>
-        [HttpPut("UpdateArea")]
-        public int UpdateArea([FromBody] OperationRoom operationRoom)
+        [HttpPut("UpdateOperationRoom")]
+        public int UpdateOperationRoom([FromBody] OperationRoom operationRoom)
         {
             var result = OperationRoomRepository.UpdateOperationRoom(operationRoom);
             return result;
@@ -80,8 +80,8 @@ namespace HR.Hospital.WebApi.Controllers.OperationRooms
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("EnableArea")]
-        public int EnableArea(int id)
+        [HttpDelete("EnableOperationRoom")]
+        public int EnableOperationRoom(int id)
         {
             var result = OperationRoomRepository.EnableOperationRoom(id);
             return result;
