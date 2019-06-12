@@ -14,7 +14,10 @@ namespace HR.Hospital.Client.Controllers
         {
             return View();
         }
-
+        public IActionResult MainIndex()
+        {
+            return View();
+        }
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
