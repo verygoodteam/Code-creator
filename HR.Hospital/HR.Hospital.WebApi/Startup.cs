@@ -41,8 +41,7 @@ namespace HR.Hospital.WebApi
             //ef mysql 配置
             services.AddDbContext<hospitaldbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
 
-            //注册映射关系---下面的是示例
-
+            //注册映射关系
             //手术室用户
             services.AddScoped<IOoperationUserRepository, OoperationUserRepository>();
         }
