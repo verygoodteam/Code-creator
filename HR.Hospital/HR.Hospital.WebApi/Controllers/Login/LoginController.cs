@@ -39,7 +39,7 @@ namespace HR.Hospital.WebApi.Controllers.Login
         [HttpPost]
         public void Post([FromBody]Model.Ooperationuser ooperationuser)
         {
-            _userRepository.Login(ooperationuser);
+            //_userRepository.Login(ooperationuser);
         }
 
         // PUT api/<controller>/5

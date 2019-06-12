@@ -26,6 +26,12 @@ namespace HR.Hospital.IRepository.Areas
         PageHelper<Area> ShowArea(int pageIndex, int pageSize, int areaProperty, string areaName);
 
         /// <summary>
+        /// 查询单个对象
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Area GetArea(int id);
+        /// <summary>
         /// 禁用院区
         /// </summary>
         /// <param name="id"></param>
