@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HR.Hospital.Common;
+using HR.Hospital.IRepository.OperationRooms;
+using HR.Hospital.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,36 +14,77 @@ namespace HR.Hospital.WebApi.Controllers.OperationRooms
     [ApiController]
     public class OperationRoomController : ControllerBase
     {
-        // GET: api/OperationRoom
-        [HttpGet]
-        public IEnumerable<string> Get()
+        //实例化上下文对象
+        public IOperationRoomRepository OperationRoomRepository { get; set; }
+
+        //构造函数注入
+        public OperationRoomController(IOperationRoomRepository operationRoomRepository)
         {
-            return new string[] { "value1", "value2" };
+            OperationRoomRepository = operationRoomRepository;
         }
 
-        // GET: api/OperationRoom/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        /// <summary>
+        /// 显示查询手术间
+        /// </summary>
+        /// <param name="pageIndex">当前页</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="areaProperty">条件查询</param>
+        /// <param name="areaName">模糊查询</param>
+        /// <returns></returns>
+        [HttpGet("GetAreaList")]
+        public PageHelper<OperationRoom> GetListOperationRoom(int pageIndex, int pageSize, int areaProperty, string areaName)
         {
-            return "value";
+            var areaList = OperationRoomRepository.GetListOperationRoom(pageIndex, pageSize, areaProperty, areaName);
+            return areaList;
         }
 
-        // POST: api/OperationRoom
+        /// <summary>
+        /// 获取手术间对象
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("GetArea")]
+        public OperationRoom GetOperationRoom(int id)
+        {
+            var area = OperationRoomRepository.GetOperationRoom(id);
+            return area;
+        }
+
+        /// <summary>
+        /// 添加手术间
+        /// </summary>
+        /// <param name="operationRoom"></param>
+        /// <returns></returns>
+        // POST: api/Area
         [HttpPost]
-        public void Post([FromBody] string value)
+        public int AddOperationRoom([FromBody]OperationRoom operationRoom)
         {
+            var result = OperationRoomRepository.AddOperationRoom(operationRoom);
+            return result;
         }
 
-        // PUT: api/OperationRoom/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        /// <summary>
+        /// 修改手术间信息
+        /// </summary>
+        /// <param name="operationRoom"></param>
+        /// <returns></returns>
+        [HttpPut("UpdateArea")]
+        public int UpdateArea([FromBody] OperationRoom operationRoom)
         {
+            var result = OperationRoomRepository.UpdateOperationRoom(operationRoom);
+            return result;
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        /// <summary>
+        /// 启用禁用手术间
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("EnableArea")]
+        public int EnableArea(int id)
         {
+            var result = OperationRoomRepository.EnableOperationRoom(id);
+            return result;
         }
     }
 }

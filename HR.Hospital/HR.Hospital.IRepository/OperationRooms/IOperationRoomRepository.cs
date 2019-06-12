@@ -25,7 +25,14 @@ namespace HR.Hospital.IRepository.OperationRooms
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        OperationRoom  GetOperationRoom(int id);
+        OperationRoom GetOperationRoom(int id);
+
+        /// <summary>
+        /// 是否开启手术间
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        int EnableOperationRoom(int id);
 
         /// <summary>
         /// 手术间查看分页
