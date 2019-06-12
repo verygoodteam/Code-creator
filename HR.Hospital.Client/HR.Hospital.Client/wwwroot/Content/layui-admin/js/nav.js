@@ -6,7 +6,7 @@ var navs = [{
 }, {
     "title": "按手术排班",
     "icon": "icon-text",
-    "href": "Home/Index.html",
+    "href": "https://www.baidu.com",
     "spread": false
 }, {
     "title": "按人员排班",
@@ -16,12 +16,12 @@ var navs = [{
 }, {
     "title": "院区管理",
     "icon": "&#xe61c;",
-    "href": "page/404.html",
+    "href": "https://www.taobao.com/",
     "spread": false
 }, {
     "title": "科室管理",
     "icon": "&#xe631;",
-    "href": "page/systemParameter/systemParameter.html",
+    "href": "https://www.taobao.com",
     "spread": false
 }, {
     "title": "手术间管理",
