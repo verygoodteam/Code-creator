@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HR.Hospital.Model
+namespace HR.Hospital.Common
 {
-    public class PageDto<T>
+    public class PageDto<T> where T : class
     {
         /// <summary>
         /// 总记录数

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HR.Hospital.Common;
 using HR.Hospital.IRepository.Clinical;
 using HR.Hospital.Model;
 using Microsoft.AspNetCore.Http;
