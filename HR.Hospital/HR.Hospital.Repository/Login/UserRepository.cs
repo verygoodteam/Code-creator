@@ -9,12 +9,12 @@ namespace HR.Hospital.Repository.Login
 {
     public class UserRepository : IUserRepository
     {
-        public int Login(string name, string pwd)
+        public int Login(Model.Ooperationuser ooperationuser)
         {
             using (Model.hospitaldbContext context = new Model.hospitaldbContext())
             {
-                Model.Ooperationuser ooperationuser = context.Ooperationuser.Where(u => u.OoperationUserName == name && u.Pwd == pwd).FirstOrDefault();
-                if (ooperationuser != null)
+                Model.Ooperationuser uer = context.Ooperationuser.Where(u => u.OoperationUserName == ooperationuser.OoperationUserName && u.Pwd == ooperationuser.Pwd).FirstOrDefault();
+                if (uer != null)
                 {
                     return 1;
                 }

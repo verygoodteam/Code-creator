@@ -9,17 +9,14 @@ namespace HR.Hospital.Client.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: Login
-        public ActionResult Index()
-        {
-            return View();
-        }
         /// <summary>
-        /// 登陆页面
+        /// 页面初始化
         /// </summary>
+        /// <param name="returnUrl"></param>
         /// <returns></returns>
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl = null)
         {
+            TempData["returnUrl"] = returnUrl;
             return View();
         }
 
@@ -44,7 +41,7 @@ namespace HR.Hospital.Client.Controllers
             {
                 // TODO: Add insert logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Login));
             }
             catch
             {
@@ -67,7 +64,7 @@ namespace HR.Hospital.Client.Controllers
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Login));
             }
             catch
             {
@@ -90,7 +87,7 @@ namespace HR.Hospital.Client.Controllers
             {
                 // TODO: Add delete logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Login));
             }
             catch
             {

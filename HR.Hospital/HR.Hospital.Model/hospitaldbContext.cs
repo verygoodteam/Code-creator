@@ -15,23 +15,94 @@ namespace HR.Hospital.Model
         {
         }
 
+        /// <summary>
+        /// 获取科室列表信息
+        /// </summary>
         public virtual DbSet<Administrative> Administrative { get; set; }
+
+        /// <summary>
+        /// 获取院区列表信息
+        /// </summary>
         public virtual DbSet<Area> Area { get; set; }
+
+        /// <summary>
+        /// 获取临床用户列表信息
+        /// </summary>
         public virtual DbSet<Clinicuser> Clinicuser { get; set; }
+
+        /// <summary>
+        /// 获取职能信息
+        /// </summary>
         public virtual DbSet<Hierarchy> Hierarchy { get; set; }
+
+        /// <summary>
+        /// 获取手术间用户信息
+        /// </summary>
         public virtual DbSet<Ooperationuser> Ooperationuser { get; set; }
+
+        /// <summary>
+        /// 获取手术间信息
+        /// </summary>
         public virtual DbSet<Operationroom> Operationroom { get; set; }
+
+        /// <summary>
+        /// 获取手术类别信息
+        /// </summary>
         public virtual DbSet<Operations> Operations { get; set; }
+
+        /// <summary>
+        /// 获取手术排班信息
+        /// </summary>
         public virtual DbSet<Operationscheduling> Operationscheduling { get; set; }
+
+        /// <summary>
+        /// 获取权限信息
+        /// </summary>
         public virtual DbSet<Permission> Permission { get; set; }
+
+        /// <summary>
+        /// 获取职务信息
+        /// </summary>
         public virtual DbSet<Position> Position { get; set; }
+
+        /// <summary>
+        /// 获取职称信息
+        /// </summary>
         public virtual DbSet<Professional> Professional { get; set; }
+
+        /// <summary>
+        /// 获取专业组信息
+        /// </summary>
         public virtual DbSet<Professionalgroup> Professionalgroup { get; set; }
+
+        /// <summary>
+        /// 获取角色信息
+        /// </summary>
         public virtual DbSet<Role> Role { get; set; }
+
+        /// <summary>
+        /// 获取角色权限信息
+        /// </summary>
         public virtual DbSet<RolePermission> RolePermission { get; set; }
+
+        /// <summary>
+        /// 获取规则设置信息
+        /// </summary>
         public virtual DbSet<Rulesettings> Rulesettings { get; set; }
+
+        /// <summary>
+        /// 获取班次信息
+        /// </summary>
         public virtual DbSet<Shiftssetting> Shiftssetting { get; set; }
+
+        /// <summary>
+        /// 获取时间信息
+        /// </summary>
         public virtual DbSet<Times> Times { get; set; }
+
+        /// <summary>
+        /// 获取用户角色信息
+        /// </summary>
         public virtual DbSet<UserRole> UserRole { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -39,7 +110,7 @@ namespace HR.Hospital.Model
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("Server=169.254.224.180;User Id=root;Password=123456;Database=hospitaldb");
+                optionsBuilder.UseMySql("Server=127.0.0.1;User Id=root;Password=123456;Database=hospitaldb");
             }
         }
 

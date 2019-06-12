@@ -2,17 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HR.Hospital.IRepository.Login;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HR.Hospital.WebApi.Controllers.Login
 {
+  
+
     [Route("api/[controller]")]
     public class LoginController : Controller
     {
-        // GET: api/<controller>
-        [HttpGet]
+        public readonly IUserRepository _userRepository;
+
+        public LoginController(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
+      // GET: api/<controller>
+      [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
@@ -27,8 +37,9 @@ namespace HR.Hospital.WebApi.Controllers.Login
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Model.Ooperationuser ooperationuser)
         {
+            _userRepository.Login(ooperationuser);
         }
 
         // PUT api/<controller>/5
