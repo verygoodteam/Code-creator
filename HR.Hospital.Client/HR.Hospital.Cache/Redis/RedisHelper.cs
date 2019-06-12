@@ -1,11 +1,8 @@
-﻿using ServiceStack.Redis;
+﻿using System;
+using ServiceStack.Redis;
 using ServiceStack.Text;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace CommonCache
+namespace HR.Hospital.Cache.Redis
 {
     /// <summary>
     /// Redis缓存操作类
