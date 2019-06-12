@@ -52,6 +52,18 @@ namespace HR.Hospital.Repository.Areas
             return pageHelperArea;
         }
 
+
+        /// <summary>
+        /// 获取单个Model
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Area GetArea(int id)
+        {
+            var area = _context.Area.FirstOrDefault(p => p.Id == id);
+            return area;
+        }
+
         /// <inheritdoc />
         /// <summary>
         /// 进行禁用院区

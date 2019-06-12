@@ -24,5 +24,10 @@ namespace HR.Hospital.Repository.Login
                 }
             }
         }
+
+        public int Login(string name, string pwd)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
