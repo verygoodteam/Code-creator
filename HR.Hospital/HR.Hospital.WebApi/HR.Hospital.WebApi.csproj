@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\新文件夹\" />
+    <Folder Include="Controllers\LLLL\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

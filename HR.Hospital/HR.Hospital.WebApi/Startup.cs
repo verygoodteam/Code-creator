@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HR.Hospital.IRepository.OoperationUser;
 using HR.Hospital.Model;
 using HR.Hospital.Repository.OoperationUser;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,6 +39,9 @@ namespace HR.Hospital.WebApi
                 p => p.AllowAnyOrigin())
             );
 
+            //注册Cookie认证服务
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
             //ef mysql 配置
             services.AddDbContext<hospitaldbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
 
@@ -59,6 +63,12 @@ namespace HR.Hospital.WebApi
             }
             //允许跨域访问
             app.UseCors("AllowAnyCors");
+
+            //启动认证服务
+            //注意app.UseAuthentication方法一定要放在下面的app.UseMvc方法前面，否者后面就算调用HttpContext.SignInAsync进行用户登录后，使用
+            //HttpContext.User还是会显示用户没有登录，并且HttpContext.User.Claims读取不到登录用户的任何信息。
+            //这说明Asp.Net OWIN框架中MiddleWare的调用顺序会对系统功能产生很大的影响，各个MiddleWare的调用顺序一定不能反
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
             app.UseMvc();
