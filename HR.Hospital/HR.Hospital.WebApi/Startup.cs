@@ -32,6 +32,12 @@ namespace HR.Hospital.WebApi
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            //注册跨域服务，允许所有来源
+            services.AddCors(options =>
+                options.AddPolicy("AllowAnyCors",
+                p => p.AllowAnyOrigin())
+            );
+
             //ef mysql 配置
             services.AddDbContext<hospitaldbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
 
@@ -52,6 +58,8 @@ namespace HR.Hospital.WebApi
             {
                 app.UseHsts();
             }
+            //允许跨域访问
+            app.UseCors("AllowAnyCors");
 
             app.UseHttpsRedirection();
             app.UseMvc();
