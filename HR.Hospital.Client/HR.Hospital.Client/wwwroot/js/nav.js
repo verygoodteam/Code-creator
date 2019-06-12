@@ -6,7 +6,7 @@ var navs = [{
 }, {
     "title": "按手术排班",
     "icon": "icon-text",
-    "href": "page/news/newsList.html",
+    "href": "Home/Index.html",
     "spread": false
 }, {
     "title": "按人员排班",
