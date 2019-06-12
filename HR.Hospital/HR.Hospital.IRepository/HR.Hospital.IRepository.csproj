@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HR.Hospital.Common\HR.Hospital.Common.csproj" />
     <ProjectReference Include="..\HR.Hospital.Model\HR.Hospital.Model.csproj" />
   </ItemGroup>
 

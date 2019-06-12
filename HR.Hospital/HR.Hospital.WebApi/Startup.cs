@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HR.Hospital.IRepository.Clinical;
 using HR.Hospital.IRepository.OoperationUser;
 using HR.Hospital.Model;
+using HR.Hospital.Repository.Clinical;
 using HR.Hospital.Repository.OoperationUser;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -48,6 +50,10 @@ namespace HR.Hospital.WebApi
             //注册映射关系
             //手术室用户
             services.AddScoped<IOoperationUserRepository, OoperationUserRepository>();
+            //临床用户
+            services.AddScoped<IClinicalRepository, ClinicalRepository>();
+            //专业组
+            //services.AddScoped<IGroupRepository, GroupRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

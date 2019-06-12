@@ -9,9 +9,7 @@ namespace HR.Hospital.IRepository.Login
         /// <summary>
         /// 登陆
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="pwd"></param>
         /// <returns></returns>
-        int Login(string name, string pwd);
+        int Login(Model.Ooperationuser ooperationuser);
     }
 }
