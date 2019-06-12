@@ -43,7 +43,7 @@ namespace HR.Hospital.Model
         /// <summary>
         /// 获取手术间信息
         /// </summary>
-        public virtual DbSet<Operationroom> Operationroom { get; set; }
+        public virtual DbSet<OperationRoom> Operationroom { get; set; }
 
         /// <summary>
         /// 获取手术类别信息
@@ -217,7 +217,7 @@ namespace HR.Hospital.Model
                 entity.Property(e => e.Workage).HasColumnType("int(11)");
             });
 
-            modelBuilder.Entity<Operationroom>(entity =>
+            modelBuilder.Entity<OperationRoom>(entity =>
             {
                 entity.ToTable("operationroom");
 
@@ -228,6 +228,8 @@ namespace HR.Hospital.Model
                 entity.Property(e => e.OperationName).HasColumnType("varchar(50)");
 
                 entity.Property(e => e.OperationRemark).HasColumnType("varchar(100)");
+
+                entity.Property(e => e.EnableOperation).HasColumnType("int(3)");
             });
 
             modelBuilder.Entity<Operations>(entity =>

@@ -6,7 +6,7 @@ namespace HR.Hospital.Model
     /// <summary>
     /// 手术间类
     /// </summary>
-    public partial class Operationroom
+    public partial class OperationRoom
     {
         /// <summary>
         /// 编号
@@ -27,5 +27,11 @@ namespace HR.Hospital.Model
         /// 备注
         /// </summary>
         public string OperationRemark { get; set; }
+
+        /// <summary>
+        /// 是否开启手术间
+        /// </summary>
+        public int EnableOperation { get; set; }
+        
     }
 }
