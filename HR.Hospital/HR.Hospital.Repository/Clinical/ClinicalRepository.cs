@@ -14,11 +14,11 @@ namespace HR.Hospital.Repository.Clinical
         /// 显示
         /// </summary>
         /// <returns></returns>
-        public List<Clinicuser> GetList()
+        public List<Clinicuser> GetList(int administrativeId, string englishName)
         {
             using (hospitaldbContext db = new hospitaldbContext())
             {
-                List<Clinicuser> list = db.Clinicuser.ToList();
+                List<Clinicuser> list = db.Clinicuser.Where(p => p.Aadministrativeid == administrativeId ||p.ClinicUserRemark== englishName).ToList();
                 return list;
             }
         }

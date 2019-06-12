@@ -33,9 +33,9 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetList")]
-        public List<Clinicuser> GetList()
+        public List<Clinicuser> GetList(int administrativeId=0, string englishName="")
         {
-            var list = _clinicalRepository.GetList();
+            var list = _clinicalRepository.GetList(administrativeId, englishName);
             return list;
         }
 

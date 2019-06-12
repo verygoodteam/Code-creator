@@ -29,5 +29,13 @@ namespace HR.Hospital.Repository.Login
         {
             throw new NotImplementedException();
         }
+
+        public List<Model.Ooperationuser> ooperationusers()
+        {
+            using (Model.hospitaldbContext context = new Model.hospitaldbContext())
+            {
+                return context.Ooperationuser.ToList();
+            }
+        }
     }
 }
