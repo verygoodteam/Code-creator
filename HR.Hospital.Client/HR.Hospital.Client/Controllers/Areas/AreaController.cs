@@ -10,11 +10,15 @@ namespace HR.Hospital.Client.Controllers.Areas
     public class AreaController : Controller
     {
         // GET: Area
-        public ActionResult Index()
+        public ActionResult IndexArea()
         {
             return View();
         }
 
+        public JsonResult ListArea(int pageIndex = 1, int pageSize = 2, int areaProperty = 0, string name = "")
+        {
+            return null;
+        }
         // GET: Area/Details/5
         public ActionResult Details(int id)
         {
@@ -36,7 +40,7 @@ namespace HR.Hospital.Client.Controllers.Areas
             {
                 // TODO: Add insert logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction();
             }
             catch
             {
@@ -59,7 +63,7 @@ namespace HR.Hospital.Client.Controllers.Areas
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction();
             }
             catch
             {
@@ -82,7 +86,7 @@ namespace HR.Hospital.Client.Controllers.Areas
             {
                 // TODO: Add delete logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction();
             }
             catch
             {

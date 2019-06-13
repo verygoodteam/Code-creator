@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 using HR.Hospital.IRepository.Areas;
-using HR.Hospital.IRepository.Clinical;
+using HR.Hospital.IRepository.Group;
 using HR.Hospital.IRepository.OoperationUser;
 using HR.Hospital.IRepository.OperationRooms;
 using HR.Hospital.Model;
 using HR.Hospital.Repository.Areas;
-using HR.Hospital.Repository.Clinical;
+using HR.Hospital.Repository.Group;
 using HR.Hospital.Repository.OoperationUser;
 using HR.Hospital.Repository.OperationRooms;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 
 namespace HR.Hospital.WebApi
@@ -55,10 +49,9 @@ namespace HR.Hospital.WebApi
             //手术室用户
             services.AddScoped<IOoperationUserRepository, OoperationUserRepository>();
             //临床用户
-            services.AddScoped<IClinicalRepository, ClinicalRepository>();
+            //services.AddScoped<IClinicalRepository, ClinicalRepository>();
             //专业组
-            //services.AddScoped<IGroupRepository, GroupRepository>();
-
+            services.AddScoped<IGroupRepository, GroupRepository>();
             //院区
             services.AddScoped<IAreaRepository, AreaRepository>();
             //手术间映射关系

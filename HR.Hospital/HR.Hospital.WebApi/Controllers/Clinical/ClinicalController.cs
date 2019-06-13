@@ -33,9 +33,9 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetList")]
-        public List<Clinicuser> GetList()
+        public List<Clinicuser> GetList(int administrativeId=0, string englishName="")
         {
-            var list = _clinicalRepository.GetList();
+            var list = _clinicalRepository.GetList(administrativeId, englishName);
             return list;
         }
 
@@ -49,7 +49,18 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
             var list = _clinicalRepository.GetPagedList(pageIndex,pageSize,administrativeId, englishName);
             return list;
         }
-        
+
+        /// <summary>
+        /// 获取科室
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetAdminList")]
+        public List<Administrative> GetAdminList()
+        {
+            var list = _clinicalRepository.GetAdminList();
+            return list;
+        }
+
         /// <summary>
         /// 添加
         /// </summary>

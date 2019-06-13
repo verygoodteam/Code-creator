@@ -12,7 +12,7 @@ namespace HR.Hospital.IRepository.Clinical
         /// 显示
         /// </summary>
         /// <returns></returns>
-        List<Clinicuser> GetList();
+        List<Clinicuser> GetList(int administrativeId, string englishName);
 
 
         /// <summary>
@@ -21,6 +21,11 @@ namespace HR.Hospital.IRepository.Clinical
         /// <returns></returns>
         PageDto<Clinicuser> GetPagedList(int pageIndex, int pageSize, int administrativeId, string englishName);
 
+        /// <summary>
+        /// 获取科室
+        /// </summary>
+        /// <returns></returns>
+        List<Administrative> GetAdminList();
 
         /// <summary>
         /// 添加

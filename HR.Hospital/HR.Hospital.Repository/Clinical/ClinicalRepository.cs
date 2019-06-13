@@ -14,11 +14,11 @@ namespace HR.Hospital.Repository.Clinical
         /// 显示
         /// </summary>
         /// <returns></returns>
-        public List<Clinicuser> GetList()
+        public List<Clinicuser> GetList(int administrativeId, string englishName)
         {
             using (hospitaldbContext db = new hospitaldbContext())
             {
-                List<Clinicuser> list = db.Clinicuser.ToList();
+                List<Clinicuser> list = db.Clinicuser.Where(p => p.Aadministrativeid == administrativeId || p.ClinicUserRemark== englishName).ToList();
                 return list;
             }
         }
@@ -42,7 +42,20 @@ namespace HR.Hospital.Repository.Clinical
             }
             return pageList;
         }
-        
+
+        /// <summary>
+        /// 获取科室
+        /// </summary>
+        /// <returns></returns>
+        public List<Administrative> GetAdminList()
+        {
+            using (hospitaldbContext db = new hospitaldbContext())
+            {
+                List<Administrative> list = db.Administrative.ToList();
+                return list;
+            }
+        }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -101,5 +114,7 @@ namespace HR.Hospital.Repository.Clinical
                 return db.SaveChanges();
             }
         }
+
+
     }
 }

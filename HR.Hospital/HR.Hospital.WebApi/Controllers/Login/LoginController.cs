@@ -49,7 +49,7 @@ namespace HR.Hospital.WebApi.Controllers.Login
             }
 
             //写入缓存
-            WriteCookie(tmpUser);
+            //WriteCookie(tmpUser);
 
             //判断是否返回前页
             if (returnUrl == null)
@@ -62,6 +62,17 @@ namespace HR.Hospital.WebApi.Controllers.Login
             }
 
             return RedirectToAction(nameof(LoginController.Post), "Home");
+<<<<<<< HEAD
+=======
+        }
+
+
+
+        // PUT api/<controller>/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody]string value)
+        {
+>>>>>>> 12e9ecea207b4475511fbff55ed7d553ecad5491
         }
 
         /// <summary>

@@ -40,14 +40,17 @@ namespace HR.Hospital.Repository.Areas
             if (areaProperty == 0)
             {
                 var listArea = _context.Area.OrderBy(p => p.Id).Where(p => p.AreaName.Contains(areaName)).Take((pageIndex - 1) * pageSize).Skip(pageSize).ToList();
-                pageHelperArea.Pagesizes = listArea.Count();
-                pageHelperArea.Pagelist = listArea;
+                pageHelperArea.PageSizes = listArea.Count();
+                pageHelperArea.PageList = listArea;
+                pageHelperArea.PageNum = (pageHelperArea.PageSizes / pageSize);
             }
             else
             {
                 var listArea = _context.Area.OrderBy(p => p.Id).Where(p => p.AreaName.Contains(areaName) || p.AreaProperty.Equals(areaProperty)).Take((pageIndex - 1) * pageSize).Skip(pageSize).ToList();
-                pageHelperArea.Pagesizes = listArea.Count();
-                pageHelperArea.Pagelist = listArea;
+                pageHelperArea.PageSizes = listArea.Count();
+                pageHelperArea.PageList = listArea;
+                pageHelperArea.PageNum = (pageHelperArea.PageSizes / pageSize);
+
             }
             return pageHelperArea;
         }
