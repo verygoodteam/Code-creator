@@ -18,27 +18,24 @@
             <tr>
                 <td>姓名</td>
                 <td>
-                    <input type="text" v-model="Name" />
+                    <input type="text" v-model="MyName" />
                 </td>
             </tr>
             <tr>
                 <td>性别</td>
                 <td>
-                    <input id="Radio1" type="radio" name="Radio" value="1" v-model="Sex" /><span>男</span>
-                    <input id="Radio2" type="radio" name="Radio" value="0" v-model="Sex" /><span>女</span>
+                    <input id="Radio1" type="radio" value="1" v-model="Sex" /><span>男</span>
+                    <input id="Radio2" type="radio" value="0" v-model="Sex" /><span>女</span>
                 </td>
             </tr>
             <tr>
                 <td>所属部门</td>
                 <td>
                     <select id="Select1" v-model="Department">
-                        <option value="0">请选择</option>
-                        <option value="1">胸外科室</option>
-                        <option value="2">肠胃科</option>
-                        <option value="3">耳喉鼻科</option>
-                        @*<option v-for="department in DepartmentList" v-bind:value="department">
-                            {{department}}
-                        </option>*@
+                        <option value="0">--请选择--</option>
+                        <option v-for="department in DepartmentList" v-bind:value="department">
+                            {{role}}
+                        </option>
                     </select>
                 </td>
             </tr>
@@ -57,7 +54,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <a href="" v-on:click="addUser(Name,Sex,Department,JobNum,EngName)">添加</a>
+                    <a href="#" v-on:click="addUser(Sex,Department,JobNum,EngName)">添加</a>
                 </td>
             </tr>
 
@@ -67,33 +64,28 @@
         var vm = new Vue({
             el: "#app",
             data: {
-                Name: "",
+                MyName: "",
                 Sex: "",
-                Department:"请选择",
+                Department: "请选择",
+                DepartmentList: ['胸外科', '心内科'],
                 JobNumber: "",
                 EnglishName: ""
             },
-
             methods: {
-                addUser: function(name,sex,department,jobNum,engName) {
-                    var model = new URLSearchParams();
-                    model.append('ClinicUserName', this.Name);
-                    model.append('Sex', this.Sex);
-                    model.append('Aadministrativeid', this.Department);
-                    model.append('Jobnumber', this.JobNum);
-                    model.append('ClinicUserRemark', this.EngName);
-
-                    axios.post('@Url.Action("Add", "Clinical")',
-                        model).then((response) => { alert("添加成功"); },
+                addUser: function (sex, department,jobNum, engName) {
+                    axios.post('@Url.Action("", "")', { model: { ClinicUserName: this.MyName, Sex: sex, Aadministrativeid: department, Jobnumber: jobNum, ClinicUserRemark: engName}}).then(
+                        (response) => {
+                            alert("添加成功");
+                        },
                         (response) => {
                             alert(response.status);
                         }
-                    ).catch(function(response) {
+                    ).catch(function (response) {
                         alert(response);
                     });
                 }
             }
-            
+
         });
     </script>
 </body>

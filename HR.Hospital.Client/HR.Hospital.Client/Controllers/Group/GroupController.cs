@@ -12,5 +12,11 @@ namespace HR.Hospital.Client.Controllers.Group
         {
             return View();
         }
+
+        public IActionResult Add()
+        {
+            return View(); 
+        }
+
     }
 }
