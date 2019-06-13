@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HR.Hospital.IRepository.Login;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HR.Hospital.WebApi.Controllers
@@ -10,12 +11,27 @@ namespace HR.Hospital.WebApi.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+
+        public readonly IUserRepository _userRepository;
+
+        public ValuesController(IUserRepository userRepository)
         {
-            return new string[] { "value1", "value2" };
+            _userRepository = userRepository;
         }
+
+        // GET: api/Login
+        [HttpGet]
+        public IEnumerable<Model.Ooperationuser> Get()
+        {
+            return _userRepository.ooperationusers();
+        }
+
+        //// GET api/values
+        //[HttpGet]
+        //public ActionResult<IEnumerable<string>> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
         // GET api/values/5
         [HttpGet("{id}")]

@@ -1,39 +1,34 @@
-ï»¿using System.Collections.Generic;
-
+using System.Collections.Generic;
 namespace HR.Hospital.Client.Common
 {
     /// <summary>
-    /// åˆ†é¡µç±»
+    /// ·ÖÒ³Àà
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class PageHelper<T> where T :class
+    public sealed class PageHelper<T> where T : class
     {
         public PageHelper()
         {
             PageList = new List<T>();
         }
         /// <summary>
-        /// å½“å‰é¡µ
+        /// µ±Ç°Ò³
         /// </summary>
-        public int PageIndex { get; set; }
-
+        public int PageIndex { get; set; }
         /// <summary>
-        /// æ€»é¡µæ•°
+        /// ×ÜÒ³Êı
         /// </summary>
-        public int PageNum { get; set; }
-
+        public int PageNum { get; set; }
         /// <summary>
-        /// æ¯é¡µæ˜¾ç¤ºå‡ æ¡
+        /// Ã¿Ò³ÏÔÊ¾¼¸Ìõ
         /// </summary>
-        public int PageSize { get; set; }
-
+        public int PageSize { get; set; }
         /// <summary>
-        /// æ•°æ®æ€»æ¡æ•°
+        /// Êı¾İ×ÜÌõÊı
         /// </summary>
-        public int PageSizes { get; set; }
-
+        public int PageSizes { get; set; }
         /// <summary>
-        /// æŸ¥è¯¢æ•°æ®é›†åˆ
+        /// ²éÑ¯Êı¾İ¼¯ºÏ
         /// </summary>
         public List<T> PageList { get; set; }
     }

@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HR.Hospital.IRepository.Login;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using HR.Hospital.Model;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HR.Hospital.WebApi.Controllers.Login
 {
     [Route("api/[controller]")]
-    public class LoginController : Controller
+    [ApiController]
+    public class LoginController : ControllerBase
     {
+
         public readonly IUserRepository _userRepository;
 
         public LoginController(IUserRepository userRepository)
@@ -22,24 +20,36 @@ namespace HR.Hospital.WebApi.Controllers.Login
             _userRepository = userRepository;
         }
 
-        /// <summary>
-        /// 判断是否有这个用户  
-        /// </summary>
-        /// <param name="ooperationuser"></param>
-        // POST api/<controller>
-        [HttpGet("Post")]
-        public void Post([FromBody]Model.Ooperationuser ooperationuser)
+        // GET: api/Login
+        [HttpGet]
+        public IEnumerable<Model.Ooperationuser> Get()
         {
-            _userRepository.Login(ooperationuser);
+           return  _userRepository.ooperationusers();
         }
 
-        /// <summary>
-        /// 获取用户列表
-        /// </summary>
-        public List<Model.Ooperationuser> ooperationusers()
+        // GET: api/Login/5
+        [HttpGet("{id}", Name = "Get")]
+        public string Get(int id)
         {
-            return _userRepository.ooperationusers().ToList();
+            return "value";
         }
 
+        // POST: api/Login
+        [HttpPost]
+        public void Post([FromBody] string value)
+        {
+        }
+
+        // PUT: api/Login/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
     }
 }

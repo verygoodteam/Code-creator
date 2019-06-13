@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using HR.Hospital.IRepository.Areas;
  using HR.Hospital.IRepository.Clinical;
  using HR.Hospital.IRepository.Group;
+using HR.Hospital.IRepository.Login;
 using HR.Hospital.IRepository.OoperationUser;
 using HR.Hospital.IRepository.OperationRooms;
 using HR.Hospital.Model;
 using HR.Hospital.Repository.Areas;
  using HR.Hospital.Repository.Clinical;
  using HR.Hospital.Repository.Group;
+using HR.Hospital.Repository.Login;
 using HR.Hospital.Repository.OoperationUser;
 using HR.Hospital.Repository.OperationRooms;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -62,8 +64,8 @@ namespace HR.Hospital.WebApi
             services.AddScoped<IAreaRepository, AreaRepository>();
             //手术间映射关系
             services.AddScoped<IOperationRoomRepository, OperationRoomRepository>();
-
-
+            //登陆映射关系
+            services.AddScoped<IUserRepository, UserRepository>();
 
         }
 
