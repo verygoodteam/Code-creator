@@ -35,7 +35,11 @@ namespace HR.Hospital.Client.Controllers.Areas
         {
             return View();
         }
-
+        [HttpPost]
+        public ActionResult AddAreaAction(Area area)
+        {
+            return View();
+        }
         // POST: Area/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

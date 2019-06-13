@@ -17,9 +17,13 @@
 
     <div id="addArea">
         <span>院区名称</span> <input type="text" v-model="AreaName" />
+        <br/>
         <span>手术间数量</span> <input type="text" v-model="OperatingNum" />
+        <br/>
         <span>院区属性</span> <input type="text" v-model="AreaProperty" />
+        <br/>
         <span>备注</span> <input type="text" v-model="AreaRemark" />
+        <br/>
         <button type="button" v-on:click="saveArea()">查询</button>
     </div>
 </body>
@@ -30,7 +34,29 @@
         //钩子函数
         el: "#addArea",
         data: {
-
+            AreaName: "",
+            OperatingNum: "",
+            AreaProperty: "",
+            AreaRemark: ""
+        },
+        methods: {
+            saveArea: function () {
+                alert(this.AreaName);
+                var area = new URLSearchParams();
+                area.append('AreaName', this.AreaName);
+                area.append('OperatingNum', this.OperatingNum);
+                area.append('AreaProperty', this.AreaProperty);
+                area.append('AreaRemark', this.AreaRemark);
+                axios.post("/Area/AddAreaAction", area)
+                    .then((response) => {
+                        if (response.data > 0) {
+                            alert("添加成功");
+                        }
+                        return false;
+                    }).catch(function (response) {
+                        alert(response);
+                    });
+            }
         }
     })
 </script>
