@@ -24,9 +24,22 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HR.Hospital.Common\HR.Hospital.Common.csproj" />
+    <ProjectReference Include="..\HR.Hospital.Cache\HR.Hospital.Cache.csproj" />
     <ProjectReference Include="..\HR.Hospital.IRepository\HR.Hospital.IRepository.csproj" />
     <ProjectReference Include="..\HR.Hospital.Model\HR.Hospital.Model.csproj" />
     <ProjectReference Include="..\HR.Hospital.Repository\HR.Hospital.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ServiceStack">
+      <HintPath>..\..\HR.Hospital.Client\HR.Hospital.Cache\bin\Debug\netcoreapp2.1\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>..\..\HR.Hospital.Client\HR.Hospital.Cache\bin\Debug\netcoreapp2.1\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>..\..\HR.Hospital.Client\HR.Hospital.Cache\bin\Debug\netcoreapp2.1\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

@@ -21,6 +21,11 @@ namespace HR.Hospital.IRepository.Clinical
         /// <returns></returns>
         PageDto<Clinicuser> GetPagedList(int pageIndex, int pageSize, int administrativeId, string englishName);
 
+        /// <summary>
+        /// 获取科室
+        /// </summary>
+        /// <returns></returns>
+        List<Administrative> GetAdminList();
 
         /// <summary>
         /// 添加

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using HR.Hospital.Client.Common;
+using HR.Hospital.Client.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
 
 namespace HR.Hospital.Client.Controllers.Areas
 {
@@ -16,6 +20,11 @@ namespace HR.Hospital.Client.Controllers.Areas
             return View();
         }
 
+        public ActionResult ListArea(int pageIndex = 1, int pageSize = 2, int areaProperty = 0, string areaName = "")
+        {
+            var pageArea = HttpClientApi.GetAsync<PageHelper<Area>>("http://localhost:49733/api/Areas/GetAreaList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&areaProperty=" + areaProperty + "&areaName=" + areaName);
+            return Json(pageArea, new JsonSerializerSettings());
+        }
         // GET: Area/Details/5
         public ActionResult Details(int id)
         {
@@ -23,11 +32,16 @@ namespace HR.Hospital.Client.Controllers.Areas
         }
 
         // GET: Area/Create
-        public ActionResult Create()
+        public ActionResult AddArea()
         {
             return View();
         }
-
+        [HttpPost]
+        public int AddAreaAction(Area area)
+        {
+            var result = HttpClientApi.PostAsync<Area, int>(area, "http://localhost:49733/api/Areas/AddArea");
+            return result;
+        }
         // POST: Area/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -37,7 +51,7 @@ namespace HR.Hospital.Client.Controllers.Areas
             {
                 // TODO: Add insert logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction();
             }
             catch
             {
@@ -60,7 +74,7 @@ namespace HR.Hospital.Client.Controllers.Areas
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction();
             }
             catch
             {
@@ -83,7 +97,7 @@ namespace HR.Hospital.Client.Controllers.Areas
             {
                 // TODO: Add delete logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction();
             }
             catch
             {

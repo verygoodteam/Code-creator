@@ -13,6 +13,40 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Content\layui-admin\js\bodyTab.js" />
+    <None Include="wwwroot\Content\layui-admin\js\index.js" />
+    <None Include="wwwroot\Content\layui-admin\js\leftNav.js" />
+    <None Include="wwwroot\Content\layui-admin\js\main.js" />
+    <None Include="wwwroot\Content\layui-admin\js\nav.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\font\iconfont.svg" />
+    <None Include="wwwroot\Content\layui-admin\layui\layui.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\dest\layui.all.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\code.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\element.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\flow.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\form.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\jquery.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\laydate.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\layedit.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\layer.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\layim.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\laypage.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\laytpl.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\mobile.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\tree.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\upload.js" />
+    <None Include="wwwroot\Content\layui-admin\layui\lay\modules\util.js" />
+    <None Include="wwwroot\Content\layui-admin\page\img\images.js" />
+    <None Include="wwwroot\Content\layui-admin\page\links\linksAdd.js" />
+    <None Include="wwwroot\Content\layui-admin\page\links\linksList.js" />
+    <None Include="wwwroot\Content\layui-admin\page\message\message.js" />
+    <None Include="wwwroot\Content\layui-admin\page\news\newsAdd.js" />
+    <None Include="wwwroot\Content\layui-admin\page\news\newsList.js" />
+    <None Include="wwwroot\Content\layui-admin\page\systemParameter\systemParameter.js" />
+    <None Include="wwwroot\Content\layui-admin\page\user\address.js" />
+    <None Include="wwwroot\Content\layui-admin\page\user\addUser.js" />
+    <None Include="wwwroot\Content\layui-admin\page\user\allUsers.js" />
+    <None Include="wwwroot\Content\layui-admin\page\user\user.js" />
     <None Include="wwwroot\js\bodyTab.js" />
     <None Include="wwwroot\js\index.js" />
     <None Include="wwwroot\js\leftNav.js" />
@@ -28,6 +62,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HR.Hospital.Cache\HR.Hospital.Cache.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="ServiceStack">
       <HintPath>D:\小实训2\Uiltity\ServiceStack.dll</HintPath>
     </Reference>
@@ -36,6 +74,13 @@
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
       <HintPath>D:\小实训2\Uiltity\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
   </ItemGroup>
 
