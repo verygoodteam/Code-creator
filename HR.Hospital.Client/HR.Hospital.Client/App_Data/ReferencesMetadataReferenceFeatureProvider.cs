@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
 
-namespace HR.Hospital.WebApi.App_Data
+namespace HR.Hospital.Client.App_Data
 {
     public class ReferencesMetadataReferenceFeatureProvider : IApplicationFeatureProvider<MetadataReferenceFeature>
     {

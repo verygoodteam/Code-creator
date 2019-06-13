@@ -8,20 +8,20 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace HR.Hospital.WebApi.Controllers.Login
+namespace HR.Hospital.Client.Controllers.Login
 {
     public class BaseController : Controller
     {
         /// <summary>
         /// 用户信息
         /// </summary>
-        public Model.Ooperationuser ooperationuser
+        public Models.Ooperationuser ooperationuser
         {
             get
             {
                 if (User.Identity.IsAuthenticated)
                 {
-                    var tmpuserInfo = Cache.Redis.RedisHelper.Get<Model.Ooperationuser>(User.Identity.Name);
+                    var tmpuserInfo = Cache.Redis.RedisHelper.Get<Models.Ooperationuser>(User.Identity.Name);
                     return tmpuserInfo;
                 }
                 return null;
@@ -32,7 +32,7 @@ namespace HR.Hospital.WebApi.Controllers.Login
         /// 
         /// </summary>
         /// <param name="tmpUser"></param>
-        public void WriteCookie(Model.Ooperationuser tmpUser)
+        public void WriteCookie(Models.Ooperationuser tmpUser)
         {
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
             identity.AddClaim(new Claim(ClaimTypes.Name, tmpUser.OoperationUserName));
@@ -40,7 +40,7 @@ namespace HR.Hospital.WebApi.Controllers.Login
             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
 
             //存储redis
-           Cache.Redis.RedisHelper.Set<Model.Ooperationuser>(tmpUser.OoperationUserName, tmpUser);
+           Cache.Redis.RedisHelper.Set<Models.Ooperationuser>(tmpUser.OoperationUserName, tmpUser);
 
             ////取Redis-测试
             //var tmpUser = RedisHelper.Get<UserInfo>(tmpUser.UserName);
