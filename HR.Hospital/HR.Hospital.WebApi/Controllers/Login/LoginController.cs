@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using HR.Hospital.IRepository.Login;
 using Microsoft.AspNetCore.Mvc;
 using HR.Hospital.Model;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HR.Hospital.WebApi.Controllers.Login
 {
-  
-
     [Route("api/[controller]")]
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         public readonly IUserRepository _userRepository;
 
@@ -21,26 +21,16 @@ namespace HR.Hospital.WebApi.Controllers.Login
         {
             _userRepository = userRepository;
         }
-
-      // GET: api/<controller>
-      [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
+        
+        /// <summary>
+        /// 判断是否有这个用户  
+        /// </summary>
+        /// <param name="ooperationuser"></param>
         // POST api/<controller>
         [HttpPost]
         public void Post([FromBody]Model.Ooperationuser ooperationuser)
         {
-            //_userRepository.Login(ooperationuser);
+            _userRepository.Login(ooperationuser);
         }
 
         [HttpPost]
@@ -71,21 +61,17 @@ namespace HR.Hospital.WebApi.Controllers.Login
                 return Redirect(returnUrl);
             }
 
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(LoginController.Post), "Home");
         }
 
-
-
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        /// <summary>
+        /// 退出
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> Logout()
         {
-        }
-
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction(nameof(LoginController.Post), "Account");
         }
     }
 }
