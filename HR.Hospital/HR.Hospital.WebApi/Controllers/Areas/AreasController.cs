@@ -51,7 +51,7 @@ namespace HR.Hospital.WebApi.Controllers.Areas
         /// <param name="area"></param>
         /// <returns></returns>
         // POST: api/Area
-        [HttpPost]
+        [HttpPost("AddArea")]
         public int AddArea([FromBody]Area area)
         {
             var result = AreaRepository.AddArea(area);

@@ -36,9 +36,10 @@ namespace HR.Hospital.Client.Controllers.Areas
             return View();
         }
         [HttpPost]
-        public ActionResult AddAreaAction(Area area)
+        public int AddAreaAction(Area area)
         {
-            return View();
+            var result = HttpClientApi.PostAsync<Area, int>(area, "http://localhost:49733/api/Areas/AddArea");
+            return result;
         }
         // POST: Area/Create
         [HttpPost]

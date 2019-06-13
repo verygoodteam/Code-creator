@@ -16,15 +16,30 @@
 <body>
 
     <div id="addArea">
-        <span>院区名称</span> <input type="text" v-model="AreaName" />
-        <br/>
-        <span>手术间数量</span> <input type="text" v-model="OperatingNum" />
-        <br/>
-        <span>院区属性</span> <input type="text" v-model="AreaProperty" />
-        <br/>
-        <span>备注</span> <input type="text" v-model="AreaRemark" />
-        <br/>
-        <button type="button" v-on:click="saveArea()">查询</button>
+        <table>
+            <tr>
+                <td>院区名称</td>
+                <td><input type="text" v-model="AreaName" /></td>
+            </tr>
+            <tr>
+                <td>手术间数量</td>
+                <td><input type="text" v-model="OperatingNum" /></td>
+            </tr>
+            <tr>
+                <td>院区属性</td>
+                <td>
+                    <select id="Select1" v-model="AreaProperty">
+                        <option value="1">真实</option>
+                        <option value="0">虚拟</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>备注</td>
+                <td><input type="text" v-model="AreaRemark" /></td>
+            </tr>
+        </table>
+        <button type="button" v-on:click="saveArea()">添加</button>
     </div>
 </body>
 </html>
@@ -33,15 +48,29 @@
     var vm = new Vue({
         //钩子函数
         el: "#addArea",
+        //定义变量
         data: {
             AreaName: "",
             OperatingNum: "",
             AreaProperty: "",
             AreaRemark: ""
         },
+        //定义方法就绪函数
+        mounted: function () {
+            this.AreaProperty = 1;
+        },
+        //所有的方法
         methods: {
             saveArea: function () {
-                alert(this.AreaName);
+                if (this.AreaName == "") {
+                    alert("院区名称不能为空");
+                    return false;
+                }
+                if (this.AreaRemark == "") {
+                    alert("院区备注不能为空");
+                    return false;
+                }
+                //.netcore规定的传参格式
                 var area = new URLSearchParams();
                 area.append('AreaName', this.AreaName);
                 area.append('OperatingNum', this.OperatingNum);
