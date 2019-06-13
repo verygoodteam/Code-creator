@@ -27,6 +27,9 @@ namespace HR.Hospital.Client.Controllers
         {
             return Redirect("https://localhost:44304");
         }
+
+
+
         [HttpPost]
         public IActionResult LoginDo(Models.Ooperationuser ooperationuser, string returnUrl = null)
         {
