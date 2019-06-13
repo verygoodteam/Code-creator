@@ -14,18 +14,18 @@ namespace HR.Hospital.Repository.Clinical
         /// 显示
         /// </summary>
         /// <returns></returns>
-        public List<Clinicuser> GetList(int administrativeId, string englishName)
+        public List<Clinicuser> GetList(int administrativeId)
         {
             using (hospitaldbContext db = new hospitaldbContext())
             {
-                if (administrativeId != 0 || englishName != null)
+                if (administrativeId == 0)
                 {
-                    List<Clinicuser> list = db.Clinicuser.Where(p => p.Aadministrativeid == administrativeId || p.ClinicUserRemark == englishName).ToList();
+                    List<Clinicuser> list = db.Clinicuser.ToList();
                     return list;
                 }
                 else
                 {
-                    List<Clinicuser> list = db.Clinicuser.ToList();
+                    List<Clinicuser> list = db.Clinicuser.Where(p => p.Aadministrativeid == administrativeId).ToList();
                     return list;
                 }
             }
@@ -44,7 +44,7 @@ namespace HR.Hospital.Repository.Clinical
             PageDto<Clinicuser> pageList = new PageDto<Clinicuser>();
             using (hospitaldbContext db = new hospitaldbContext())
             {
-                var list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.Aadministrativeid == administrativeId).Where(m => m.ClinicUserRemark.Contains(englishName)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                var list = db.Clinicuser.Where(p => p.Aadministrativeid == administrativeId).Where(m => m.ClinicUserRemark.Contains(englishName)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
                 pageList.Total = list.Count();
                 pageList.PageList = list;
             }
