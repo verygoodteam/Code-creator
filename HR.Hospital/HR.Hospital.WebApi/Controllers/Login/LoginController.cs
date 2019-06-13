@@ -21,7 +21,7 @@ namespace HR.Hospital.WebApi.Controllers.Login
         {
             _userRepository = userRepository;
         }
-        
+
         /// <summary>
         /// 判断是否有这个用户  
         /// </summary>
@@ -33,6 +33,13 @@ namespace HR.Hospital.WebApi.Controllers.Login
             _userRepository.Login(ooperationuser);
         }
 
-      
+        /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        public List<Model.Ooperationuser> ooperationusers()
+        {
+            return _userRepository.ooperationusers().ToList();
+        }
+
     }
 }
