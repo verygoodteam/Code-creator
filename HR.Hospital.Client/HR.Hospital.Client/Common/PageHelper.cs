@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace HR.Hospital.Common
+namespace HR.Hospital.Client.Common
 {
     /// <summary>
     /// 分页类
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class PageHelper<T> where T :class
+    public sealed class PageHelper<T> where T : class
     {
+
         public PageHelper()
         {
             PageList = new List<T>();

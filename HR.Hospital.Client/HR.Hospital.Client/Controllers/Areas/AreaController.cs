@@ -15,6 +15,10 @@ namespace HR.Hospital.Client.Controllers.Areas
             return View();
         }
 
+        public JsonResult ListArea(int pageIndex = 1, int pageSize = 2, int areaProperty = 0, string name = "")
+        {
+            return null;
+        }
         // GET: Area/Details/5
         public ActionResult Details(int id)
         {

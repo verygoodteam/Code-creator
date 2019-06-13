@@ -1,34 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-<<<<<<< HEAD
-=======
+﻿
 using HR.Hospital.IRepository.Areas;
-using HR.Hospital.IRepository.Clinical;
 using HR.Hospital.IRepository.Group;
->>>>>>> 63e70a9f150126d6813bf1368646a636647d8d95
 using HR.Hospital.IRepository.OoperationUser;
 using HR.Hospital.IRepository.OperationRooms;
 using HR.Hospital.Model;
-<<<<<<< HEAD
-=======
 using HR.Hospital.Repository.Areas;
-using HR.Hospital.Repository.Clinical;
 using HR.Hospital.Repository.Group;
->>>>>>> 63e70a9f150126d6813bf1368646a636647d8d95
 using HR.Hospital.Repository.OoperationUser;
 using HR.Hospital.Repository.OperationRooms;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 
 namespace HR.Hospital.WebApi
