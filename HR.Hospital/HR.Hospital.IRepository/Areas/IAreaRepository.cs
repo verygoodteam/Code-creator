@@ -23,7 +23,7 @@ namespace HR.Hospital.IRepository.Areas
         /// <param name="areaProperty">条件查询</param>
         /// <param name="areaName">模糊查询</param>
         /// <returns></returns>
-        PageHelper<Area> ShowArea(int pageIndex, int pageSize, int areaProperty, string areaName);
+        PageHelper<Area> ShowArea(int pageIndex, int pageSize, string areaName = "", int areaProperty = 3);
 
         /// <summary>
         /// 获取单个对象

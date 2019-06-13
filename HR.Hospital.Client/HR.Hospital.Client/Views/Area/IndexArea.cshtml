@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     @*引用VUE的三个JS文件*@
+    <link href="~/css/zpageNav.css" rel="stylesheet" />
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
     <script src="~/js/zpageNav.js"></script>
@@ -37,7 +38,7 @@
 <body>
     <div class="divArea" id="divArea">
         <span style=" margin-left: 20px">姓名：</span><input type="text" v-model="searchAreaName" />
-        <button type="button" v-on:click="loadAreaList(1)">查询</button>
+        <button type="button" v-on:click="loadAreaList()">查询</button>
         <button type="button" v-on:click="addArea()">添加院区</button>
         <table>
             <thead>
@@ -45,18 +46,21 @@
                     <td>院区名称</td>
                     <td>手术间数量</td>
                     <td>院区属性</td>
-                    <td>是否启用</td>
+
                     <td>备注</td>
+                    <td>操作</td>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="item in areaList">
-                    <td>{{item.Id}}</td>
+                    @*<td>{{item.Id}}</td>*@
                     <td>{{item.AreaName}}</td>
                     <td>{{item.OperatingNum}}</td>
-                    <td>{{item.AreaProperty}}</td>
-                    <td>{{item.Isnable?"启用":"禁用"}}</td>
+                    <td>{{item.AreaProperty==1?"真实地区":"虚拟地区"}}</td>
+      
                     <td>{{item.AreaRemark}}</td>
+                    <td> </td>
+
                 </tr>
             </tbody>
         </table>
@@ -74,7 +78,7 @@
                 page: 1,//从第几页开始
                 pageSize: 2,//页面大小
                 total: 10,//总条数
-                //maxPage: 9//最大页数
+                maxPage: 9//最大页数
             },
             //就绪函数
             mounted: function () {
@@ -82,16 +86,24 @@
             },
             //所有的方法
             methods: {
-                loadAreaList: function (page, areaProperty, areaName) {
+                loadAreaList: function (page) {
                     this.page = page,
-                        axios.get("/Area/ListArea", { params: { pageIndex: page, pageSize: this.pageSize, areaProperty: 0, areaName: this.searchAreaName } })
+                        axios.get("/Area/ListArea", { params: { pageIndex: page, pageSize: this.pageSize, areaProperty: 3, areaName: this.searchAreaName } })
                             .then((response) => {
-                                this.loadAreaList = response.data.PageList;
+                                //数据
+                                this.areaList = response.data.PageList;
+                                //每页大小
                                 this.page = response.data.PageSize;
-                                //this.maxPage = response.data.PageNum;
+                                //总条数
+                                this.total = response.data.PageSizes;
+                                //总页数
+                                this.maxPage = response.data.maxPage;
+
                             }).cache(function (error) {
                                 areaList.fetchError = error;
                             });
+
+
                 },
                 addArea: function () {
                     location.href = '/Area/AddArea';
