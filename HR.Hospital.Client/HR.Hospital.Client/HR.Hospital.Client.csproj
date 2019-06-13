@@ -329,14 +329,18 @@
 
   <ItemGroup>
     <Reference Include="ServiceStack">
-      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.dll</HintPath>
+      <HintPath>..\HR.Hospital.Cache\bin\Debug\netcoreapp2.1\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces">
-      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\HR.Hospital.Cache\bin\Debug\netcoreapp2.1\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
-      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>..\HR.Hospital.Cache\bin\Debug\netcoreapp2.1\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\Login\" />
   </ItemGroup>
 
 </Project>
