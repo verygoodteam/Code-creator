@@ -65,7 +65,7 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// 添加
         /// </summary>
         /// <param name="model"></param>
-        [HttpPost]
+        [HttpPost("Add")]
         public int Add([FromBody]Clinicuser model)
         {
             var i = _clinicalRepository.Add(model);

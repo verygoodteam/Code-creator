@@ -41,7 +41,7 @@ namespace HR.Hospital.WebApi.Controllers.Group
         /// 添加
         /// </summary>
         /// <param name="model"></param>
-        [HttpPost]
+        [HttpPost("Add")]
         public int Add([FromBody]Professionalgroup model)
         {
             var i = _groupRepository.Add(model);
@@ -52,7 +52,7 @@ namespace HR.Hospital.WebApi.Controllers.Group
         /// 删除
         /// </summary>
         /// <param name="id"></param>
-        [HttpDelete]
+        [HttpDelete("Delete")]
         public int Delete(int id)
         {
             var i = _groupRepository.Delete(id);
@@ -75,7 +75,7 @@ namespace HR.Hospital.WebApi.Controllers.Group
         /// 编辑
         /// </summary>
         /// <param name="model"></param>
-        [HttpPut]
+        [HttpPut("Update")]
         public int Update([FromBody]Professionalgroup model)
         {
             var i = _groupRepository.Update(model);
