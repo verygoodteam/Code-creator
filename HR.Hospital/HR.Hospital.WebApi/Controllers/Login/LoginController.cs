@@ -62,8 +62,7 @@ namespace HR.Hospital.WebApi.Controllers.Login
             }
 
             return RedirectToAction(nameof(LoginController.Post), "Home");
-<<<<<<< HEAD
-=======
+
         }
 
 
@@ -72,7 +71,7 @@ namespace HR.Hospital.WebApi.Controllers.Login
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
->>>>>>> 12e9ecea207b4475511fbff55ed7d553ecad5491
+
         }
 
         /// <summary>
