@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using HR.Hospital.Client.Common;
+using HR.Hospital.Client.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace HR.Hospital.Client.Controllers.Areas
 {
@@ -15,9 +19,10 @@ namespace HR.Hospital.Client.Controllers.Areas
             return View();
         }
 
-        public JsonResult ListArea(int pageIndex = 1, int pageSize = 2, int areaProperty = 0, string name = "")
+        public ActionResult ListArea(int pageIndex = 1, int pageSize = 2, int areaProperty = 0, string areaName = "")
         {
-            return null;
+            var pageArea = HttpClientApi.GetAsync<PageHelper<Area>>("http://localhost:49733/api/Areas/GetAreaList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&areaProperty=" + areaProperty + "&areaName=" + areaName);
+            return Json(pageArea, new JsonSerializerSettings());
         }
         // GET: Area/Details/5
         public ActionResult Details(int id)
@@ -26,7 +31,7 @@ namespace HR.Hospital.Client.Controllers.Areas
         }
 
         // GET: Area/Create
-        public ActionResult Create()
+        public ActionResult AddArea()
         {
             return View();
         }
