@@ -40,7 +40,7 @@ namespace HR.Hospital.Client.Controllers.Areas
             {
                 // TODO: Add insert logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction();
             }
             catch
             {
@@ -63,7 +63,7 @@ namespace HR.Hospital.Client.Controllers.Areas
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction();
             }
             catch
             {
@@ -86,7 +86,7 @@ namespace HR.Hospital.Client.Controllers.Areas
             {
                 // TODO: Add delete logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction();
             }
             catch
             {
