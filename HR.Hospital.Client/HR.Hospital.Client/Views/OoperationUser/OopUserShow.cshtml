@@ -1,0 +1,91 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>手术室用户显示</title>
+    <script src="~/js/Scripts/vue.js"></script>
+    <script src="~/js/Scripts/axios.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app">
+        <select id="Select1" v-for="data in listdata">
+            <option id="0">--请选择--</option>
+            <option id="data.Id" v-model="data.Id">{{data.HierarchyName}}</option>
+        </select>
+        <table class="table table-bordered">
+            <tr>
+                <td>工号</td>
+                <td>姓名</td>
+                <td>电话</td>
+                <td>性别</td>
+                <td>职务</td>
+                <td>能级</td>
+                <td>主管</td>
+                <td>操作</td>
+            </tr>
+            <tbody>
+                <tr v-for="data in ooperuser" class="data-row">
+                    <td :contenteditable="false" v-model="data.Jobnumber">{{data.jobnumber}}</td>
+                    <td :contenteditable="false" v-model="data.OoperationUserName">{{data.ooperationUserName}}</td>
+                    <td :contenteditable="false" v-model="data.Phone">{{data.phone}}</td>
+                    <td :contenteditable="false" v-model="data.Sex">{{data.sex==0?"男":"女"}}</td>
+                    <td :contenteditable="false" v-model="data.ProfessionalName">{{data.professionalName}}</td>
+                    <td :contenteditable="false" v-model="data.hierarchyName">{{data.hierarchyName}}</td>
+                    <td :contenteditable="false" v-model="data.userName">{{data.userName}}</td>
+                    <td>
+                        @*click 与 v-on:click绑定事件，其实@方式是简写方式，两种并无区别；*@
+                        <div>
+                            <a href="#" v-on:click="Edit(data.Id)">编辑</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+<script>
+
+    //手术用户视图
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            ooperuser: [],
+            listdata: [],
+        },
+        //显示
+        mounted() {
+            this.GetooperUser();
+            this.GetHierarchie();
+        },
+        methods: {
+            //查询
+            GetooperUser: function () {
+                axios.get('http://localhost:53775/api/Ooperationuser/GetOoperuser').then(
+                    (response) => {
+                        this.ooperuser = response.data;
+                    }
+                    
+                )
+            },
+
+            //查询
+            GetHierarchie: function () {
+                axios.get('http://localhost:53775/api/Ooperationuser/GetHierarchie').then(
+                    (response) => {
+                        alert(response)
+                        this.listdata = response.data;
+                    }
+
+                )
+            }
+        }
+    })
+</script>

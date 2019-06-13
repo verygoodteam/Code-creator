@@ -5,70 +5,29 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HR.Hospital.Client.Controllers
+namespace HR.Hospital.Client.Controllers.Areas
 {
-    public class LoginController : Controller
+    public class AreaController : Controller
     {
-        /// <summary>
-        /// 页面初始化
-        /// </summary>
-        /// <param name="returnUrl"></param>
-        /// <returns></returns>
-        public ActionResult Login(string returnUrl = null)
+        // GET: Area
+        public ActionResult IndexArea()
         {
-            TempData["returnUrl"] = returnUrl;
             return View();
         }
 
-        //public ActionResult LoginDo(Models.Ooperationuser ooperationuser, string returnUrl = null)
-        //{
-        //    //验证用户是否登录
-        //    const string errorMessage = "用户名或密码错误！";
-        //    if (ooperationuser == null)
-        //    {
-        //        return BadRequest(errorMessage);
-        //    }
-        //    var tmpUser = new UserInfo().GetUserList().FirstOrDefault(m => m.UserName == ooperationuser.OoperationUserName && m.Password == ooperationuser.Pwd);
-        //    if (tmpUser?.Password != user.Password)
-        //    {
-        //        return BadRequest(errorMessage);
-        //    }
-        //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // GET: Login/Details/5
+        // GET: Area/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Login/Create
+        // GET: Area/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Login/Create
+        // POST: Area/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -77,7 +36,7 @@ namespace HR.Hospital.Client.Controllers
             {
                 // TODO: Add insert logic here
 
-                return RedirectToAction(nameof(Login));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -85,13 +44,13 @@ namespace HR.Hospital.Client.Controllers
             }
         }
 
-        // GET: Login/Edit/5
+        // GET: Area/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Login/Edit/5
+        // POST: Area/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -100,7 +59,7 @@ namespace HR.Hospital.Client.Controllers
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction(nameof(Login));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -108,13 +67,13 @@ namespace HR.Hospital.Client.Controllers
             }
         }
 
-        // GET: Login/Delete/5
+        // GET: Area/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Login/Delete/5
+        // POST: Area/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
@@ -123,7 +82,7 @@ namespace HR.Hospital.Client.Controllers
             {
                 // TODO: Add delete logic here
 
-                return RedirectToAction(nameof(Login));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {

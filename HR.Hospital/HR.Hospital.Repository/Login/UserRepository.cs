@@ -24,5 +24,18 @@ namespace HR.Hospital.Repository.Login
                 }
             }
         }
+
+        public int Login(string name, string pwd)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Model.Ooperationuser> ooperationusers()
+        {
+            using (Model.hospitaldbContext context = new Model.hospitaldbContext())
+            {
+                return context.Ooperationuser.ToList();
+            }
+        }
     }
 }

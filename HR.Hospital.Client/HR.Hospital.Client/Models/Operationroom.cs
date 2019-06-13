@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace HR.Hospital.Model
+﻿namespace HR.Hospital.Client.Models
 {
     /// <summary>
     /// 手术间类
     /// </summary>
-    public partial class OperationRoom
+    public partial class Operationroom
     {
         /// <summary>
         /// 编号
@@ -27,11 +24,5 @@ namespace HR.Hospital.Model
         /// 备注
         /// </summary>
         public string OperationRemark { get; set; }
-
-        /// <summary>
-        /// 是否开启手术间
-        /// </summary>
-        public int EnableOperation { get; set; }
-        
     }
 }

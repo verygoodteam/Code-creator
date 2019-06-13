@@ -8,6 +8,10 @@ namespace HR.Hospital.Model
     /// </summary>
     public partial class Ooperationuser
     {
+        public Ooperationuser()
+        {
+
+        }
         /// <summary>
         /// 编号
         /// </summary>

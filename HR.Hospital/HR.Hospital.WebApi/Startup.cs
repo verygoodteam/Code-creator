@@ -2,9 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+<<<<<<< HEAD
+=======
+using HR.Hospital.IRepository.Areas;
+using HR.Hospital.IRepository.Clinical;
+using HR.Hospital.IRepository.Group;
+>>>>>>> 63e70a9f150126d6813bf1368646a636647d8d95
 using HR.Hospital.IRepository.OoperationUser;
+using HR.Hospital.IRepository.OperationRooms;
 using HR.Hospital.Model;
+<<<<<<< HEAD
+=======
+using HR.Hospital.Repository.Areas;
+using HR.Hospital.Repository.Clinical;
+using HR.Hospital.Repository.Group;
+>>>>>>> 63e70a9f150126d6813bf1368646a636647d8d95
 using HR.Hospital.Repository.OoperationUser;
+using HR.Hospital.Repository.OperationRooms;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -51,7 +65,14 @@ namespace HR.Hospital.WebApi
             //临床用户
             //services.AddScoped<IClinicalRepository, ClinicalRepository>();
             //专业组
-            //services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            //院区
+            services.AddScoped<IAreaRepository, AreaRepository>();
+            //手术间映射关系
+            services.AddScoped<IOperationRoomRepository, OperationRoomRepository>();
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
