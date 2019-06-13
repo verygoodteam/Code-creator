@@ -1,0 +1,98 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/css/zpageNav.css" rel="stylesheet" />
+
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/axios.js"></script>
+    <script src="~/js/zpageNav.js"></script>
+
+    <style>
+        table, td {
+            border: 1px solid #cccccc;
+            border-collapse: collapse;
+        }
+
+        table {
+            width: 800px;
+            margin-left: 20px;
+            margin-top: 15px;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="divstudents" id="divClinical">
+            <span style=" margin-left: 20px">科室：</span><input type="text" v-model="department" />
+            <span style="margin-left: 20px">姓名：</span><input type="text" v-model="name" />
+            <button type="button" v-on:click="pageHandler(1,department,name)">查询</button>
+            <button type="button" v-on:click="">添加</button>
+            <table>
+                <thead>
+                    <tr>
+                        <td>序号</td>
+                        <td>姓名</td>
+                        <td>性别</td>
+                        <td>所属科室</td>
+                        <td>工号</td>
+                        <td>备注</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="data in user" class="data-row">
+                        <td :contenteditable="false" v-model="data.Id">{{data.Id}}</td>
+                        <td :contenteditable="false" v-model="data.ClinicUserName">{{data.ClinicUserName}}</td>
+                        <td :contenteditable="false" v-model="data.Sex">{{data.sex==1?"男":"女"}}</td>
+                        <td :contenteditable="false" v-model="data.Aadministrativeid">{{data.Aadministrativeid}}</td>
+                        <td :contenteditable="false" v-model="data.Jobnumber">{{data.Jobnumber}}</td>
+                        <td :contenteditable="false" v-model="data.ClinicUserRemark">{{data.ClinicUserRemark}}</td>
+                        <td>
+                            <div>
+                                <a href="#" v-on:click="Update(data.Id)">编辑</a>|
+                                <a href="#" v-on:click="Delete(data.Id)">删除</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            user:[]
+        },
+        //显示
+        mounted() {
+            this.getUser();
+        },
+        methods: {
+            //查询
+            getUser: function () {
+                axios.get('http://localhost:54463/api/Clinical/GetList').then(
+                    (response) => {
+                        this.user = response.data;
+                    }
+                );
+            }
+        }
+    })
+</script>

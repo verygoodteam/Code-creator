@@ -1,0 +1,92 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add</title>
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/axios.js"></script>
+</head>
+<body>
+    <div id="app">
+        <table class="table table-bordered">
+            <tr>
+                <td>姓名</td>
+                <td>
+                    <input type="text" v-model="MyName" />
+                </td>
+            </tr>
+            <tr>
+                <td>性别</td>
+                <td>
+                    <input id="Radio1" type="radio" value="1" v-model="Sex" /><span>男</span>
+                    <input id="Radio2" type="radio" value="0" v-model="Sex" /><span>女</span>
+                </td>
+            </tr>
+            <tr>
+                <td>所属部门</td>
+                <td>
+                    <select id="Select1" v-model="Department">
+                        <option value="0">--请选择--</option>
+                        <option v-for="role in DepartmentList" v-bind:value="department">
+                            {{role}}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>工号</td>
+                <td>
+                    <input type="text" v-model="JobNum" />
+                </td>
+            </tr>
+            <tr>
+                <td>备注</td>
+                <td>
+                    <input type="text" v-model="EngName" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <a href="#" v-on:click="addUser(Sex,Department,JobNum,EngName)">添加</a>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                MyName: "",
+                Sex: "",
+                Department: "请选择",
+                DepartmentList: ['胸外科', '心内科'], 
+                JobNumber: "",
+                EnglishName: ""
+            },
+            methods: {
+                addUser: function (sex, department,jobNum, engName) {
+                    axios.post('@Url.Action("", "")', { model: { ClinicUserName: this.MyName, Sex: sex, Aadministrativeid: department, Jobnumber: jobNum, ClinicUserRemark: engName}}).then(
+                        (response) => {
+                            alert("添加成功"); 
+                        },
+                        (response) => {
+                            alert(response.status);
+                        }
+                    ).catch(function (response) {
+                        alert(response);
+                    });
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>
