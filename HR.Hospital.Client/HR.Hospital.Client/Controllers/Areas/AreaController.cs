@@ -56,13 +56,7 @@ namespace HR.Hospital.Client.Controllers.Areas
         //    }
         //}
 
-                return RedirectToAction();
-            }
-            catch
-            {
-                return View();
-            }
-        }
+
 
 
         //// GET: Area/Edit/5
@@ -89,13 +83,7 @@ namespace HR.Hospital.Client.Controllers.Areas
         //    }
         //}
 
-                return RedirectToAction();
-            }
-            catch
-            {
-                return View();
-            }
-        }
+
 
 
         //// GET: Area/Delete/5
@@ -122,13 +110,7 @@ namespace HR.Hospital.Client.Controllers.Areas
         //    }
         //}
 
-                return RedirectToAction();
-            }
-            catch
-            {
-                return View();
-            }
-        }
+
 
     }
 }
