@@ -9,7 +9,7 @@ namespace HR.Hospital.IRepository.OoperationUser
     {
         //手术室用户添加
         int AddOoperationUser(Ooperationuser operuser);
-        ////手术室用户编辑
+        //手术室用户编辑
         int UpdateOoperationUser(Ooperationuser operuser);
         //返填
         Ooperationuser RefillUser(int id);
