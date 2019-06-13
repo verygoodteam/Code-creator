@@ -13,8 +13,21 @@ namespace HR.Hospital.Client.Controllers.OoperationUser
             return View();
         }
 
-        //显示手术室用户
+        
+        /// <summary>
+        ///显示手术室用户 
+        /// </summary>
+        /// <returns></returns>
         public IActionResult OopUserShow()
+        {
+            return View();
+        }
+        
+        /// <summary>
+        /// 手术用户添加
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult OopUserAdd()
         {
             return View();
         }

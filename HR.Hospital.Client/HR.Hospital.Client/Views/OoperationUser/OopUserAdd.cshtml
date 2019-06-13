@@ -1,0 +1,177 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>手术室用户</title>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script src="~/js/Scripts/vue.js"></script>
+    <script src="~/js/Scripts/axios.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app">
+        <p>
+            主管：<select id="SelectUser">
+                <option value="0">--请选择--</option>
+                <option v-for="data in Userdata" :value="data.id">{{data.ooperationUserName}}</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            账号：<input id="txtAccount" type="text" />
+        </p>
+        <p>
+            职称：<select id="SelectPro">
+                <option value="0">--请选择--</option>
+                <option v-for="data in Prodata" :value="data.id">{{data.professionalName}}</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            密码：<input id="txtPassword" type="text" />
+        </p>
+        <p>
+            性别：<select id="SelectSex">
+                <option value="0">男</option>
+                <option value="1">女</option>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            电话：<input id="txtPhone" type="text" />
+        </p>
+        <p>
+            是否排班：<select id="SelectIsarrange">
+                <option value="0">是</option>
+                <option value="1">否</option>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            简称：<input id="txtSimplename" type="text" />
+        </p>
+        <p>
+            角色：<select id="SelectRole">
+                <option value="0">--请选择--</option>
+                <option v-for="data in Roledata" :value="data.id">{{data.roleName}}</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            姓名：<input id="txtName" type="text" />
+        </p>
+        <p>
+            职务：<select id="SelectPosi">
+                <option value="0">--请选择--</option>
+                <option v-for="data in Posidata" :value="data.id">{{data.positionName}}</option>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            工号：<input id="txtJobnumber" type="text" />
+        </p>
+        <p>
+            能级：<select id="SelectHier">
+                <option value="0">--请选择--</option>
+                <option v-for="data in Hierdata" :value="data.id">{{data.hierarchyName}}</option>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            工龄：<input id="txtWorkage" type="text" />
+        </p>
+        <p>入职日期：<input id="txtEnrollmentdate" type="text" /></p>
+        <p>年假天数：<input id="txtAnnualdays" type="text" /></p>
+        <p>绩效分数：<input id="txtGrade" type="text" /></p>
+        <p>备注：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id="TextArea1" rows="2" cols="20"></textarea></p>
+        <input id="Button1" type="button" value="确定" class="btn btn-group-lg" v-on:click="Determine()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="Button2" type="button" value="取消" class="btn btn-group-lg" />
+    </div>
+</body>
+
+</html>
+ <script>
+
+     //下拉视图
+     var vm = new Vue({
+         el: '#app',
+         data: {
+             //能级
+             Hierdata: [],
+             //职称
+             Prodata: [],
+              //职务
+             Posidata: [],
+              //主管
+             Userdata: [],
+             //角色
+             Roledata: []
+         },
+         //显示
+         mounted() {
+             //能级显示
+             this.GetHierarchie();
+             //职称显示
+             this.GetProfessional();
+             //职务显示
+             this.GetPosition();
+             //主管显示
+             this.GetUser();
+             //角色显示
+             this.GetRole();
+         },
+         methods: {
+
+             //能级下拉
+             GetHierarchie: function () {
+                 axios.get('http://localhost:53775/api/Ooperationuser/GetHierarchie').then(
+                     (response) => {
+                         this.Hierdata = response.data;
+                     }
+                 )
+             },
+
+             //角色下拉
+             GetRole: function () {
+                 axios.get('http://localhost:53775/api/Ooperationuser/GetRole').then(
+                     (response) => {
+                         this.Roledata = response.data;
+                     }
+                 )
+             },
+
+             //主管下拉
+             GetUser: function () {
+                 axios.get('http://localhost:53775/api/Ooperationuser/GetUser').then(
+                     (response) => {
+                         this.Userdata = response.data;
+                     }
+                 )
+             },
+
+             //职务下拉
+             GetPosition: function () {
+                 axios.get('http://localhost:53775/api/Ooperationuser/GetPosition').then(
+                     (response) => {
+                         this.Posidata = response.data;
+                     }
+                 )
+             },
+
+             //职称下拉
+             GetProfessional: function () {
+                 axios.get('http://localhost:53775/api/Ooperationuser/GetProfessional').then(
+                     (response) => {
+                         this.Prodata = response.data;
+                     }
+                 )
+             },
+
+             //添加
+             Determine: function () {
+                 var params = new URLSearchParams();
+                 params.append("");
+                 axios.post('http://localhost:53775/api/Ooperationuser/InsertOoperationuser', params).then(
+                     (response) => {
+
+                     }
+                 )
+             }
+         }
+     })
+ </script>

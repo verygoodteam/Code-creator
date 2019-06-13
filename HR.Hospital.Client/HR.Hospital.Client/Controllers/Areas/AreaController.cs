@@ -7,6 +7,7 @@ using HR.Hospital.Client.Common;
 using HR.Hospital.Client.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 
 namespace HR.Hospital.Client.Controllers.Areas
@@ -35,7 +36,12 @@ namespace HR.Hospital.Client.Controllers.Areas
         {
             return View();
         }
-
+        [HttpPost]
+        public int AddAreaAction(Area area)
+        {
+            var result = HttpClientApi.PostAsync<Area, int>(area, "http://localhost:49733/api/Areas/AddArea");
+            return result;
+        }
         // POST: Area/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
