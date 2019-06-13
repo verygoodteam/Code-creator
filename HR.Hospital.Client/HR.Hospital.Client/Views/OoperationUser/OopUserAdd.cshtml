@@ -17,68 +17,67 @@
 <body>
     <div id="app">
         <p>
-            主管：<select id="SelectUser">
+            主管：<select id="SelectUser" v-model="Userid">
                 <option value="0">--请选择--</option>
                 <option v-for="data in Userdata" :value="data.id">{{data.ooperationUserName}}</option>
             </select>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            账号：<input id="txtAccount" type="text" />
+            账号：<input id="txtAccount" type="text" v-model="Account"/>
         </p>
         <p>
-            职称：<select id="SelectPro">
+            职称：<select id="SelectPro" v-model="professionalId">
                 <option value="0">--请选择--</option>
                 <option v-for="data in Prodata" :value="data.id">{{data.professionalName}}</option>
             </select>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            密码：<input id="txtPassword" type="text" />
+            密码：<input id="txtPassword" type="text" v-model="Pwd"/>
         </p>
         <p>
-            性别：<select id="SelectSex">
+            性别：<select id="SelectSex" v-model="Sex">
                 <option value="0">男</option>
                 <option value="1">女</option>
             </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            电话：<input id="txtPhone" type="text" />
+            电话：<input id="txtPhone" type="text" v-model="Phone"/>
         </p>
         <p>
-            是否排班：<select id="SelectIsarrange">
+            是否排班：<select id="SelectIsarrange" v-model="Isarrange">
                 <option value="0">是</option>
                 <option value="1">否</option>
             </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            简称：<input id="txtSimplename" type="text" />
+            简称：<input id="txtSimplename" type="text" v-model="Simplename"/>
         </p>
         <p>
-            角色：<select id="SelectRole">
+            角色：<select id="SelectRole" v-model="Roleid">
                 <option value="0">--请选择--</option>
                 <option v-for="data in Roledata" :value="data.id">{{data.roleName}}</option>
             </select>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            姓名：<input id="txtName" type="text" />
+            姓名：<input id="txtName" type="text" v-model="OoperationUserName"/>
         </p>
         <p>
-            职务：<select id="SelectPosi">
+            职务：<select id="SelectPosi" v-model="PositionId">
                 <option value="0">--请选择--</option>
                 <option v-for="data in Posidata" :value="data.id">{{data.positionName}}</option>
             </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            工号：<input id="txtJobnumber" type="text" />
+            工号：<input id="txtJobnumber" type="text" v-model="Jobnumber"/>
         </p>
         <p>
-            能级：<select id="SelectHier">
+            能级：<select id="SelectHier" v-model="HierarchyId">
                 <option value="0">--请选择--</option>
                 <option v-for="data in Hierdata" :value="data.id">{{data.hierarchyName}}</option>
             </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            工龄：<input id="txtWorkage" type="text" />
+            工龄：<input id="txtWorkage" type="text" v-model="Workage"/>
         </p>
-        <p>入职日期：<input id="txtEnrollmentdate" type="text" /></p>
-        <p>年假天数：<input id="txtAnnualdays" type="text" /></p>
-        <p>绩效分数：<input id="txtGrade" type="text" /></p>
-        <p>备注：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id="TextArea1" rows="2" cols="20"></textarea></p>
+        <p>年假天数：<input id="txtAnnualdays" type="text" v-model="Annualdays"/></p>
+        <p>绩效分数：<input id="txtGrade" type="text" v-model="Grade"/></p>
+        <p>备注：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id="TextArea1" rows="2" cols="20" v-model="OoperationUserRemark"></textarea></p>
         <input id="Button1" type="button" value="确定" class="btn btn-group-lg" v-on:click="Determine()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input id="Button2" type="button" value="取消" class="btn btn-group-lg" />
     </div>
@@ -100,7 +99,19 @@
               //主管
              Userdata: [],
              //角色
-             Roledata: []
+             Roledata: [],
+
+             //添加字段
+             Userid: "", Account: "",
+             professionalId: "", Sex: "",
+             Pwd: "", Isarrange: "",
+             Phone: "", Simplename: "",
+             Roleid: "", OoperationUserName: "",
+             PositionId: "", Jobnumber: "",
+             HierarchyId: "", Workage: "",
+             Annualdays: "", Grade: "",
+             OoperationUserRemark: ""
+                      
          },
          //显示
          mounted() {
@@ -164,13 +175,68 @@
 
              //添加
              Determine: function () {
+                 if (this.OoperationUserName = "") {
+                     alert("姓名不能为空");
+                     return;
+                 }
+                 if (this.Account = "") {
+                     alert("账户不能为空");
+                     return;
+                 }
+                 if (this.Pwd = "") {
+                     alert("密码不能为空");
+                     return;
+                 }
+                 if (this.Phone = "") {
+                     alert("电话不能为空");
+                     return;
+                 }
+                 if (this.Workage = "") {
+                     alert("工龄不能为空");
+                     return;
+                 }
+                 if (this.OoperationUserRemark = "") {
+                     alert("备注不能为空");
+                     return;
+                 }
+                 if (this.Annualdays = "") {
+                     alert("年假天数不能为空");
+                     return;
+                 }
+                 if (this.Grade = "") {
+                     alert("绩效天数不能为空");
+                     return;
+                 }
                  var params = new URLSearchParams();
-                 params.append("");
+                 params.append("Userid", this.Userid);
+                 params.append("Account", this.Account);
+                 params.append("professionalId", this.professionalId);
+                 params.append("Sex", this.Sex);
+                 params.append("Pwd", this.Pwd);
+                 params.append("Isarrange", this.Isarrange);
+                 params.append("Simplename", this.Simplename);
+                 params.append("Phone", this.Phone);
+                 params.append("Roleid", this.Roleid);
+                 params.append("OoperationUserName", this.OoperationUserName);
+                 params.append("PositionId", this.PositionId);
+                 params.append("Jobnumber", this.Jobnumber);
+                 params.append("Workage", this.Workage);
+                 params.append("HierarchyId", this.HierarchyId);
+                 params.append("Annualdays", this.Annualdays);
+                 params.append("Grade", this.Grade);
+                 params.append("OoperationUserRemark", this.OoperationUserRemark);
                  axios.post('http://localhost:53775/api/Ooperationuser/InsertOoperationuser', params).then(
                      (response) => {
-
+                         alert(response.data)
+                         if (response.data > 0) {
+                             alert("添加成功");
+                             location.href = '/OoperationUser/OopUserShow';
+                         }
+                         return false;
                      }
-                 )
+                 ).catch(function (response) {
+                     alert(response);
+                 })
              }
          }
      })
