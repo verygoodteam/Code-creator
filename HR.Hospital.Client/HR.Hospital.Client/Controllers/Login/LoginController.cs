@@ -23,13 +23,6 @@ namespace HR.Hospital.Client.Controllers
             return View();
         }
 
-        public ActionResult aaa()
-        {
-            return Redirect("https://localhost:44304");
-        }
-
-
-
         [HttpPost]
         public IActionResult LoginDo(Models.Ooperationuser ooperationuser, string returnUrl = null)
         {

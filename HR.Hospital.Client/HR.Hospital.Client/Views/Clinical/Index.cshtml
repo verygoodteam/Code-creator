@@ -37,8 +37,8 @@
         <div class="divstudents" id="divClinical">
             <span style=" margin-left: 20px">科室：</span><input type="text" v-model="department" />
             <span style="margin-left: 20px">姓名：</span><input type="text" v-model="name" />
-            <button type="button" v-on:click="pageHandler(department,name)">查询</button>
-            <button type="button" v-on:click="">添加</button>
+            <button type="button" v-on:click="getUser(department)">查询</button>
+            <a href="/clinical/add" v-on:click="">添加</a>
             <table>
                 <thead>
                     <tr>
@@ -61,8 +61,8 @@
                         <td :contenteditable="false" v-model="data.ClinicUserRemark">{{data.clinicUserRemark}}</td>
                         <td>
                             <div>
-                                <a href="#" v-on:click="Update(data.Id)">编辑</a> |
-                                <a href="#" v-on:click="Delete(data.Id)">删除</a>
+                                <a href="/clinical/update" v-on:click="Update(data.Id)">编辑</a> |
+                                <a href="/clinical/delete" v-on:click="Delete(data.Id)">删除</a>
                             </div>
                         </td>
                     </tr>
@@ -84,14 +84,17 @@
             this.getUser();
         },
         methods: {
-            getUser: function () {
-                axios.get('http://localhost:54463/api/Clinical/GetList', { params: {englishName: name } }).then(
+
+            getUser: function (department) {
+                var model = new URLSearchParams();
+                model.append('administrativeId', this.department);
+                axios.get('http://localhost:54463/api/Clinical/GetList').then(
                     (response) => {
                         this.user = response.data;
                     }
                 );
             }
-            
+
         }
     })
 </script>

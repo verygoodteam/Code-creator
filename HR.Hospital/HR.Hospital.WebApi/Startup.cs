@@ -8,9 +8,13 @@ using HR.Hospital.IRepository.Areas;
  using HR.Hospital.IRepository.Group;
 using HR.Hospital.IRepository.Login;
 using HR.Hospital.IRepository.OoperationUser;
+using HR.Hospital.IRepository.Clinical;
+//using HR.Hospital.IRepository.Group;
 using HR.Hospital.IRepository.OperationRooms;
 using HR.Hospital.Model;
 using HR.Hospital.Repository.Areas;
+using HR.Hospital.Repository.Clinical;
+//using HR.Hospital.Repository.Group;
  using HR.Hospital.Repository.Clinical;
  using HR.Hospital.Repository.Group;
 using HR.Hospital.Repository.Login;
@@ -59,7 +63,7 @@ namespace HR.Hospital.WebApi
             //临床用户
             services.AddScoped<IClinicalRepository, ClinicalRepository>();
             //专业组
-            services.AddScoped<IGroupRepository, GroupRepository>();
+            //services.AddScoped<IGroupRepository, GroupRepository>();
             //院区
             services.AddScoped<IAreaRepository, AreaRepository>();
             //手术间映射关系

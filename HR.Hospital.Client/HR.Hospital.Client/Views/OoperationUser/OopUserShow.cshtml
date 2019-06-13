@@ -9,16 +9,20 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>手术室用户显示</title>
+    <script src="~/js/jquery-3.3.1.js"></script>
     <script src="~/js/Scripts/vue.js"></script>
     <script src="~/js/Scripts/axios.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
     <div id="app">
-        <select id="Select1" v-for="data in listdata">
-            <option id="0">--请选择--</option>
-            <option id="data.Id" v-model="data.Id">{{data.HierarchyName}}</option>
-        </select>
+        能级：
+        <select id="Select1">
+            <option value="0">--请选择--</option>
+            <option v-for="data in listdata" :value="data.id">{{data.hierarchyName}}</option>
+        </select> &nbsp;&nbsp;&nbsp;
+        <input id="Text1" type="text" />&nbsp;&nbsp;<input id="Button1" type="button" value="查找" v-on:click="GetooperUser()" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input id="Button1" type="button" value="添加" v-on:click="Add()"/>
         <table class="table table-bordered">
             <tr>
                 <td>工号</td>
@@ -42,7 +46,7 @@
                     <td>
                         @*click 与 v-on:click绑定事件，其实@方式是简写方式，两种并无区别；*@
                         <div>
-                            <a href="#" v-on:click="Edit(data.Id)">编辑</a>
+                            <a href="#" v-on:click="Edit(data.id)">编辑</a>
                         </div>
                     </td>
                 </tr>
@@ -58,7 +62,7 @@
         el: '#app',
         data: {
             ooperuser: [],
-            listdata: [],
+            listdata: []
         },
         //显示
         mounted() {
@@ -68,23 +72,27 @@
         methods: {
             //查询
             GetooperUser: function () {
-                axios.get('http://localhost:53775/api/Ooperationuser/GetOoperuser').then(
+                var hierarchyid = $("#Select1").val();
+                var txtname = $("#Text1").val();
+                axios.get('http://localhost:53775/api/Ooperationuser/GetOoperuser?hierarchyid=' + hierarchyid + '&name=' + txtname + '&englishname=' + txtname).then(
                     (response) => {
                         this.ooperuser = response.data;
                     }
-                    
                 )
             },
 
-            //查询
+            //能级下拉
             GetHierarchie: function () {
                 axios.get('http://localhost:53775/api/Ooperationuser/GetHierarchie').then(
                     (response) => {
-                        alert(response)
                         this.listdata = response.data;
                     }
-
                 )
+            },
+
+            //添加跳转
+            Add: function () {
+                location.href = '/OoperationUser/OopUserAdd';
             }
         }
     })

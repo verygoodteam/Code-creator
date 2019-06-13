@@ -12,7 +12,7 @@ namespace HR.Hospital.IRepository.Clinical
         /// 显示
         /// </summary>
         /// <returns></returns>
-        List<Clinicuser> GetList(int administrativeId, string englishName);
+        List<Clinicuser> GetList(int administrativeId);
 
 
         /// <summary>

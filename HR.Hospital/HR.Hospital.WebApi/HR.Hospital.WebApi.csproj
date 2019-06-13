@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\Ooperationuser\新文件夹\**" />
+    <Content Remove="Controllers\Ooperationuser\新文件夹\**" />
+    <EmbeddedResource Remove="Controllers\Ooperationuser\新文件夹\**" />
+    <None Remove="Controllers\Ooperationuser\新文件夹\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -16,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HR.Hospital.Common\HR.Hospital.Common.csproj" />
     <ProjectReference Include="..\HR.Hospital.Cache\HR.Hospital.Cache.csproj" />
     <ProjectReference Include="..\HR.Hospital.IRepository\HR.Hospital.IRepository.csproj" />
     <ProjectReference Include="..\HR.Hospital.Model\HR.Hospital.Model.csproj" />

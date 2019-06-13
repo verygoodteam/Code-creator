@@ -7,6 +7,7 @@ using HR.Hospital.Client.Common;
 using HR.Hospital.Client.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 
 namespace HR.Hospital.Client.Controllers.Areas

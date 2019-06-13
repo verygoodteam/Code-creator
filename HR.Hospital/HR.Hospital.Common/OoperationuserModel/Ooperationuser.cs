@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace HR.Hospital.Model
+namespace HR.Hospital.Common
 {
-    /// <summary>
-    /// 手术用户类
-    /// </summary>
-    public partial class Ooperationuser
+    public class Ooperationuser
     {
-        public Ooperationuser()
-        {
-
-        }
         /// <summary>
         /// 编号
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
         /// 姓名
         /// </summary>
@@ -60,17 +55,50 @@ namespace HR.Hospital.Model
         //角色Id
         public int? Roleid { get; set; }
 
-        //主管id
+        /// <summary>
+        /// 角色名称
+        /// </summary>
+        public string RoleName { get; set; }
+       
+        /// <summary>
+        /// 主管id
+        /// </summary>
         public int? Userid { get; set; }
 
-        //职务id
+        /// <summary>
+        ///  主管名称
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
+        ///职务id 
+        /// </summary>
         public int? PositionId { get; set; }
 
-        //职称Id
+        /// <summary>
+        /// 职务名称
+        /// </summary>
+        public string PositionName { get; set; }
+
+        /// <summary>
+        ///职称Id 
+        /// </summary>
         public int? ProfessionalId { get; set; }
 
-        //能级id
+        /// <summary>
+        ///职称名称 
+        /// </summary>
+        public string ProfessionalName { get; set; }
+
+        /// <summary>
+        /// 能级id
+        /// </summary>
         public int? HierarchyId { get; set; }
+
+        /// <summary>
+        /// 能级名称
+        /// </summary>
+        public string HierarchyName { get; set; }
 
         /// <summary>
         /// 工龄
