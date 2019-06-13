@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 namespace HR.Hospital.WebApi.Controllers.Login
 {
     [Route("api/[controller]")]
-    public class LoginController : BaseController
+    public class LoginController : Controller
     {
         public readonly IUserRepository _userRepository;
 
@@ -27,62 +27,12 @@ namespace HR.Hospital.WebApi.Controllers.Login
         /// </summary>
         /// <param name="ooperationuser"></param>
         // POST api/<controller>
-        [HttpPost]
+        [HttpGet("Post")]
         public void Post([FromBody]Model.Ooperationuser ooperationuser)
         {
             _userRepository.Login(ooperationuser);
         }
 
-        [HttpPost]
-        public IActionResult LoginDo(Model.Ooperationuser ooperationuser, string returnUrl = null)
-        {
-            //验证用户是否登录
-            const string errorMessage = "用户名或密码错误！";
-            if (ooperationuser == null)
-            {
-                return BadRequest(errorMessage);
-            }
-            var tmpUser = _userRepository.ooperationusers().FirstOrDefault(m => m.OoperationUserName == ooperationuser.OoperationUserName && m.Pwd == ooperationuser.Pwd);
-            if (tmpUser?.Pwd != ooperationuser.Pwd)
-            {
-                return BadRequest(errorMessage);
-            }
-
-            //写入缓存
-            //WriteCookie(tmpUser);
-
-            //判断是否返回前页
-            if (returnUrl == null)
-            {
-                returnUrl = TempData["returnUrl"]?.ToString();
-            }
-            if (returnUrl != null)
-            {
-                return Redirect(returnUrl);
-            }
-
-            return RedirectToAction(nameof(LoginController.Post), "Home");
-<<<<<<< HEAD
-=======
-        }
-
-
-
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
->>>>>>> 12e9ecea207b4475511fbff55ed7d553ecad5491
-        }
-
-        /// <summary>
-        /// 退出
-        /// </summary>
-        /// <returns></returns>
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction(nameof(LoginController.Post), "Account");
-        }
+      
     }
 }
