@@ -1,0 +1,62 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @*引用VUE的三个JS文件*@
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/axios.js"></script>
+    <script src="~/js/zpageNav.js"></script>
+    <style>
+       /*表格样式设置*/
+        table, td {
+            border: 1px solid #cccccc;
+            border-collapse: collapse;
+        }
+
+        table {
+            width: 800px;
+            margin-left: 20px;
+            margin-top: 15px;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="divstudents" id="divstudents">
+    <span style=" margin-left: 20px">姓名：</span><input type="text" v-model="searchname" />
+    <button type="button" v-on:click="pagehandler(1,searchname)">查询</button>
+    <table>
+        <thead>
+        <tr>
+            <td>序号</td>
+            <td>姓名</td>
+            <td>性别</td>
+            <td>家庭地址</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in studentlist">
+            <td>{{item.Id}}</td>
+            <td>{{item.Name}}</td>
+            <td>{{item.Age}}</td>
+            <td>{{item.Address}}</td>
+        </tr>
+        </tbody>
+    </table>
+    @*分页必须使用的控件*@
+    <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
+              v-bind:max-page="maxPage" v-on:pagehandler="pagehandler">
+    </zpagenav>
+</div>
+</body>
+</html>

@@ -57,30 +57,26 @@ namespace HR.Hospital.Model
         /// </summary>
         public int? Isarrange { get; set; }
 
-        /// <summary>
-        /// 角色
-        /// </summary>
+        //角色Id
         public int? Roleid { get; set; }
-
-        /// <summary>
-        /// 主管
-        /// </summary>
+        //角色名称
+        public string RoleName { get; set; }
+        //主管id
         public int? Userid { get; set; }
-
-        /// <summary>
-        /// 职务
-        /// </summary>
+        //主管名称
+        public string UserName { get; set; }
+        //职务id
         public int? PositionId { get; set; }
-
-        /// <summary>
-        /// 职称
-        /// </summary>
+        //职务名称
+        public string PositionName { get; set; }
+        //职称Id
         public int? ProfessionalId { get; set; }
-
-        /// <summary>
-        /// 能级
-        /// </summary>
+        //职称名称
+        public string ProfessionalName { get; set; }
+        //能级id
         public int? HierarchyId { get; set; }
+        //能级名称
+        public string HierarchyName { get; set; }
 
         /// <summary>
         /// 工龄

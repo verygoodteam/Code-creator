@@ -10,7 +10,7 @@ namespace HR.Hospital.Client.Controllers.Areas
     public class AreaController : Controller
     {
         // GET: Area
-        public ActionResult Index()
+        public ActionResult IndexArea()
         {
             return View();
         }

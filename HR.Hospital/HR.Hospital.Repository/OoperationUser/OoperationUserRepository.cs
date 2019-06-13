@@ -18,25 +18,103 @@ namespace HR.Hospital.Repository.OoperationUser
         public int AddOoperationUser(Ooperationuser operuser)
         {
             db.Ooperationuser.Add(operuser);
-            return db.SaveChanges();         
+            var addOoperationUser = db.SaveChanges();
+            return addOoperationUser;
+        }
+
+        //能级下拉
+        public List<Hierarchy> GetHierarchies()
+        {
+           var list= db.Hierarchy.ToList();
+           return list;
         }
 
         //返填
         public Ooperationuser RefillUser(int id)
         {
-            return db.Ooperationuser.FirstOrDefault(p=>p.Id==id);
+            var refillUser = db.Ooperationuser.FirstOrDefault(p => p.Id == id);
+            return refillUser;
         }
 
         //显示
-        public List<Ooperationuser> ShowOoperationUser(int administrativeid, string name,string englishname)
+        public List<Ooperationuser> ShowOoperationUser(int hierarchyid = 0, string name = "", string englishname = "")
         {
-            return db.Ooperationuser.Where(p=>p.Id== administrativeid || p.OoperationUserName == name||p.Simplename==englishname).ToList();
+            if (hierarchyid == 0 && name == "" || name == null && englishname == "" || englishname == null)
+            {
+                var query = from o1 in db.Ooperationuser
+                            join r in db.Role on o1.Roleid equals r.Id
+                            into JoinedEmpDept1
+                            from r in JoinedEmpDept1.DefaultIfEmpty()
+                            join p in db.Position on o1.PositionId equals p.Id
+                            into JoinedEmpDept2
+                            from p in JoinedEmpDept2.DefaultIfEmpty()
+                            join pro in db.Professional on o1.ProfessionalId equals pro.Id
+                            into JoinedEmpDept3
+                            from pro in JoinedEmpDept3.DefaultIfEmpty()
+                            join h in db.Hierarchy on o1.HierarchyId equals h.Id
+                            into JoinedEmpDept4
+                            from h in JoinedEmpDept4.DefaultIfEmpty()
+                            join o2 in db.Ooperationuser on o1.Id equals o2.Userid
+                            into JoinedEmpDept5
+                            from o2 in JoinedEmpDept5.DefaultIfEmpty()
+                            select new Ooperationuser()
+                            {
+                                Id = o1.Id,
+                                Jobnumber = o1.Jobnumber,
+                                OoperationUserName = o1.OoperationUserName,
+                                Phone = o1.Phone,
+                                Sex = o1.Sex,
+                                PositionName = p.PositionName,
+                                ProfessionalName = pro.ProfessionalName,
+                                HierarchyName = h.HierarchyName,
+                                UserName = o2.OoperationUserName,
+                                Userid = o2.Userid
+                            };
+
+                return query.ToList();
+            }
+            else
+            {
+                var query = from o1 in db.Ooperationuser
+                            join r in db.Role on o1.Roleid equals r.Id
+                            into JoinedEmpDept1
+                            from r in JoinedEmpDept1.DefaultIfEmpty()
+                            join p in db.Position on o1.PositionId equals p.Id
+                            into JoinedEmpDept2
+                            from p in JoinedEmpDept2.DefaultIfEmpty()
+                            join pro in db.Professional on o1.ProfessionalId equals pro.Id
+                            into JoinedEmpDept3
+                            from pro in JoinedEmpDept3.DefaultIfEmpty()
+                            join h in db.Hierarchy on o1.HierarchyId equals h.Id
+                            into JoinedEmpDept4
+                            from h in JoinedEmpDept4.DefaultIfEmpty()
+                            join o2 in db.Ooperationuser on o1.Id equals o2.Userid
+                            into JoinedEmpDept5
+                            from o2 in JoinedEmpDept5.DefaultIfEmpty()
+                            where o1.HierarchyId == hierarchyid || o1.OoperationUserName == name || o1.Simplename == englishname
+                            select new Ooperationuser()
+                            {
+                                Id = o1.Id,
+                                Jobnumber = o1.Jobnumber,
+                                OoperationUserName = o1.OoperationUserName,
+                                Phone = o1.Phone,
+                                Sex = o1.Sex,
+                                PositionName = p.PositionName,
+                                ProfessionalName = pro.ProfessionalName,
+                                HierarchyName = h.HierarchyName,
+                                UserName = o2.OoperationUserName,
+                                Userid = o2.Userid
+                            };
+
+                return query.ToList();
+            }
+
         }
 
         //修改
         public int UpdateOoperationUser(Ooperationuser operuser)
         {
-            var oopuserinfo = db.Ooperationuser.FirstOrDefault(p=>p.Id==operuser.Id);
+            var oopuserinfo = db.Ooperationuser.FirstOrDefault(p => p.Id == operuser.Id);
             oopuserinfo.OoperationUserName = operuser.OoperationUserName;
             oopuserinfo.Account = operuser.Account;
             oopuserinfo.Jobnumber = operuser.Jobnumber;
@@ -55,7 +133,8 @@ namespace HR.Hospital.Repository.OoperationUser
             oopuserinfo.Annualdays = operuser.Annualdays;
             oopuserinfo.Grade = operuser.Grade;
             oopuserinfo.OoperationUserRemark = operuser.OoperationUserRemark;
-            return db.SaveChanges();
+            var updateOoperationUser = db.SaveChanges();
+            return updateOoperationUser;
         }
     }
 }
