@@ -4,4 +4,16 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="ServiceStack">
+      <HintPath>D:\小实训2\Uiltity\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>D:\小实训2\Uiltity\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>D:\小实训2\Uiltity\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

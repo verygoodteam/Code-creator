@@ -110,7 +110,7 @@ namespace HR.Hospital.Model
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("Server=127.0.0.1;User Id=root;Password=123456;Database=hospitaldb");
+                optionsBuilder.UseMySql("Server=169.254.224.180;User Id=root;Password=123456;Database=hospitaldb");
             }
         }
 

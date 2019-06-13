@@ -25,10 +25,18 @@ namespace HR.Hospital.WebApi.Controllers.Ooperationuser
 
         //显示
         [HttpGet("GetOoperuser")]
-        public List<Model.Ooperationuser> GetOoperuser(int administrativeid, string name, string englishname)
+        public List<Model.Ooperationuser> GetOoperuser(int hierarchyid = 0, string name = "", string englishname = "")
         {
-            var studentshow = iooperuser.ShowOoperationUser(administrativeid, name, englishname);
-            return studentshow;
+            var usershow = iooperuser.ShowOoperationUser(hierarchyid, name, englishname);
+            return usershow;
+        }
+
+        //能级下拉
+        [HttpGet("GetHierarchie")]
+        public List<Model.Hierarchy> GetHierarchie()
+        {
+            var Hierarchies = iooperuser.GetHierarchies();
+            return Hierarchies;
         }
     }
 }
