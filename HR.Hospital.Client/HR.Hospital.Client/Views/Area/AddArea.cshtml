@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddArea</title>
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/axios.js"></script>
+    <script src="~/js/zpageNav.js"></script>
+</head>
+<body>
+
+    <div id="addArea">
+        <span>院区名称</span> <input type="text" v-model="AreaName" />
+        <span>手术间数量</span> <input type="text" v-model="OperatingNum" />
+        <span>院区属性</span> <input type="text" v-model="AreaProperty" />
+        <span>备注</span> <input type="text" v-model="AreaRemark" />
+        <button type="button" v-on:click="saveArea()">查询</button>
+    </div>
+</body>
+</html>
+<script>
+    //定义实例
+    var vm = new Vue({
+        //钩子函数
+        el: "#addArea",
+        data: {
+
+        }
+    })
+</script>

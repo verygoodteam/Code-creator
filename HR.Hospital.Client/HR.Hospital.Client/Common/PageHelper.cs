@@ -6,9 +6,8 @@ namespace HR.Hospital.Client.Common
     /// 分页类
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class PageHelper<T> where T : class
+    public sealed class PageHelper<T> where T :class
     {
-
         public PageHelper()
         {
             PageList = new List<T>();
