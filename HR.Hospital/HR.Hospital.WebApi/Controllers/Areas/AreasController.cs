@@ -29,7 +29,7 @@ namespace HR.Hospital.WebApi.Controllers.Areas
         [HttpGet("GetAreaList")]
         public PageHelper<Area> GetAreaList(int pageIndex, int pageSize, int areaProperty, string areaName)
         {
-            var areaList = AreaRepository.ShowArea(pageIndex, pageSize, areaProperty, areaName);
+            var areaList = AreaRepository.ShowArea(pageIndex, pageSize, areaName, areaProperty);
             return areaList;
         }
 

@@ -34,24 +34,33 @@ namespace HR.Hospital.Repository.Areas
         /// <param name="areaProperty"></param>
         /// <param name="areaName"></param>
         /// <returns></returns>
-        public PageHelper<Area> ShowArea(int pageIndex, int pageSize, int areaProperty, string areaName)
+        public PageHelper<Area> ShowArea(int pageIndex, int pageSize, string areaName = "", int areaProperty = 3)
         {
-            var pageHelperArea = new PageHelper<Area>();
-            if (areaProperty == 0)
-            {
-                var listArea = _context.Area.OrderBy(p => p.Id).Where(p => p.AreaName.Contains(areaName)).Take((pageIndex - 1) * pageSize).Skip(pageSize).ToList();
-                pageHelperArea.PageSizes = listArea.Count();
-                pageHelperArea.PageList = listArea;
-                pageHelperArea.PageNum = (pageHelperArea.PageSizes / pageSize);
-            }
-            else
-            {
-                var listArea = _context.Area.OrderBy(p => p.Id).Where(p => p.AreaName.Contains(areaName) || p.AreaProperty.Equals(areaProperty)).Take((pageIndex - 1) * pageSize).Skip(pageSize).ToList();
-                pageHelperArea.PageSizes = listArea.Count();
-                pageHelperArea.PageList = listArea;
-                pageHelperArea.PageNum = (pageHelperArea.PageSizes / pageSize);
 
+            var pageHelperArea = new PageHelper<Area>();
+            var listArea = _context.Area.OrderBy(p => p.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            var total = _context.Area.Count();
+            if (areaProperty != 3)
+            {
+                listArea = _context.Area.OrderBy(p => p.Id).Where(p => p.AreaProperty == areaProperty).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = _context.Area.Count(p => p.AreaProperty == areaProperty);
             }
+
+            if (areaName != null)
+            {
+                listArea = _context.Area.OrderBy(p => p.Id).Where(p => p.AreaName.Contains(areaName)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = _context.Area.Count(p => p.AreaName.Contains(areaName));
+            }
+
+            if (areaName != null && areaProperty != 3)
+            {
+                listArea = _context.Area.OrderBy(p => p.Id).Where(p => p.AreaName.Contains(areaName) && p.AreaProperty.Equals(areaProperty)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = _context.Area.Count(p => p.AreaProperty == areaProperty && p.AreaName.Contains(areaName));
+            }
+            pageHelperArea.PageSizes = total;
+            pageHelperArea.PageList = listArea;
+            pageHelperArea.PageNum = (pageHelperArea.PageSizes / pageSize);
+
             return pageHelperArea;
         }
 
