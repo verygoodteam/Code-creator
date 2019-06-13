@@ -82,9 +82,10 @@ namespace HR.Hospital.Client.Controllers.Areas
         }
 
         // GET: Area/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult EnableArea(int id)
         {
-            return View();
+            HttpClientApi.DeleteAsync<int>("http://localhost:49733/api/Areas/EnableArea?id=" + id);
+            return Redirect("/Area/IndexArea");
         }
 
         // POST: Area/Delete/5

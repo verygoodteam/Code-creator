@@ -1,4 +1,6 @@
-using System.Collections.Generic;
+using System.Collections.Generic;
+
+
 namespace HR.Hospital.Client.Common
 {
     /// <summary>
@@ -14,19 +16,27 @@ namespace HR.Hospital.Client.Common
         /// <summary>
         /// 当前页
         /// </summary>
-        public int PageIndex { get; set; }
+        public int PageIndex { get; set; }
+
+
         /// <summary>
         /// 总页数
         /// </summary>
-        public int PageNum { get; set; }
+        public int PageNum { get; set; }
+
+
         /// <summary>
         /// 每页显示几条
         /// </summary>
-        public int PageSize { get; set; }
+        public int PageSize { get; set; }
+
+
         /// <summary>
         /// 数据总条数
         /// </summary>
-        public int PageSizes { get; set; }
+        public int PageSizes { get; set; }
+
+
         /// <summary>
         /// 查询数据集合
         /// </summary>
