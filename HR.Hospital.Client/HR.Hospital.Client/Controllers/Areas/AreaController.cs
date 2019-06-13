@@ -46,8 +46,6 @@ namespace HR.Hospital.Client.Controllers.Areas
         //    try
         //    {
         //        // TODO: Add insert logic here
-
-
         //        return RedirectToAction(nameof(Index));
         //    }
         //    catch
@@ -73,8 +71,6 @@ namespace HR.Hospital.Client.Controllers.Areas
         //    try
         //    {
         //        // TODO: Add update logic here
-
-
         //        return RedirectToAction(nameof(Index));
         //    }
         //    catch
@@ -100,8 +96,6 @@ namespace HR.Hospital.Client.Controllers.Areas
         //    try
         //    {
         //        // TODO: Add delete logic here
-
-
         //        return RedirectToAction(nameof(Index));
         //    }
         //    catch
