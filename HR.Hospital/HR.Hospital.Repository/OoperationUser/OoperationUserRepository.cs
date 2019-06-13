@@ -5,6 +5,7 @@ using System.Text;
 using HR.Hospital.IRepository;
 using HR.Hospital.IRepository.OoperationUser;
 using HR.Hospital.Model;
+using HR.Hospital.Common;
 
 
 namespace HR.Hospital.Repository.OoperationUser
@@ -14,30 +15,99 @@ namespace HR.Hospital.Repository.OoperationUser
         //实例化上下文类
         hospitaldbContext db = new hospitaldbContext();
 
-        //添加手术室用户
-        public int AddOoperationUser(Ooperationuser operuser)
+        
+        /// <summary>
+        /// 添加手术室用户
+        /// </summary>
+        /// <param name="operuser"></param>
+        /// <returns></returns>
+        public int AddOoperationUser(Model.Ooperationuser operuser)
         {
             db.Ooperationuser.Add(operuser);
             var addOoperationUser = db.SaveChanges();
             return addOoperationUser;
         }
 
-        //能级下拉
+        
+        /// <summary>
+        ///能级下拉 
+        /// </summary>
+        /// <returns></returns>
         public List<Hierarchy> GetHierarchies()
         {
            var list= db.Hierarchy.ToList();
            return list;
         }
 
-        //返填
-        public Ooperationuser RefillUser(int id)
+        /// <summary>
+        /// 职务下拉
+        /// </summary>
+        /// <returns></returns>
+        public List<Position> GetPositions()
+        {
+            var list = db.Position.ToList();
+            return list;
+        }
+
+        /// <summary>
+        /// 职称下拉
+        /// </summary>
+        /// <returns></returns>
+        public List<Professional> GetProfessionals()
+        {
+            var list = db.Professional.ToList();
+            return list;
+        }
+
+        /// <summary>
+        /// 角色下拉
+        /// </summary>
+        /// <returns></returns>
+        public List<Role> GetRoles()
+        {
+            var list = db.Role.ToList();
+            return list;
+        }
+
+        
+        /// <summary>
+        /// 返填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Model.Ooperationuser RefillUser(int id)
         {
             var refillUser = db.Ooperationuser.FirstOrDefault(p => p.Id == id);
             return refillUser;
         }
 
-        //显示
-        public List<Ooperationuser> ShowOoperationUser(int hierarchyid = 0, string name = "", string englishname = "")
+        /// <summary>
+        /// 主管下拉
+        /// </summary>
+        /// <returns></returns>
+        public List<Model.Ooperationuser> GetOoperationusers()
+        {
+
+            var query = from o1 in db.Ooperationuser
+                        select new Model.Ooperationuser()
+                        {
+                            Id=o1.Id,
+                            OoperationUserName=o1.OoperationUserName
+                        };
+
+            var list = query.ToList();
+            return list;
+        }
+
+
+        /// <summary>
+        /// 显示查询
+        /// </summary>
+        /// <param name="hierarchyid"></param>
+        /// <param name="name"></param>
+        /// <param name="englishname"></param>
+        /// <returns></returns>
+        public List<Common.Ooperationuser> ShowOoperationUser(int hierarchyid = 0, string name = "", string englishname = "")
         {
             if (hierarchyid == 0 && name == "" || name == null && englishname == "" || englishname == null)
             {
@@ -57,7 +127,7 @@ namespace HR.Hospital.Repository.OoperationUser
                             join o2 in db.Ooperationuser on o1.Id equals o2.Userid
                             into JoinedEmpDept5
                             from o2 in JoinedEmpDept5.DefaultIfEmpty()
-                            select new Ooperationuser()
+                            select new Common.Ooperationuser()
                             {
                                 Id = o1.Id,
                                 Jobnumber = o1.Jobnumber,
@@ -73,9 +143,8 @@ namespace HR.Hospital.Repository.OoperationUser
 
                 return query.ToList();
             }
-            else
-            {
-                var query = from o1 in db.Ooperationuser
+
+                var query1 = from o1 in db.Ooperationuser
                             join r in db.Role on o1.Roleid equals r.Id
                             into JoinedEmpDept1
                             from r in JoinedEmpDept1.DefaultIfEmpty()
@@ -91,8 +160,8 @@ namespace HR.Hospital.Repository.OoperationUser
                             join o2 in db.Ooperationuser on o1.Id equals o2.Userid
                             into JoinedEmpDept5
                             from o2 in JoinedEmpDept5.DefaultIfEmpty()
-                            where o1.HierarchyId == hierarchyid || o1.OoperationUserName == name || o1.Simplename == englishname
-                            select new Ooperationuser()
+                            where (o1.HierarchyId == hierarchyid && o1.OoperationUserName == name) ||( o1.Simplename == englishname && o1.HierarchyId == hierarchyid)
+                             select new Common.Ooperationuser()
                             {
                                 Id = o1.Id,
                                 Jobnumber = o1.Jobnumber,
@@ -106,13 +175,17 @@ namespace HR.Hospital.Repository.OoperationUser
                                 Userid = o2.Userid
                             };
 
-                return query.ToList();
-            }
+                return query1.ToList();
 
         }
 
-        //修改
-        public int UpdateOoperationUser(Ooperationuser operuser)
+        
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="operuser"></param>
+        /// <returns></returns>
+        public int UpdateOoperationUser(Model.Ooperationuser operuser)
         {
             var oopuserinfo = db.Ooperationuser.FirstOrDefault(p => p.Id == operuser.Id);
             oopuserinfo.OoperationUserName = operuser.OoperationUserName;

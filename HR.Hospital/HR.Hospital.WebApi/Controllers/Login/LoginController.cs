@@ -59,7 +59,7 @@ namespace HR.Hospital.WebApi.Controllers.Login
             }
 
             //写入缓存
-            WriteCookie(tmpUser);
+            //WriteCookie(tmpUser);
 
             //判断是否返回前页
             if (returnUrl == null)
@@ -71,7 +71,7 @@ namespace HR.Hospital.WebApi.Controllers.Login
                 return Redirect(returnUrl);
             }
 
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(LoginController.Post), "Home");
         }
 
 

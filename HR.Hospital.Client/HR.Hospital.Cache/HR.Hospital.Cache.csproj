@@ -6,23 +6,16 @@
 
   <ItemGroup>
     <Reference Include="ServiceStack">
-<<<<<<< HEAD
       <HintPath>D:\小实训2\Uiltity\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces">
       <HintPath>D:\小实训2\Uiltity\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.ServiceInterface">
-      <HintPath>D:\小实训2\Uiltity\ServiceStack.ServiceInterface.dll</HintPath>
-=======
-      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.dll</HintPath>
-    </Reference>
     <Reference Include="ServiceStack.Interfaces">
       <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
-      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.ServiceInterface.dll</HintPath>
->>>>>>> 63e70a9f150126d6813bf1368646a636647d8d95
+      <HintPath>D:\小实训2\Uiltity\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
   </ItemGroup>
 
