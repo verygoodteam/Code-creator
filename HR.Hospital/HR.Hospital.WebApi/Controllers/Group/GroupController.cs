@@ -30,7 +30,7 @@ namespace HR.Hospital.WebApi.Controllers.Group
         /// 显示
         /// </summary>
         /// <returns></returns>
-        [HttpGet("Get")]
+        [HttpGet("GetList")]
         public List<Professionalgroup> GetList()
         {
             var list = _groupRepository.GetPageList();

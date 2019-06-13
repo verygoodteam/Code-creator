@@ -81,14 +81,14 @@ namespace HR.Hospital.Repository.OperationRooms
             if (areaId == 0)
             {
                 var listArea = _context.Operationroom.OrderBy(p => p.Id).Where(p => p.OperationName.Contains(operationName)).Take((pageIndex - 1) * pageSize).Skip(pageSize).ToList();
-                pageHelperOperationRoom.Pagesizes = listArea.Count();
-                pageHelperOperationRoom.Pagelist = listArea;
+                pageHelperOperationRoom.PageSizes = listArea.Count();
+                pageHelperOperationRoom.PageList = listArea;
             }
             else
             {
                 var listArea = _context.Operationroom.OrderBy(p => p.Id).Where(p => p.OperationName.Contains(operationName) || p.AreaId.Equals(areaId)).Take((pageIndex - 1) * pageSize).Skip(pageSize).ToList();
-                pageHelperOperationRoom.Pagesizes = listArea.Count();
-                pageHelperOperationRoom.Pagelist = listArea;
+                pageHelperOperationRoom.PageSizes = listArea.Count();
+                pageHelperOperationRoom.PageList = listArea;
             }
             return pageHelperOperationRoom;
         }

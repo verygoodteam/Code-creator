@@ -20,21 +20,11 @@ namespace HR.Hospital.Client.Controllers
             return View();
         }
 
-        //public ActionResult LoginDo(Models.Ooperationuser ooperationuser, string returnUrl = null)
-        //{
-        //    //验证用户是否登录
-        //    const string errorMessage = "用户名或密码错误！";
-        //    if (ooperationuser == null)
-        //    {
-        //        return BadRequest(errorMessage);
-        //    }
-        //    var tmpUser = new UserInfo().GetUserList().FirstOrDefault(m => m.UserName == ooperationuser.OoperationUserName && m.Password == ooperationuser.Pwd);
-        //    if (tmpUser?.Password != user.Password)
-        //    {
-        //        return BadRequest(errorMessage);
-        //    }
-        //}
 
+        public ActionResult aaa()
+        {
+            return Redirect("https://localhost:44304");
+        }
 
 
 

@@ -14,7 +14,7 @@
     <script src="~/js/axios.js"></script>
     <script src="~/js/zpageNav.js"></script>
     <style>
-       /*表格样式设置*/
+        /*表格样式设置*/
         table, td {
             border: 1px solid #cccccc;
             border-collapse: collapse;
@@ -29,34 +29,66 @@
         td {
             text-align: center;
         }
+
+        .divArea {
+        }
     </style>
 </head>
 <body>
-<div class="divstudents" id="divstudents">
-    <span style=" margin-left: 20px">姓名：</span><input type="text" v-model="searchname" />
-    <button type="button" v-on:click="pagehandler(1,searchname)">查询</button>
-    <table>
-        <thead>
-        <tr>
-            <td>序号</td>
-            <td>姓名</td>
-            <td>性别</td>
-            <td>家庭地址</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="item in studentlist">
-            <td>{{item.Id}}</td>
-            <td>{{item.Name}}</td>
-            <td>{{item.Age}}</td>
-            <td>{{item.Address}}</td>
-        </tr>
-        </tbody>
-    </table>
-    @*分页必须使用的控件*@
-    <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
-              v-bind:max-page="maxPage" v-on:pagehandler="pagehandler">
-    </zpagenav>
-</div>
+    <div class="divArea" id="divArea">
+        <span style=" margin-left: 20px">姓名：</span><input type="text" v-model="searchAreaName" />
+        <button type="button" v-on:click="pagehandler(1,searchname)">查询</button>
+        <table>
+            <thead>
+                <tr>
+                    <td>院区名称</td>
+                    <td>手术间数量</td>
+                    <td>院区属性</td>
+                    <td>是否启用</td>
+                    <td>备注</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in areaList">
+                    <td>{{item.Id}}</td>
+                    <td>{{item.Name}}</td>
+                    <td>{{item.Age}}</td>
+                    <td>{{item.Address}}</td>
+                </tr>
+            </tbody>
+        </table>
+        @*分页必须使用的控件*@
+        <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
+                  v-bind:max-page="maxPage" v-on:pagehandler="loadAreaList">
+        </zpagenav>
+    </div>
+    <script>
+        //定义实例
+        var vm = new Vue({
+            el: "#divArea",
+            data: {
+                areaList: [],//给页面提供数据
+                page: 1,//从第几页开始
+                pageSize: 2,//页面大小
+                total: 10,//总条数
+                maxPage: 9//最大页数
+            },
+            //就绪函数
+            mounted: function () {
+
+            },
+            //所有的方法
+            methods: {
+                loadAreaList: function (page, areaProperty, areaName) {
+                    this.page = page,
+                        axios.get("/Area/").then((response) => {
+
+                        });
+                }
+            }
+        });
+
+
+    </script>
 </body>
 </html>

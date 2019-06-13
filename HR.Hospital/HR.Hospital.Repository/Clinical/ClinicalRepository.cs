@@ -18,8 +18,16 @@ namespace HR.Hospital.Repository.Clinical
         {
             using (hospitaldbContext db = new hospitaldbContext())
             {
-                List<Clinicuser> list = db.Clinicuser.Where(p => p.Aadministrativeid == administrativeId || p.ClinicUserRemark== englishName).ToList();
-                return list;
+                if (administrativeId != 0 || englishName != null)
+                {
+                    List<Clinicuser> list = db.Clinicuser.Where(p => p.Aadministrativeid == administrativeId || p.ClinicUserRemark == englishName).ToList();
+                    return list;
+                }
+                else
+                {
+                    List<Clinicuser> list = db.Clinicuser.ToList();
+                    return list;
+                }
             }
         }
         
