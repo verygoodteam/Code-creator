@@ -329,13 +329,13 @@
 
   <ItemGroup>
     <Reference Include="ServiceStack">
-      <HintPath>..\HR.Hospital.Cache\bin\Debug\netcoreapp2.1\ServiceStack.dll</HintPath>
+      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces">
-      <HintPath>..\HR.Hospital.Cache\bin\Debug\netcoreapp2.1\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
-      <HintPath>..\HR.Hospital.Cache\bin\Debug\netcoreapp2.1\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
   </ItemGroup>
 
