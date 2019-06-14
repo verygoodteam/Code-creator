@@ -207,9 +207,5 @@ namespace HR.Hospital.Repository.OoperationUser
             return updateOoperationUser;
         }
 
-        List<Model.Dto.Ooperationuserview> IOoperationUserRepository.ShowOoperationUser(int hierarchyid, string name, string englishname)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
