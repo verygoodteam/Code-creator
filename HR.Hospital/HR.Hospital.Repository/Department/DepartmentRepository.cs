@@ -68,7 +68,7 @@ namespace HR.Hospital.Repository.Department
             using (hospitaldbContext db = new hospitaldbContext())
             {
                 var user = db.Administrative.FirstOrDefault(p => p.Id == id);
-                if (user != null) user.Isoperation = 1; //禁用
+                if (user != null) user.IsEnable = 1; //禁用
                 return db.SaveChanges();
             }
         }
@@ -82,7 +82,7 @@ namespace HR.Hospital.Repository.Department
             using (hospitaldbContext db = new hospitaldbContext())
             {
                 var user = db.Administrative.FirstOrDefault(p => p.Id == id);
-                if (user != null) user.Isoperation = 0; //启用
+                if (user != null) user.IsEnable = 0; //启用
                 return db.SaveChanges();
             }
         }

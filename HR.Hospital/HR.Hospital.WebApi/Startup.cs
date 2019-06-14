@@ -63,7 +63,7 @@ namespace HR.Hospital.WebApi
             services.AddScoped<IClinicalRepository, ClinicalRepository>();
             //专业组
             services.AddScoped<IGroupRepository, GroupRepository>();
-            //专业组
+            //科室
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             //院区
             services.AddScoped<IAreaRepository, AreaRepository>();
