@@ -49,7 +49,6 @@ namespace HR.Hospital.Repository.OperationRooms
         /// <returns></returns>
         public List<AreaDto> GetListArea()
         {
-
             var listArea = _context.QueryAreaDto.FromSql("select Id,AreaName from Area ").ToList();
             return listArea;
         }

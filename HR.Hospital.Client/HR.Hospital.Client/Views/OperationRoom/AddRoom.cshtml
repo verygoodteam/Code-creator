@@ -59,6 +59,7 @@
             AreaId: "",
             OperationName: "",
             OperationRemark: "",
+            areaList: []
         },
         //定义方法就绪函数
         mounted: function () {
@@ -93,7 +94,20 @@
             },
             returnRoomIndex: function () {
                 location.href = '/Operation/IndexRoom';
+            },
+            getAreaList: function () {
+                axios.get("/OperationRoom/AddRoomAction")
+                    .then((response) => {
+                        alert(response.data);
+                        if (response.data != null) {
+
+                            this.areaList = response.data.AreaDto;
+                        }
+                    }).cache(function (error) {
+                        areaList.fetchError = error;
+                    });;
             }
+
         }
     })
 </script>

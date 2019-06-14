@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HR.Hospital.Common;
 using HR.Hospital.IRepository.OperationRooms;
 using HR.Hospital.Model;
+using HR.Hospital.Model.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -67,6 +68,16 @@ namespace HR.Hospital.WebApi.Controllers.OperationRooms
         {
             var result = OperationRoomRepository.AddOperationRoom(operationRoom);
             return result;
+        }
+
+        /// <summary>
+        /// 获取院区的信息
+        /// </summary>
+        /// <returns></returns>
+        public List<AreaDto> GetListArea()
+        {
+            var listArea = OperationRoomRepository.GetListArea();
+            return listArea;
         }
 
         /// <summary>

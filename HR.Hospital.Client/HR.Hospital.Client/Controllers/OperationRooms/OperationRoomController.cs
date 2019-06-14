@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using HR.Hospital.Client.Common;
 using HR.Hospital.Client.Models;
+using HR.Hospital.Client.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace HR.Hospital.Client.Controllers.OperationRooms
 {
@@ -22,6 +24,12 @@ namespace HR.Hospital.Client.Controllers.OperationRooms
         public ActionResult AddRoom()
         {
             return View();
+        }
+
+        public JsonResult GetListArea()
+        {
+            var result = HttpClientApi.GetAsync<AreaDto>("http://localhost:12345/api/Areas/GetListArea");
+            return Json(result, new JsonSerializerSettings());
         }
 
         /// <summary>
