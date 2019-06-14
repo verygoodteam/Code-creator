@@ -40,7 +40,8 @@
                 <td><input type="text" v-model="AreaRemark" /></td>
             </tr>
         </table>
-        <button type="button" v-on:click="saveArea()">添加</button>
+        <button type="button" v-on:click="saveUpdateArea()">修改</button>
+        <button type="button" v-on:click="returnIndex()">返回</button>
     </div>
 </body>
 </html>
@@ -52,22 +53,54 @@
             OperatingNum: "",
             AreaProperty: "",
             AreaRemark: "",
-            Id:@ViewBag.Id
+            Id: @ViewBag.Id
         },
-        mounted: function () {
+        mounted: function() {
             this.UpdateArea(@ViewBag.Id);
         },
         methods: {
-            UpdateArea: function (id) {
+            UpdateArea: function(id) {
                 axios.get("/Area/AreaJson", { params: { id: id } }).then((response) => {
                     if (response.data != null) {
-                        alert(response.data.toString());
+                        //alert(response.data.toString());
                         this.AreaName = response.data.AreaName;
                         this.OperatingNum = response.data.OperatingNum;
                         this.AreaProperty = response.data.AreaProperty;
                         this.AreaRemark = response.data.AreaRemark;
                     }
                 });
+            },
+            saveUpdateArea: function() {
+                if (this.AreaName === "") {
+                    alert("院区名称不能为空");
+                    return false;
+                }
+                if (this.AreaRemark === "") {
+                    alert("院区备注不能为空");
+                    return false;
+                }
+                //.netcore规定的传参格式
+                var area = new URLSearchParams();
+                area.append('AreaName', this.AreaName);
+                area.append('OperatingNum', this.OperatingNum);
+                area.append('AreaProperty', this.AreaProperty);
+                area.append('AreaRemark', this.AreaRemark);
+                area.append('Id', this.Id);
+
+                axios.post("/Area/UpdateAreaAction", area)
+                    .then((response) => {
+                        if (response.data > 0) {
+                            alert("修改成功");
+                            location.href = '/Area/IndexArea';
+                        }
+                        return false;
+                    }).catch(function(response) {
+                        alert(response);
+                    });
+                return false;
+            },
+            returnIndex: function() {
+                location.href = '/Area/IndexArea';
             }
         }
     })

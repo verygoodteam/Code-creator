@@ -1,0 +1,81 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/axios.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Show</title>
+</head>
+<body>
+    <div class="divstudents" id="divstudents">
+        <div>
+            <span style=" margin-left: 20px">班次名称：</span><input type="text" v-model="searchname" />
+            <button type="button" v-on:click="pagehandler(1,searchname)">查询</button>
+        </div>
+       <div style="float:right">
+           @Html.ActionLink("添加","Add")
+       </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>序号</td>
+                    <td>班次颜色</td>
+                    <td>班次名称</td>
+                    <td>上班时间</td>
+                    <td>下班时间</td>
+                    <td>有效工作日</td>
+                    <td>计算工时</td>
+                    <td>是否打卡</td>
+                    <td>班次类型</td>
+                    <td>班次顺序</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in shiftssetting">
+                    <td>{{item.Id}}</td>
+                    <td>{{item.Shiftssettingcolour}}</td>
+                    <td>{{item.ShiftssettingName}}</td>
+                    <td>{{item.Opentime}}</td>
+                    <td>{{item.Closingtime}}</td>
+                    <td>{{item.Validtime}}</td>
+                    <td>{{item.Duration}}</td>
+                    <td>{{item.Isclock}}</td>
+                    <td>{{item.Shiftssettingtypeid}}</td>
+                    <td>{{item.Shiftssettingtypeid}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
+                  v-bind:max-page="maxPage" v-on:pagehandler="pagehandler">
+        </zpagenav>
+    </div>
+</body>
+</html>
+<script>
+
+        var vm = new Vue({
+            el: "#divstudents",
+            data: {
+                shiftssetting: [],
+            },
+            mounted() {
+                this.pagehandler();
+            },
+            methods: {
+                pagehandler: function (page,name) {
+                    this.page = page;
+                    axios.get("http://localhost:12345/api/Shiftssetting/GetList").then((response) => {
+                        this.studentlist = [];
+                    });
+                }
+            }
+        });
+
+</script>

@@ -74,7 +74,7 @@ namespace HR.Hospital.Client.Common
             if (mess.IsSuccessStatusCode)
             {
                 var result = mess.Content.ReadAsStringAsync().Result;//返回结果
-                TU i =JsonConvert.DeserializeObject<TU>(result);
+                var i =JsonConvert.DeserializeObject<TU>(result);
                 return i;
             }
             else

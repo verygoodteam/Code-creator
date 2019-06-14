@@ -13,6 +13,13 @@
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
       <HintPath>D:\小实训2\Uiltity\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>..\Dlls\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>..\Dlls\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>..\Dlls\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
   </ItemGroup>
 

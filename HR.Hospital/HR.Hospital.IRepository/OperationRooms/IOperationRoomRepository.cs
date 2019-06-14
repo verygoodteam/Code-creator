@@ -1,11 +1,22 @@
 ﻿using HR.Hospital.Common;
 using HR.Hospital.Model;
+using HR.Hospital.Model.Dto;
 using System.Collections.Generic;
 
 namespace HR.Hospital.IRepository.OperationRooms
 {
     public interface IOperationRoomRepository
     {
+
+        /// <summary>
+        /// 查看院区
+        /// </summary>
+        /// <returns></returns>
+        List<AreaDto> GetListArea();
+
+
+       
+
         /// <summary>
         /// 手术室添加
         /// </summary>
@@ -34,15 +45,14 @@ namespace HR.Hospital.IRepository.OperationRooms
         /// <returns></returns>
         int EnableOperationRoom(int id);
 
-        /// <summary>
-        /// 手术间查看分页
-        /// </summary>
+
+        /// 手术间查看分页两表联查显示数据  
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <param name="areaId"></param>
         /// <param name="operationName"></param>
         /// <returns></returns>
-        PageHelper<OperationRoom> GetListOperationRoom(int pageIndex, int pageSize, int areaId, string operationName);
+        PageHelper<AreaRoomDto> GetListOperationRoom(int pageIndex, int pageSize, int areaId, string operationName);
     }
 
 }

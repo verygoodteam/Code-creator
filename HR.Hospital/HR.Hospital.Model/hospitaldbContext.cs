@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using HR.Hospital.Model.Dto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -6,6 +8,8 @@ namespace HR.Hospital.Model
 {
     public partial class hospitaldbContext : DbContext
     {
+
+
         public hospitaldbContext()
         {
         }
@@ -14,6 +18,16 @@ namespace HR.Hospital.Model
             : base(options)
         {
         }
+
+        /// <summary>
+        /// 执行查询院区的sql语句
+        /// </summary>
+        public DbQuery<AreaDto> QueryAreaDto { get; set; }
+
+        /// <summary>
+        /// 执行两表联查
+        /// </summary>
+        public DbQuery<AreaRoomDto> QueryAreaRoomDto { get; set; }
 
         /// <summary>
         /// 获取科室列表信息

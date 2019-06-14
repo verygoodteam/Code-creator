@@ -1,0 +1,114 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>手术室</title>
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/axios.js"></script>
+    <script src="~/js/zpageNav.js"></script>
+</head>
+<body>
+    <div id="addRoom">
+        <table>
+            <tr>
+                <td>院区名称</td>
+
+                <td>
+                    <select v-model="AreaId">
+                        <option v-for="item in areaList" selected="selected" v-if="item.Id==AreaId" :value="item.Id">{{item.AreaName}}</option>
+                        <option v-else :value="item.Id">{{item.AreaName}}</option>
+
+
+                        @*<option v-for="item in areaList" value={{item.Id}}>{{item.AreaName}}</option>*@
+                    </select>
+                </td>
+
+            </tr>
+            <tr>
+                <td>手术间名称</td>
+                <td><input type="text" v-model="OperationName" /></td>
+            </tr>
+            <tr>
+                <td>备注</td>
+
+                <td>
+                    <input type="text" v-model="OperationRemark" />
+                </td>
+
+            </tr>
+
+        </table>
+        <button type="button" v-on:click="saveRoom()">添加</button>
+        <button type="button" v-on:click="returnRoomIndex()">返回</button>
+    </div>
+</body>
+</html>
+<script>
+    //定义实例
+    var vm = new Vue({
+        //钩子函数
+        el: "#addRoom",
+        //定义变量
+        data: {
+            AreaId: "",
+            OperationName: "",
+            OperationRemark: "",
+            areaList: []
+        },
+        //定义方法就绪函数
+        mounted: function () {
+            this.AreaId = 2;
+            this.getAreaList();
+        },
+        //所有的方法
+        methods: {
+            saveRoom: function () {
+                if (this.OperationName == "") {
+                    alert("手术间名称不能为空");
+                    return false;
+                }
+                if (this.OperationRemark == "") {
+                    alert("备注不能为空");
+                    return false;
+                }
+                //.netcore规定的传参格式
+                var operationRoom = new URLSearchParams();
+                operationRoom.append('AreaId', this.AreaId);
+                operationRoom.append('OperationName', this.OperationName);
+                operationRoom.append('OperationRemark', this.OperationRemark);
+                axios.post("/OperationRoom/AddRoomAction", operationRoom)
+                    .then((response) => {
+                        if (response.data > 0) {
+                            alert("添加成功");
+                        }
+                        return false;
+                    }).catch(function (response) {
+                        alert(response);
+                    });
+            },
+            returnRoomIndex: function () {
+                location.href = '/Operation/IndexRoom';
+            },
+            getAreaList: function () {
+                axios.get("/OperationRoom/GetListArea")
+                    .then((response) => {
+
+                        if (response.data != null) {
+                            //alert(response.data);
+                            this.areaList = response.data;
+                            //alert(this.areaList);
+                        }
+                    }).cache(function (error) {
+                        areaList.fetchError = error;
+                    });;
+            }
+
+        }
+    })
+</script>

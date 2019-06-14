@@ -10,30 +10,9 @@ namespace HR.Hospital.Repository.Clinical
 {
     public class ClinicalRepository : IClinicalRepository
     {
-        public List<Clinicuser> GetList(int administrativeId)
-        {
-            using (hospitaldbContext db = new hospitaldbContext())
-            {
-                if (administrativeId == 0)
-                {
-                    List<Clinicuser> list = db.Clinicuser.ToList();
-                    return list;
-                }
-                else
-                {
-                    List<Clinicuser> list = db.Clinicuser.Where(p => p.Aadministrativeid == administrativeId).ToList();
-                    return list;
-                }
-            }
-        }
-        
         /// <summary>
-        /// 分页
+        /// 分页查询
         /// </summary>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="englishName"></param>
-        /// <param name="administrativeId"></param>
         /// <returns></returns>  
         public PageHelper<Clinicuser> GetPagedList(int pageIndex, int pageSize, int administrativeId, string englishName)
         {
@@ -59,7 +38,6 @@ namespace HR.Hospital.Repository.Clinical
                 list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.ClinicUserRemark.Contains(englishName) && p.Aadministrativeid.Equals(administrativeId)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
                 total = db.Clinicuser.Count(p => p.Aadministrativeid == administrativeId && p.ClinicUserRemark.Contains(englishName));
             }
-
 
             pageList.PageSizes = total;//总页数
             pageList.PageList = list;//数据
@@ -95,7 +73,7 @@ namespace HR.Hospital.Repository.Clinical
         }
 
         /// <summary>
-        /// 删除
+        /// 禁用
         /// </summary>
         /// <param name="id"></param>
         public int Delete(int id)
@@ -103,13 +81,27 @@ namespace HR.Hospital.Repository.Clinical
             using (hospitaldbContext db = new hospitaldbContext())
             {
                 var user = db.Clinicuser.FirstOrDefault(p => p.Id == id);
-                if (user != null) user.IsEnable = 1;
+                if (user != null) user.IsEnable = 1; //禁用
                 return db.SaveChanges();
             }
         }
 
         /// <summary>
-        /// 获取单个
+        /// 启用
+        /// </summary>
+        /// <param name="id"></param>
+        public int Enable(int id)
+        { 
+            using (hospitaldbContext db = new hospitaldbContext())
+            {
+                var user = db.Clinicuser.FirstOrDefault(p => p.Id == id);
+                if (user != null) user.IsEnable = 0; //启用
+                return db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// 获取单条数据
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

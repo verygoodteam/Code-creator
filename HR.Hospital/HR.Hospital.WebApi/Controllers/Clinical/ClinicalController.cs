@@ -29,18 +29,7 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         }
 
         /// <summary>
-        /// 显示
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("GetList")]
-        public List<Clinicuser> GetList(int administrativeId=0)
-        {
-            var list = _clinicalRepository.GetList(administrativeId);
-            return list;
-        }
-
-        /// <summary>
-        /// 分页
+        /// 分页查询
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetPagedList")]
@@ -72,12 +61,12 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
             var i = _clinicalRepository.Add(model);
             return i;
         }
-        
+
         /// <summary>
-        /// 删除
+        /// 禁用
         /// </summary>
         /// <param name="id"></param>
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete")]
         public int Delete(int id)
         {
             var i = _clinicalRepository.Delete(id);
@@ -85,12 +74,23 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         }
 
         /// <summary>
-        /// 获取单个
+        /// 启用
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete("Enable")]
+        public int Enable(int id)
+        {
+            var i = _clinicalRepository.Enable(id);
+            return i;
+        }
+
+        /// <summary>
+        /// 获取单条数据
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("{Get}")]
-        public Clinicuser Get(int id)
+        [HttpGet("GetModel")]
+        public Clinicuser GetModel(int id)
         {
             var model = _clinicalRepository.GetModel(id);
             return model;
@@ -100,7 +100,7 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// 编辑
         /// </summary>
         /// <param name="model"></param>
-        [HttpPut]
+        [HttpPut("Update")]
         public int Update([FromBody]Clinicuser model)
         {
             var i = _clinicalRepository.Update(model);

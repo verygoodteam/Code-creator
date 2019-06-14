@@ -35,10 +35,16 @@
 <body>
     <div id="app">
         <div class="divClinical" id="divClinical">
-            <span style=" margin-left: 20px">科室：</span><input type="text" v-model="department" />
+            <span style=" margin-left: 20px">科室：</span>
+            <select id="Select1" v-model="Department" >
+                <option value="请选择">请选择</option>
+                <option value="1">胸外科室</option>
+                <option value="2">肠胃科</option>
+                <option value="3">耳喉鼻科</option>
+            </select>
             <span style="margin-left: 20px">姓名：</span><input type="text" v-model="name" />
-            <button type="button" v-on:click="getUser()">查询</button>
-            <a href="/Clinical/Add" v-on:click="">添加</a>
+            <button type="button" v-on:click="getUser(department,name)">查询</button>
+            <button type="button" v-on:click="addUser()">添加</button>
             <table>
                 <thead>
                     <tr>
@@ -63,8 +69,9 @@
                     <td>{{data.isEnable==0?"是":"否"}}</td>
                     <td>
                         <div>
-                            <a href="#" v-on:click="Update(data.Id)">编辑</a> |
-                            <a href="#" v-on:click="delete(data.Id)">删除</a>
+                            <a href="#" v-on:click="UpdateById(data.id)">编辑</a> |
+                            <a href="#" v-on:click="DeleteById(data.id)">禁用</a> |
+                            <a href="#" v-on:click="EnableById(data.id)">启用</a> 
                         </div>
                     </td>
                 </tr>
@@ -95,12 +102,20 @@
         methods: {
             getUser: function (page) {
                 this.page = page,
-                    axios.get("/Clinical/PageList", { params: { pageIndex: page, pageSize: this.pageSize, administrativeId: this.department, englishName: this.name } })
+                    axios.get("/Clinical/PageList",
+                            {
+                                 params: {
+                                     pageIndex: page,
+                                     pageSize: this.pageSize,
+                                     administrativeId: this.department,
+                                     englishName: this.name
+                                 }
+                            })
                     .then((response) => {
 
                         console.log(response.pageList);
                             //数据
-                        this.userList = response.data.pageList;
+                            this.userList = response.data.pageList;
                             //每页大小
                             this.page = response.data.pageSize;
                             //总条数
@@ -113,8 +128,23 @@
                         });
             },
 
-            delete: function (id) {
+            addUser: function() {
+                location.href = '/Clinical/Add';
+            },
+
+            DeleteById: function (id) {
+                alert(id);
                 location.href = '/Clinical/Delete?id=' + id;
+            },
+
+            EnableById: function (id) {
+                alert(id);
+                location.href = '/Clinical/Enable?id=' + id;
+            },
+
+            UpdateById: function (id) {
+                alert(id);
+                location.href = '/Clinical/Update?id=' + id;
             }
         }
     })

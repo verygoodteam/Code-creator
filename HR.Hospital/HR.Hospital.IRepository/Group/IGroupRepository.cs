@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using HR.Hospital.Common;
 using HR.Hospital.Model;
 
 namespace HR.Hospital.IRepository.Group
@@ -8,11 +9,10 @@ namespace HR.Hospital.IRepository.Group
     public interface IGroupRepository
     {
         /// <summary>
-        /// 显示
+        /// 分页查询
         /// </summary>
         /// <returns></returns>
-        List<Professionalgroup> GetPageList();
-
+        PageHelper<Professionalgroup> GetPagedList(int pageIndex, int pageSize, string name);
 
         /// <summary>
         /// 添加
@@ -29,7 +29,7 @@ namespace HR.Hospital.IRepository.Group
 
 
         /// <summary>
-        /// 获取单个
+        /// 获取单条数据
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

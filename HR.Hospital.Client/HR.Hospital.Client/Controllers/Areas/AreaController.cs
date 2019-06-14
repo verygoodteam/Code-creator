@@ -33,7 +33,7 @@ namespace HR.Hospital.Client.Controllers.Areas
         /// <returns></returns>
         public ActionResult ListArea(int pageIndex = 1, int pageSize = 2, int areaProperty = 0, string areaName = "")
         {
-            var pageArea = HttpClientApi.GetAsync<PageHelper<Area>>("http://localhost:49733/api/Areas/GetAreaList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&areaProperty=" + areaProperty + "&areaName=" + areaName);
+            var pageArea = HttpClientApi.GetAsync<PageHelper<Area>>("http://localhost:12345/api/Areas/GetAreaList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&areaProperty=" + areaProperty + "&areaName=" + areaName);
             return Json(pageArea, new JsonSerializerSettings());
         }
 
@@ -54,7 +54,7 @@ namespace HR.Hospital.Client.Controllers.Areas
         [HttpPost]
         public int AddAreaAction(Area area)
         {
-            var result = HttpClientApi.PostAsync<Area, int>(area, "http://localhost:49733/api/Areas/AddArea");
+            var result = HttpClientApi.PostAsync<Area, int>(area, "http://localhost:12345/api/Areas/AddArea");
             return result;
         }
 
@@ -76,27 +76,18 @@ namespace HR.Hospital.Client.Controllers.Areas
         /// <returns></returns>
         public JsonResult AreaJson(int id)
         {
-            var result = HttpClientApi.GetAsync<Area>("http://localhost:49733/api/Areas/GetArea?id=" + id);
-            return Json(result);
+            var result = HttpClientApi.GetAsync<Area>("http://localhost:12345/api/Areas/GetArea?id=" + id);
+            return Json(result, new JsonSerializerSettings());
         }
 
-
-
-        // POST: Area/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        /// <summary>
+        /// 修改的方法
+        /// </summary>
+        /// <returns></returns>
+        public int UpdateAreaAction(Area area)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction();
-            }
-            catch
-            {
-                return View();
-            }
+            var result = HttpClientApi.PutAsync<Area, int>(area, "http://localhost:12345/api/Areas/UpdateArea");
+            return result;
         }
 
         /// <summary>
@@ -106,7 +97,7 @@ namespace HR.Hospital.Client.Controllers.Areas
         /// <returns></returns>
         public ActionResult EnableArea(int id)
         {
-            HttpClientApi.DeleteAsync<int>("http://localhost:49733/api/Areas/EnableArea?id=" + id);
+            HttpClientApi.DeleteAsync<int>("http://localhost:12345/api/Areas/EnableArea?id=" + id);
             return Redirect("/Area/IndexArea");
         }
 

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using HR.Hospital.Client.Common;
 using HR.Hospital.Client.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace HR.Hospital.Client.Controllers.Clinical
 {
@@ -22,7 +21,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
 
         public PageHelper<Clinicuser> PageList(int pageIndex = 1, int pageSize = 3, int administrativeId = 0, string englishName = "")
         {
-            var list = HttpClientApi.GetAsync<PageHelper<Clinicuser>>("http://localhost:54463/api/Clinical/GetPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&Aadministrativeid=" + administrativeId + "&ClinicUserRemark=" + englishName);
+            var list = HttpClientApi.GetAsync<PageHelper<Clinicuser>>("http://localhost:12345/api/clinical/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&Aadministrativeid=" + administrativeId + "&ClinicUserRemark=" + englishName);
             return list;
         }
 
@@ -30,14 +29,14 @@ namespace HR.Hospital.Client.Controllers.Clinical
         /// 添加
         /// </summary>
         /// <returns></returns>
-        public IActionResult Add()
+        public ActionResult Add()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Add(Clinicuser model)
+        public ActionResult Add(Clinicuser model)
         {
-            var i = HttpClientApi.PostAsync<Clinicuser,int>(model, "http://localhost:54463/api/Clinical/add");
+            var i = HttpClientApi.PostAsync<Clinicuser,int>(model, "http://localhost:12345/api/clinical/add");
             return Redirect("/Clinical/Index");
         }
 
@@ -46,24 +45,43 @@ namespace HR.Hospital.Client.Controllers.Clinical
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
-            var i = HttpClientApi.DeleteAsync<int>("http://localhost:54463/api/Clinical/delete?id="+id);
+            var i = HttpClientApi.DeleteAsync<int>("http://localhost:12345/api/clinical/delete?id=" + id);
             return Redirect("/Clinical/Index");
+        }
+
+        /// <summary>
+        /// 启用
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Enable(int id)
+        {
+            return View();
+            var i = HttpClientApi.DeleteAsync<int>("http://localhost:12345/api/clinical/enable?id=" + id);
+            return Redirect("/Clinical/Index");
+        }
+
+        /// <summary>
+        /// 获取单条数据
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Update(int id)
+        {
+            var list = HttpClientApi.GetAsync<Clinicuser>("http://localhost:12345/api/clinical/GetModel?id=" + id);
+            return View(list);
         }
 
         /// <summary>
         /// 修改
         /// </summary>
+        /// <param name="model"></param>
         /// <returns></returns>
-        public IActionResult Update(int id)
-        {
-            return View();
-        }
         [HttpPost]
-        public IActionResult Update(Clinicuser model)
+        public ActionResult Update(Clinicuser model)
         {
-            var i = HttpClientApi.PutAsync<Clinicuser,int>(model, "http://localhost:54463/api/Clinical/update");
+            var i = HttpClientApi.PutAsync<Clinicuser,int>(model, "http://localhost:12345/api/clinical/update");
             return Redirect("/Clinical/Index");
         }
     }

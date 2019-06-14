@@ -100,7 +100,7 @@ namespace HR.Hospital.Repository.Areas
                 firstOrDefault.AreaName = area.AreaName;
                 firstOrDefault.AreaProperty = area.AreaProperty;
                 firstOrDefault.AreaRemark = area.AreaRemark;
-                firstOrDefault.Isnable = area.Isnable;
+                firstOrDefault.Isnable = 0;
                 firstOrDefault.OperatingNum = area.OperatingNum;
             }
             var result = _context.SaveChanges();
