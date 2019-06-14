@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace HR.Hospital.Common.OoperationuserModel
+namespace HR.Hospital.Model.Dto
 {
-    public class Ooperationuser
+    public class Ooperationuserview
     {
         /// <summary>
         /// 编号

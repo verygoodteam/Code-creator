@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using HR.Hospital.Model;
-using HR.Hospital.Common;
-using HR.Hospital.IRepository;
 using HR.Hospital.IRepository.OoperationUser;
 
 namespace HR.Hospital.WebApi.Controllers.Ooperationuser
@@ -26,7 +19,7 @@ namespace HR.Hospital.WebApi.Controllers.Ooperationuser
 
         //显示查询
         [HttpGet("GetOoperuser")]
-        public List<Common.OoperationuserModel.Ooperationuser> GetOoperuser(int hierarchyid = 0, string name = "", string englishname = "")
+        public List<Model.Dto.Ooperationuserview> GetOoperuser(int hierarchyid = 0, string name = "", string englishname = "")
         {
             var usershow = iooperuser.ShowOoperationUser(hierarchyid, name, englishname);
             return usershow;
