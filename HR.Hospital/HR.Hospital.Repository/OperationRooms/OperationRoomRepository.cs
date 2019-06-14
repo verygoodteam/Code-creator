@@ -47,9 +47,10 @@ namespace HR.Hospital.Repository.OperationRooms
         /// 查询院区的Id 名字
         /// </summary>
         /// <returns></returns>
+
         public List<AreaDto> GetListArea()
         {
-            var listArea = _context.QueryAreaDto.FromSql("select Id,AreaName from Area ").ToList();
+            var listArea = _context.QueryAreaDto.FromSql("select Id,AreaName from Area where Isnable=0").ToList();
             return listArea;
         }
 
@@ -91,22 +92,57 @@ namespace HR.Hospital.Repository.OperationRooms
         /// <param name="areaId"></param>
         /// <param name="operationName"></param>
         /// <returns></returns>
-        public PageHelper<OperationRoom> GetListOperationRoom(int pageIndex, int pageSize, int areaId, string operationName)
+        public PageHelper<AreaRoomDto> GetListOperationRoom(int pageIndex, int pageSize, int areaId, string operationName)
         {
-            var pageHelperOperationRoom = new PageHelper<OperationRoom>();
-            if (areaId == 0)
+            var pageAreaRooms = new PageHelper<AreaRoomDto>();
+
+            //执行两表联查
+            var areaRoomDtos = _context.QueryAreaRoomDto.FromSql("select a.Id,a.OperationName,a.OperationRemark,a.AreaId,b.AreaName from operationroom  a join area b on b.Id=a.AreaId where a.EnableOperation=0 and b.Isnable=0").ToList();
+            //总条数
+            var total = areaRoomDtos.Count();
+            //赋值给这个类的总条数
+            pageAreaRooms.PageSizes = total;
+            //总页数赋值
+            pageAreaRooms.PageNum = (total / pageSize);
+            //给集合赋值
+            pageAreaRooms.PageList = areaRoomDtos;
+
+            if (areaId != 3)
             {
-                var listArea = _context.Operationroom.OrderBy(p => p.Id).Where(p => p.OperationName.Contains(operationName)).Take((pageIndex - 1) * pageSize).Skip(pageSize).ToList();
-                pageHelperOperationRoom.PageSizes = listArea.Count();
-                pageHelperOperationRoom.PageList = listArea;
+                //执行两表联查
+                areaRoomDtos = areaRoomDtos.OrderBy(p => p.Id).Where(p => p.AreaId == areaId).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                //总条数
+                total = areaRoomDtos.Count(p => p.AreaId == areaId);
+                //赋值给这个类的总条数
+                pageAreaRooms.PageSizes = total;
+                //总页数赋值
+                pageAreaRooms.PageNum = (total / pageSize);
+                //给集合赋值
+                pageAreaRooms.PageList = areaRoomDtos;
             }
-            else
+            if (areaId != 3 && operationName != null)
             {
-                var listArea = _context.Operationroom.OrderBy(p => p.Id).Where(p => p.OperationName.Contains(operationName) || p.AreaId.Equals(areaId)).Take((pageIndex - 1) * pageSize).Skip(pageSize).ToList();
-                pageHelperOperationRoom.PageSizes = listArea.Count();
-                pageHelperOperationRoom.PageList = listArea;
+                areaRoomDtos = areaRoomDtos.OrderBy(p => p.Id).Where(p => p.AreaId == areaId && p.OperationName.Contains(operationName)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = areaRoomDtos.Count(p => p.AreaId == areaId && p.OperationName.Contains(operationName));
+                //赋值给这个类的总条数
+                pageAreaRooms.PageSizes = total;
+                //总页数赋值
+                pageAreaRooms.PageNum = (total / pageSize);
+                //给集合赋值
+                pageAreaRooms.PageList = areaRoomDtos;
             }
-            return pageHelperOperationRoom;
+            if (operationName == null) return pageAreaRooms;
+            {
+                areaRoomDtos = areaRoomDtos.OrderBy(p => p.Id).Where(p => p.OperationName.Contains(operationName)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = areaRoomDtos.Count(p => p.OperationName.Contains(operationName));
+                //赋值给这个类的总条数
+                pageAreaRooms.PageSizes = total;
+                //总页数赋值
+                pageAreaRooms.PageNum = (total / pageSize);
+                //给集合赋值
+                pageAreaRooms.PageList = areaRoomDtos;
+            }
+            return pageAreaRooms;
         }
 
 

@@ -24,6 +24,10 @@ namespace HR.Hospital.Model
         /// </summary>
         public DbQuery<AreaDto> QueryAreaDto { get; set; }
 
+        /// <summary>
+        /// 执行两表联查
+        /// </summary>
+        public DbQuery<AreaRoomDto> QueryAreaRoomDto { get; set; }
 
         /// <summary>
         /// 获取科室列表信息

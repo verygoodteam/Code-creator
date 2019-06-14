@@ -38,8 +38,8 @@ namespace HR.Hospital.WebApi.Controllers.OperationRooms
         /// <param name="areaProperty">条件查询</param>
         /// <param name="areaName">模糊查询</param>
         /// <returns></returns>
-        [HttpGet("GetAreaList")]
-        public PageHelper<OperationRoom> GetListOperationRoom(int pageIndex, int pageSize, int areaProperty, string areaName)
+        [HttpGet("GetListOperationRoom")]
+        public PageHelper<AreaRoomDto> GetListOperationRoom(int pageIndex, int pageSize, int areaProperty, string areaName)
         {
             var areaList = OperationRoomRepository.GetListOperationRoom(pageIndex, pageSize, areaProperty, areaName);
             return areaList;
@@ -74,6 +74,7 @@ namespace HR.Hospital.WebApi.Controllers.OperationRooms
         /// 获取院区的信息
         /// </summary>
         /// <returns></returns>
+        [HttpGet("GetListArea")]
         public List<AreaDto> GetListArea()
         {
             var listArea = OperationRoomRepository.GetListArea();

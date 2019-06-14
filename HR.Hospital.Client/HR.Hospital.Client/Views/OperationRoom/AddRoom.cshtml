@@ -21,11 +21,11 @@
 
                 <td>
                     <select v-model="AreaId">
-                        <option value="0">东区</option>
-                        <option value="1">西区</option>
-                        <option value="2">南区</option>
-                        <option value="3">北区</option>
+                        <option v-for="item in areaList" selected="selected" v-if="item.Id==AreaId" :value="item.Id">{{item.AreaName}}</option>
+                        <option v-else :value="item.Id">{{item.AreaName}}</option>
 
+
+                        @*<option v-for="item in areaList" value={{item.Id}}>{{item.AreaName}}</option>*@
                     </select>
                 </td>
 
@@ -63,7 +63,8 @@
         },
         //定义方法就绪函数
         mounted: function () {
-            this.AreaId = 0;
+            this.AreaId = 2;
+            this.getAreaList();
         },
         //所有的方法
         methods: {
@@ -90,18 +91,18 @@
                     }).catch(function (response) {
                         alert(response);
                     });
-                return false;
             },
             returnRoomIndex: function () {
                 location.href = '/Operation/IndexRoom';
             },
             getAreaList: function () {
-                axios.get("/OperationRoom/AddRoomAction")
+                axios.get("/OperationRoom/GetListArea")
                     .then((response) => {
-                        alert(response.data);
-                        if (response.data != null) {
 
-                            this.areaList = response.data.AreaDto;
+                        if (response.data != null) {
+                            //alert(response.data);
+                            this.areaList = response.data;
+                            //alert(this.areaList);
                         }
                     }).cache(function (error) {
                         areaList.fetchError = error;

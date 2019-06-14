@@ -14,6 +14,7 @@ namespace HR.Hospital.Client.Controllers.OperationRooms
     {
         public IActionResult IndexRoom()
         {
+            var result = HttpClientApi.GetAsync<List<AreaDto>>("http://localhost:12345/api/OperationRoom/GetListArea");
             return View();
         }
 
@@ -28,7 +29,7 @@ namespace HR.Hospital.Client.Controllers.OperationRooms
 
         public JsonResult GetListArea()
         {
-            var result = HttpClientApi.GetAsync<AreaDto>("http://localhost:12345/api/Areas/GetListArea");
+            var result = HttpClientApi.GetAsync<List<AreaDto>>("http://localhost:12345/api/OperationRoom/GetListArea");
             return Json(result, new JsonSerializerSettings());
         }
 
