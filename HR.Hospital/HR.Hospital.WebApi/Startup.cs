@@ -27,7 +27,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace HR.Hospital.WebApi
 {
@@ -44,6 +44,12 @@ namespace HR.Hospital.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // 注册Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
 
             //注册跨域服务，允许所有来源
             services.AddCors(options =>
@@ -84,6 +90,17 @@ namespace HR.Hospital.WebApi
             {
                 app.UseHsts();
             }
+
+            // 启用swagger
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
             //允许跨域访问
             app.UseCors("AllowAnyCors");
 

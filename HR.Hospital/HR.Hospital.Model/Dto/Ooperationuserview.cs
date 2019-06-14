@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HR.Hospital.Common
+namespace HR.Hospital.Model.Dto
 {
-    public class Ooperationuser
+    public class Ooperationuserview 
     {
         /// <summary>
         /// 编号

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using HR.Hospital.IRepository;
 using HR.Hospital.IRepository.OoperationUser;
-using HR.Hospital.Model;
+using HR.Hospital.Model.Dto;
 using HR.Hospital.Common;
-
+using HR.Hospital.Model;
 
 namespace HR.Hospital.Repository.OoperationUser
 {
@@ -107,7 +107,7 @@ namespace HR.Hospital.Repository.OoperationUser
         /// <param name="name"></param>
         /// <param name="englishname"></param>
         /// <returns></returns>
-        public List<Common.Ooperationuser> ShowOoperationUser(int hierarchyid = 0, string name = "", string englishname = "")
+        public List<Model.Dto.Ooperationuserview> ShowOoperationUser(int hierarchyid = 0, string name = "", string englishname = "")
         {
             if (hierarchyid == 0 && name == "" || name == null && englishname == "" || englishname == null)
             {
@@ -127,7 +127,7 @@ namespace HR.Hospital.Repository.OoperationUser
                             join o2 in db.Ooperationuser on o1.Id equals o2.Userid
                             into JoinedEmpDept5
                             from o2 in JoinedEmpDept5.DefaultIfEmpty()
-                            select new Common.Ooperationuser()
+                            select new Model.Dto.Ooperationuserview()
                             {
                                 Id = o1.Id,
                                 Jobnumber = o1.Jobnumber,
@@ -161,7 +161,7 @@ namespace HR.Hospital.Repository.OoperationUser
                             into JoinedEmpDept5
                             from o2 in JoinedEmpDept5.DefaultIfEmpty()
                             where (o1.HierarchyId == hierarchyid && o1.OoperationUserName == name) ||( o1.Simplename == englishname && o1.HierarchyId == hierarchyid)
-                             select new Common.Ooperationuser()
+                             select new Model.Dto.Ooperationuserview()
                             {
                                 Id = o1.Id,
                                 Jobnumber = o1.Jobnumber,
