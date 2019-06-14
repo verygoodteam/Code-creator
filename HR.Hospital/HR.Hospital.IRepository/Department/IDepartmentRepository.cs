@@ -4,28 +4,37 @@ using System.Text;
 using HR.Hospital.Common;
 using HR.Hospital.Model;
 
-namespace HR.Hospital.IRepository.Group
+namespace HR.Hospital.IRepository.Department
 {
-    public interface IGroupRepository
+    public interface IDepartmentRepository
     {
         /// <summary>
         /// 分页查询
         /// </summary>
-        /// <returns></returns>
-        PageHelper<Professionalgroup> GetPagedList(int pageIndex, int pageSize, string name);
+        /// <returns></returns>  
+        PageHelper<Administrative> GetPagedList(int pageIndex, int pageSize, int administrativeId,
+            string englishName);
+
 
         /// <summary>
         /// 添加
         /// </summary>
         /// <param name="model"></param>
-        int Add(Professionalgroup model);
+        int Add(Administrative model);
 
 
         /// <summary>
-        /// 删除
+        /// 禁用
         /// </summary>
         /// <param name="id"></param>
         int Delete(int id);
+
+
+        /// <summary>
+        /// 启用
+        /// </summary>
+        /// <param name="id"></param>
+        int Enable(int id);
 
 
         /// <summary>
@@ -33,14 +42,14 @@ namespace HR.Hospital.IRepository.Group
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Professionalgroup GetModel(int id);
+        Administrative GetModel(int id);
 
 
         /// <summary>
         /// 编辑
         /// </summary>
         /// <param name="model"></param>
-        int Update(Professionalgroup model);
+        int Update(Administrative model);
 
     }
 }

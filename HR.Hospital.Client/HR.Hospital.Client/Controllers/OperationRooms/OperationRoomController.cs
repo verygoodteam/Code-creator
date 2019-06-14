@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HR.Hospital.Client.Common;
 using HR.Hospital.Client.Models;
 using HR.Hospital.Client.Models.Dto;
+using HR.Hospital.Model.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

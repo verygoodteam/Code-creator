@@ -9,14 +9,7 @@ namespace HR.Hospital.IRepository.Clinical
     public interface IClinicalRepository
     {
         /// <summary>
-        /// 显示
-        /// </summary>
-        /// <returns></returns>
-        List<Clinicuser> GetList(int administrativeId);
-
-
-        /// <summary>
-        /// 分页
+        /// 分页查询
         /// </summary>
         /// <returns></returns>
         PageHelper<Clinicuser> GetPagedList(int pageIndex, int pageSize, int administrativeId, string englishName);
@@ -33,21 +26,24 @@ namespace HR.Hospital.IRepository.Clinical
         /// <param name="model"></param>
         int Add(Clinicuser model);
 
-
         /// <summary>
-        /// 删除
+        /// 禁用
         /// </summary>
         /// <param name="id"></param>
         int Delete(int id);
 
+        /// <summary>
+        /// 启用
+        /// </summary>
+        /// <param name="id"></param>
+        int Enable(int id);
 
         /// <summary>
-        /// 获取单个
+        /// 获取单条数据
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         Clinicuser GetModel(int id);
-
 
         /// <summary>
         /// 编辑
