@@ -67,6 +67,13 @@
 
   <ItemGroup>
     <Reference Include="ServiceStack">
+      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.ServiceInterface.dll</HintPath>
       <HintPath>..\..\HR.Hospital\Dlls\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces">

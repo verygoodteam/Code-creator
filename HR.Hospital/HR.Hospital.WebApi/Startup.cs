@@ -5,6 +5,7 @@ using HR.Hospital.IRepository.Group;
 using HR.Hospital.IRepository.Login;
 using HR.Hospital.IRepository.OoperationUser;
 using HR.Hospital.IRepository.OperationRooms;
+using HR.Hospital.IRepository.Shiftssettings;
 using HR.Hospital.Model;
 using HR.Hospital.Repository.Areas;
 using HR.Hospital.Repository.Clinical;
@@ -13,6 +14,7 @@ using HR.Hospital.Repository.Group;
 using HR.Hospital.Repository.Login;
 using HR.Hospital.Repository.OoperationUser;
 using HR.Hospital.Repository.OperationRooms;
+using HR.Hospital.Repository.Shiftssettings;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -63,7 +65,7 @@ namespace HR.Hospital.WebApi
             services.AddScoped<IClinicalRepository, ClinicalRepository>();
             //专业组
             services.AddScoped<IGroupRepository, GroupRepository>();
-            //专业组
+            //科室
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             //院区
             services.AddScoped<IAreaRepository, AreaRepository>();
@@ -71,6 +73,8 @@ namespace HR.Hospital.WebApi
             services.AddScoped<IOperationRoomRepository, OperationRoomRepository>();
             //登陆映射关系
             services.AddScoped<IUserRepository, UserRepository>();
+            //班次设置映射关系
+            services.AddScoped<IShiftssettingRepository, ShiftssettingsRepository>();
 
         }
 
