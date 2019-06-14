@@ -37,7 +37,7 @@
         <div class="divClinical" id="divClinical">
             <span style=" margin-left: 20px">科室：</span><input type="text" v-model="department" />
             <span style="margin-left: 20px">姓名：</span><input type="text" v-model="name" />
-            <button type="button" v-on:click="getUser()">查询</button>
+            <button type="button" v-on:click="getUser(department,name)">查询</button>
             <a href="/Clinical/Add" v-on:click="">添加</a>
             <table>
                 <thead>
