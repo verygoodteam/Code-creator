@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HR.Hospital.Common\HR.Hospital.Common.csproj" />
     <ProjectReference Include="..\HR.Hospital.Cache\HR.Hospital.Cache.csproj" />
+    <ProjectReference Include="..\HR.Hospital.Common\HR.Hospital.Common.csproj" />
     <ProjectReference Include="..\HR.Hospital.IRepository\HR.Hospital.IRepository.csproj" />
     <ProjectReference Include="..\HR.Hospital.Model\HR.Hospital.Model.csproj" />
     <ProjectReference Include="..\HR.Hospital.Repository\HR.Hospital.Repository.csproj" />
