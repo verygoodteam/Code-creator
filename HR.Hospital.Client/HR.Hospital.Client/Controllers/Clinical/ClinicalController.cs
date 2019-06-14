@@ -58,7 +58,6 @@ namespace HR.Hospital.Client.Controllers.Clinical
         /// <returns></returns>
         public IActionResult Update(int id)
         {
-
             return View();
         }
         [HttpPost]
