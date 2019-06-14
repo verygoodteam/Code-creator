@@ -14,10 +14,16 @@ namespace HR.Hospital.WebApi.Controllers.OperationRooms
     [ApiController]
     public class OperationRoomController : ControllerBase
     {
-        //实例化上下文对象
+
+        /// <summary>
+        /// 实例化EF上下文对象
+        /// </summary>
         public IOperationRoomRepository OperationRoomRepository { get; set; }
 
-        //构造函数注入
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="operationRoomRepository"></param>
         public OperationRoomController(IOperationRoomRepository operationRoomRepository)
         {
             OperationRoomRepository = operationRoomRepository;

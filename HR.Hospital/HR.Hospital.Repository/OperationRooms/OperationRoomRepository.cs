@@ -5,15 +5,19 @@ using HR.Hospital.Model;
 using System.Linq;
 using HR.Hospital.IRepository;
 using HR.Hospital.IRepository.OperationRooms;
+using HR.Hospital.Model.Dto;
+using Microsoft.EntityFrameworkCore;
 
 namespace HR.Hospital.Repository.OperationRooms
 {
     public class OperationRoomRepository : IOperationRoomRepository
     {
-        //实例化上下文对象
+        /// <summary>
+        /// 实例化EF上下文对象
+        /// </summary>
         private readonly hospitaldbContext _context = new hospitaldbContext();
 
-        
+
 
         /// <summary>
         /// 获取手术间单个对象
@@ -34,9 +38,20 @@ namespace HR.Hospital.Repository.OperationRooms
         public int EnableOperationRoom(int id)
         {
             var area = _context.Operationroom.FirstOrDefault(p => p.Id == id);
-            if (area != null) area.EnableOperation = 1;
+            if (area != null) area.EnableOperation = 3;
             var result = _context.SaveChanges();
             return result;
+        }
+
+        /// <summary>
+        /// 查询院区的Id 名字
+        /// </summary>
+        /// <returns></returns>
+        public List<AreaDto> GetListArea()
+        {
+
+            var listArea = _context.QueryAreaDto.FromSql("select Id,AreaName from Area ").ToList();
+            return listArea;
         }
 
         /// <summary>
@@ -95,6 +110,6 @@ namespace HR.Hospital.Repository.OperationRooms
             return pageHelperOperationRoom;
         }
 
-       
+
     }
 }

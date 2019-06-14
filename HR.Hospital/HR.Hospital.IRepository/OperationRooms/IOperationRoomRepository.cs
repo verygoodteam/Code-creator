@@ -1,11 +1,19 @@
 ﻿using HR.Hospital.Common;
 using HR.Hospital.Model;
+using HR.Hospital.Model.Dto;
 using System.Collections.Generic;
 
 namespace HR.Hospital.IRepository.OperationRooms
 {
     public interface IOperationRoomRepository
     {
+
+        /// <summary>
+        /// 查看院区
+        /// </summary>
+        /// <returns></returns>
+        List<AreaDto> GetListArea();
+
         /// <summary>
         /// 手术室添加
         /// </summary>

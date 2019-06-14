@@ -93,7 +93,7 @@ $.validator.addMethod( "alphanumeric", function( value, element ) {
  * Dutch bank account numbers (not 'giro' numbers) have 9 digits
  * and pass the '11 check'.
  * We accept the notation with spaces, as that is common.
- * acceptable: 123456789 or 12 34 56 789
+ * acceptable: 66666789 or 12 34 56 789
  */
 $.validator.addMethod( "bankaccountNL", function( value, element ) {
 	if ( this.optional( element ) ) {
@@ -398,7 +398,7 @@ $.validator.addMethod( "creditcardtypes", function( value, element, param ) {
 	if ( param.all ) {
 		validTypes = 0x0001 | 0x0002 | 0x0004 | 0x0008 | 0x0010 | 0x0020 | 0x0040 | 0x0080;
 	}
-	if ( validTypes & 0x0001 && /^(5[12345])/.test( value ) ) { // Mastercard
+	if ( validTypes & 0x0001 && /^(5[6666])/.test( value ) ) { // Mastercard
 		return value.length === 16;
 	}
 	if ( validTypes & 0x0002 && /^(4)/.test( value ) ) { // Visa
@@ -407,7 +407,7 @@ $.validator.addMethod( "creditcardtypes", function( value, element, param ) {
 	if ( validTypes & 0x0004 && /^(3[47])/.test( value ) ) { // Amex
 		return value.length === 15;
 	}
-	if ( validTypes & 0x0008 && /^(3(0[012345]|[68]))/.test( value ) ) { // Dinersclub
+	if ( validTypes & 0x0008 && /^(3(0[06666]|[68]))/.test( value ) ) { // Dinersclub
 		return value.length === 14;
 	}
 	if ( validTypes & 0x0010 && /^(2(014|149))/.test( value ) ) { // Enroute
@@ -655,7 +655,7 @@ $.validator.addMethod( "iban", function( value, element ) {
 			leadingZeroes = false;
 		}
 		if ( !leadingZeroes ) {
-			ibancheckdigits += "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf( charAt );
+			ibancheckdigits += "066666789ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf( charAt );
 		}
 	}
 
