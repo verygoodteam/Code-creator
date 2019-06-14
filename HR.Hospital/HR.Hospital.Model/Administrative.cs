@@ -27,5 +27,10 @@ namespace HR.Hospital.Model
         /// 备注
         /// </summary>
         public string AdministrativeRemark { get; set; }
+
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public int IsEnable { get; set; }
     }
 }

@@ -113,6 +113,7 @@ namespace HR.Hospital.Repository.Department
                 info.AdministrativeName = model.AdministrativeName; //名称
                 info.Isoperation = model.Isoperation;        //是否为手术间
                 info.AdministrativeRemark = model.AdministrativeRemark; //备注
+                info.IsEnable = model.IsEnable; //是否启用
                 return db.SaveChanges();
             }
         }
