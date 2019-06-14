@@ -1,0 +1,86 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add</title>
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/axios.js"></script>
+</head>
+<body>
+    <div id="app">
+        <table class="table table-bordered">
+            <tr>
+                <td>科室名称:</td>
+                <td>
+                    <input type="text" v-model="Name" />
+                </td>
+            </tr>
+            <tr>
+                <td>是否为手术间:</td>
+                <td>
+                    <input id="Radio1" type="radio" name="Radio" value="1" v-model="IsOpen" /><span>是</span>
+                    <input id="Radio2" type="radio" name="Radio" value="2" v-model="IsOpen" /><span>否</span>
+                </td>
+            </tr>
+            <tr>
+                <td>备注</td>
+                <td>
+                    <input type="text" rows="2" cols="20" v-model="Remark" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="button" v-on:click="addUser(Name,IsOpen,Remark)">添加</button>
+                    <button type="button" v-on:click="back()">返回</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                Name: "",
+                Sex: "",
+                Department: "请选择",
+                JobNumber: "",
+                EnglishName: ""
+            },
+
+            methods: {
+                addUser: function(name, sex, department, jobNum, engName) {
+                    if (this.Name == "") {
+                        alert("名称不能为空");
+                        return false;
+                    };
+                    var model = new URLSearchParams();
+                    model.append('AdministrativeName', this.Name);
+                    model.append('Isoperation', this.IsOpen);
+                    model.append('AdministrativeRemark', this.Remark);
+
+                    axios.post('@Url.Action("Add", "Department")',
+                        model).then((response) => { alert("添加成功"); },
+                        (response) => {
+                            alert(response.status);
+                        }
+                    ).catch(function(response) {
+                        alert(response);
+                    });
+                },
+
+                back: function() {
+                    location.href = '/Department/Index';
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>

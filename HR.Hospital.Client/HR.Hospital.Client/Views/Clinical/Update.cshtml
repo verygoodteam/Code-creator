@@ -9,7 +9,111 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Update</title>
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/axios.js"></script>
 </head>
 <body>
+    <div id="app">
+        <table class="table table-bordered">
+            <tr>
+                <td>姓名</td>
+                <td>
+                    <input type="text" v-model="Name" />
+                </td>
+            </tr>
+            <tr>
+                <td>性别</td>
+                <td>
+                    <input id="Radio1" type="radio" name="Radio" value="1" v-model="Sex" /><span>男</span>
+                    <input id="Radio2" type="radio" name="Radio" value="0" v-model="Sex" /><span>女</span>
+                </td>
+            </tr>
+            <tr>
+                <td>所属部门</td>
+                <td>
+                    <select id="Select1" v-model="Department">
+                        <option value="请选择">请选择</option>
+                        <option value="1">胸外科室</option>
+                        <option value="2">肠胃科</option>
+                        <option value="3">耳喉鼻科</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>工号</td>
+                <td>
+                    <input type="text" v-model="JobNum" />
+                </td>
+            </tr>
+            <tr>
+                <td>备注</td>
+                <td>
+                    <input type="text" v-model="EngName" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>                 
+                    <button type="button" v-on:click="addUser(Name,Sex,Department,JobNum,EngName)">保存</button>
+                    <button type="button" v-on:click="back()">返回</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                Name: "",
+                Sex: "",
+                Department: "请选择",
+                JobNum: "",
+                EngName: ""
+            },
+            mounted() {
+                this.getUser();
+            },
+            methods: {
+                getUser: function() {
+                    this.Name = 1;
+                    this.Sex = 1;
+                    this.Department = 1;
+                    this.Name = 1;
+                    this.Sex = 1;
+                },
+
+                addUser: function(name, sex, department, jobNum, engName) {
+                    if (this.Name == "") {
+                        alert("名称不能为空");
+                        return false;
+                    };
+                    if (this.JobNum == "") {
+                        alert("工号不能为空");
+                        return false;
+                    };
+                    var model = new URLSearchParams();
+                    model.append('ClinicUserName', this.Name);
+                    model.append('Sex', this.Sex);
+                    model.append('Aadministrativeid', this.Department);
+                    model.append('Jobnumber', this.JobNum);
+                    model.append('ClinicUserRemark', this.EngName);
+
+                    axios.post('@Url.Action("Add", "Clinical")',
+                        model).then((response) => { alert("添加成功"); },
+                        (response) => {
+                            alert(response.status);
+                        }
+                    ).catch(function(response) {
+                        alert(response);
+                    });
+                },
+
+                back: function () {
+                    location.href = '/Clinical/Index';
+                }
+            }
+
+        });
+    </script>
 </body>
 </html>
