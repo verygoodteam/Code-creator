@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using HR.Hospital.Client.Common;
 using HR.Hospital.Client.Models;
 using HR.Hospital.Client.Models.Dto;
-using HR.Hospital.Model.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -15,8 +11,18 @@ namespace HR.Hospital.Client.Controllers.OperationRooms
     {
         public IActionResult IndexRoom()
         {
-            var result = HttpClientApi.GetAsync<List<AreaDto>>("http://localhost:12345/api/OperationRoom/GetListArea");
+
             return View();
+        }
+
+        /// <summary>
+        /// 显示方法
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult IndexRoomAction()
+        {
+            var result = HttpClientApi.GetAsync<List<AreaRoomDto>>("http://localhost:12345/api/OperationRoom/GetListArea");
+            return Json(result, new JsonSerializerSettings());
         }
 
         /// <summary>
