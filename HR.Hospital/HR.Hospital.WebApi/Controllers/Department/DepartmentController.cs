@@ -3,29 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HR.Hospital.Common;
-using HR.Hospital.IRepository.Clinical;
+using HR.Hospital.IRepository.Department;
 using HR.Hospital.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HR.Hospital.WebApi.Controllers.Clinical
+namespace HR.Hospital.WebApi.Controllers.Department
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClinicalController : ControllerBase
+    public class DepartmentController : ControllerBase
     {
         /// <summary>
         /// 定义私有变量
         /// </summary>
-        private readonly IClinicalRepository _clinicalRepository;
+        private readonly IDepartmentRepository _departmentRepository;
 
         /// <summary>
         /// 构造函数注入
         /// </summary>
         /// <param name="clinicalRepository"></param>
-        public ClinicalController(IClinicalRepository clinicalRepository)
+        public DepartmentController(IDepartmentRepository clinicalRepository)
         {
-            _clinicalRepository = clinicalRepository;
+            _departmentRepository = clinicalRepository;
         }
 
         /// <summary>
@@ -33,21 +33,9 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetPagedList")]
-        public PageHelper<Clinicuser> GetPagedList(int pageIndex=1, int pageSize=3, int administrativeId=0, string englishName=null)
+        public PageHelper<Administrative> GetPagedList(int pageIndex=1, int pageSize=3, int isOperation=0, string name=null)
         {
-            var list = _clinicalRepository.GetPagedList(pageIndex, pageSize, administrativeId, englishName);
-            return list;
-        }
-
-
-        /// <summary>
-        /// 获取科室
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("GetAdminList")]
-        public List<Administrative> GetAdminList()
-        {
-            var list = _clinicalRepository.GetAdminList();
+            var list = _departmentRepository.GetPagedList(pageIndex, pageSize, isOperation, name);
             return list;
         }
 
@@ -56,9 +44,9 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// </summary>
         /// <param name="model"></param>
         [HttpPost("Add")]
-        public int Add([FromBody]Clinicuser model)
+        public int Add([FromBody]Administrative model)
         {
-            var i = _clinicalRepository.Add(model);
+            var i = _departmentRepository.Add(model);
             return i;
         }
 
@@ -69,7 +57,7 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         [HttpDelete("Delete")]
         public int Delete(int id)
         {
-            var i = _clinicalRepository.Delete(id);
+            var i = _departmentRepository.Delete(id);
             return i;
         }
 
@@ -80,7 +68,7 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         [HttpDelete("Enable")]
         public int Enable(int id)
         {
-            var i = _clinicalRepository.Enable(id);
+            var i = _departmentRepository.Enable(id);
             return i;
         }
 
@@ -90,9 +78,9 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("GetModel")]
-        public Clinicuser GetModel(int id)
+        public Administrative GetModel(int id)
         {
-            var model = _clinicalRepository.GetModel(id);
+            var model = _departmentRepository.GetModel(id);
             return model;
         }
 
@@ -101,9 +89,9 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// </summary>
         /// <param name="model"></param>
         [HttpPut("Update")]
-        public int Update([FromBody]Clinicuser model)
+        public int Update([FromBody]Administrative model)
         {
-            var i = _clinicalRepository.Update(model);
+            var i = _departmentRepository.Update(model);
             return i;
         }
     }

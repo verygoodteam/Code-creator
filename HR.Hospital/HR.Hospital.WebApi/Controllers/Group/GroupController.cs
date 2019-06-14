@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HR.Hospital.Common;
 using HR.Hospital.IRepository.Group;
 using HR.Hospital.Model;
 using Microsoft.AspNetCore.Http;
@@ -27,13 +28,13 @@ namespace HR.Hospital.WebApi.Controllers.Group
         }
 
         /// <summary>
-        /// 显示
+        /// 分页查询
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetList")]
-        public List<Professionalgroup> GetList()
+        [HttpGet("GetPagedList")]
+        public PageHelper<Professionalgroup> GetPagedList(int pageIndex=1, int pageSize=2, string name=null)
         {
-            var list = _groupRepository.GetPageList();
+            var list = _groupRepository.GetPagedList(pageIndex, pageSize, name);
             return list;
         }
         
@@ -60,7 +61,7 @@ namespace HR.Hospital.WebApi.Controllers.Group
         }
 
         /// <summary>
-        /// 获取单个
+        /// 获取单条数据
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
