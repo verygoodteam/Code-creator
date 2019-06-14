@@ -1,0 +1,74 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="~/css/zpageNav.css" rel="stylesheet" />
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/axios.js"></script>
+    <script src="~/js/zpageNav.js"></script>
+</head>
+<body>
+    <div id="updateArea">
+        <input id="Hidden1" type="hidden" value="@ViewBag.Id" />
+        <table>
+            <tr>
+                <td>院区名称</td>
+                <td><input type="text" v-model="AreaName" /></td>
+            </tr>
+            <tr>
+                <td>手术间数量</td>
+                <td><input type="text" v-model="OperatingNum" /></td>
+            </tr>
+            <tr>
+                <td>院区属性</td>
+                <td>
+                    <select id="Select1" v-model="AreaProperty">
+                        <option value="1">真实</option>
+                        <option value="0">虚拟</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>备注</td>
+                <td><input type="text" v-model="AreaRemark" /></td>
+            </tr>
+        </table>
+        <button type="button" v-on:click="saveArea()">添加</button>
+    </div>
+</body>
+</html>
+<script>
+    var vm = new Vue({
+        el: "#updateArea",
+        data: {
+            AreaName: "",
+            OperatingNum: "",
+            AreaProperty: "",
+            AreaRemark: "",
+            Id:@ViewBag.Id
+        },
+        mounted: function () {
+            this.UpdateArea(@ViewBag.Id);
+        },
+        methods: {
+            UpdateArea: function (id) {
+                axios.get("/Area/AreaJson", { params: { id: id } }).then((response) => {
+                    if (response.data != null) {
+                        alert(response.data.toString());
+                        this.AreaName = response.data.AreaName;
+                        this.OperatingNum = response.data.OperatingNum;
+                        this.AreaProperty = response.data.AreaProperty;
+                        this.AreaRemark = response.data.AreaRemark;
+                    }
+                });
+            }
+        }
+    })
+</script>

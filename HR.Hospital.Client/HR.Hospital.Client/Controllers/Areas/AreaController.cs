@@ -14,56 +14,73 @@ namespace HR.Hospital.Client.Controllers.Areas
 {
     public class AreaController : Controller
     {
-        // GET: Area
+        /// <summary>
+        /// 主页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult IndexArea()
         {
             return View();
         }
 
+        /// <summary>
+        /// 显示的方法
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="areaProperty"></param>
+        /// <param name="areaName"></param>
+        /// <returns></returns>
         public ActionResult ListArea(int pageIndex = 1, int pageSize = 2, int areaProperty = 0, string areaName = "")
         {
             var pageArea = HttpClientApi.GetAsync<PageHelper<Area>>("http://localhost:49733/api/Areas/GetAreaList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&areaProperty=" + areaProperty + "&areaName=" + areaName);
             return Json(pageArea, new JsonSerializerSettings());
         }
-        // GET: Area/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
-        // GET: Area/Create
+        /// <summary>
+        /// 添加的页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AddArea()
         {
             return View();
         }
+
+        /// <summary>
+        /// 添加执行的方法
+        /// </summary>
+        /// <param name="area"></param>
+        /// <returns></returns>
         [HttpPost]
         public int AddAreaAction(Area area)
         {
             var result = HttpClientApi.PostAsync<Area, int>(area, "http://localhost:49733/api/Areas/AddArea");
             return result;
         }
-        // POST: Area/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
 
-                return RedirectToAction();
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Area/Edit/5
-        public ActionResult Edit(int id)
+        /// <summary>
+        /// 修改的页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult UpdateArea(int id)
         {
+            ViewBag.Id = id;
             return View();
         }
+
+        /// <summary>
+        /// 修改页面的数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public JsonResult AreaJson(int id)
+        {
+            var result = HttpClientApi.GetAsync<Area>("http://localhost:49733/api/Areas/GetArea?id=" + id);
+            return Json(result);
+        }
+
+
 
         // POST: Area/Edit/5
         [HttpPost]
@@ -82,28 +99,17 @@ namespace HR.Hospital.Client.Controllers.Areas
             }
         }
 
-        // GET: Area/Delete/5
+        /// <summary>
+        /// 删除方法  (启用禁用)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult EnableArea(int id)
         {
             HttpClientApi.DeleteAsync<int>("http://localhost:49733/api/Areas/EnableArea?id=" + id);
             return Redirect("/Area/IndexArea");
         }
 
-        // POST: Area/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
 
-                return RedirectToAction();
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

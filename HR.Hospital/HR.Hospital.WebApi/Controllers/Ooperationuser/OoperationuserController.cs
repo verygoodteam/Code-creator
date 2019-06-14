@@ -26,7 +26,7 @@ namespace HR.Hospital.WebApi.Controllers.Ooperationuser
 
         //显示查询
         [HttpGet("GetOoperuser")]
-        public List<Common.Ooperationuser> GetOoperuser(int hierarchyid = 0, string name = "", string englishname = "")
+        public List<Common.OoperationuserModel.Ooperationuser> GetOoperuser(int hierarchyid = 0, string name = "", string englishname = "")
         {
             var usershow = iooperuser.ShowOoperationUser(hierarchyid, name, englishname);
             return usershow;

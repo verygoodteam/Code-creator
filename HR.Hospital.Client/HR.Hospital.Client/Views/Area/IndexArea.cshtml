@@ -59,7 +59,7 @@
                     <td>{{item.AreaRemark}}</td>
                     <td>
                         <a href="#" v-on:click="enableArea(item.Id)">删除</a>
-                        <a href="#">修改</a>
+                        <a href="#" v-on:click="updateArea(item.Id)">修改</a>
                     </td>
 
                 </tr>
@@ -117,6 +117,9 @@
                 },
                 enableArea: function (id) {
                     location.href = '/Area/EnableArea?id=' + id;
+                },
+                updateArea: function (id) {
+                    location.href = '/Area/UpdateArea?id=' + id;
                 }
 
             }

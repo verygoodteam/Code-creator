@@ -13,6 +13,8 @@ namespace HR.Hospital.Repository.OperationRooms
         //实例化上下文对象
         private readonly hospitaldbContext _context = new hospitaldbContext();
 
+        
+
         /// <summary>
         /// 获取手术间单个对象
         /// </summary>
