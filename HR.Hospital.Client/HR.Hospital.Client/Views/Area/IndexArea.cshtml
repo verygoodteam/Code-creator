@@ -46,7 +46,6 @@
                     <td>院区名称</td>
                     <td>手术间数量</td>
                     <td>院区属性</td>
-
                     <td>备注</td>
                     <td>操作</td>
                 </tr>
@@ -57,9 +56,11 @@
                     <td>{{item.AreaName}}</td>
                     <td>{{item.OperatingNum}}</td>
                     <td>{{item.AreaProperty==1?"真实地区":"虚拟地区"}}</td>
-      
                     <td>{{item.AreaRemark}}</td>
-                    <td> </td>
+                    <td>
+                        <a href="#" v-on:click="enableArea(item.Id)">删除</a>
+                        <a href="#">修改</a>
+                    </td>
 
                 </tr>
             </tbody>
@@ -88,7 +89,15 @@
             methods: {
                 loadAreaList: function (page) {
                     this.page = page,
-                        axios.get("/Area/ListArea", { params: { pageIndex: page, pageSize: this.pageSize, areaProperty: 3, areaName: this.searchAreaName } })
+                        axios.get("/Area/ListArea",
+                            {
+                                params: {
+                                    pageIndex: page,
+                                    pageSize: this.pageSize,
+                                    areaProperty: 3,
+                                    areaName: this.searchAreaName
+                                }
+                            })
                             .then((response) => {
                                 //数据
                                 this.areaList = response.data.PageList;
@@ -102,12 +111,14 @@
                             }).cache(function (error) {
                                 areaList.fetchError = error;
                             });
-
-
                 },
                 addArea: function () {
                     location.href = '/Area/AddArea';
+                },
+                enableArea: function (id) {
+                    location.href = '/Area/EnableArea?id=' + id;
                 }
+
             }
         });
 

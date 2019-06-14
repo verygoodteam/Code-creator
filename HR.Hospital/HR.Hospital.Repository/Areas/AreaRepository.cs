@@ -38,24 +38,24 @@ namespace HR.Hospital.Repository.Areas
         {
 
             var pageHelperArea = new PageHelper<Area>();
-            var listArea = _context.Area.OrderBy(p => p.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-            var total = _context.Area.Count();
+            var listArea = _context.Area.OrderBy(p => p.Id).Where(p => p.Isnable == 0).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            var total = _context.Area.Count(p => p.Isnable == 0);
             if (areaProperty != 3)
             {
-                listArea = _context.Area.OrderBy(p => p.Id).Where(p => p.AreaProperty == areaProperty).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                total = _context.Area.Count(p => p.AreaProperty == areaProperty);
+                listArea = _context.Area.OrderBy(p => p.Id).Where(p => p.AreaProperty == areaProperty && p.Isnable == 0).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = _context.Area.Count(p => p.AreaProperty == areaProperty && p.Isnable == 0);
             }
 
             if (areaName != null)
             {
-                listArea = _context.Area.OrderBy(p => p.Id).Where(p => p.AreaName.Contains(areaName)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                total = _context.Area.Count(p => p.AreaName.Contains(areaName));
+                listArea = _context.Area.OrderBy(p => p.Id).Where(p => p.AreaName.Contains(areaName) && p.Isnable == 0).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = _context.Area.Count(p => p.AreaName.Contains(areaName) && p.Isnable == 0);
             }
 
             if (areaName != null && areaProperty != 3)
             {
-                listArea = _context.Area.OrderBy(p => p.Id).Where(p => p.AreaName.Contains(areaName) && p.AreaProperty.Equals(areaProperty)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                total = _context.Area.Count(p => p.AreaProperty == areaProperty && p.AreaName.Contains(areaName));
+                listArea = _context.Area.OrderBy(p => p.Id).Where(p => p.AreaName.Contains(areaName) && p.AreaProperty.Equals(areaProperty) && p.Isnable == 0).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = _context.Area.Count(p => p.AreaProperty == areaProperty && p.AreaName.Contains(areaName) && p.Isnable == 0);
             }
             pageHelperArea.PageSizes = total;
             pageHelperArea.PageList = listArea;
@@ -84,7 +84,7 @@ namespace HR.Hospital.Repository.Areas
         public int EnableArea(int id)
         {
             var area = _context.Area.FirstOrDefault(p => p.Id == id);
-            if (area != null) area.AreaProperty = 1;
+            if (area != null) area.Isnable = 1;
             var result = _context.SaveChanges();
             return result;
         }

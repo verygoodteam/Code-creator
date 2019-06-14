@@ -10,22 +10,18 @@ namespace HR.Hospital.Repository.Clinical
 {
     public class ClinicalRepository : IClinicalRepository
     {
-        /// <summary>
-        /// 显示
-        /// </summary>
-        /// <returns></returns>
-        public List<Clinicuser> GetList(int administrativeId, string englishName)
+        public List<Clinicuser> GetList(int administrativeId)
         {
             using (hospitaldbContext db = new hospitaldbContext())
             {
-                if (administrativeId != 0 || englishName != null)
+                if (administrativeId == 0)
                 {
-                    List<Clinicuser> list = db.Clinicuser.Where(p => p.Aadministrativeid == administrativeId || p.ClinicUserRemark == englishName).ToList();
+                    List<Clinicuser> list = db.Clinicuser.ToList();
                     return list;
                 }
                 else
                 {
-                    List<Clinicuser> list = db.Clinicuser.ToList();
+                    List<Clinicuser> list = db.Clinicuser.Where(p => p.Aadministrativeid == administrativeId).ToList();
                     return list;
                 }
             }
@@ -38,16 +34,37 @@ namespace HR.Hospital.Repository.Clinical
         /// <param name="pageSize"></param>
         /// <param name="englishName"></param>
         /// <param name="administrativeId"></param>
-        /// <returns></returns>
-        public PageDto<Clinicuser> GetPagedList(int pageIndex, int pageSize, int administrativeId, string englishName)
+        /// <returns></returns>  
+        public PageHelper<Clinicuser> GetPagedList(int pageIndex, int pageSize, int administrativeId, string englishName)
         {
-            PageDto<Clinicuser> pageList = new PageDto<Clinicuser>();
-            using (hospitaldbContext db = new hospitaldbContext())
+            hospitaldbContext db = new hospitaldbContext();
+            var pageList = new PageHelper<Clinicuser>();
+            var list = db.Clinicuser.OrderBy(p => p.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            var total = db.Clinicuser.Count();
+
+            if (administrativeId != 0)
             {
-                var list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.Aadministrativeid == administrativeId).Where(m => m.ClinicUserRemark.Contains(englishName)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                pageList.Total = list.Count();
-                pageList.PageList = list;
+                list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.Aadministrativeid == administrativeId).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = db.Clinicuser.Count(p => p.Aadministrativeid == administrativeId);
             }
+
+            if (englishName != null)
+            {
+                list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.ClinicUserRemark.Contains(englishName)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = db.Clinicuser.Count(p => p.ClinicUserRemark.Contains(englishName));
+            }
+
+            if (administrativeId != 0 && englishName != null)
+            {
+                list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.ClinicUserRemark.Contains(englishName) && p.Aadministrativeid.Equals(administrativeId)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = db.Clinicuser.Count(p => p.Aadministrativeid == administrativeId && p.ClinicUserRemark.Contains(englishName));
+            }
+
+
+            pageList.PageSizes = total;//总页数
+            pageList.PageList = list;//数据
+            pageList.PageNum = (pageList.PageSizes / pageSize);//总条数
+
             return pageList;
         }
 
@@ -85,8 +102,8 @@ namespace HR.Hospital.Repository.Clinical
         {
             using (hospitaldbContext db = new hospitaldbContext())
             {
-                var model = db.Clinicuser.FirstOrDefault(p => p.Id == id);
-                db.Clinicuser.Remove(model);
+                var user = db.Clinicuser.FirstOrDefault(p => p.Id == id);
+                if (user != null) user.IsEnable = 1;
                 return db.SaveChanges();
             }
         }
@@ -119,6 +136,7 @@ namespace HR.Hospital.Repository.Clinical
                 info.Jobnumber = model.Jobnumber; //工号
                 info.Sex = model.Sex; //性别
                 info.ClinicUserRemark = model.ClinicUserRemark; //备注
+                info.IsEnable = model.IsEnable; //状态
                 return db.SaveChanges();
             }
         }
