@@ -35,13 +35,13 @@ namespace HR.Hospital.WebApi.Controllers.OperationRooms
         /// </summary>
         /// <param name="pageIndex">当前页</param>
         /// <param name="pageSize">页面大小</param>
-        /// <param name="areaProperty">条件查询</param>
-        /// <param name="areaName">模糊查询</param>
+        /// <param name="areaId"></param>
+        /// <param name="operationName"></param>
         /// <returns></returns>
         [HttpGet("GetListOperationRoom")]
-        public PageHelper<AreaRoomDto> GetListOperationRoom(int pageIndex, int pageSize, int areaProperty, string areaName)
+        public PageHelper<AreaRoomDto> GetListOperationRoom(int pageIndex, int pageSize, int areaId=3, string operationName=null)
         {
-            var areaList = OperationRoomRepository.GetListOperationRoom(pageIndex, pageSize, areaProperty, areaName);
+            var areaList = OperationRoomRepository.GetListOperationRoom(pageIndex, pageSize, areaId, operationName);
             return areaList;
         }
 
@@ -63,7 +63,7 @@ namespace HR.Hospital.WebApi.Controllers.OperationRooms
         /// <param name="operationRoom"></param>
         /// <returns></returns>
         // POST: api/Area
-        [HttpPost]
+        [HttpPost("AddOperationRoom")]
         public int AddOperationRoom([FromBody]OperationRoom operationRoom)
         {
             var result = OperationRoomRepository.AddOperationRoom(operationRoom);

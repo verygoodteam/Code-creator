@@ -5,11 +5,141 @@
 
 <!DOCTYPE html>
 
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>IndexRoom</title>
+    <title>Index</title>
+    @*引用VUE的三个JS文件*@
+    <link href="~/css/zpageNav.css" rel="stylesheet" />
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/axios.js"></script>
+    <script src="~/js/zpageNav.js"></script>
+    <style>
+        /*表格样式设置*/
+        table, td {
+            border: 1px solid #cccccc;
+            border-collapse: collapse;
+        }
+
+        table {
+            width: 800px;
+            margin-left: 20px;
+            margin-top: 15px;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        .divArea {
+        }
+    </style>
 </head>
 <body>
+    <div class="divArea" id="divArea">
+
+        @*<span>院区属性</span>
+
+        <select id="Select1" v-model="AreaProperty">
+            <option value="1">真实</option>
+            <option value="0">虚拟</option>
+            <option value="3">=请选择=</option>
+        </select>*@
+
+
+        <span style="margin-left: 20px">手术间名称：</span><input type="text" v-model="searchOperationName" />
+        <button type="button" v-on:click="loadOperationList()">查询</button>
+        <button type="button" v-on:click="AddRoom()">添加手术间</button>
+        <table>
+            <thead>
+                <tr>
+                    <td>院区名称</td>
+                    <td>手术间名称</td>
+                    <td>备注</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in operationListList">
+                    @*<td>{{item.Id}}</td>*@
+                    <td>{{item.AreaName}}</td>
+                    <td>{{item.OperationName}}</td>
+                    <td>{{item.OperationRemark}}</td>
+                    <td>
+                        <a href="#" v-on:click="enableOperation(item.Id)">删除</a>
+                       @* <a href="#" v-on:click="updateOperation(item.Id)">修改</a>*@
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        @*分页必须使用的控件*@
+        <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
+                  v-bind:max-page="maxPage" v-on:pagehandler="loadOperationList">
+        </zpagenav>
+    </div>
+    <script>
+        //定义实例
+        var vm = new Vue({
+            el: "#divArea",
+            data: {
+                operationListList: [],//给页面提供数据
+                page: 1,//从第几页开始
+                pageSize: 2,//页面大小
+                total: 10,//总条数
+                maxPage: 9//最大页数
+            },
+            //就绪函数
+            mounted: function () {
+                this.AreaProperty = 2;
+                this.loadOperationList();
+
+            },
+            //所有的方法
+            methods: {
+                loadOperationList: function (page) {
+                    this.page = page,
+                        axios.get("/OperationRoom/IndexRoomAction",
+                            {
+                                params: {
+                                    pageIndex: page,
+                                    pageSize: this.pageSize,
+                                    areaId: this.AreaId,
+                                    operationName: this.searchOperationName
+                                }
+                            })
+                            .then((response) => {
+                                //数据
+                                this.operationListList = response.data.PageList;
+                                //每页大小
+                                this.page = response.data.PageSize;
+                                //总条数
+                                this.total = response.data.PageSizes;
+                                //总页数
+                                this.maxPage = response.data.maxPage;
+
+                            }).cache(function (error) {
+                                areaList.fetchError = error;
+                            });
+                },
+                AddRoom: function () {
+                    location.href = '/OperationRoom/AddRoom';
+                },
+                enableOperation: function (id) {
+                    if (confirm("确认删除吗?")) {
+                        location.href = '/OperationRoom/EnableOperationRoom?id=' + id;
+                    }
+                    return false;
+                },
+                updateOperation: function (id) {
+                    location.href = '/OperationRoom/UpdateOperationRoom?id=' + id;
+                }
+
+            }
+        });
+
+
+    </script>
 </body>
 </html>

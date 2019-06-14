@@ -19,9 +19,9 @@ namespace HR.Hospital.Client.Controllers.OperationRooms
         /// 显示方法
         /// </summary>
         /// <returns></returns>
-        public IActionResult IndexRoomAction()
+        public JsonResult IndexRoomAction(int pageIndex = 1, int pageSize = 2, int areaId = 3, string operationName = "")
         {
-            var result = HttpClientApi.GetAsync<List<AreaRoomDto>>("http://localhost:12345/api/OperationRoom/GetListArea");
+            var result = HttpClientApi.GetAsync<PageHelper<AreaRoomDto>>("http://localhost:12345/api/OperationRoom/GetListOperationRoom?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&areaId=" + areaId + "&operationName=" + operationName);
             return Json(result, new JsonSerializerSettings());
         }
 
@@ -47,8 +47,24 @@ namespace HR.Hospital.Client.Controllers.OperationRooms
         /// <returns></returns>
         public int AddRoomAction(Operationroom operationRoom)
         {
-            var result = HttpClientApi.PostAsync<Operationroom, int>(operationRoom, "http://localhost:12345/api/Areas/AddArea");
+            var result = HttpClientApi.PostAsync<Operationroom, int>(operationRoom, "http://localhost:12345/api/OperationRoom/AddOperationRoom");
             return result;
         }
+
+        /// <summary>
+        /// 删除手术间
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult EnableOperationRoom(int id)
+        {
+            var result = HttpClientApi.DeleteAsync<int>("http://localhost:12345/api/OperationRoom/EnableOperationRoom?id="+id);
+            return Redirect("/OperationRoom/IndexRoom");
+        }
+
+
+
+
+
     }
 }
