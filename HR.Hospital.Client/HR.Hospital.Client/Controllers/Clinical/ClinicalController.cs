@@ -5,14 +5,21 @@ using System.Threading.Tasks;
 using HR.Hospital.Client.Common;
 using HR.Hospital.Client.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace HR.Hospital.Client.Controllers.Clinical
 {
     public class ClinicalController : Controller
     {
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult PageList(int pageIndex = 1, int pageSize = 3, int administrativeId = 0, string englishName = null)
+            {
+            var list = HttpClientApi.GetAsync<PageHelper<Clinicuser>>("http://localhost:54463/api/Clinical/GetPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&Aadministrativeid=" + administrativeId + "&ClinicUserRemark=" + englishName);
+            return Json(list, new JsonSerializerSettings());
         }
 
         public IActionResult Add()

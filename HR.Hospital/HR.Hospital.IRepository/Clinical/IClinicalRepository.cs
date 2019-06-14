@@ -19,7 +19,7 @@ namespace HR.Hospital.IRepository.Clinical
         /// 分页
         /// </summary>
         /// <returns></returns>
-        PageDto<Clinicuser> GetPagedList(int pageIndex, int pageSize, int administrativeId, string englishName);
+        PageHelper<Clinicuser> GetPagedList(int pageIndex, int pageSize, int administrativeId, string englishName);
 
         /// <summary>
         /// 获取科室

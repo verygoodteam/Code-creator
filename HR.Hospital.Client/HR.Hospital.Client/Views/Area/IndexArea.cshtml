@@ -46,7 +46,6 @@
                     <td>院区名称</td>
                     <td>手术间数量</td>
                     <td>院区属性</td>
-
                     <td>备注</td>
                     <td>操作</td>
                 </tr>
@@ -56,11 +55,9 @@
                     @*<td>{{item.Id}}</td>*@
                     <td>{{item.AreaName}}</td>
                     <td>{{item.OperatingNum}}</td>
-                    <td>{{item.AreaProperty==1?"真实地区":"虚拟地区"}}</td>
-      
+                    <td>{{item.AreaProperty==1?"真实地区":"虚拟地区"}}</td> 
                     <td>{{item.AreaRemark}}</td>
                     <td> </td>
-
                 </tr>
             </tbody>
         </table>
@@ -102,8 +99,6 @@
                             }).cache(function (error) {
                                 areaList.fetchError = error;
                             });
-
-
                 },
                 addArea: function () {
                     location.href = '/Area/AddArea';
