@@ -31,14 +31,11 @@
             <tr>
                 <td>所属部门</td>
                 <td>
-                    <select id="Select1" v-model="Department">
-                        <option value="0">请选择</option>
+                    <select id="Select1" v-model="Department" >
+                        <option value="请选择">请选择</option>
                         <option value="1">胸外科室</option>
                         <option value="2">肠胃科</option>
                         <option value="3">耳喉鼻科</option>
-                        @*<option v-for="department in DepartmentList" v-bind:value="department">
-                            {{department}}
-                        </option>*@
                     </select>
                 </td>
             </tr>

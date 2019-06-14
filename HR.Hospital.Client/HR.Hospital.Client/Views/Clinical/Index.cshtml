@@ -52,23 +52,6 @@
                         <td>操作</td>
                     </tr>
                 </thead>
-                @*<tbody>
-                <tr v-for="data in user" class="data-row">
-                    <td :contenteditable="false" v-model="data.Id">{{data.id}}</td>
-                    <td :contenteditable="false" v-model="data.ClinicUserName">{{data.clinicUserName}}</td>
-                    <td :contenteditable="false" v-model="data.Sex">{{data.sex==1?"男":"女"}}</td>
-                    <td :contenteditable="false" v-model="data.Aadministrativeid">{{data.aadministrativeid}}</td>
-                    <td :contenteditable="false" v-model="data.Jobnumber">{{data.jobnumber}}</td>
-                    <td :contenteditable="false" v-model="data.ClinicUserRemark">{{data.clinicUserRemark}}</td>
-                    <td :contenteditable="false" v-model="data.IsEnable">{{data.isEnable==0?"是":"否"}}</td>
-                    <td>
-                        <div>
-                            <a href="#" v-on:click="Update(data.Id)">编辑</a> |
-                            <a href="/clinical/delete" v-on:click="delete(data.Id)">删除</a>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>*@
                 <tbody>
                 <tr v-for="data in userList">
                     <td>{{data.id}}</td>
@@ -115,13 +98,13 @@
                     axios.get("/Clinical/PageList", { params: { pageIndex: page, pageSize: this.pageSize, administrativeId: this.department, englishName: this.name } })
                     .then((response) => {
 
-                        alert(response.data.PageList);
+                        console.log(response.pageList);
                             //数据
-                        this.userList = response.data.PageList;
+                        this.userList = response.data.pageList;
                             //每页大小
-                            this.page = response.data.PageSize;
+                            this.page = response.data.pageSize;
                             //总条数
-                            this.total = response.data.PageSizes;
+                            this.total = response.data.pageSizes;
                             //总页数
                             this.maxPage = response.data.maxPage;
 
@@ -130,19 +113,8 @@
                         });
             },
 
-            delete: function(id) {
-                axios.post('@Url.Action("Delete", "Clinical")', { id: id }).then(
-                    (response) => {
-                        if (response.data > 0) {
-                            this.getAllUser(this.cur);
-                        }
-                    },
-                    (response) => {
-                        alert(response.status);
-                    }
-                ).catch(function(response) {
-                    alert(response);
-                });
+            delete: function (id) {
+                location.href = '/Clinical/Delete?id=' + id;
             }
         }
     })
