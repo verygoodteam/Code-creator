@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using HR.Hospital.Common;
 using HR.Hospital.IRepository.Areas;
 using HR.Hospital.Model;
@@ -103,7 +100,7 @@ namespace HR.Hospital.Repository.Areas
                 firstOrDefault.AreaName = area.AreaName;
                 firstOrDefault.AreaProperty = area.AreaProperty;
                 firstOrDefault.AreaRemark = area.AreaRemark;
-                firstOrDefault.Isnable = area.Isnable;
+                firstOrDefault.Isnable = 0;
                 firstOrDefault.OperatingNum = area.OperatingNum;
             }
             var result = _context.SaveChanges();

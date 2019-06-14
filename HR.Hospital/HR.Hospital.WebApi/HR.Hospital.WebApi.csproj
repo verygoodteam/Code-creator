@@ -20,6 +20,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,13 +33,13 @@
 
   <ItemGroup>
     <Reference Include="ServiceStack">
-      <HintPath>..\..\HR.Hospital.Client\HR.Hospital.Cache\bin\Debug\netcoreapp2.1\ServiceStack.dll</HintPath>
+      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces">
-      <HintPath>..\..\HR.Hospital.Client\HR.Hospital.Cache\bin\Debug\netcoreapp2.1\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
-      <HintPath>D:\小实训2\Uiltity\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
   </ItemGroup>
 

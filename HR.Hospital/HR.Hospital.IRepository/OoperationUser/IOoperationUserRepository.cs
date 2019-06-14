@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using HR.Hospital.Common;
+﻿using System.Collections.Generic;
 using HR.Hospital.Model;
+using Ooperationuser = HR.Hospital.Model.Dto.Ooperationuserview;
 
 namespace HR.Hospital.IRepository.OoperationUser
 {
@@ -36,7 +34,7 @@ namespace HR.Hospital.IRepository.OoperationUser
         /// <param name="name"></param>
         /// <param name="englishname"></param>
         /// <returns></returns>
-        List<Common.Ooperationuser> ShowOoperationUser(int hierarchyid = 0, string name = "", string englishname = "");
+        List<Ooperationuser> ShowOoperationUser(int hierarchyid = 0, string name = "", string englishname = "");
         
         /// <summary>
         /// 能级下拉

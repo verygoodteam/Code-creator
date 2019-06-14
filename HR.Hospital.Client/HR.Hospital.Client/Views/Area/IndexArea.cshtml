@@ -37,7 +37,17 @@
 </head>
 <body>
     <div class="divArea" id="divArea">
-        <span style=" margin-left: 20px">姓名：</span><input type="text" v-model="searchAreaName" />
+
+        <span>院区属性</span>
+
+        <select id="Select1" v-model="AreaProperty">
+            <option value="1">真实</option>
+            <option value="0">虚拟</option>
+            <option value="3">=请选择=</option>
+        </select>
+
+
+        <span style="margin-left: 20px">姓名：</span><input type="text" v-model="searchAreaName" />
         <button type="button" v-on:click="loadAreaList()">查询</button>
         <button type="button" v-on:click="addArea()">添加院区</button>
         <table>
@@ -59,7 +69,7 @@
                     <td>{{item.AreaRemark}}</td>
                     <td>
                         <a href="#" v-on:click="enableArea(item.Id)">删除</a>
-                        <a href="#">修改</a>
+                        <a href="#" v-on:click="updateArea(item.Id)">修改</a>
                     </td>
 
                 </tr>
@@ -83,7 +93,9 @@
             },
             //就绪函数
             mounted: function () {
+                this.AreaProperty = 3;
                 this.loadAreaList();
+               
             },
             //所有的方法
             methods: {
@@ -94,7 +106,7 @@
                                 params: {
                                     pageIndex: page,
                                     pageSize: this.pageSize,
-                                    areaProperty: 3,
+                                    areaProperty: this.AreaProperty,
                                     areaName: this.searchAreaName
                                 }
                             })
@@ -117,6 +129,9 @@
                 },
                 enableArea: function (id) {
                     location.href = '/Area/EnableArea?id=' + id;
+                },
+                updateArea: function (id) {
+                    location.href = '/Area/UpdateArea?id=' + id;
                 }
 
             }

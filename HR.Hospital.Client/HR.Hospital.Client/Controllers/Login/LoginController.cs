@@ -32,7 +32,7 @@ namespace HR.Hospital.Client.Controllers
             {
                 return BadRequest(errorMessage);
             }
-            var tmpUser = Common.HttpClientApi.GetAsync<List<Models.Ooperationuser>>("https://localhost:44390/api/Login/Post").FirstOrDefault(m => m.OoperationUserName == ooperationuser.OoperationUserName && m.Pwd == ooperationuser.Pwd);
+            var tmpUser = Common.HttpClientApi.GetAsync<List<Models.Ooperationuser>>("https://localhost:44390/api/Login").FirstOrDefault(m => m.OoperationUserName == ooperationuser.OoperationUserName && m.Pwd == ooperationuser.Pwd);
             if (tmpUser?.Pwd != ooperationuser.Pwd)
             {
                 return BadRequest(errorMessage);
@@ -51,7 +51,7 @@ namespace HR.Hospital.Client.Controllers
                 return Redirect(returnUrl);
             }
 
-            return RedirectToAction(nameof(LoginController.Login), "Home");
+            return RedirectToAction(nameof(HomeController.MainIndex), "Home");
 
         }
 
@@ -62,7 +62,7 @@ namespace HR.Hospital.Client.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction(nameof(LoginController.Login), "Account");
+            return RedirectToAction(nameof(LoginController.Login), "Login");
         }
     }
 }

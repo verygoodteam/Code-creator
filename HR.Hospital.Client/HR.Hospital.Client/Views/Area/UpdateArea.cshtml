@@ -8,14 +8,15 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>院区</title>
+    <title></title>
+    <link href="~/css/zpageNav.css" rel="stylesheet" />
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
     <script src="~/js/zpageNav.js"></script>
 </head>
 <body>
-
-    <div id="addArea">
+    <div id="updateArea">
+        <input id="Hidden1" type="hidden" value="@ViewBag.Id" />
         <table>
             <tr>
                 <td>院区名称</td>
@@ -39,34 +40,42 @@
                 <td><input type="text" v-model="AreaRemark" /></td>
             </tr>
         </table>
-        <button type="button" v-on:click="saveArea()">添加</button>
+        <button type="button" v-on:click="saveUpdateArea()">修改</button>
+        <button type="button" v-on:click="returnIndex()">返回</button>
     </div>
 </body>
 </html>
 <script>
-    //定义实例
     var vm = new Vue({
-        //钩子函数
-        el: "#addArea",
-        //定义变量
+        el: "#updateArea",
         data: {
             AreaName: "",
             OperatingNum: "",
             AreaProperty: "",
-            AreaRemark: ""
+            AreaRemark: "",
+            Id: @ViewBag.Id
         },
-        //定义方法就绪函数
-        mounted: function () {
-            this.AreaProperty = 1;
+        mounted: function() {
+            this.UpdateArea(@ViewBag.Id);
         },
-        //所有的方法
         methods: {
-            saveArea: function () {
-                if (this.AreaName == "") {
+            UpdateArea: function(id) {
+                axios.get("/Area/AreaJson", { params: { id: id } }).then((response) => {
+                    if (response.data != null) {
+                        //alert(response.data.toString());
+                        this.AreaName = response.data.AreaName;
+                        this.OperatingNum = response.data.OperatingNum;
+                        this.AreaProperty = response.data.AreaProperty;
+                        this.AreaRemark = response.data.AreaRemark;
+                    }
+                });
+            },
+            saveUpdateArea: function() {
+                if (this.AreaName === "") {
                     alert("院区名称不能为空");
                     return false;
                 }
-                if (this.AreaRemark == "") {
+                if (this.AreaRemark === "") {
                     alert("院区备注不能为空");
                     return false;
                 }
@@ -76,15 +85,22 @@
                 area.append('OperatingNum', this.OperatingNum);
                 area.append('AreaProperty', this.AreaProperty);
                 area.append('AreaRemark', this.AreaRemark);
-                axios.post("/Area/AddAreaAction", area)
+                area.append('Id', this.Id);
+
+                axios.post("/Area/UpdateAreaAction", area)
                     .then((response) => {
                         if (response.data > 0) {
-                            alert("添加成功");
+                            alert("修改成功");
+                            location.href = '/Area/IndexArea';
                         }
                         return false;
-                    }).catch(function (response) {
+                    }).catch(function(response) {
                         alert(response);
                     });
+                return false;
+            },
+            returnIndex: function() {
+                location.href = '/Area/IndexArea';
             }
         }
     })
