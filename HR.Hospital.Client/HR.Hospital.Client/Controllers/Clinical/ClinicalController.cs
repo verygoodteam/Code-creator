@@ -68,8 +68,18 @@ namespace HR.Hospital.Client.Controllers.Clinical
         /// <returns></returns>
         public ActionResult Update(int id)
         {
+            ViewBag.Id=id;
+            return View();
+        }
+
+        /// <summary>
+        /// 获取单条数据
+        /// </summary>
+        /// <returns></returns>
+        public Clinicuser UpdateData(int id)
+        {
             var list = HttpClientApi.GetAsync<Clinicuser>("http://localhost:12345/api/clinical/GetModel?id=" + id);
-            return View(list);
+            return list;
         }
 
         /// <summary>
@@ -78,7 +88,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Update(Clinicuser model)
+        public ActionResult UpdateClinical(Clinicuser model)
         {
             var i = HttpClientApi.PutAsync<Clinicuser,int>(model, "http://localhost:12345/api/clinical/update");
             return Redirect("/Clinical/Index");

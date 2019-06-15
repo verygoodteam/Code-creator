@@ -14,6 +14,7 @@
 </head>
 <body>
     <div id="app">
+        <input id="Hidden1" type="hidden" value="@ViewBag.Id" />
         <table class="table table-bordered">
             <tr>
                 <td>姓名</td>
@@ -53,7 +54,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td>                 
+                <td>
                     <button type="button" v-on:click="addUser(Name,Sex,Department,JobNum,EngName)">保存</button>
                     <button type="button" v-on:click="back()">返回</button>
                 </td>
@@ -68,18 +69,23 @@
                 Sex: "",
                 Department: "请选择",
                 JobNum: "",
-                EngName: ""
+                EngName: "",
+                id:@ViewBag.Id
             },
             mounted() {
-                this.getUser();
+                this.getUser(@ViewBag.Id);
             },
             methods: {
-                getUser: function() {
-                    this.Name = 1;
-                    this.Sex = 1;
-                    this.Department = 1;
-                    this.Name = 1;
-                    this.Sex = 1;
+                getUser: function(id) {
+                    axios.get("/UpdateData/Clinical",
+                        {
+                             params: { id: id }
+                        }).then((response) => {
+                        this.Name = response.data.ClinicUserName;
+                        this.Sex = response.data.Sex;
+                        this.JobNum = response.data.Jobnumber;
+                        this.EngName = response.data.ClinicUserRemark;
+                    });
                 },
 
                 addUser: function(name, sex, department, jobNum, engName) {
@@ -98,8 +104,8 @@
                     model.append('Jobnumber', this.JobNum);
                     model.append('ClinicUserRemark', this.EngName);
 
-                    axios.post('@Url.Action("Add", "Clinical")',
-                        model).then((response) => { alert("添加成功"); },
+                    axios.post('@Url.Action("UpdateClinical", "Clinical")',
+                        model).then((response) => { alert("编辑成功"); },
                         (response) => {
                             alert(response.status);
                         }

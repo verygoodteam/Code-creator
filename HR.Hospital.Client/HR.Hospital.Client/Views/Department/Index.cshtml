@@ -14,6 +14,8 @@
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
     <script src="~/js/zpageNav.js"></script>
+    
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
     <style>
         table, td {
@@ -44,7 +46,7 @@
             <span style="margin-left: 20px">科室名称：</span><input type="text" v-model="name" />
             <button type="button" v-on:click="getUser(department,name)">查询</button>
             <button type="button" v-on:click="addUser()">添加</button>
-            <table>
+            <table css="table table-bordered">
                 <thead>
                     <tr>
                         <td>序号</td>
