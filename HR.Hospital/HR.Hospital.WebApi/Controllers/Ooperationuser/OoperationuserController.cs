@@ -1,5 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using HR.Hospital.Model;
+using HR.Hospital.Common;
+using HR.Hospital.IRepository;
 using HR.Hospital.IRepository.OoperationUser;
 
 namespace HR.Hospital.WebApi.Controllers.Ooperationuser
@@ -71,6 +78,22 @@ namespace HR.Hospital.WebApi.Controllers.Ooperationuser
         {
             var InsertOoperationusers = iooperuser.AddOoperationUser(operuser);
             return InsertOoperationusers;
+        }
+
+        //手术室用户返填
+        [HttpGet("RefillUsers")]
+        public Model.Ooperationuser RefillUsers(int id)
+        {
+            var Refill = iooperuser.RefillUser(id);
+            return Refill;
+        }
+
+        //手术室用户修改
+        [HttpPost("UpdateOoperationuser")]
+        public int UpdateOoperationuser([FromBody]Model.Ooperationuser operuser)
+        {
+            var UpdateOoperationusers = iooperuser.UpdateOoperationUser(operuser);
+            return UpdateOoperationusers;
         }
 
     }

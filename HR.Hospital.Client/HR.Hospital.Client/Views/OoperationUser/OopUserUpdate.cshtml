@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>手术室用户</title>
+    <title>手术室用户编辑</title>
     <script src="~/js/jquery-3.3.1.js"></script>
     <script src="~/js/Scripts/vue.js"></script>
     <script src="~/js/Scripts/axios.js"></script>
@@ -16,6 +16,7 @@
 </head>
 <body>
     <div id="app">
+        <input id="Hidden1" type="hidden" value="@ViewBag.id" />
         <p>
             主管：<select id="SelectUser" v-model="userid">
                 <option value="0">--请选择--</option>
@@ -101,7 +102,7 @@
             //角色
             Roledata: [],
 
-            //添加字段
+            //绑定字段字段
             userid: 0, account: "",
             professionalId: 0, sex: 0,
             pwd: "", isarrange: 0,
@@ -110,9 +111,11 @@
             positionId: 0, jobnumber: "",
             hierarchyId: 0, workage: "",
             annualdays: "", grade: "",
-            ooperationUserRemark: ""
+            ooperationUserRemark: "",
+            id:@ViewBag.id
 
         },
+
         //显示
         mounted() {
             //能级显示
@@ -125,8 +128,38 @@
             this.GetUser();
             //角色显示
             this.GetRole();
+            //回显
+            this.Refill(@ViewBag.id);
         },
         methods: {
+
+            //返填
+            Refill: function (id) {
+                axios.get('http://localhost:12345/api/Ooperationuser/RefillUsers?id=' + id).then(
+                    (response) => {
+                        if (response.data != null) {
+                            this.userid = response.data.userid;
+                            this.account = response.data.account;
+                            this.professionalId = response.data.professionalId;
+                            this.sex = response.data.sex;
+                            this.pwd = response.data.pwd;
+                            this.isarrange = response.data.isarrange;
+                            this.simplename = response.data.simplename;
+                            this.roleid = response.data.roleid;
+                            this.ooperationUserName = response.data.ooperationUserName;
+                            this.positionId = response.data.positionId;
+                            this.jobnumber = response.data.jobnumber;
+                            this.hierarchyId = response.data.hierarchyId;
+                            this.workage = response.data.workage;
+                            this.annualdays = response.data.annualdays;
+                            this.grade = response.data.grade;
+                            this.ooperationUserRemark = response.data.ooperationUserRemark;
+                            this.id = response.data.id;
+                            this.phone = response.data.phone;
+                        }
+                    }
+                )
+            },
 
             //能级下拉
             GetHierarchie: function () {
@@ -173,7 +206,7 @@
                 )
             },
 
-            //添加
+            //修改
             Determine: function () {
                 if (this.ooperationUserName == "") {
                     alert("姓名不能为空");
@@ -222,10 +255,11 @@
                 params.append("Annualdays", this.annualdays);
                 params.append("Grade", this.grade);
                 params.append("ooperationUserRemark", this.ooperationUserRemark);
-                axios.post('/OoperationUser/OopUserAdds', params).then(
+                params.append("Id", @ViewBag.id);
+                axios.post('/OoperationUser/OopUserUpdates', params).then(
                     (response) => {
                         if (response.data > 0) {
-                            alert("添加成功");
+                            alert("修改成功");
                         }
                         return false;
                     }
