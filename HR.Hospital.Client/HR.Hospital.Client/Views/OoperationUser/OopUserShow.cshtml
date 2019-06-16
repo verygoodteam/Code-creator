@@ -22,7 +22,7 @@
             <option v-for="data in listdata" :value="data.id">{{data.hierarchyName}}</option>
         </select> &nbsp;&nbsp;&nbsp;
         <input id="Text1" type="text" />&nbsp;&nbsp;<input id="Button1" type="button" value="查找" v-on:click="GetooperUser()" />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input id="Button1" type="button" value="添加" v-on:click="Add()"/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input id="Button1" type="button" value="添加" v-on:click="Add()" />
         <table class="table table-bordered">
             <tr>
                 <td>工号</td>
@@ -74,7 +74,7 @@
             GetooperUser: function () {
                 var hierarchyid = $("#Select1").val();
                 var txtname = $("#Text1").val();
-                axios.get('http://localhost:53775/api/Ooperationuser/GetOoperuser?hierarchyid=' + hierarchyid + '&name=' + txtname + '&englishname=' + txtname).then(
+                axios.get('http://localhost:12345/api/Ooperationuser/GetOoperuser?hierarchyid=' + hierarchyid + '&name=' + txtname + '&englishname=' + txtname).then(
                     (response) => {
                         this.ooperuser = response.data;
                     }
@@ -83,7 +83,7 @@
 
             //能级下拉
             GetHierarchie: function () {
-                axios.get('http://localhost:53775/api/Ooperationuser/GetHierarchie').then(
+                axios.get('http://localhost:12345/api/Ooperationuser/GetHierarchie').then(
                     (response) => {
                         this.listdata = response.data;
                     }
@@ -93,6 +93,11 @@
             //添加跳转
             Add: function () {
                 location.href = '/OoperationUser/OopUserAdd';
+            },
+
+            //编辑跳转
+            Edit: function (id) {
+                location.href = '/OoperationUser/OopUserUpdate?id=' + id;
             }
         }
     })

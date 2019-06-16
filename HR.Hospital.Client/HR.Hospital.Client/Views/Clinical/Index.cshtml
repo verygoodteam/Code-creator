@@ -14,7 +14,7 @@
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
     <script src="~/js/zpageNav.js"></script>
-
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <style>
         table, td {
             border: 1px solid #cccccc;
@@ -45,7 +45,7 @@
             <span style="margin-left: 20px">姓名：</span><input type="text" v-model="name" />
             <button type="button" v-on:click="getUser(department,name)">查询</button>
             <button type="button" v-on:click="addUser()">添加</button>
-            <table>
+            <table css="table table-bordered">
                 <thead>
                     <tr>
                         <td>序号</td>
@@ -112,15 +112,9 @@
                                  }
                             })
                     .then((response) => {
-
-                        console.log(response.pageList);
-                            //数据
                             this.userList = response.data.pageList;
-                            //每页大小
                             this.page = response.data.pageSize;
-                            //总条数
                             this.total = response.data.pageSizes;
-                            //总页数
                             this.maxPage = response.data.maxPage;
 
                         }).cache(function (error) {
