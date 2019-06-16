@@ -44,10 +44,10 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// 获取科室
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetAdminList")]
-        public List<Administrative> GetAdminList()
+        [HttpGet("GetDepartment")]
+        public List<Administrative> GetDepartment()
         {
-            var list = _clinicalRepository.GetAdminList();
+            var list = _clinicalRepository.GetDepartment();
             return list;
         }
 

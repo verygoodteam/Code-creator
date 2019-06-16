@@ -18,7 +18,7 @@ namespace HR.Hospital.IRepository.Clinical
         /// 获取科室
         /// </summary>
         /// <returns></returns>
-        List<Administrative> GetAdminList();
+        List<Administrative> GetDepartment();
 
         /// <summary>
         /// 添加

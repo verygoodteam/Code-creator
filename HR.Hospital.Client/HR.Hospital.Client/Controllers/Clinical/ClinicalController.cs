@@ -58,7 +58,6 @@ namespace HR.Hospital.Client.Controllers.Clinical
         /// <returns></returns>
         public ActionResult Enable(int id)
         {
-            return View();
             var i = HttpClientApi.DeleteAsync<int>("http://localhost:12345/api/clinical/enable?id=" + id);
             return Redirect("/Clinical/Index");
         }

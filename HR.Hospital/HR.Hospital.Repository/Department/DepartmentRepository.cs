@@ -20,19 +20,19 @@ namespace HR.Hospital.Repository.Department
             var pageList = new PageHelper<Administrative>();
             var list = db.Administrative.OrderBy(p => p.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             var total = db.Administrative.Count();
-
+            //根据是否为手术间查询
             if (isOperation != 0)
             {
                 list = db.Administrative.OrderBy(p => p.Id).Where(p => p.Isoperation == isOperation).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
                 total = db.Administrative.Count(p => p.Isoperation == isOperation);
             }
-
+            //根据科室名称查询
             if (name != null)
             {
                 list = db.Administrative.OrderBy(p => p.Id).Where(p => p.AdministrativeName.Contains(name)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
                 total = db.Administrative.Count(p => p.AdministrativeName.Contains(name));
             }
-
+            //双条件查询
             if (isOperation != 0 && name != null)
             {
                 list = db.Administrative.OrderBy(p => p.Id).Where(p =>p.Isoperation.Equals(isOperation) && p.AdministrativeName.Contains(name)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
@@ -113,7 +113,6 @@ namespace HR.Hospital.Repository.Department
                 info.AdministrativeName = model.AdministrativeName; //名称
                 info.Isoperation = model.Isoperation;        //是否为手术间
                 info.AdministrativeRemark = model.AdministrativeRemark; //备注
-                info.IsEnable = model.IsEnable; //是否启用
                 return db.SaveChanges();
             }
         }
