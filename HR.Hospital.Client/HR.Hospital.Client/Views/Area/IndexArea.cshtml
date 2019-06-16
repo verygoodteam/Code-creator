@@ -14,6 +14,7 @@
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
     <script src="~/js/zpageNav.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <style>
         /*表格样式设置*/
         table, td {
@@ -37,10 +38,10 @@
 </head>
 <body>
     <div class="divArea" id="divArea">
+        <br/>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>  <span>院区属性</span>
 
-        <span>院区属性</span>
-
-        <select id="Select1" v-model="AreaProperty">
+        <select id="Select1" v-model="AreaProperty"  >
             <option value="1">真实</option>
             <option value="0">虚拟</option>
             <option value="3">=请选择=</option>
@@ -48,9 +49,9 @@
 
 
         <span style="margin-left: 20px">姓名：</span><input type="text" v-model="searchAreaName" />
-        <button type="button" v-on:click="loadAreaList()">查询</button>
-        <button type="button" v-on:click="addArea()">添加院区</button>
-        <table>
+        <button type="button" v-on:click="loadAreaList()" class="btn btn-danger">查询</button>
+        <button type="button" v-on:click="addArea()" class="btn btn-default">添加院区</button>
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <td>院区名称</td>
@@ -114,11 +115,11 @@
                                 //数据
                                 this.areaList = response.data.PageList;
                                 //每页大小
-                                this.page = response.data.PageSize;
+                                this.page = response.data.PageIndex;
                                 //总条数
                                 this.total = response.data.PageSizes;
                                 //总页数
-                                this.maxPage = response.data.maxPage;
+                                this.maxPage = response.data.PageNum;
 
                             }).cache(function (error) {
                                 areaList.fetchError = error;

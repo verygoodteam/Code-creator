@@ -1,0 +1,89 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>修改手术间信息</title>
+    <link href="~/css/zpageNav.css" rel="stylesheet" />
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/axios.js"></script>
+    <script src="~/js/zpageNav.js"></script>
+</head>
+<body>
+
+    <div id="updateRoom">
+        <input id="Hidden1" type="hidden" value="@ViewBag.Id" />
+        <table>
+            <tr>
+                <td>院区名称</td>
+                <td>
+                    <select v-model="AreaId">
+                        <option v-for="item in areaList" selected="selected" v-if="item.Id==AreaId" :value="item.Id">{{item.AreaName}}</option>
+                        <option v-else :value="item.Id">{{item.AreaName}}</option>
+                        @*<option v-for="item in areaList" value={{item.Id}}>{{item.AreaName}}</option>*@
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>手术间名称</td>
+                <td><input type="text" v-model="OperationName" /></td>
+            </tr>
+            <tr>
+                <td>备注</td>
+
+                <td>
+                    <input type="text" v-model="OperationRemark" />
+                </td>
+            </tr>
+        </table>
+        <button type="button" v-on:click="saveRoom()">添加</button>
+        <button type="button" v-on:click="returnRoomIndex()">返回</button>
+    </div>
+</body>
+</html>
+<script>
+    var vm = new Vue({
+        el: "#updateRoom",
+        data: {
+            AreaId: "",
+            OperationName: "",
+            OperationRemark: "",
+            areaList: []
+        },
+        mounted: function () {
+            this.getAreaList();
+            this.getRoomData(@ViewBag.Id);
+        },
+        methods: {
+               getAreaList:  function () {
+                    axios.get("/OperationRoom/GetListArea")
+                    .then((response) => {
+
+                        if (response.data != null) {
+                            //alert(response.data);
+                            this.areaList = response.data;
+                            //alert(this.areaList);
+                        }
+                    }).cache(function (error) {
+                        areaList.fetchError = error;
+                    });;
+            },
+            getRoomData:  function (id) {
+                alert(id);
+                axios.get("/OperationRoom/OperationRoomAction", { params: { id: id } })
+                    .then((response) => {
+                        if (response.data != null) {
+                            this.AreaId = response.data.AreaId;
+                            this.OperationName = response.data.OperationName;
+                            this.OperationRemark = response.data.OperationRemark;
+                        }
+                    });
+            }
+        }
+    })
+</script>
