@@ -29,14 +29,14 @@ namespace HR.Hospital.Repository.Clinical
 
             if (englishName != null)
             {
-                list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.ClinicUserRemark.Contains(englishName)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                total = db.Clinicuser.Count(p => p.ClinicUserRemark.Contains(englishName));
+                list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.ClinicUserName.Contains(englishName)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = db.Clinicuser.Count(p => p.ClinicUserName.Contains(englishName));
             }
 
             if (administrativeId != 0 && englishName != null)
             {
-                list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.ClinicUserRemark.Contains(englishName) && p.Aadministrativeid.Equals(administrativeId)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                total = db.Clinicuser.Count(p => p.Aadministrativeid == administrativeId && p.ClinicUserRemark.Contains(englishName));
+                list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.ClinicUserName.Contains(englishName) && p.Aadministrativeid.Equals(administrativeId)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = db.Clinicuser.Count(p => p.Aadministrativeid == administrativeId && p.ClinicUserName.Contains(englishName));
             }
 
             pageList.PageSizes = total;//总页数

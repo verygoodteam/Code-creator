@@ -19,24 +19,24 @@ namespace HR.Hospital.Repository.Department
             hospitaldbContext db = new hospitaldbContext();
             var pageList = new PageHelper<Administrative>();
             var list = db.Administrative.OrderBy(p => p.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-            var total = db.Clinicuser.Count();
+            var total = db.Administrative.Count();
 
             if (isOperation != 0)
             {
                 list = db.Administrative.OrderBy(p => p.Id).Where(p => p.Isoperation == isOperation).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                total = db.Clinicuser.Count(p => p.Aadministrativeid == isOperation);
+                total = db.Administrative.Count(p => p.Isoperation == isOperation);
             }
 
             if (name != null)
             {
                 list = db.Administrative.OrderBy(p => p.Id).Where(p => p.AdministrativeName.Contains(name)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                total = db.Clinicuser.Count(p => p.ClinicUserRemark.Contains(name));
+                total = db.Administrative.Count(p => p.AdministrativeName.Contains(name));
             }
 
             if (isOperation != 0 && name != null)
             {
                 list = db.Administrative.OrderBy(p => p.Id).Where(p =>p.Isoperation.Equals(isOperation) && p.AdministrativeName.Contains(name)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                total = db.Clinicuser.Count(p => p.Aadministrativeid == isOperation && p.ClinicUserRemark.Contains(name));
+                total = db.Administrative.Count(p => p.Isoperation == isOperation && p.AdministrativeName.Contains(name));
             }
             
             pageList.PageSizes = total;//总页数

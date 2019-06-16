@@ -38,8 +38,8 @@
     <div id="app">
         <div class="divClinical" id="divClinical">
             <span style=" margin-left: 20px">是否为手术间：</span>
-            <select id="Select1" v-model="Department">
-                <option value="全部">全部</option>
+            <select id="Select1" v-model="department">
+                <option value="0">全部</option>
                 <option value="1">是</option>
                 <option value="2">否</option>
             </select>
@@ -87,11 +87,13 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            userList: [],//数据
-            page: 1,//起始页
-            pageSize: 3,//页面数据
-            total: 10,//总条数
-            maxPage: 9//最大页数
+            userList: [], //数据
+            page: 1, //起始页
+            pageSize: 3, //页面数据
+            total: 10, //总条数
+            maxPage: 9, //最大页数
+            department: 0,
+            name:""
         },
         mounted() {
             this.getUser();

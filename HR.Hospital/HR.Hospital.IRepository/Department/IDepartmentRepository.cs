@@ -12,8 +12,7 @@ namespace HR.Hospital.IRepository.Department
         /// 分页查询
         /// </summary>
         /// <returns></returns>  
-        PageHelper<Administrative> GetPagedList(int pageIndex, int pageSize, int administrativeId,
-            string englishName);
+        PageHelper<Administrative> GetPagedList(int pageIndex, int pageSize, int isOperation, string name);
 
 
         /// <summary>

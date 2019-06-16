@@ -38,7 +38,7 @@
     <div id="app">
         <div class="divClinical" id="divClinical">
             <span style="margin-left: 20px">姓名：</span><input type="text" v-model="name" />
-            <button type="button" v-on:click="getUser(department,name)">查询</button>
+            <button type="button" v-on:click="getUser()">查询</button>
             <button type="button" v-on:click="addUser()">添加</button>
             <table css="table table-bordered">
                 <thead>
@@ -88,7 +88,8 @@
             page: 1,//起始页
             pageSize: 3,//页面数据
             total: 10,//总条数
-            maxPage: 9//最大页数
+            maxPage: 9,//最大页数
+            name:""
         },
         mounted() {
             this.getUser();

@@ -11,6 +11,7 @@
     <title>Add</title>
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 </head>
 <body>
     <div id="app">
@@ -32,7 +33,7 @@
                 <td>所属部门</td>
                 <td>
                     <select id="Select1" v-model="Department" >
-                        <option value="请选择">请选择</option>
+                        <option value="0">请选择</option>
                         <option value="1">胸外科室</option>
                         <option value="2">肠胃科</option>
                         <option value="3">耳喉鼻科</option>
@@ -66,7 +67,7 @@
             data: {
                 Name: "",
                 Sex: "",
-                Department: "请选择",
+                Department: 0,
                 JobNumber: "",
                 EnglishName: ""
             },

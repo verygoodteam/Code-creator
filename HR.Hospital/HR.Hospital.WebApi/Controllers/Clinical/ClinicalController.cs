@@ -33,7 +33,7 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetPagedList")]
-        public PageHelper<Clinicuser> GetPagedList(int pageIndex=1, int pageSize=3, int administrativeId=0, string englishName=null)
+        public PageHelper<Clinicuser> GetPagedList(int pageIndex=1, int pageSize=3, int administrativeId=0, string englishName="")
         {
             var list = _clinicalRepository.GetPagedList(pageIndex, pageSize, administrativeId, englishName);
             return list;
