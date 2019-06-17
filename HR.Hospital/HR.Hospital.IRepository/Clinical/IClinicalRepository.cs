@@ -18,7 +18,7 @@ namespace HR.Hospital.IRepository.Clinical
         /// 获取科室
         /// </summary>
         /// <returns></returns>
-        List<Administrative> GetAdminList();
+        List<Administrative> GetDepartment();
 
         /// <summary>
         /// 添加
@@ -50,6 +50,5 @@ namespace HR.Hospital.IRepository.Clinical
         /// </summary>
         /// <param name="model"></param>
         int Update(Clinicuser model);
-
     }
 }

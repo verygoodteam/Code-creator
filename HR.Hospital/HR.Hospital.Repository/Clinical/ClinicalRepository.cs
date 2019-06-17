@@ -20,23 +20,23 @@ namespace HR.Hospital.Repository.Clinical
             var pageList = new PageHelper<Clinicuser>();
             var list = db.Clinicuser.OrderBy(p => p.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             var total = db.Clinicuser.Count();
-
+            //根据科室查询
             if (administrativeId != 0)
             {
                 list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.Aadministrativeid == administrativeId).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
                 total = db.Clinicuser.Count(p => p.Aadministrativeid == administrativeId);
             }
-
+            //根据人员名称查询
             if (englishName != null)
             {
-                list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.ClinicUserRemark.Contains(englishName)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                total = db.Clinicuser.Count(p => p.ClinicUserRemark.Contains(englishName));
+                list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.ClinicUserName.Contains(englishName)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = db.Clinicuser.Count(p => p.ClinicUserName.Contains(englishName));
             }
-
+            //双条件查询
             if (administrativeId != 0 && englishName != null)
             {
-                list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.ClinicUserRemark.Contains(englishName) && p.Aadministrativeid.Equals(administrativeId)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                total = db.Clinicuser.Count(p => p.Aadministrativeid == administrativeId && p.ClinicUserRemark.Contains(englishName));
+                list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.ClinicUserName.Contains(englishName) && p.Aadministrativeid.Equals(administrativeId)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = db.Clinicuser.Count(p => p.Aadministrativeid == administrativeId && p.ClinicUserName.Contains(englishName));
             }
 
             pageList.PageSizes = total;//总页数
@@ -50,7 +50,7 @@ namespace HR.Hospital.Repository.Clinical
         /// 获取科室
         /// </summary>
         /// <returns></returns>
-        public List<Administrative> GetAdminList()
+        public List<Administrative> GetDepartment()
         {
             using (hospitaldbContext db = new hospitaldbContext())
             {
@@ -128,11 +128,8 @@ namespace HR.Hospital.Repository.Clinical
                 info.Jobnumber = model.Jobnumber; //工号
                 info.Sex = model.Sex; //性别
                 info.ClinicUserRemark = model.ClinicUserRemark; //备注
-                info.IsEnable = model.IsEnable; //状态
                 return db.SaveChanges();
             }
         }
-
-
     }
 }

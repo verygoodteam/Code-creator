@@ -20,13 +20,11 @@ namespace HR.Hospital.IRepository.Group
         /// <param name="model"></param>
         int Add(Professionalgroup model);
 
-
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="id"></param>
         int Delete(int id);
-
 
         /// <summary>
         /// 获取单条数据
@@ -35,12 +33,10 @@ namespace HR.Hospital.IRepository.Group
         /// <returns></returns>
         Professionalgroup GetModel(int id);
 
-
         /// <summary>
         /// 编辑
         /// </summary>
         /// <param name="model"></param>
         int Update(Professionalgroup model);
-
     }
 }

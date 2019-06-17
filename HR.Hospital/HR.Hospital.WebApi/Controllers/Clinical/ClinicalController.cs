@@ -33,7 +33,7 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetPagedList")]
-        public PageHelper<Clinicuser> GetPagedList(int pageIndex=1, int pageSize=3, int administrativeId=0, string englishName=null)
+        public PageHelper<Clinicuser> GetPagedList(int pageIndex=1, int pageSize=3, int administrativeId=0, string englishName="")
         {
             var list = _clinicalRepository.GetPagedList(pageIndex, pageSize, administrativeId, englishName);
             return list;
@@ -44,10 +44,10 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// 获取科室
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetAdminList")]
-        public List<Administrative> GetAdminList()
+        [HttpGet("GetDepartment")]
+        public List<Administrative> GetDepartment()
         {
-            var list = _clinicalRepository.GetAdminList();
+            var list = _clinicalRepository.GetDepartment();
             return list;
         }
 

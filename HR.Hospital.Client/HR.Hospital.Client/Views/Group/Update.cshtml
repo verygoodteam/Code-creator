@@ -11,86 +11,128 @@
     <title>Update</title>
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+    <style>
+        table, td {
+            border: 1px solid #cccccc;
+            border-collapse: collapse;
+        }
+
+        table {
+            margin-left: 15px;
+            margin-top: 15px;
+        }
+    </style>
 </head>
 <body>
+    <h3 style="margin-left: 15px">专业组设置</h3>
     <div id="app">
         <table class="table table-bordered">
             <tr>
-                <td>专业组名称</td>
+                <td>专业组名称:</td>
                 <td>
                     <input type="text" v-model="Name" />
                 </td>
             </tr>
             <tr>
-                <td>专业组颜色</td>
+                <td>专业组颜色:</td>
                 <td>
-                    <input type="text" v-model="Color" />
+                    <input type="color" v-model="Color" />
                 </td>
             </tr>
             <tr>
-                <td>相关部门</td>
+                <td>相关科室:</td>
                 <td>
                     <select id="Select1" v-model="Department">
                         <option value="0">--请选择--</option>
-
                     </select>
                 </td>
             </tr>
             <tr>
-                <td>组员设置</td>
+                <td>组员设置:</td>
                 <td>
                     <select id="Select2" v-model="People">
                         <option value="0">--请选择--</option>
-
                     </select>
                 </td>
             </tr>
+        </table>
 
+        <table class="table table-bordered">
+            <tr style="background-color:darkgray">
+                <td>序号</td>
+                <td>项目</td>
+                <td>组长</td>
+                <td>带教</td>
+                <td>操作</td>
+            </tr>
             <tr>
-                <td></td>
+                <td>1</td>
+                <td>李晨</td>
                 <td>
-                    <button type="button" v-on:click="addUser()">添加</button>
-                    <button type="button" v-on:click="back()">返回</button>
+                    <input id="Radio1" type="radio" name="Radio" value="0" v-model="TeachingId" /><span>是</span>
+                    <input id="Radio2" type="radio" name="Radio" value="1" v-model="TeachingId" /><span>否</span>
+                </td>
+                <td>
+                    <input id="Radio3" type="radio" name="Radio" value="0" v-model="GroupLeader" /><span>是</span>
+                    <input id="Radio4" type="radio" name="Radio" value="1" v-model="GroupLeader" /><span>否</span>
+                </td>
+                <td>
+                    <div>
+                        <a href="#" v-on:click="DeleteById()">删除</a>
+                    </div>
                 </td>
             </tr>
+        </table>
 
+        <table class="table table-bordered">
+            <tr>
+                <td style="text-align: center;">
+                    <button type="button" v-on:click="addGroup()">添加</button>
+                    <button type="button" v-on:click="back()" style="margin-left: 20px">返回</button>
+                </td>
+            </tr>
         </table>
     </div>
     <script type="text/javascript">
-        var vm = new Vue({
-            el: "#app",
-            data: {
-                Name: "",
-                Color: "",
-                Department: "请选择",
-                People: "请选择"
-            },
-            methods: {
-                addUser: function () {
-                    axios.post('@Url.Action("", "")',
-                        {
-                             model: {
-                                 ProfessionalGroupName: this.Name,
-                                 ProfessionalGroupColore: this.Colcor,
-                                 DepartmentId: this.Department,
-                                 TeachingId: this.TeachingId,
-                                 GroupLeader: this.GroupLeader,
-                                 TeamMember: this.TeamMember
-                             }
-                        }).then(
-                        (response) => {
-                            alert("添加成功");
-                        },
-                        (response) => {
-                            alert(response.status);
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            Name: "",
+            Color: "",
+            Department: 0,
+            People: 0
+        },
+        methods: {
+            addGroup: function() {
+                axios.post('@Url.Action("", "")',
+                    {
+                        model: {
+                            ProfessionalGroupName: this.Name,
+                            ProfessionalGroupColore: this.Colcor,
+                            DepartmentId: this.Department,
+                            TeachingId: this.TeachingId,
+                            GroupLeader: this.GroupLeader,
+                            TeamMember: this.TeamMember
                         }
-                    ).catch(function (response) {
-                        alert(response);
-                    });
-                }
-            }
+                    }).then((response) => {
+                        alert("添加成功");
+                        location.href = '/Group/Index';
+                    },(response) => {
+                        alert(response.status);
+                    }
+                ).catch(function(response) {
+                    alert(response);
+                });
+            },
 
-        });
+            back: function() {
+                location.href = '/Group/Index';
+            }
+        }
+    });
     </script>
 </body>
 </html>
