@@ -42,11 +42,12 @@ namespace HR.Hospital.Repository.Shiftssettings
         /// 显示
         /// </summary>
         /// <returns></returns>
-        public List<Shiftssetting> GetShiftssettings()
+        
+        public List<Shiftssetting> GetShiftssettings(string name)
         {
             using (Model.hospitaldbContext ef = new hospitaldbContext())
             {
-                List<Model.Shiftssetting> list = ef.Shiftssetting.ToList();
+                List<Model.Shiftssetting> list = ef.Shiftssetting.Where(u=>string.IsNullOrEmpty(name)||u.ShiftssettingName==name).ToList();
                 return list;
             }
                

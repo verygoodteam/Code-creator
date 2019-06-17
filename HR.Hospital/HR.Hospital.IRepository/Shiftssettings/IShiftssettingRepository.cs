@@ -13,7 +13,7 @@ namespace HR.Hospital.IRepository.Shiftssettings
         /// 获取所有班次列表
         /// </summary>
         /// <returns></returns>
-        List<Model.Shiftssetting> GetShiftssettings();
+        List<Model.Shiftssetting> GetShiftssettings(string name);
 
         /// <summary>
         /// 添加班次

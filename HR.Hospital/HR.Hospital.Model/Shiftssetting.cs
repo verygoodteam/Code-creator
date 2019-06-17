@@ -26,12 +26,12 @@ namespace HR.Hospital.Model
         /// <summary>
         /// 上班时间
         /// </summary>
-        public DateTime? Opentime { get; set; }
+        public string Opentime { get; set; }
 
         /// <summary>
         /// 下班时间
         /// </summary>
-        public DateTime? Closingtime { get; set; }
+        public string Closingtime { get; set; }
 
         /// <summary>
         /// 有效工作日
