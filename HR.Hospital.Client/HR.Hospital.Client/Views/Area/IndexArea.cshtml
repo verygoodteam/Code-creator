@@ -15,33 +15,33 @@
     <script src="~/js/axios.js"></script>
     <script src="~/js/zpageNav.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <style>
-        /*表格样式设置*/
-        table, td {
-            border: 1px solid #cccccc;
-            border-collapse: collapse;
-        }
+    @*<style>
+            /*表格样式设置*/
+            table, td {
+                border: 1px solid #cccccc;
+                border-collapse: collapse;
+            }
 
-        table {
-            width: 800px;
-            margin-left: 20px;
-            margin-top: 15px;
-        }
+            table {
+                width: 800px;
+                margin-left: 20px;
+                margin-top: 15px;
+            }
 
-        td {
-            text-align: center;
-        }
+            td {
+                text-align: center;
+            }
 
-        .divArea {
-        }
-    </style>
+            .divArea {
+            }
+        </style>*@
 </head>
 <body>
     <div class="divArea" id="divArea">
-        <br/>
+        <br />
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>  <span>院区属性</span>
 
-        <select id="Select1" v-model="AreaProperty"  >
+        <select id="Select1" v-model="AreaProperty">
             <option value="1">真实</option>
             <option value="0">虚拟</option>
             <option value="3">=请选择=</option>
@@ -51,8 +51,8 @@
         <span style="margin-left: 20px">姓名：</span><input type="text" v-model="searchAreaName" />
         <button type="button" v-on:click="loadAreaList()" class="btn btn-danger">查询</button>
         <button type="button" v-on:click="addArea()" class="btn btn-default">添加院区</button>
-        <table class="table table-hover">
-            <thead>
+        <table class="table table-bordered">
+            <thead style="background-color: blue">
                 <tr>
                     <td>院区名称</td>
                     <td>手术间数量</td>
@@ -96,7 +96,7 @@
             mounted: function () {
                 this.AreaProperty = 3;
                 this.loadAreaList();
-               
+
             },
             //所有的方法
             methods: {

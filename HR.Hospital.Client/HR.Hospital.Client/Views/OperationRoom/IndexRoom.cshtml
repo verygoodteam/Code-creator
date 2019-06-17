@@ -16,51 +16,64 @@
     <script src="~/js/axios.js"></script>
     <script src="~/js/zpageNav.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <style>
-        /*表格样式设置*/
-        table, td {
-            border: 1px solid #cccccc;
-            border-collapse: collapse;
-        }
+    @*<style>
+            /*表格样式设置*/
+            table, td {
+                border: 1px solid #cccccc;
+                border-collapse: collapse;
+            }
 
-        table {
-            width: 800px;
-            margin-left: 20px;
-            margin-top: 15px;
-        }
+            table {
+                width: 800px;
+                margin-left: 20px;
+                margin-top: 15px;
+            }
 
-        td {
-            text-align: center;
-        }
-    </style>
+            td {
+                text-align: center;
+            }
+        </style>*@
 </head>
 <body>
     <div id="roomDiv">
         <br />
+        
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <select id="Select1" v-model="AreaId">
+            <option value="3">=请选择=</option>
+            @foreach (var item in @ViewBag.AreaList)
+            {
+
+                <option value="@item.Id">@item.AreaName</option>
+            }
+        </select>
+       
         <span style="margin-left: 20px">手术间名称：</span><input type="text" v-model="searchOperationName" />
         <button type="button" v-on:click="loadOperationList()" class="btn btn-primary">查询</button>
         <button type="button" v-on:click="AddRoom()" class="btn btn-default">添加手术间</button>
-        <table class="table table-condensed">
-            <thead>
-                <tr>
-                    <td>院区名称</td>
-                    <td>手术间名称</td>
-                    <td>备注</td>
-                    <td>操作</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="item in operationList">
-                    <td>{{item.AreaName}}</td>
-                    <td>{{item.OperationName}}</td>
-                    <td>{{item.OperationRemark}}</td>
-                    <td>
-                        <a href="#" v-on:click="enableOperation(item.Id)">删除</a>
-                        <a href="#" v-on:click="updateOperation(item.Id)">修改</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+        <div style="margin: 20px">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>院区名称</td>
+                        <td>手术间名称</td>
+                        <td>备注</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in operationList">
+                        <td>{{item.AreaName}}</td>
+                        <td>{{item.OperationName}}</td>
+                        <td>{{item.OperationRemark}}</td>
+                        <td>
+                            <a href="#" v-on:click="enableOperation(item.Id)">删除</a>
+                            <a href="#" v-on:click="updateOperation(item.Id)">修改</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         @*分页必须使用的控件*@
         <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
                   v-bind:max-page="maxPage" v-on:pagehandler="loadOperationList">
@@ -79,8 +92,10 @@
             },
             //就绪函数
             mounted: function () {
+                this.AreaId = 3;
                 //一开始加载的数据
                 this.loadOperationList();
+             
 
             },
             //所有的方法

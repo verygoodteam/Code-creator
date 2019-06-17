@@ -13,19 +13,18 @@
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
     <script src="~/js/zpageNav.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
 
     <div id="updateRoom">
         <input id="Hidden1" type="hidden" value="@ViewBag.Id" />
-        <table>
+        <table class="table table-condensed">
             <tr>
                 <td>院区名称</td>
                 <td>
                     <select v-model="AreaId">
-                        <option v-for="item in areaList" selected="selected" v-if="item.Id==AreaId" :value="item.Id">{{item.AreaName}}</option>
-                        <option v-else :value="item.Id">{{item.AreaName}}</option>
-                        @*<option v-for="item in areaList" value={{item.Id}}>{{item.AreaName}}</option>*@
+                        <option :value="item.Id" v-for="item in areaList">{{item.AreaName}}</option>
                     </select>
                 </td>
             </tr>
@@ -40,9 +39,16 @@
                     <input type="text" v-model="OperationRemark" />
                 </td>
             </tr>
+            <tr>
+                <td>   </td>
+
+                <td>
+                    <button type="button" v-on:click="saveUpdateRoom()" class="btn btn-default">修改</button>     <button type="button" v-on:click="returnRoomIndex()" class="btn btn-default">返回</button>
+                </td>
+            </tr>
         </table>
-        <button type="button" v-on:click="saveRoom()">添加</button>
-        <button type="button" v-on:click="returnRoomIndex()">返回</button>
+
+
     </div>
 </body>
 </html>
@@ -56,34 +62,67 @@
             areaList: []
         },
         mounted: function () {
+            //先进行下拉的绑定
             this.getAreaList();
-            this.getRoomData(@ViewBag.Id);
         },
         methods: {
+            //绑定下拉的数据
                getAreaList:  function () {
                     axios.get("/OperationRoom/GetListArea")
-                    .then((response) => {
-
+                        .then((response) => {
+                            //判断是否为空
                         if (response.data != null) {
-                            //alert(response.data);
                             this.areaList = response.data;
-                            //alert(this.areaList);
+                            this.getRoomData(@ViewBag.Id);
                         }
                     }).cache(function (error) {
                         areaList.fetchError = error;
                     });;
             },
+               //获取反填的数据
             getRoomData:  function (id) {
-                alert(id);
                 axios.get("/OperationRoom/OperationRoomAction", { params: { id: id } })
                     .then((response) => {
+                        //判断数据是否为空
                         if (response.data != null) {
+                            //绑定下拉的选中
                             this.AreaId = response.data.AreaId;
+                            //文本框的写入
                             this.OperationName = response.data.OperationName;
+                            //备注的写入
                             this.OperationRemark = response.data.OperationRemark;
                         }
                     });
+            },
+            returnRoomIndex: function() {
+                location.href = '/OperationRoom/IndexRoom';
+            },
+            saveUpdateRoom: function() {
+                if (this.OperationName == "") {
+                    alert("手术间名称不能为空");
+                    return false;
+                }
+                if (this.OperationRemark == "") {
+                    alert("备注不能为空");
+                    return false;
+                }
+                //.netcore规定的传参格式
+                var operationRoom = new URLSearchParams();
+                operationRoom.append("Id",@ViewBag.Id);
+                operationRoom.append('AreaId', this.AreaId);
+                operationRoom.append('OperationName', this.OperationName);
+                operationRoom.append('OperationRemark', this.OperationRemark);
+                axios.post("/OperationRoom/UpdateRoomAction", operationRoom)
+                    .then((response) => {
+                        if (response.data > 0) {
+                            location.href = '/OperationRoom/IndexRoom';
+                        }
+                        return false;
+                    }).catch(function (response) {
+                        alert(response);
+                    });
             }
+
         }
     })
 </script>
