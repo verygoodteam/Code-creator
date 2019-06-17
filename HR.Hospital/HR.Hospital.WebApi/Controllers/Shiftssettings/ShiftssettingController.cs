@@ -7,7 +7,7 @@ using HR.Hospital.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HR.Hospital.WebApi.Controllers
+namespace HR.Hospital.WebApi.Controllers.Shiftssettings
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -25,9 +25,9 @@ namespace HR.Hospital.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetList")]
-        public List<Shiftssetting> GetList()
+        public List<Shiftssetting> GetList(string name)
         {
-            List<Model.Shiftssetting> list = _shiftssettingRepository.GetShiftssettings();
+            List<Model.Shiftssetting> list = _shiftssettingRepository.GetShiftssettings(name);
             return list;
         }
 
@@ -36,13 +36,35 @@ namespace HR.Hospital.WebApi.Controllers
         /// </summary>
         /// <param name="shiftssetting"></param>
         /// <returns></returns>
-        [HttpPost]
-        public bool Add(Model.Shiftssetting shiftssetting)
+        [HttpPost("Add")]
+        public bool Add([FromBody] Model.Shiftssetting shiftssetting)
         {
             bool b = _shiftssettingRepository.AddShiftssetting(shiftssetting);
             return b;
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost("DeleteById")]
+        public bool DeleteById(int id)
+        {
+            bool b = _shiftssettingRepository.DeleteShiftssetting(id);
+            return b;
+        }
 
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="shiftssetting"></param>
+        /// <returns></returns>
+        [HttpPost("EditById")]
+        public bool EditById([FromBody]Model.Shiftssetting shiftssetting)
+        {
+            bool b = _shiftssettingRepository.UpdateShiftssetting(shiftssetting);
+            return b;
+        }
     }
 }
