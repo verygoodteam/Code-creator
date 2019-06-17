@@ -21,7 +21,7 @@ namespace HR.Hospital.Client.Controllers.Department
         
         public PageHelper<Administrative> PageList(int pageIndex = 1, int pageSize = 3, int isOperation = 0, string name = "")
         {
-            var list = HttpClientApi.GetAsync<PageHelper<Administrative>>("http://localhost:12345/api/Department/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&isOperation=" + isOperation + "&name=" + name);
+            var list = HttpClientApi.GetAsync<Common.PageHelper<Administrative>>("http://localhost:12345/api/Department/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&isOperation=" + isOperation + "&name=" + name);
             return list;
         }
 

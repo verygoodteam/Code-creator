@@ -27,7 +27,7 @@ namespace HR.Hospital.Repository.Roles
         {
             using (MySqlConnection con = new MySqlConnection(_conn))
             {
-                var sql = "select * from Jurisdiction where pid=" + pid;
+                var sql = "SELECT * FROM permission where Pid=" + pid;
 
                 var list = con.Query<Permission>(sql);
                 return list.ToList();
@@ -44,7 +44,7 @@ namespace HR.Hospital.Repository.Roles
         {
             using (MySqlConnection con = new MySqlConnection(_conn))
             {
-                var sql = $"select * from Role where id={id}";
+                var sql = $"SELECT * from role where Id={id}";
 
                 var list = con.Query<Role>(sql);
                 return list.FirstOrDefault();
@@ -71,8 +71,8 @@ namespace HR.Hospital.Repository.Roles
 
             using (MySqlConnection con = new MySqlConnection(_conn))
             {
-                string str = $"update Role set rolename='{roles.RoleName}',jursname='{roles.PermissionName}',isenabled='{roles.Isnable}' where id='{roles.Id}'";
-                str += $" delete from Rolejur where roleid={roles.Id}";
+                string str = $"update Role set RoleName='{roles.RoleName}',PermissionName='{roles.PermissionName}',Isnable='{roles.Isnable}' where Id='{roles.Id}'";
+                str += $" delete from role_permission where Rid={roles.Id}";
                 var result = con.Query<int>(str).FirstOrDefault();
 
                 for (int i = 0; i < array.Length; i++)
@@ -83,8 +83,8 @@ namespace HR.Hospital.Repository.Roles
                     roleJuris.Add(rolejuir);
                 }
 
-                var addrolejuris = con.Execute($"insert into Rolejur(roleid,jursid) values(@roleid,@jursid)", roleJuris);
-                return addrolejuris;
+                var updaterolejuris = con.Execute($"insert into role_permission(Rid,Pid) values(@Rid,@Pid)", roleJuris);
+                return updaterolejuris;
             }
         }
 
@@ -119,7 +119,7 @@ namespace HR.Hospital.Repository.Roles
                     roleJuris.Add(rolejuir);
                 }
 
-                var addrolejuris = con.Execute($"insert into Rolejur(roleid,jursid) values(@roleid,@jursid)", roleJuris);
+                var addrolejuris = con.Execute($"insert into role_permission(Rid,Pid) values(@Rid,@Pid)", roleJuris);
                 return addrolejuris;
             }
         }
@@ -129,7 +129,7 @@ namespace HR.Hospital.Repository.Roles
         {
             using (MySqlConnection con = new MySqlConnection(_conn))
             {
-                var sql = "select * from Role";
+                var sql = "SELECT * from role";
 
                 var list = con.Query<Role>(sql);
                 return list.ToList();
