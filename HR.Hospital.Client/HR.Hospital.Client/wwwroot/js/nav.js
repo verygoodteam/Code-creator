@@ -6,17 +6,17 @@ var navs = [{
 }, {
     "title": "院区管理",
     "icon": "&#xe61c;",
-    "href": "http://localhost:57753/Area/IndexArea",
+    "href": "/Area/IndexArea",
     "spread": false
 }, {
     "title": "科室管理",
     "icon": "&#xe631;",
-    "href": "http://localhost:57753/Department/Index",
+    "href": "/Department/Index",
     "spread": false
 }, {
     "title": "手术间管理",
     "icon": "&#xe631;",
-    "href": "http://localhost:57753/OperationRoom/IndexRoom",
+    "href": "/OperationRoom/IndexRoom",
     "spread": false
 }, {
     "title": "用户管理",
@@ -27,25 +27,25 @@ var navs = [{
         {
             "title": "手术室用户管理",
             "icon": "&#xe631;",
-            "href": "http://localhost:57753/OoperationUser/OopUserShow",
+            "href": "/OoperationUser/OopUserShow",
             "spread": false
         },
         {
             "title": "临床用户管理",
             "icon": "&#xe631;",
-            "href": "http://localhost:57753/Clinical/Index",
+            "href": "/Clinical/Index",
             "spread": false
         }
     ]
 }, {
     "title": "专业组管理",
     "icon": "&#xe631;",
-    "href": "http://localhost:57753/Group/Index",
+    "href": "/Group/Index",
     "spread": false
 }, {
     "title": "班次管理",
     "icon": "&#xe631;",
-    "href": "http://localhost:57753/Shiftssetting/Show",
+    "href": "/Shiftssetting/Show",
     "spread": false
 }]
 

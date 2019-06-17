@@ -12,9 +12,7 @@ namespace HR.Hospital.IRepository.Department
         /// 分页查询
         /// </summary>
         /// <returns></returns>  
-        PageHelper<Administrative> GetPagedList(int pageIndex, int pageSize, int administrativeId,
-            string englishName);
-
+        PageHelper<Administrative> GetPagedList(int pageIndex, int pageSize, int isOperation, string name);
 
         /// <summary>
         /// 添加
@@ -22,20 +20,17 @@ namespace HR.Hospital.IRepository.Department
         /// <param name="model"></param>
         int Add(Administrative model);
 
-
         /// <summary>
         /// 禁用
         /// </summary>
         /// <param name="id"></param>
         int Delete(int id);
 
-
         /// <summary>
         /// 启用
         /// </summary>
         /// <param name="id"></param>
         int Enable(int id);
-
 
         /// <summary>
         /// 获取单条数据
@@ -44,12 +39,10 @@ namespace HR.Hospital.IRepository.Department
         /// <returns></returns>
         Administrative GetModel(int id);
 
-
         /// <summary>
         /// 编辑
         /// </summary>
         /// <param name="model"></param>
         int Update(Administrative model);
-
     }
 }

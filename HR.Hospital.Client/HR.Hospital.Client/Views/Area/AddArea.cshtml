@@ -12,11 +12,12 @@
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
     <script src="~/js/zpageNav.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
 
     <div id="addArea">
-        <table>
+        <table class="table table-condensed">
             <tr>
                 <td>院区名称</td>
                 <td><input type="text" v-model="AreaName" /></td>
@@ -38,8 +39,15 @@
                 <td>备注</td>
                 <td><input type="text" v-model="AreaRemark" /></td>
             </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="button" v-on:click="saveArea()" class="btn btn-default">添加</button>
+                    <button type="button" v-on:click="returnArea()" class="btn btn-default">返回</button>
+                </td>
+            </tr>
         </table>
-        <button type="button" v-on:click="saveArea()">添加</button>
+
     </div>
 </body>
 </html>
@@ -85,6 +93,9 @@
                     }).catch(function (response) {
                         alert(response);
                     });
+            },
+            returnArea: function () {
+                location.href = '/Area/IndexArea';
             }
         }
     })

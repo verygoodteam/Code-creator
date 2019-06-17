@@ -18,10 +18,10 @@ namespace HR.Hospital.Client.Controllers.Department
         {
             return View();
         }
-
+        
         public PageHelper<Administrative> PageList(int pageIndex = 1, int pageSize = 3, int isOperation = 0, string name = "")
         {
-            var list = HttpClientApi.GetAsync<PageHelper<Administrative>>("http://localhost:12345/api/Department/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&Isoperation=" + isOperation + "&AdministrativeName=" + name);
+            var list = HttpClientApi.GetAsync<PageHelper<Administrative>>("http://localhost:12345/api/Department/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&isOperation=" + isOperation + "&name=" + name);
             return list;
         }
 
@@ -36,7 +36,7 @@ namespace HR.Hospital.Client.Controllers.Department
         [HttpPost]
         public ActionResult Add(Administrative model)
         {
-            var i = HttpClientApi.PostAsync<Administrative, int>(model, "http://localhost:12345/api/Department/add");
+            var i = HttpClientApi.PostAsync<Administrative, int>(model, "http://localhost:12345/api/Department/Add");
             return Redirect("/Department/Index");
         }
 
@@ -63,24 +63,34 @@ namespace HR.Hospital.Client.Controllers.Department
         }
 
         /// <summary>
-        /// 获取单条数据
+        /// 编辑
         /// </summary>
         /// <returns></returns>
         public ActionResult Update(int id)
         {
+            ViewBag.Id = id;
+            return View();
+        }
+        
+        /// <summary>
+        /// 获取单条数据
+        /// </summary>
+        /// <returns></returns>
+        public Administrative UpdateData(int id)
+        {
             var list = HttpClientApi.GetAsync<Administrative>("http://localhost:12345/api/Department/GetModel?id=" + id);
-            return View(list);
+            return list;
         }
 
         /// <summary>
-        /// 修改
+        /// 编辑方法
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Update(Administrative model)
+        public ActionResult UpdateDepartment(Administrative model)
         {
-            var i = HttpClientApi.PutAsync<Administrative, int>(model, "http://localhost:12345/api/Department/update");
+            var i = HttpClientApi.PutAsync<Administrative, int>(model, "http://localhost:12345/api/Department/Update");
             return Redirect("/Department/Index");
         }
     }

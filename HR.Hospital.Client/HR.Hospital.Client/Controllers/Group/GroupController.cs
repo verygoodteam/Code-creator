@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +20,7 @@ namespace HR.Hospital.Client.Controllers.Group
         }
         public PageHelper<Professionalgroup> PageList(int pageIndex = 1, int pageSize = 3, string name = "")
         {
-            var list = HttpClientApi.GetAsync<PageHelper<Professionalgroup>>("http://localhost:12345/api/Group/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize  + "&ProfessionalGroupName=" + name);
+            var list = HttpClientApi.GetAsync<PageHelper<Professionalgroup>>("http://localhost:12345/api/Group/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize  + "&name=" + name);
             return list;
         }
 

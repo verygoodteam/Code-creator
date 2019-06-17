@@ -32,7 +32,7 @@ namespace HR.Hospital.Client.Controllers
             {
                 return BadRequest(errorMessage);
             }
-            var tmpUser = Common.HttpClientApi.GetAsync<List<Models.Ooperationuser>>("https://localhost:44390/api/Login").FirstOrDefault(m => m.OoperationUserName == ooperationuser.OoperationUserName && m.Pwd == ooperationuser.Pwd);
+            var tmpUser = Common.HttpClientApi.GetAsync<List<Models.Ooperationuser>>("http://localhost:12345/api/Login/Get").FirstOrDefault(m => m.OoperationUserName == ooperationuser.OoperationUserName && m.Pwd == ooperationuser.Pwd);
             if (tmpUser?.Pwd != ooperationuser.Pwd)
             {
                 return BadRequest(errorMessage);

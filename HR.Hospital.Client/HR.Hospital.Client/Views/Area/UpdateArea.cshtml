@@ -101,7 +101,32 @@
             },
             returnIndex: function() {
                 location.href = '/Area/IndexArea';
+            },
+            saveUpdateArea: function() {
+
             }
         }
     })
 </script>
+if (this.OperationName == "") {
+alert("手术间名称不能为空");
+return false;
+}
+if (this.OperationRemark == "") {
+alert("备注不能为空");
+return false;
+}
+//.netcore规定的传参格式
+var operationRoom = new URLSearchParams();
+operationRoom.append('AreaId', this.AreaId);
+operationRoom.append('OperationName', this.OperationName);
+operationRoom.append('OperationRemark', this.OperationRemark);
+axios.post("/OperationRoom/AddRoomAction", operationRoom)
+.then((response) => {
+if (response.data > 0) {
+location.href = '/OperationRoom/IndexRoom';
+}
+return false;
+}).catch(function (response) {
+alert(response);
+});

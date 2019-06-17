@@ -28,6 +28,6 @@ namespace HR.Hospital.Model.Dto
         /// </summary>
         public string OperationRemark { get; set; }
 
-
+        //public int SortId { get; set; }
     }
 }

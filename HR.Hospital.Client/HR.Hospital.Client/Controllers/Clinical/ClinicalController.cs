@@ -21,7 +21,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
 
         public PageHelper<Clinicuser> PageList(int pageIndex = 1, int pageSize = 3, int administrativeId = 0, string englishName = "")
         {
-            var list = HttpClientApi.GetAsync<PageHelper<Clinicuser>>("http://localhost:12345/api/clinical/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&Aadministrativeid=" + administrativeId + "&ClinicUserRemark=" + englishName);
+            var list = HttpClientApi.GetAsync<PageHelper<Clinicuser>>("http://localhost:12345/api/clinical/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&administrativeId=" + administrativeId + "&englishName=" + englishName);
             return list;
         }
 
@@ -36,7 +36,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
         [HttpPost]
         public ActionResult Add(Clinicuser model)
         {
-            var i = HttpClientApi.PostAsync<Clinicuser,int>(model, "http://localhost:12345/api/clinical/add");
+            var i = HttpClientApi.PostAsync<Clinicuser,int>(model, "http://localhost:12345/api/clinical/Add");
             return Redirect("/Clinical/Index");
         }
 
@@ -58,13 +58,12 @@ namespace HR.Hospital.Client.Controllers.Clinical
         /// <returns></returns>
         public ActionResult Enable(int id)
         {
-            return View();
             var i = HttpClientApi.DeleteAsync<int>("http://localhost:12345/api/clinical/enable?id=" + id);
             return Redirect("/Clinical/Index");
         }
 
         /// <summary>
-        /// 获取单条数据
+        /// 修改
         /// </summary>
         /// <returns></returns>
         public ActionResult Update(int id)
@@ -84,7 +83,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
         }
 
         /// <summary>
-        /// 修改
+        /// 修改方法
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>

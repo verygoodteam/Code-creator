@@ -59,7 +59,7 @@ namespace HR.Hospital.Repository.OperationRooms
         /// </summary>
         /// <param name="operationRoom"></param>
         /// <returns></returns>
-        
+
         public int AddOperationRoom(OperationRoom operationRoom)
         {
             _context.Operationroom.Add(operationRoom);
@@ -105,8 +105,12 @@ namespace HR.Hospital.Repository.OperationRooms
             pageAreaRooms.PageSizes = total;
             //总页数赋值
             pageAreaRooms.PageNum = (total / pageSize);
-            //给集合赋值
-            pageAreaRooms.PageList = areaRoomDtos;
+            //给集合进行分页赋值
+            pageAreaRooms.PageList = areaRoomDtos.OrderBy(p=>p.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+            pageAreaRooms.PageSize = pageSize;
+
+            pageAreaRooms.PageIndex = pageIndex;
 
             if (areaId != 3)
             {
