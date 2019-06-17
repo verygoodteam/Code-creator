@@ -77,5 +77,29 @@ namespace HR.Hospital.WebApi.Controllers.Shiftssettings
             int i = _shiftssettingRepository.GetId();
             return i;
         }
+
+        /// <summary>
+        /// 向上调整排序编号
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost("Upsortid")]
+        public bool Upsortid(int id)
+        {
+            bool b = _shiftssettingRepository.UpdateSortid(id);
+            return b;
+        }
+
+        /// <summary>
+        /// 向上调整排序编号
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost("DownSortid")]
+        public bool DownSortid(int id)
+        {
+            bool b = _shiftssettingRepository.DownSortid(id);
+            return b;
+        }
     }
 }
