@@ -13,118 +13,130 @@
     <script src="~/js/axios.js"></script>
     
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    
+    <style>
+        table, td {
+            border: 1px solid #cccccc;
+            border-collapse: collapse;
+        }
+
+        table {
+            margin-left: 15px;
+            margin-top: 15px;
+        }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <input id="Hidden1" type="hidden" value="@ViewBag.Id" />
-        <table class="table table-bordered">
-            <tr>
-                <td>姓名:</td>
-                <td>
-                    <input type="text" v-model="Name" />
-                </td>
-            </tr>
-            <tr>
-                <td>性别:</td>
-                <td>
-                    <input id="Radio1" type="radio" name="Radio" value="1" v-model="Sex" /><span>男</span>
-                    <input id="Radio2" type="radio" name="Radio" value="0" v-model="Sex" /><span>女</span>
-                </td>
-            </tr>
-            <tr>
-                <td>部门:</td>
-                <td>
-                    <select id="Select1" v-model="Department">
-                        <option value="1">胸外科室</option>
-                        <option value="2">肠胃科</option>
-                        <option value="3">耳喉鼻科</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>工号:</td>
-                <td>
-                    <input type="text" v-model="JobNum" />
-                </td>
-            </tr>
-            <tr>
-                <td>备注:</td>
-                <td>
-                    <input type="text" v-model="EngName" />
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <button type="button" v-on:click="addUser(Name,Sex,Department,JobNum,EngName)">保存</button>
-                    <button type="button" v-on:click="back()" style="margin-left: 20px">返回</button>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <script type="text/javascript">
-        var vm = new Vue({
-            el: "#app",
-            data: {
-                Name: "",
-                Sex: "",
-                Department: 0,
-                JobNum: "",
-                EngName: "",
-                Id:@ViewBag.Id
+<h3 style="margin-left: 15px">临床科室人员编辑</h3>
+<div id="app">
+    <input id="Hidden1" type="hidden" value="@ViewBag.Id"/>
+    <table class="table table-bordered">
+        <tr>
+            <td>姓名:</td>
+            <td>
+                <input type="text" v-model="Name"/>
+            </td>
+        </tr>
+        <tr>
+            <td>性别:</td>
+            <td>
+                <input id="Radio1" type="radio" name="Radio" value="1" v-model="Sex"/><span>男</span>
+                <input id="Radio2" type="radio" name="Radio" value="0" v-model="Sex"/><span>女</span>
+            </td>
+        </tr>
+        <tr>
+            <td>部门:</td>
+            <td>
+                <select id="Select1" v-model="Department">
+                    <option value="1">胸外科室</option>
+                    <option value="2">肠胃科</option>
+                    <option value="3">耳喉鼻科</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>工号:</td>
+            <td>
+                <input type="text" v-model="JobNum"/>
+            </td>
+        </tr>
+        <tr>
+            <td>备注:</td>
+            <td>
+                <input type="text" v-model="EngName"/>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="button" v-on:click="addUser(Name,Sex,Department,JobNum,EngName)">保存</button>
+                <button type="button" v-on:click="back()" style="margin-left: 20px">返回</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            Name: "",
+            Sex: "",
+            Department: 0,
+            JobNum: "",
+            EngName: "",
+            Id: @ViewBag.Id
+        },
+        mounted() {
+            this.getUser(@ViewBag.Id);
+        },
+        methods: {
+            getUser: function(id) {
+                axios.get("/Clinical/UpdateData",
+                    {
+                        params: { id: id }
+                    }).then((response) => {
+                    this.Name = response.data.clinicUserName;
+                    this.Sex = response.data.sex;
+                    this.Department = response.data.aadministrativeid;
+                    this.JobNum = response.data.jobnumber;
+                    this.EngName = response.data.clinicUserRemark;
+                });
             },
-            mounted() {
-                this.getUser(@ViewBag.Id);
+
+            addUser: function() {
+                if (this.Name == "") {
+                    alert("名称不能为空");
+                    return false;
+                };
+                if (this.JobNum == "") {
+                    alert("工号不能为空");
+                    return false;
+                };
+                var model = new URLSearchParams();
+                model.append('Id', this.Id);
+                model.append('ClinicUserName', this.Name);
+                model.append('Sex', this.Sex);
+                model.append('Aadministrativeid', this.Department);
+                model.append('Jobnumber', this.JobNum);
+                model.append('ClinicUserRemark', this.EngName);
+
+                axios.post('@Url.Action("UpdateClinical", "Clinical")',
+                    model).then((response) => {
+                        alert("编辑成功");
+                        location.href = '/Clinical/Index';
+                    },(response) => {
+                        alert(response.status);
+                    }
+                ).catch(function(response) {
+                    alert(response);
+                });
             },
-            methods: {
-                getUser: function(id) {
-                    axios.get("/Clinical/UpdateData",
-                        {
-                             params: { id: id }
-                        }).then((response) => {
-                        this.Name = response.data.clinicUserName;
-                        this.Sex = response.data.sex;
-                        this.Department = response.data.aadministrativeid;
-                        this.JobNum = response.data.jobnumber;
-                        this.EngName = response.data.clinicUserRemark;
-                    });
-                },
 
-                addUser: function() {
-                    if (this.Name == "") {
-                        alert("名称不能为空");
-                        return false;
-                    };
-                    if (this.JobNum == "") {
-                        alert("工号不能为空");
-                        return false;
-                    };
-                    var model = new URLSearchParams();
-                    model.append('Id', this.Id);
-                    model.append('ClinicUserName', this.Name);
-                    model.append('Sex', this.Sex);
-                    model.append('Aadministrativeid', this.Department);
-                    model.append('Jobnumber', this.JobNum);
-                    model.append('ClinicUserRemark', this.EngName);
-
-                    axios.post('@Url.Action("UpdateClinical", "Clinical")',
-                        model).then((response) => {
-                            alert("编辑成功");
-                            location.href = '/Clinical/Index';
-                        },(response) => {
-                            alert(response.status);
-                        }
-                    ).catch(function(response) {
-                        alert(response);
-                    });
-                },
-
-                back: function () {
-                    location.href = '/Clinical/Index';
-                }
+            back: function() {
+                location.href = '/Clinical/Index';
             }
-
-        });
-    </script>
+        }
+    });
+</script>
 </body>
 </html>

@@ -13,10 +13,23 @@
     <script src="~/js/axios.js"></script>
     
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    
+    <style>
+        table, td {
+            border: 1px solid #cccccc;
+            border-collapse: collapse;
+        }
+
+        table {
+            margin-left: 15px;
+            margin-top: 15px;
+        }
+    </style>
 </head>
 <body>
+<h3 style="margin-left: 15px">科室编辑</h3>
 <div id="app">
-    <input id="Hidden1" type="hidden" value="@ViewBag.Id" />
+    <input id="Hidden1" type="hidden" value="@ViewBag.Id"/>
     <table class="table table-bordered">
         <tr>
             <td>科室名称:</td>
@@ -46,60 +59,59 @@
         </tr>
     </table>
 </div>
-    <script type="text/javascript">
-        var vm = new Vue({
-            el: "#app",
-            data: {
-                Name: "",
-                IsOpen: "",
-                Remark: "",
-                Id:@ViewBag.Id
+<script type="text/javascript">
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            Name: "",
+            IsOpen: "",
+            Remark: "",
+            Id: @ViewBag.Id
+        },
+        mounted() {
+            this.getDepartment(@ViewBag.Id);
+        },
+        methods: {
+            getDepartment: function(id) {
+                axios.get("/Department/UpdateData",
+                    {
+                        params: { id: id }
+                    }).then((response) => {
+
+                    this.Name = response.data.administrativeName;
+                    this.IsOpen = response.data.isoperation;
+                    this.Remark = response.data.administrativeRemark;
+                });
             },
-            mounted() {
-                this.getDepartment(@ViewBag.Id);
+
+            addDepartment: function() {
+                if (this.Name == "") {
+                    alert("名称不能为空");
+                    return false;
+                };
+                var model = new URLSearchParams();
+                model.append('Id', this.Id);
+                model.append('AdministrativeName', this.Name);
+                model.append('Isoperation', this.IsOpen);
+                model.append('AdministrativeRemark', this.Remark);
+
+                axios.post('@Url.Action("UpdateDepartment", "Department")',
+                    model).then((response) => {
+                        alert("编辑成功");
+                        location.href = '/Department/Index';
+                    },(response) => {
+                        alert(response.status);
+                    }
+                ).catch(function(response) {
+                    alert(response);
+                });
             },
-            methods: {
-                getDepartment: function(id) {
-                    axios.get("/Department/UpdateData",
-                        {
-                            params: { id: id }
-                        }).then((response) => {
 
-                        this.Name = response.data.administrativeName;
-                        this.IsOpen = response.data.isoperation;
-                        this.Remark = response.data.administrativeRemark;
-                    });
-                },
-
-                addDepartment: function() {
-                    if (this.Name == "") {
-                        alert("名称不能为空");
-                        return false;
-                    };
-                    var model = new URLSearchParams();
-                    model.append('Id', this.Id);
-                    model.append('AdministrativeName', this.Name);
-                    model.append('Isoperation', this.IsOpen);
-                    model.append('AdministrativeRemark', this.Remark);
-
-                    axios.post('@Url.Action("UpdateDepartment", "Department")',
-                        model).then((response) => {
-                            alert("编辑成功"); 
-                            location.href = '/Department/Index';
-                        },(response) => {
-                            alert(response.status);
-                        }
-                    ).catch(function(response) {
-                        alert(response);
-                    });
-                },
-
-                backIndex: function() {
-                    location.href = '/Department/Index';
-                }
+            backIndex: function() {
+                location.href = '/Department/Index';
             }
-
-        });
-    </script>
+        }
+    });
+</script>
 </body>
 </html>

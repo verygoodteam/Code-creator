@@ -24,6 +24,7 @@
         }
 
         table {
+            margin-left: 15px;
             margin-top: 15px;
         }
 
@@ -33,12 +34,12 @@
     </style>
 </head>
 <body>
-<h3>科室列表</h3>
+<h3 style="margin-left: 15px">科室列表</h3>
 <div id="app">
     <p></p>
     <p></p>
     <div id="divDepartment">
-        <span>是否为手术间：</span>
+        <span style="margin-left: 16px">是否为手术间：</span>
         <select id="Select1" v-model="IsOperation">
             <option value="0">全部</option>
             <option value="1">是</option>
@@ -49,7 +50,7 @@
         <button type="button" v-on:click="addDepartment()" style="margin-left: 20px">添加</button>
         <table class="table table-bordered">
             <thead>
-            <tr>
+            <tr style="background-color:#00ced1">
                 <td>序号</td>
                 <td>科室名称</td>
                 <td>是否为手术间</td>
@@ -102,23 +103,21 @@
             getDepartment: function (page) {
                 this.page = page,
                     axios.get("/Department/PageList",
-                            {
-                                 params: {
-                                     pageIndex: page,
-                                     pageSize: this.pageSize,
-                                     isOperation: this.IsOperation,
-                                     name: this.departmentName
-                                 }
-                            })
-                    .then((response) => {
-                            this.userList = response.data.pageList;
-                            this.page = response.data.pageSize;
-                            this.total = response.data.pageSizes;
-                            this.maxPage = response.data.maxPage;
-
-                        }).cache(function (error) {
-                            userList.fetchError = error;
-                        });
+                        {
+                            params: {
+                                pageIndex: page,
+                                pageSize: this.pageSize,
+                                isOperation: this.IsOperation,
+                                name: this.departmentName
+                            }
+                        }).then((response) => {
+                        this.userList = response.data.pageList;
+                        this.page = response.data.pageSize;
+                        this.total = response.data.pageSizes;
+                        this.maxPage = response.data.maxPage;
+                    }).cache(function(error) {
+                        userList.fetchError = error;
+                    });
             },
 
             addDepartment: function() {

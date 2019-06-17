@@ -24,6 +24,7 @@
         }
 
         table {
+            margin-left: 15px;
             margin-top: 15px;
         }
 
@@ -33,12 +34,12 @@
     </style>
 </head>
 <body>
-<h3>临床科室人员列表</h3>
+<h3 style="margin-left: 15px">临床科室人员列表</h3>
 <div id="app">
     <p></p>
     <p></p>
     <div id="divClinical">
-        <span>科室：</span>
+        <span style="margin-left: 16px">科室：</span>
         <select id="Select1" v-model="department">
             <option value="0">请选择</option>
             <option value="1">胸外科室</option>
@@ -50,7 +51,7 @@
         <button type="button" v-on:click="addUser()" style="margin-left: 20px">添加</button>
         <table class="table table-bordered">
             <thead>
-            <tr>
+            <tr style="background-color:#00ced1">
                 <td>序号</td>
                 <td>姓名</td>
                 <td>性别</td>
@@ -107,23 +108,19 @@
             getUser: function (page) {
                 this.page = page,
                     axios.get("/Clinical/PageList",
-                            {
-                                 params: {
-                                     pageIndex: page,
-                                     pageSize: this.pageSize,
-                                     administrativeId: this.department,
-                                     englishName: this.clinicUserName
-                                 }
-                            })
-                    .then((response) => {
-                            this.userList = response.data.pageList;
-                            this.page = response.data.pageSize;
-                            this.total = response.data.pageSizes;
-                            this.maxPage = response.data.maxPage;
-
-                        }).cache(function (error) {
-                            userList.fetchError = error;
-                        });
+                        {
+                            params: {
+                                pageIndex: page,
+                                pageSize: this.pageSize,
+                                administrativeId: this.department,
+                                englishName: this.clinicUserName
+                            }
+                        }).then((response) => {
+                        this.userList = response.data.pageList;
+                        this.total = response.data.pageSizes;
+                    }).cache(function(error) {
+                        userList.fetchError = error;
+                    });
             },
 
             addUser: function() {
