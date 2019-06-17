@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -43,10 +43,17 @@ namespace HR.Hospital.IRepository.Shiftssettings
         int GetId();
 
         /// <summary>
-        /// 调整排序
+        /// 调整排序，向前
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         bool UpdateSortid(int id);
+
+        /// <summary>
+        /// 调整排序，向后
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        bool DownSortid(int id);
     }
 }

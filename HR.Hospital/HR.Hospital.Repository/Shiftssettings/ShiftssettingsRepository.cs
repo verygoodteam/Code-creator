@@ -60,10 +60,10 @@ namespace HR.Hospital.Repository.Shiftssettings
         {
             using (Model.hospitaldbContext ef = new hospitaldbContext())
             {
-                List<Model.Shiftssetting> list = ef.Shiftssetting.Where(u=>string.IsNullOrEmpty(name)||u.ShiftssettingName==name).OrderBy(u=>u.Sortid).ToList();
+                List<Model.Shiftssetting> list = ef.Shiftssetting.Where(u => string.IsNullOrEmpty(name) || u.ShiftssettingName == name).OrderBy(u => u.Sortid).ToList();
                 return list;
             }
-               
+
         }
 
         /// <summary>
@@ -81,13 +81,82 @@ namespace HR.Hospital.Repository.Shiftssettings
         }
 
         /// <summary>
-        /// 
+        /// 更改排序id 向前
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public bool UpdateSortid(int id)
         {
-            throw new NotImplementedException();
+            using (Model.hospitaldbContext eF = new hospitaldbContext())
+            {
+                int? sortid = eF.Shiftssetting.Find(id).Sortid;
+                if (sortid <= 1)
+                {
+                    return false;
+                }
+                else
+                {
+                    int? ii = eF.Shiftssetting.OrderByDescending(u => u.Sortid).First(u => u.Sortid < sortid).Sortid;
+
+                    Model.Shiftssetting shiftssetting = eF.Shiftssetting.Find(id);
+                    shiftssetting.Sortid = ii;
+                    //bool b1 = eF.SaveChanges() > 0;
+
+                    Model.Shiftssetting shiftssetting2 = eF.Shiftssetting.FirstOrDefault(u => u.Sortid == ii);
+                    shiftssetting2.Sortid = sortid;
+                    bool b2 = eF.SaveChanges() > 0;
+
+                    if (b2)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// 更改排序id 向后
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool DownSortid(int id)
+        {
+            using (Model.hospitaldbContext eF = new hospitaldbContext())
+            {
+                int orldid = GetId();
+                int? sortid = eF.Shiftssetting.Find(id).Sortid;
+                if (sortid >= orldid)
+                {
+                    return false;
+                }
+                else
+                {
+                    int? ii = eF.Shiftssetting.OrderBy(u => u.Sortid).First(u => u.Sortid > sortid).Sortid;
+
+                    Model.Shiftssetting shiftssetting = eF.Shiftssetting.Find(id);
+                    shiftssetting.Sortid = ii;
+                    //bool b1 = eF.SaveChanges() > 0;
+
+                    Model.Shiftssetting shiftssetting2 = eF.Shiftssetting.FirstOrDefault(u => u.Sortid == ii);
+                    shiftssetting2.Sortid = sortid;
+                    bool b2 = eF.SaveChanges() > 0;
+
+                    if (b2)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+            }
         }
     }
 }
