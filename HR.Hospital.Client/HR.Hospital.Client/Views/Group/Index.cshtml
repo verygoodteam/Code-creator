@@ -16,7 +16,7 @@
     <script src="~/js/zpageNav.js"></script>
 
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    
+
     <style>
         table, td {
             border: 1px solid #cccccc;
@@ -24,8 +24,7 @@
         }
 
         table {
-            width: 800px;
-            margin-left: 20px;
+            margin-left: 15px;
             margin-top: 15px;
         }
 
@@ -35,48 +34,50 @@
     </style>
 </head>
 <body>
-    <div id="app">
-        <div class="divClinical" id="divClinical">
-            <span style="margin-left: 20px">姓名：</span><input type="text" v-model="name" />
-            <button type="button" v-on:click="getUser(department,name)">查询</button>
-            <button type="button" v-on:click="addUser()">添加</button>
-            <table css="table table-bordered">
-                <thead>
-                    <tr>
-                        <td>序号</td>
-                        <td>专业组名称</td>
-                        <td>专业组颜色</td>
-                        <td>相关科室</td>
-                        <td>带教</td>
-                        <td>组长</td>
-                        <td>组员</td>
-                        <td>操作</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="data in userList">
-                        <td>{{data.id}}</td>
-                        <td>{{data.professionalGroupName}}</td>
-                        <td>{{data.professionalGroupColore}}</td>
-                        <td>{{data.departmentId}}</td>
-                        <td>{{data.teachingId}}</td>
-                        <td>{{data.groupLeader}}</td>
-                        <td>{{data.teamMember}}</td>
-                        <td>
-                            <div>
-                                <a href="#" v-on:click="UpdateById(data.id)">编辑</a> |
-                                <a href="#" v-on:click="DeleteById(data.id)">删除</a>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
-                      v-bind:max-page="maxPage" v-on:pagehandler="getUser">
-            </zpagenav>
-        </div>
-
+<h3 style="margin-left: 15px">专业组人员列表</h3>
+<div id="app">
+    <p></p>
+    <p></p>
+    <div id="divGroup">
+        <span style="margin-left: 16px">专业组名称：</span><input type="text" v-model="name"/>
+        <button type="button" v-on:click="getGroup()" style="margin-left: 5px">查询</button>
+        <button type="button" v-on:click="addGroup()" style="margin-left: 20px">添加</button>
+        <table class="table table-bordered">
+            <thead>
+            <tr style="background-color:#00ced1">
+                <td>序号</td>
+                <td>专业组颜色</td>
+                <td>专业组名称</td> 
+                <td>相关科室</td>
+                <td>带教</td>
+                <td>组长</td>
+                <td>组员</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="data in userList">
+                <td>{{data.id}}</td>
+                <td :style="{backgroundColor:data.professionalGroupColore}"></td>
+                <td>{{data.professionalGroupName}}</td>
+                <td>{{data.departmentId}}</td>
+                <td>{{data.teachingId}}</td>
+                <td>{{data.groupLeader}}</td>
+                <td>{{data.teamMember}}</td>
+                <td>
+                    <div>
+                        <a href="#" v-on:click="UpdateById(data.id)">编辑</a> |
+                        <a href="#" v-on:click="DeleteById(data.id)">删除</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
+                  v-bind:max-page="maxPage" v-on:pagehandler="getUser">
+        </zpagenav>
     </div>
+</div>
 </body>
 </html>
 
@@ -88,13 +89,14 @@
             page: 1,//起始页
             pageSize: 3,//页面数据
             total: 10,//总条数
-            maxPage: 9//最大页数
+            maxPage: 10,//最大页数
+            name:""
         },
         mounted() {
-            this.getUser();
+            this.getGroup();
         },
         methods: {
-            getUser: function (page) {
+            getGroup: function (page) {
                 this.page = page,
                     axios.get("/Group/PageList",
                         {
@@ -103,35 +105,27 @@
                                 pageSize: this.pageSize,
                                 name: this.name
                             }
-                        })
-                        .then((response) => {
-
-                            console.log(response.pageList);
-                            //数据
-                            this.userList = response.data.pageList;
-                            //每页大小
-                            this.page = response.data.pageSize;
-                            //总条数
-                            this.total = response.data.pageSizes;
-                            //总页数
-                            this.maxPage = response.data.maxPage;
-
-                        }).cache(function (error) {
-                            userList.fetchError = error;
-                        });
+                        }).then((response) => {
+                        this.userList = response.data.pageList;
+                        this.page = response.data.pageSize;
+                        this.total = response.data.pageSizes;
+                        this.maxPage = response.data.maxPage;
+                    }).cache(function(error) {
+                        userList.fetchError = error;
+                    });
             },
 
-            addUser: function () {
+            addGroup: function () {
                 location.href = '/Group/Add';
             },
 
             DeleteById: function (id) {
-                alert(id);
+                //alert(id);
                 location.href = '/Group/Delete?id=' + id;
             },
 
             UpdateById: function (id) {
-                alert(id);
+                //alert(id);
                 location.href = '/Group/Update?id=' + id;
             }
         }
