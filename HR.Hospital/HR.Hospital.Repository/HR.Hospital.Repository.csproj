@@ -10,4 +10,10 @@
     <ProjectReference Include="..\HR.Hospital.Model\HR.Hospital.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>D:\小实训2\Content\Dapper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

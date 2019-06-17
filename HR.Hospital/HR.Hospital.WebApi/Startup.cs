@@ -7,6 +7,8 @@ using HR.Hospital.IRepository.OoperationUser;
 using HR.Hospital.IRepository.OperationRooms;
 using HR.Hospital.IRepository.Shiftssettings;
 using HR.Hospital.Model;
+using HR.Hospital.IRepository.Permissions;
+using HR.Hospital.Repository.Permissions;
 using HR.Hospital.Repository.Areas;
 using HR.Hospital.Repository.Clinical;
 using HR.Hospital.Repository.Department;
@@ -75,7 +77,8 @@ namespace HR.Hospital.WebApi
             services.AddScoped<IUserRepository, UserRepository>();
             //班次设置映射关系
             services.AddScoped<IShiftssettingRepository, ShiftssettingsRepository>();
-
+            //权限映射关系
+            services.AddScoped<IPermissionRepository, PermissionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,118 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>权限显示</title>
+    <link href="~/css/zpageNav.css" rel="stylesheet" />
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/axios.js"></script>
+    <script src="~/js/zpageNav.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app">
+        <input id="Button1" type="button" value="添加" v-on:click="add()" />
+        <table class="table table-bordered">
+            <tr>
+                <td>编号</td>
+                <td>权限名称</td>
+                <td>父级权限</td>
+                <td>是否启用</td>
+                <td>操作</td>
+            </tr>
+            <tbody>
+                <tr v-for="item in perList">
+                    <td>{{item.Id}}</td>
+                    <td>{{item.PermissionsName}}</td>
+                    <td>{{item.FatherName}}</td>
+                    <td>{{item.Isnable==0?"禁用":"启用"}}</td>
+                    <td>
+                        <a href="#" v-on:click="updatePer(item.Id)">修改</a>|
+                        <a href="#" v-on:click="updateState(item.Id,item.Isnable,0)">禁用</a>|
+                        <a href="#" v-on:click="updateState(item.Id,item.Isnable,1)">启用</a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        @*分页必须使用的控件*@
+        <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
+                  v-bind:max-page="maxPage" v-on:pagehandler="loadperList">
+        </zpagenav>
+    </div>
+</body>
+</html>
+<script>
+    var Vm = new Vue({
+        el: '#app',
+        data: {
+            perList: [],
+            page: 1,//从第几页开始
+            pageSize: 3,//页面大小
+            total: 10,//总条数
+            maxPage: 10//最大页数
+        },
+        //就绪函数
+        mounted: function () {
+            this.loadperList();
+        },
+
+        methods: {
+            //分页
+            loadperList: function (page) {
+                this.page = page;
+                axios.get('/Permission/PermissionShows', {
+                    params: {
+                        pageIndex: page,
+                        pageSize: this.pageSize
+                    }
+                }).then(
+                    (response) => {
+                        //数据
+                        this.perList = response.data.PageList;
+                        //每页大小
+                        this.page = response.data.pageIndex;
+                        //总条数
+                        this.total = response.data.PageSizes;
+                        //总页数
+                        this.maxPage = response.data.maxPage;
+                    }
+                )
+            },
+
+            //修改状态
+            updateState: function (id, isenble, isenbles) {
+                if (isenble == isenbles) {
+                    alert('状态相同')
+                    return;
+                }
+                var parms = new URLSearchParams();
+                parms.append("Id", id);
+                parms.append("Isnable", isenbles);
+                axios.post("/Permission/IsanbleUpdate", parms).then(
+                    (Response) => {
+                        if (Response.data > 0) {
+                            location.href = '/Permission/PermissionShow';
+                        }
+                    }
+                )
+            },
+
+            //跳转添加页面
+            add: function () {
+                location.href = '/Permission/PermissionAdd';
+            },
+
+            //跳转编辑页面
+            updatePer: function (id) {
+                location.href = '/Permission/PermissionUpdate?id=' + id;
+            }
+        }
+    })
+</script>

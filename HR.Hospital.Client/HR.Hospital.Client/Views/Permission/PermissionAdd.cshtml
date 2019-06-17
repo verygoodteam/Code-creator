@@ -1,0 +1,102 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>权限添加</title>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script src="~/js/Scripts/vue.js"></script>
+    <script src="~/js/Scripts/axios.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app">
+        <table class="table table-bordered">
+            <tr>
+                <td>权限名：<input id="txtPermission" type="text" v-model="PermissionsName" /></td>
+                <td>
+                    父级权限：
+                    <select id="Select1" v-model="Pid">
+                        <option value="0">--请选择--</option>
+                        <option v-for="data in Perdata" :value="data.id">{{data.permissionsName}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    是否启用：
+                    <select id="Select2" v-model="Isnable">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </td>
+                <td>
+                    地址：<input id="txtUrl" type="text" v-model="Url" />
+                </td>
+            </tr>
+        </table>
+        <input id="Button1" type="button" value="确定" v-on:click="add()" />
+    </div>
+</body>
+</html>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            //文本框
+            PermissionsName: "",
+            //下拉
+            Perdata: [],
+            Pid: 0,
+            Isnable: 0,
+            Url: ""
+        },
+
+        //显示
+        mounted() {
+            //父级权限下拉
+            this.GetPid();
+        },
+
+
+        methods: {
+
+            //显示下拉
+            GetPid: function () {
+                axios.get("http://localhost:12345/api/Permission/GetPermmissionList").then(
+                    (Response) => {
+                        this.Perdata = Response.data
+                    }
+                )
+            },
+
+            //添加
+            add: function () {
+                if (this.PermissionsName == "") {
+                    alert("权限名不能为空")
+                    return;
+                }
+                var parms = new URLSearchParams();
+                parms.append("PermissionsName", this.PermissionsName);
+                parms.append("Pid", this.Pid);
+                parms.append("Isnable", this.Isnable);
+                parms.append("Url", this.Url);
+                axios.post("/Permission/PermissionAdds", parms).then(
+                    (Response) => {
+                        if (Response.data > 0) {
+                            alert("添加成功");
+                            location.href = '/Permission/PermissionShow';
+                        }
+                    }
+                ).catch(function () {
+                    alert(Response)
+                })
+            }
+        }
+    })
+</script>

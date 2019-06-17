@@ -5,10 +5,16 @@ using System.Text;
 using HR.Hospital.IRepository.Roles;
 using HR.Hospital.Model;
 
+using Dapper;
+using MySql.Data.MySqlClient;
+
 namespace HR.Hospital.Repository.Roles
 {
     public class RoleRepository : IRoleRepository
     {
+        //连接数据库
+        string _conn = "Server=169.254.224.180;User Id=root;Password=123456;Database=hospitaldb";
+
         //实例化上下文类
         hospitaldbContext db = new hospitaldbContext();
 
@@ -19,8 +25,13 @@ namespace HR.Hospital.Repository.Roles
         /// <returns></returns>
         public List<Permission> GetPermission(int pid = 0)
         {
-            var list = db.Permission.Where(p => p.Pid == pid).ToList();
-            return list;
+            using (MySqlConnection con = new MySqlConnection(_conn))
+            {
+                var sql = "select * from Jurisdiction where pid=" + pid;
+
+                var list = con.Query<Permission>(sql);
+                return list.ToList();
+            }
         }
 
 
@@ -29,10 +40,15 @@ namespace HR.Hospital.Repository.Roles
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Role role(int id)
+        public Role Roles(int id)
         {
-            var list = db.Role.FirstOrDefault(p => p.Id == id);
-            return list;
+            using (MySqlConnection con = new MySqlConnection(_conn))
+            {
+                var sql = $"select * from Role where id={id}";
+
+                var list = con.Query<Role>(sql);
+                return list.FirstOrDefault();
+            }
         }
 
 
@@ -42,9 +58,34 @@ namespace HR.Hospital.Repository.Roles
         /// <param name="roles"></param>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public int updaterole(Role roles, string ids)
+        public int UpdateRole(Role roles, string ids)
         {
-            throw new NotImplementedException();
+            var id = ids.Split(',');
+            int[] array = new int[id.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = int.Parse(id[i]);
+            }
+
+            List<RolePermission> roleJuris = new List<RolePermission>();
+
+            using (MySqlConnection con = new MySqlConnection(_conn))
+            {
+                string str = $"update Role set rolename='{roles.RoleName}',jursname='{roles.PermissionName}',isenabled='{roles.Isnable}' where id='{roles.Id}'";
+                str += $" delete from Rolejur where roleid={roles.Id}";
+                var result = con.Query<int>(str).FirstOrDefault();
+
+                for (int i = 0; i < array.Length; i++)
+                {
+                    RolePermission rolejuir = new RolePermission();
+                    rolejuir.Rid = roles.Id;
+                    rolejuir.Pid = Convert.ToInt32(id[i]);
+                    roleJuris.Add(rolejuir);
+                }
+
+                var addrolejuris = con.Execute($"insert into Rolejur(roleid,jursid) values(@roleid,@jursid)", roleJuris);
+                return addrolejuris;
+            }
         }
 
         /// <summary>
@@ -55,29 +96,44 @@ namespace HR.Hospital.Repository.Roles
         /// <returns></returns>
         public int Addrole(Role roles, string ids)
         {
-            //var id = ids.Split(',');
-            //int[] array = new int[id.Length];
-            //for (int i = 0; i < array.Length; i++)
-            //{
-            //    array[i] = int.Parse(id[i]);
-            //}
+            var id = ids.Split(',');
+            int[] array = new int[id.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = int.Parse(id[i]);
+            }
 
-            //List<RolePermission> rolepermission = new List<RolePermission>();
+            List<RolePermission> roleJuris = new List<RolePermission>();
 
-            //db.Role.Add(roles);
-            //db.SaveChanges();
-            //var upid = roles.Id;
+            using (MySqlConnection con = new MySqlConnection(_conn))
+            {
+                string str = $"insert into Role(rolename, jursname, isenabled) values('{roles.RoleName}','{roles.PermissionName}','{roles.Isnable}')";
+                str += "  SELECT CAST(SCOPE_IDENTITY() as int)";
+                var result = con.Query<int>(str).FirstOrDefault();
 
-            //for (int i = 0; i < array.Length; i++)
-            //{
-            //    RolePermission roleper = new RolePermission();
-            //    roleper.Rid = upid;
-            //    roleper.Pid = Convert.ToInt32(id[i]);
-            //    rolepermission.Add(roleper);
-            //}
+                for (int i = 0; i < array.Length; i++)
+                {
+                    RolePermission rolejuir = new RolePermission();
+                    rolejuir.Rid = result;
+                    rolejuir.Pid = Convert.ToInt32(id[i]);
+                    roleJuris.Add(rolejuir);
+                }
 
-            //var addrolepers = db.RolePermission.Add(rolepermission);
-            return 0;
+                var addrolejuris = con.Execute($"insert into Rolejur(roleid,jursid) values(@roleid,@jursid)", roleJuris);
+                return addrolejuris;
+            }
+        }
+
+        //角色显示
+        public List<Role> GetRoles()
+        {
+            using (MySqlConnection con = new MySqlConnection(_conn))
+            {
+                var sql = "select * from Role";
+
+                var list = con.Query<Role>(sql);
+                return list.ToList();
+            }
         }
     }
 }

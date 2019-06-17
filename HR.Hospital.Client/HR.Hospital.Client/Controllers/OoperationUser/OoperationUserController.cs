@@ -66,5 +66,6 @@ namespace HR.Hospital.Client.Controllers.OoperationUser
             var result = HttpClientApi.PostAsync<Ooperationuser, int>(ooperationuser, "http://localhost:12345/api/Ooperationuser/UpdateOoperationUser");
             return result;
         }
+
     }
 }
