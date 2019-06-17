@@ -46,8 +46,8 @@
             <option value="2">否</option>
         </select>
         <span style="margin-left: 10px">科室名称：</span><input type="text" v-model="departmentName"/>
-        <button type="button" v-on:click="getDepartment()" style="margin-left: 5px">查询</button>
-        <button type="button" v-on:click="addDepartment()" style="margin-left: 20px">添加</button>
+        <button type="button" v-on:click="getDepartment()" style="margin-left: 5px" class="btn btn-default">查询</button>
+        <button type="button" v-on:click="addDepartment()" style="margin-left: 20px" class="btn btn-default">添加</button>
         <table class="table table-bordered">
             <thead>
             <tr style="background-color:#00ced1">
@@ -77,7 +77,7 @@
             </tbody>
         </table>
         <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
-                  v-bind:max-page="maxPage" v-on:pagehandler="getUser">
+                  v-bind:max-page="maxPage" v-on:pagehandler="getDepartment">
         </zpagenav>
     </div>
 </div>
@@ -90,9 +90,9 @@
         data: {
             userList: [], //数据
             page: 1, //起始页
-            pageSize: 3, //页面数据
+            pageSize: 3, //每页数据
             total: 10, //总条数
-            maxPage: 9, //最大页数
+            maxPage: 9, //总页数
             IsOperation: 0,
             departmentName:""
         },
@@ -112,11 +112,8 @@
                             }
                         }).then((response) => {
                         this.userList = response.data.pageList;
-                        this.page = response.data.pageSize;
                         this.total = response.data.pageSizes;
-                        this.maxPage = response.data.maxPage;
-                    }).cache(function(error) {
-                        userList.fetchError = error;
+                        this.maxPage = response.data.PageNum;
                     });
             },
 

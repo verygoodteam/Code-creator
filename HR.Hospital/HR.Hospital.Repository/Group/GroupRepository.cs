@@ -26,10 +26,36 @@ namespace HR.Hospital.Repository.Group
                     list = db.Professionalgroup.OrderBy(p => p.Id).Where(p => p.ProfessionalGroupName.Contains(name)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
                     total = db.Professionalgroup.Count(p => p.ProfessionalGroupName.Contains(name));
                 }
-                pageList.PageSizes = total;//总页数
-                pageList.PageList = list;//数据
-                pageList.PageNum = (pageList.PageSizes / pageSize);//总条数
+                pageList.PageSizes = total;//总条数
+                pageList.PageList = list;//查询数据集合
+                pageList.PageNum = (pageList.PageSizes / pageSize);//总页数
                 return pageList;
+            }
+        }
+
+        /// <summary>
+        /// 获取科室
+        /// </summary>
+        /// <returns></returns>
+        public List<Administrative> GetDepartment()
+        {
+            using (hospitaldbContext db = new hospitaldbContext())
+            {
+                List<Administrative> list = db.Administrative.ToList();
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// 获取人员
+        /// </summary>
+        /// <returns></returns>
+        public List<Clinicuser> GetClinical()
+        {
+            using (hospitaldbContext db = new hospitaldbContext())
+            {
+                List<Clinicuser> list = db.Clinicuser.ToList();
+                return list;
             }
         }
 

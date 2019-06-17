@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Update</title>
+    <title>Add</title>
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
 
@@ -47,6 +47,7 @@
                 <td>
                     <select id="Select1" v-model="Department">
                         <option value="0">--请选择--</option>
+                        <option v-for="item in departmentList" :value="item.Id">{{item.administrativeName}}</option>
                     </select>
                 </td>
             </tr>
@@ -55,6 +56,7 @@
                 <td>
                     <select id="Select2" v-model="People">
                         <option value="0">--请选择--</option>
+                        <option v-for="item in peopleList" :value="item.Id">{{item.clinicUserName}}</option>
                     </select>
                 </td>
             </tr>
@@ -90,8 +92,8 @@
         <table class="table table-bordered">
             <tr>
                 <td style="text-align: center;">
-                    <button type="button" v-on:click="addGroup()">添加</button>
-                    <button type="button" v-on:click="back()" style="margin-left: 20px">返回</button>
+                    <button type="button" v-on:click="addGroup()" class="btn btn-default">添加</button>
+                    <button type="button" v-on:click="back()" style="margin-left: 20px" class="btn btn-default">返回</button>
                 </td>
             </tr>
         </table>
@@ -103,11 +105,17 @@
             Name: "",
             Color: "",
             Department: 0,
-            People: 0
+            People: 0,
+            departmentList: [],
+            peopleList: []
+        },
+        mounted() {
+            this.getDepartment();
+            this.getPeople();
         },
         methods: {
             addGroup: function() {
-                axios.post('@Url.Action("", "")',
+                axios.post('@Url.Action("UpdateGroup", "Group")',
                     {
                         model: {
                             ProfessionalGroupName: this.Name,
@@ -118,7 +126,7 @@
                             TeamMember: this.TeamMember
                         }
                     }).then((response) => {
-                        alert("添加成功");
+                        alert("编辑成功");
                         location.href = '/Group/Index';
                     },(response) => {
                         alert(response.status);
@@ -126,6 +134,20 @@
                 ).catch(function(response) {
                     alert(response);
                 });
+            },
+
+            getDepartment: function () {
+                axios.get("/Group/GetDepartment")
+                    .then((response) => {
+                        this.departmentList = response.data;
+                    });
+            },
+
+            getPeople: function () {
+                axios.get("/Group/GetClinical")
+                    .then((response) => {
+                        this.peopleList = response.data;
+                    });
             },
 
             back: function() {

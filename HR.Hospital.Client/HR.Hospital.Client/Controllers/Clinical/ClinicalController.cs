@@ -26,6 +26,16 @@ namespace HR.Hospital.Client.Controllers.Clinical
         }
 
         /// <summary>
+        /// 获取科室
+        /// </summary>
+        /// <returns></returns>
+        public List<Administrative> GetDepartment()
+        {
+            var list = HttpClientApi.GetAsync<List<Administrative>>("http://localhost:12345/api/clinical/GetDepartment");
+            return list;
+        }
+
+        /// <summary>
         /// 添加
         /// </summary>
         /// <returns></returns>
