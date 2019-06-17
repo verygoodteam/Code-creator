@@ -36,7 +36,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
         [HttpPost]
         public ActionResult Add(Clinicuser model)
         {
-            var i = HttpClientApi.PostAsync<Clinicuser,int>(model, "http://localhost:12345/api/clinical/add");
+            var i = HttpClientApi.PostAsync<Clinicuser,int>(model, "http://localhost:12345/api/clinical/Add");
             return Redirect("/Clinical/Index");
         }
 
@@ -63,7 +63,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
         }
 
         /// <summary>
-        /// 获取单条数据
+        /// 修改
         /// </summary>
         /// <returns></returns>
         public ActionResult Update(int id)
@@ -83,7 +83,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
         }
 
         /// <summary>
-        /// 修改
+        /// 修改方法
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>

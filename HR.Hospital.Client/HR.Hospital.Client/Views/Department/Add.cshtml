@@ -50,12 +50,9 @@
             el: "#app",
             data: {
                 Name: "",
-                Sex: "",
-                Department: "请选择",
-                JobNumber: "",
-                EnglishName: ""
+                IsOpen: "",
+                Remark: ""
             },
-
             methods: {
                 addUser: function(name, sex, department, jobNum, engName) {
                     if (this.Name == "") {
@@ -68,8 +65,10 @@
                     model.append('AdministrativeRemark', this.Remark);
 
                     axios.post('@Url.Action("Add", "Department")',
-                        model).then((response) => { alert("添加成功"); },
-                        (response) => {
+                        model).then((response) => {
+                            alert("添加成功"); 
+                            location.href = '/Department/Index';
+                        },(response) => {
                             alert(response.status);
                         }
                     ).catch(function(response) {

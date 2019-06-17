@@ -131,7 +131,5 @@ namespace HR.Hospital.Repository.Clinical
                 return db.SaveChanges();
             }
         }
-
-
     }
 }

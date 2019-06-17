@@ -50,6 +50,5 @@ namespace HR.Hospital.IRepository.Clinical
         /// </summary>
         /// <param name="model"></param>
         int Update(Clinicuser model);
-
     }
 }

@@ -15,61 +15,78 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="app">
-        <table class="table table-bordered">
-            <tr>
-                <td>科室名称:</td>
-                <td>
-                    <input type="text" v-model="Name" />
-                </td>
-            </tr>
-            <tr>
-                <td>是否为手术间:</td>
-                <td>
-                    <input id="Radio1" type="radio" name="Radio" value="1" v-model="IsOpen" /><span>是</span>
-                    <input id="Radio2" type="radio" name="Radio" value="2" v-model="IsOpen" /><span>否</span>
-                </td>
-            </tr>
-            <tr>
-                <td>备注:</td>
-                <td>
-                    <input type="text" rows="2" cols="20" v-model="Remark" />
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <button type="button" v-on:click="addUser(Name,IsOpen,Remark)">添加</button>
-                    <button type="button" v-on:click="back()" style=" margin-left: 20px">返回</button>
-                </td>
-            </tr>
-        </table>
-    </div>
+<div id="app">
+    <input id="Hidden1" type="hidden" value="@ViewBag.Id" />
+    <table class="table table-bordered">
+        <tr>
+            <td>科室名称:</td>
+            <td>
+                <input type="text" v-model="Name"/>
+            </td>
+        </tr>
+        <tr>
+            <td>是否为手术间:</td>
+            <td>
+                <input id="Radio1" type="radio" name="Radio" value="1" v-model="IsOpen"/><span>是</span>
+                <input id="Radio2" type="radio" name="Radio" value="2" v-model="IsOpen"/><span>否</span>
+            </td>
+        </tr>
+        <tr>
+            <td>备注:</td>
+            <td>
+                <input type="text" rows="2" cols="20" v-model="Remark"/>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="button" v-on:click="addDepartment(Name,IsOpen,Remark)">保存</button>
+                <button type="button" v-on:click="backIndex()" style="margin-left: 20px">返回</button>
+            </td>
+        </tr>
+    </table>
+</div>
     <script type="text/javascript">
         var vm = new Vue({
             el: "#app",
             data: {
                 Name: "",
-                Sex: "",
-                Department: "请选择",
-                JobNumber: "",
-                EnglishName: ""
+                IsOpen: "",
+                Remark: "",
+                Id:@ViewBag.Id
             },
-
+            mounted() {
+                this.getDepartment(@ViewBag.Id);
+            },
             methods: {
-                addUser: function(name, sex, department, jobNum, engName) {
+                getDepartment: function(id) {
+                    axios.get("/Department/UpdateData",
+                        {
+                            params: { id: id }
+                        }).then((response) => {
+
+                        this.Name = response.data.administrativeName;
+                        this.IsOpen = response.data.isoperation;
+                        this.Remark = response.data.administrativeRemark;
+                    });
+                },
+
+                addDepartment: function() {
                     if (this.Name == "") {
                         alert("名称不能为空");
                         return false;
                     };
                     var model = new URLSearchParams();
+                    model.append('Id', this.Id);
                     model.append('AdministrativeName', this.Name);
                     model.append('Isoperation', this.IsOpen);
                     model.append('AdministrativeRemark', this.Remark);
 
-                    axios.post('@Url.Action("Add", "Department")',
-                        model).then((response) => { alert("添加成功"); },
-                        (response) => {
+                    axios.post('@Url.Action("UpdateDepartment", "Department")',
+                        model).then((response) => {
+                            alert("编辑成功"); 
+                            location.href = '/Department/Index';
+                        },(response) => {
                             alert(response.status);
                         }
                     ).catch(function(response) {
@@ -77,7 +94,7 @@
                     });
                 },
 
-                back: function() {
+                backIndex: function() {
                     location.href = '/Department/Index';
                 }
             }

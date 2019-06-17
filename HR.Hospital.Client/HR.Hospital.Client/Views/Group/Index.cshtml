@@ -37,10 +37,10 @@
 <div id="app">
     <p></p>
     <p></p>
-    <div class="divClinical" id="divClinical">
+    <div id="divGroup">
         <span>专业组名称：</span><input type="text" v-model="name"/>
-        <button type="button" v-on:click="getUser()">查询</button>
-        <button type="button" v-on:click="addUser()" style="margin-left: 20px">添加</button>
+        <button type="button" v-on:click="getGroup()" style="margin-left: 5px">查询</button>
+        <button type="button" v-on:click="addGroup()" style="margin-left: 20px">添加</button>
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -92,10 +92,10 @@
             name:""
         },
         mounted() {
-            this.getUser();
+            this.getGroup();
         },
         methods: {
-            getUser: function (page) {
+            getGroup: function (page) {
                 this.page = page,
                     axios.get("/Group/PageList",
                         {
@@ -120,17 +120,17 @@
                         });
             },
 
-            addUser: function () {
+            addGroup: function () {
                 location.href = '/Group/Add';
             },
 
             DeleteById: function (id) {
-                alert(id);
+                //alert(id);
                 location.href = '/Group/Delete?id=' + id;
             },
 
             UpdateById: function (id) {
-                alert(id);
+                //alert(id);
                 location.href = '/Group/Update?id=' + id;
             }
         }

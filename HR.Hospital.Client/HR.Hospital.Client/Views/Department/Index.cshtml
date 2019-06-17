@@ -37,16 +37,16 @@
 <div id="app">
     <p></p>
     <p></p>
-    <div class="divClinical" id="divClinical">
+    <div id="divDepartment">
         <span>是否为手术间：</span>
-        <select id="Select1" v-model="department">
+        <select id="Select1" v-model="IsOperation">
             <option value="0">全部</option>
             <option value="1">是</option>
             <option value="2">否</option>
         </select>
-        <span style="margin-left: 20px">科室名称：</span><input type="text" v-model="name"/>
-        <button type="button" v-on:click="getUser(department,name)">查询</button>
-        <button type="button" v-on:click="addUser()" style="margin-left: 20px">添加</button>
+        <span style="margin-left: 10px">科室名称：</span><input type="text" v-model="departmentName"/>
+        <button type="button" v-on:click="getDepartment()" style="margin-left: 5px">查询</button>
+        <button type="button" v-on:click="addDepartment()" style="margin-left: 20px">添加</button>
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -92,34 +92,28 @@
             pageSize: 3, //页面数据
             total: 10, //总条数
             maxPage: 9, //最大页数
-            department: 0,
-            name:""
+            IsOperation: 0,
+            departmentName:""
         },
         mounted() {
-            this.getUser();
+            this.getDepartment();
         },
         methods: {
-            getUser: function (page) {
+            getDepartment: function (page) {
                 this.page = page,
                     axios.get("/Department/PageList",
                             {
                                  params: {
                                      pageIndex: page,
                                      pageSize: this.pageSize,
-                                     isOperation: this.department,
-                                     name: this.name
+                                     isOperation: this.IsOperation,
+                                     name: this.departmentName
                                  }
                             })
                     .then((response) => {
-
-                        console.log(response.pageList);
-                            //数据
                             this.userList = response.data.pageList;
-                            //每页大小
                             this.page = response.data.pageSize;
-                            //总条数
                             this.total = response.data.pageSizes;
-                            //总页数
                             this.maxPage = response.data.maxPage;
 
                         }).cache(function (error) {
@@ -127,22 +121,22 @@
                         });
             },
 
-            addUser: function() {
+            addDepartment: function() {
                 location.href = '/Department/Add';
             },
 
             DeleteById: function (id) {
-                alert(id);
+                //alert(id);
                 location.href = '/Department/Delete?id=' + id;
             },
 
             EnableById: function (id) {
-                alert(id);
+                //alert(id);
                 location.href = '/Department/Enable?id=' + id;
             },
 
             UpdateById: function (id) {
-                alert(id);
+                //alert(id);
                 location.href = '/Department/Update?id=' + id;
             }
         }

@@ -35,7 +35,6 @@
                 <td>部门:</td>
                 <td>
                     <select id="Select1" v-model="Department">
-                        <option value="请选择">请选择</option>
                         <option value="1">胸外科室</option>
                         <option value="2">肠胃科</option>
                         <option value="3">耳喉鼻科</option>
@@ -69,28 +68,29 @@
             data: {
                 Name: "",
                 Sex: "",
-                Department: "请选择",
+                Department: 0,
                 JobNum: "",
                 EngName: "",
-                id:@ViewBag.Id
+                Id:@ViewBag.Id
             },
             mounted() {
                 this.getUser(@ViewBag.Id);
             },
             methods: {
                 getUser: function(id) {
-                    axios.get("/UpdateData/Clinical",
+                    axios.get("/Clinical/UpdateData",
                         {
                              params: { id: id }
                         }).then((response) => {
-                        this.Name = response.data.ClinicUserName;
-                        this.Sex = response.data.Sex;
-                        this.JobNum = response.data.Jobnumber;
-                        this.EngName = response.data.ClinicUserRemark;
+                        this.Name = response.data.clinicUserName;
+                        this.Sex = response.data.sex;
+                        this.Department = response.data.aadministrativeid;
+                        this.JobNum = response.data.jobnumber;
+                        this.EngName = response.data.clinicUserRemark;
                     });
                 },
 
-                addUser: function(name, sex, department, jobNum, engName) {
+                addUser: function() {
                     if (this.Name == "") {
                         alert("名称不能为空");
                         return false;
@@ -100,6 +100,7 @@
                         return false;
                     };
                     var model = new URLSearchParams();
+                    model.append('Id', this.Id);
                     model.append('ClinicUserName', this.Name);
                     model.append('Sex', this.Sex);
                     model.append('Aadministrativeid', this.Department);
@@ -107,8 +108,10 @@
                     model.append('ClinicUserRemark', this.EngName);
 
                     axios.post('@Url.Action("UpdateClinical", "Clinical")',
-                        model).then((response) => { alert("编辑成功"); },
-                        (response) => {
+                        model).then((response) => {
+                            alert("编辑成功");
+                            location.href = '/Clinical/Index';
+                        },(response) => {
                             alert(response.status);
                         }
                     ).catch(function(response) {
