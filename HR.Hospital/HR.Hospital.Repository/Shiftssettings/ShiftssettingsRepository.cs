@@ -39,14 +39,28 @@ namespace HR.Hospital.Repository.Shiftssettings
         }
 
         /// <summary>
+        /// 获取最大编号
+        /// </summary>
+        /// <returns></returns>
+        public int GetId()
+        {
+            using (Model.hospitaldbContext eF = new hospitaldbContext())
+            {
+                int id = eF.Shiftssetting.OrderBy(u => u.Id).LastOrDefault().Id;
+                return id;
+            }
+        }
+
+        /// <summary>
         /// 显示
         /// </summary>
         /// <returns></returns>
-        public List<Shiftssetting> GetShiftssettings()
+
+        public List<Shiftssetting> GetShiftssettings(string name)
         {
             using (Model.hospitaldbContext ef = new hospitaldbContext())
             {
-                List<Model.Shiftssetting> list = ef.Shiftssetting.ToList();
+                List<Model.Shiftssetting> list = ef.Shiftssetting.Where(u=>string.IsNullOrEmpty(name)||u.ShiftssettingName==name).OrderBy(u=>u.Sortid).ToList();
                 return list;
             }
                
@@ -64,6 +78,16 @@ namespace HR.Hospital.Repository.Shiftssettings
                 ef.Entry(shiftssetting).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 return ef.SaveChanges() > 0;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool UpdateSortid(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

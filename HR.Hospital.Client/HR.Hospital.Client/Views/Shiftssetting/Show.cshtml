@@ -14,44 +14,55 @@
     <title>Show</title>
 </head>
 <body>
-    <div class="divstudents" id="divstudents">
+    <div class="divstudents" id="divstudents" style="margin-top:20px;margin-left:30px;margin-right:30px">
         <div>
-            <span style=" margin-left: 20px">班次名称：</span><input type="text" v-model="searchname" />
-            <button type="button" v-on:click="pagehandler(1,searchname)">查询</button>
+            <div style="float:left">
+                <span style=" margin-left: 20px">班次名称：</span><input type="text" v-model="name" />
+                <button type="button" v-on:click="pagehandler()">查询</button>
+            </div>
+            <div style="float:right;margin-right:15px">
+                <button v-on:click="Add()">新增班次</button>
+            </div>
         </div>
-       <div style="float:right">
-           @Html.ActionLink("添加","Add")
-       </div>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <td>序号</td>
-                    <td>班次颜色</td>
-                    <td>班次名称</td>
-                    <td>上班时间</td>
-                    <td>下班时间</td>
-                    <td>有效工作日</td>
-                    <td>计算工时</td>
-                    <td>是否打卡</td>
-                    <td>班次类型</td>
-                    <td>班次顺序</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="item in shiftssetting">
-                    <td>{{item.Id}}</td>
-                    <td>{{item.Shiftssettingcolour}}</td>
-                    <td>{{item.ShiftssettingName}}</td>
-                    <td>{{item.Opentime}}</td>
-                    <td>{{item.Closingtime}}</td>
-                    <td>{{item.Validtime}}</td>
-                    <td>{{item.Duration}}</td>
-                    <td>{{item.Isclock}}</td>
-                    <td>{{item.Shiftssettingtypeid}}</td>
-                    <td>{{item.Shiftssettingtypeid}}</td>
-                </tr>
-            </tbody>
-        </table>
+        <br />
+        <div style="margin-top:20px;">
+            <table class="table table-bordered">
+                <thead>
+                    <tr style="background-color:aquamarine">
+                        <td>序号</td>
+                        <td>班次颜色</td>
+                        <td>班次名称</td>
+                        <td>上班时间</td>
+                        <td>下班时间</td>
+                        <td>有效工作日</td>
+                        <td>计算工时</td>
+                        <td>是否打卡</td>
+                        <td>班次类型</td>
+                        <td>班次顺序</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in shiftssetting">
+                        <td>{{item.id}}</td>
+                        <td :style="{backgroundColor:item.shiftssettingcolour}"></td>
+                        <td>{{item.shiftssettingName}}</td>
+                        <td>{{item.opentime}}</td>
+                        <td>{{item.closingtime}}</td>
+                        <td>{{item.validtime}}</td>
+                        <td>{{item.duration}}</td>
+                        <td>{{item.isclock==1?"是":"否"}}</td>
+                        <td>{{item.shiftssettingtypeid==1?"工作班次":"假期班次"}}</td>
+                        @*<td>{{item.shiftssettingtypeid}}</td>*@
+                        <td><a style="color:deepskyblue;font-size:20px">⬆</a> <a style="color:red;font-size:20px">⬇</a></td>
+                        <td>
+                            <a href="#" v-on:click="Delete(item.id)">删除</a>
+                            <a href="#" v-on:click="Edit(item.id)">修改</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
                   v-bind:max-page="maxPage" v-on:pagehandler="pagehandler">
         </zpagenav>
@@ -60,22 +71,36 @@
 </html>
 <script>
 
-        var vm = new Vue({
-            el: "#divstudents",
-            data: {
-                shiftssetting: [],
+    var vm = new Vue({
+        el: "#divstudents",
+        data: {
+            shiftssetting: [],
+        },
+        mounted() {
+            this.pagehandler();
+
+        },
+        methods: {
+            pagehandler: function (name) {
+                axios.get("http://localhost:12345/api/Shiftssetting/GetList", { params: { name: this.name } }).then((response) => {
+                    this.shiftssetting = response.data;
+                    console.log(response.data)
+                });
             },
-            mounted() {
-                this.pagehandler();
+            Add: function () {
+                location.href = "/Shiftssetting/Add";
             },
-            methods: {
-                pagehandler: function (page,name) {
-                    this.page = page;
-                    axios.get("http://localhost:12345/api/Shiftssetting/GetList").then((response) => {
-                        this.studentlist = [];
-                    });
-                }
+            Edit: function (id) {
+                location.href = '/Shiftssetting/Edit?id=' + id;
+            },
+            Delete: function (id) {
+                axios.post("http://localhost:12345/api/Shiftssetting/DeleteById?id=" + id).then((response) => {
+                    if (response.data) {
+                        this.pagehandler();
+                    }
+                });
             }
-        });
+        }
+    });
 
 </script>

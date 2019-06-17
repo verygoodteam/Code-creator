@@ -14,9 +14,6 @@ namespace HR.Hospital.IRepository.OperationRooms
         /// <returns></returns>
         List<AreaDto> GetListArea();
 
-
-       
-
         /// <summary>
         /// 手术室添加
         /// </summary>
@@ -44,7 +41,6 @@ namespace HR.Hospital.IRepository.OperationRooms
         /// <param name="id"></param>
         /// <returns></returns>
         int EnableOperationRoom(int id);
-
 
         /// 手术间查看分页两表联查显示数据  
         /// <param name="pageIndex"></param>

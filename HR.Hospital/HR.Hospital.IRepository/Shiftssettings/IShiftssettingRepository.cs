@@ -13,7 +13,7 @@ namespace HR.Hospital.IRepository.Shiftssettings
         /// 获取所有班次列表
         /// </summary>
         /// <returns></returns>
-        List<Model.Shiftssetting> GetShiftssettings();
+        List<Model.Shiftssetting> GetShiftssettings(string name);
 
         /// <summary>
         /// 添加班次
@@ -36,5 +36,17 @@ namespace HR.Hospital.IRepository.Shiftssettings
         /// <returns></returns>
         bool UpdateShiftssetting(Model.Shiftssetting shiftssetting);
 
+        /// <summary>
+        /// 获取最大编号
+        /// </summary>
+        /// <returns></returns>
+        int GetId();
+
+        /// <summary>
+        /// 调整排序
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        bool UpdateSortid(int id);
     }
 }

@@ -27,5 +27,7 @@ namespace HR.Hospital.Model.Dto
         /// 备注
         /// </summary>
         public string OperationRemark { get; set; }
+
+        //public int SortId { get; set; }
     }
 }
