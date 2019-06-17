@@ -6,12 +6,12 @@ var navs = [{
 }, {
     "title": "院区管理",
     "icon": "&#xe61c;",
-    "href": "http://localhost:57753/Area/IndexArea",
+    "href": "/Area/IndexArea",
     "spread": false
 }, {
     "title": "科室管理",
     "icon": "&#xe631;",
-    "href": "http://localhost:57753/Department/Index",
+    "href": "/Department/Index",
     "spread": false
 }, {
     "title": "手术间管理",
