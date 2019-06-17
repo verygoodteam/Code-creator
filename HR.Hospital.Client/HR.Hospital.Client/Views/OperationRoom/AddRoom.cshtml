@@ -12,10 +12,11 @@
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
     <script src="~/js/zpageNav.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
     <div id="addRoom">
-        <table>
+        <table class="table-condensed table">
             <tr>
                 <td>院区名称</td>
 
@@ -42,10 +43,17 @@
                 </td>
 
             </tr>
+            <tr>
+                <td> </td>
 
+                <td>
+                    <button type="button" v-on:click="saveRoom()" class="btn btn-default">添加</button>
+                    <button type="button" v-on:click="returnRoomIndex()"class="btn btn-default">返回</button>
+                </td>
+
+            </tr>
         </table>
-        <button type="button" v-on:click="saveRoom()">添加</button>
-        <button type="button" v-on:click="returnRoomIndex()">返回</button>
+       
     </div>
 </body>
 </html>
