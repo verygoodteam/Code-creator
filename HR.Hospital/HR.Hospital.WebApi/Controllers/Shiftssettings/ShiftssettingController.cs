@@ -37,7 +37,7 @@ namespace HR.Hospital.WebApi.Controllers.Shiftssettings
         /// <param name="shiftssetting"></param>
         /// <returns></returns>
         [HttpPost("Add")]
-        public bool Add([FromBody] Model.Shiftssetting shiftssetting)
+        public bool Add(Model.Shiftssetting shiftssetting)
         {
             bool b = _shiftssettingRepository.AddShiftssetting(shiftssetting);
             return b;
@@ -65,6 +65,17 @@ namespace HR.Hospital.WebApi.Controllers.Shiftssettings
         {
             bool b = _shiftssettingRepository.UpdateShiftssetting(shiftssetting);
             return b;
+        }
+
+        /// <summary>
+        /// 获取最大id
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetId")]
+        public int GetId()
+        {
+            int i = _shiftssettingRepository.GetId();
+            return i;
         }
     }
 }

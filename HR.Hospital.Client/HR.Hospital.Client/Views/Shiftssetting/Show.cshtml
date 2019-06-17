@@ -20,11 +20,12 @@
                 <span style=" margin-left: 20px">班次名称：</span><input type="text" v-model="name" />
                 <button type="button" v-on:click="pagehandler()">查询</button>
             </div>
-            <div style="float:right;margin-right:15px" >
+            <div style="float:right;margin-right:15px">
                 <button v-on:click="Add()">新增班次</button>
             </div>
         </div>
-        <div  style="margin-top:20px;" >
+        <br />
+        <div style="margin-top:20px;">
             <table class="table table-bordered">
                 <thead>
                     <tr style="background-color:aquamarine">
@@ -44,7 +45,7 @@
                 <tbody>
                     <tr v-for="item in shiftssetting">
                         <td>{{item.id}}</td>
-                        <td><input style="width:80px;height:25px;" type="color" value={{item.shiftssettingcolour}} /></td>
+                        <td :style="{backgroundColor:item.shiftssettingcolour}"></td>
                         <td>{{item.shiftssettingName}}</td>
                         <td>{{item.opentime}}</td>
                         <td>{{item.closingtime}}</td>
@@ -70,36 +71,36 @@
 </html>
 <script>
 
-        var vm = new Vue({
-            el: "#divstudents",
-            data: {
-                shiftssetting: [],
-            },
-            mounted() {
-                this.pagehandler();
+    var vm = new Vue({
+        el: "#divstudents",
+        data: {
+            shiftssetting: [],
+        },
+        mounted() {
+            this.pagehandler();
 
+        },
+        methods: {
+            pagehandler: function (name) {
+                axios.get("http://localhost:12345/api/Shiftssetting/GetList", { params: { name: this.name } }).then((response) => {
+                    this.shiftssetting = response.data;
+                    console.log(response.data)
+                });
             },
-            methods: {
-                pagehandler: function (name) {
-                    axios.get("http://localhost:12345/api/Shiftssetting/GetList", { params: { name: this.name } }).then((response) => {
-                        this.shiftssetting = response.data;
-                        console.log(response.data)
-                    });
-                },
-                Add: function () {
-                    location.href = "/Shiftssetting/Add";
-                },
-                Edit: function (id) {
-                    location.href = '/Shiftssetting/Edit?id=' + id;
-                },
-                Delete: function (id) {
-                    axios.post("http://localhost:12345/api/Shiftssetting/DeleteById?id=" + id).then((response) => {
-                        if (response.data) {
-                            this.pagehandler();
-                        }
-                    });
-                }
+            Add: function () {
+                location.href = "/Shiftssetting/Add";
+            },
+            Edit: function (id) {
+                location.href = '/Shiftssetting/Edit?id=' + id;
+            },
+            Delete: function (id) {
+                axios.post("http://localhost:12345/api/Shiftssetting/DeleteById?id=" + id).then((response) => {
+                    if (response.data) {
+                        this.pagehandler();
+                    }
+                });
             }
-        });
+        }
+    });
 
 </script>

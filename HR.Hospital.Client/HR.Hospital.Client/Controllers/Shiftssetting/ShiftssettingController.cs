@@ -17,5 +17,10 @@ namespace HR.Hospital.Client.Controllers.Shiftssetting
         {
             return View();
         }
+
+        public IActionResult Create(Models.Shiftssetting shiftssetting)
+        {
+            return View();
+        }
     }
 }

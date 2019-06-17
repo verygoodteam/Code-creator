@@ -19,7 +19,7 @@
         <table class="table table-bordered">
             <tr>
                 <td>班次颜色</td>
-                <td><input id="Shiftssettingcolour" type="color" v-model="Shiftssettingcolour" /></td>
+                <td><input id="Shiftssettingcolour" type="color" v-model="shiftssettingcolour" /></td>
             </tr>
             <tr>
                 <td>班次名称</td>
@@ -27,11 +27,11 @@
             </tr>
             <tr>
                 <td>上班时间</td>
-                <td><input id="Opentime" name="Opentime" type="text" onclick="_SetTime(this)" v-model="Opentime" /></td>
+                <td><input id="Opentime" name="Opentime" type="time" v-model="Opentime" /></td>
             </tr>
             <tr>
                 <td>下班时间</td>
-                <td><input id="closetime" name="Closingtime" type="text" onclick="_SetTime(this)" v-model="Closingtime" /></td>
+                <td><input id="closetime" name="Closingtime" type="time" v-model="Closingtime" /></td>  @*//onclick="_SetTime(this)"*@
             </tr>
             <tr>
                 <td>有效工作日</td>
@@ -108,30 +108,40 @@
         mounted: function () {
             this.Isclock = 1;
             this.Shiftssettingtypeid = 1;
+            this.ss();
         },
         //所有的方法
         methods: {
+            ss: function () {
+                axios.get("http://localhost:12345/api/Shiftssetting/GetId").then((response) => {
+                    this.Sortid = response.data + 1;
+                    //data   状态码  状态信息    请求头   配置信息
+                })
+            },
             AddShiftssetting: function () {
                 //.netcore规定的传参格式
+                //alert(123)
+                //var checkID = [];
+                //$("input[type='checkbox']:checked").each(function () {
+                //    checkID.push($(this).val());
+                //})
 
-                alert(this.Shiftssettingcolour)
-
-                var shiftssetting = new URLSearchParams();
-                shiftssetting.append('Shiftssettingcolour', this.Shiftssettingcolour);
-                shiftssetting.append('ShiftssettingName', this.ShiftssettingName);
-                shiftssetting.append('Opentime', this.Opentime);
-                shiftssetting.append('Closingtime', this.Closingtime);
-                shiftssetting.append('Validtime', this.Validtime);
-                shiftssetting.append('Duration', this.Duration);
-                shiftssetting.append('Isclock', this.Isclock);
-                shiftssetting.append('Shiftssettingtypeid', this.Shiftssettingtypeid);
-                shiftssetting.append('Sortid', this.Sortid);
-                shiftssetting.append('Validday', this.Validday);
-
-                axios.post("http://localhost:12345/api/Shiftssetting/Add", { params: { shiftssetting } })
+                axios.post("http://localhost:12345/api/Shiftssetting/Add", {
+                    Shiftssettingcolour: this.shiftssettingcolour,
+                    ShiftssettingName: this.ShiftssettingName,
+                    Opentime: this.Opentime,
+                    Closingtime: this.Closingtime,
+                    Validtime: this.Validtime,
+                    Duration: this.Duration,
+                    Isclock: this.Isclock,
+                    Shiftssettingtypeid: this.Shiftssettingtypeid,
+                    Sortid: this.Sortid,
+                    Validday: this.Validday
+                })
                     .then((response) => {
                         if (response.data > 0) {
                             alert("添加成功");
+                            location.href = "/Shiftssetting/Show";
                         }
                         return false;
                     }).catch(function (response) {
