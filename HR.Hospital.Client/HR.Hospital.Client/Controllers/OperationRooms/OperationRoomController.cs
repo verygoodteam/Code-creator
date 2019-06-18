@@ -27,7 +27,7 @@ namespace HR.Hospital.Client.Controllers.OperationRooms
         public JsonResult IndexRoomAction(int pageIndex = 1, int pageSize = 2, int areaId = 3, string operationName = "")
         {
           
-            var result = HttpClientApi.GetAsync<Common.List<AreaRoomDto>>("http://localhost:12345/api/OperationRoom/GetListOperationRoom?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&areaId=" + areaId + "&operationName=" + operationName);
+            var result = HttpClientApi.GetAsync<PageHelper<AreaRoomDto>>("http://localhost:12345/api/OperationRoom/GetListOperationRoom?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&areaId=" + areaId + "&operationName=" + operationName);
             return Json(result, new JsonSerializerSettings());
         }
 

@@ -7,9 +7,9 @@ namespace HR.Hospital.Client.Common
     /// 分页类
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class List<T> where T : class
+    public sealed class PageHelper<T> where T : class
     {
-        public List()
+        public PageHelper()
         {
             PageList = new List<T>();
         }
@@ -23,7 +23,6 @@ namespace HR.Hospital.Client.Common
         /// 总页数
         /// </summary>
         public int PageNum { get; set; }
-
 
         /// <summary>
         /// 每页显示几条

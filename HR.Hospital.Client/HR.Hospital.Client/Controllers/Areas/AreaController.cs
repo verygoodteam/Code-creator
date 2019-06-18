@@ -33,7 +33,7 @@ namespace HR.Hospital.Client.Controllers.Areas
         /// <returns></returns>
         public ActionResult ListArea(int pageIndex = 1, int pageSize = 2, int areaProperty = 0, string areaName = "")
         {
-            var pageArea = HttpClientApi.GetAsync<Common.List<Area>>("http://localhost:12345/api/Areas/GetAreaList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&areaProperty=" + areaProperty + "&areaName=" + areaName);
+            var pageArea = HttpClientApi.GetAsync<PageHelper<Area>>("http://localhost:12345/api/Areas/GetAreaList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&areaProperty=" + areaProperty + "&areaName=" + areaName);
             return Json(pageArea, new JsonSerializerSettings());
         }
 
