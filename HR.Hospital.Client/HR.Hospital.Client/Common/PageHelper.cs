@@ -7,11 +7,11 @@ namespace HR.Hospital.Client.Common
     /// 分页类
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class PageHelper<T> where T : class
+    public sealed class List<T> where T : class
     {
-        public PageHelper()
+        public List()
         {
-            PageList = new PageHelper<T>();
+            PageList = new List<T>();
         }
         /// <summary>
         /// 当前页
@@ -40,6 +40,6 @@ namespace HR.Hospital.Client.Common
         /// <summary>
         /// 查询数据集合
         /// </summary>
-        public PageHelper<T> PageList { get; set; }
+        public List<T> PageList { get; set; }
     }
 }
