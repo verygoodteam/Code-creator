@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RoleShows</title>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+
+<body>
+    <table class="table table-bordered">
+        <tr>
+            <td>角色id</td>
+            <td>角色名称</td>
+            <td>权限名称</td>
+            <td>是否启用</td>
+            <td>操作</td>
+        </tr>
+        <tbody id="tb">
+            @{
+                foreach (var item in Model)
+                {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.RoleName</td>
+                <td>@item.PermissionName</td>
+                <td>(@item.Isnable==0"<a href="javascript:void(0)" onclick="State(this)">禁用</a>":"<a href="javascript:void(0)">启用</a>")</td>
+                <td><a href="#">编辑</a></td>
+            </tr>
+                }
+            }
+        </tbody>
+    </table>
+</body>
+</html>
