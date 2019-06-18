@@ -8,7 +8,7 @@ namespace HR.Hospital.Model
     /// <summary>
     /// 活动主表
     /// </summary>
-    public class Activity
+    public class ActivityTable
     {
         public int Id { get; set; }
 

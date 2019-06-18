@@ -123,7 +123,7 @@ namespace HR.Hospital.Model
         /// <summary>
         /// 获取审批活动表信息
         /// </summary>
-        public virtual DbSet<Activity> Activity { get; set; }
+        public virtual DbSet<ActivityTable> Activity { get; set; }
 
         /// <summary>
         /// 获取审批类型信息
@@ -161,9 +161,9 @@ namespace HR.Hospital.Model
             });
 
             //自己添加的审批活动表
-            modelBuilder.Entity<Activity>(entity =>
+            modelBuilder.Entity<ActivityTable>(entity =>
             {
-                entity.ToTable("activity");
+                entity.ToTable("ActivityTable");
 
                 entity.Property(e => e.Id).HasColumnType("int(12)");
 

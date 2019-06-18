@@ -33,7 +33,7 @@ namespace HR.Hospital.WebApi.Controllers.ApprovalFunction
 
         // GET: api/Approval
         [HttpGet("GetListApproval")]
-        public IEnumerable<Activity> GetListApproval()
+        public IEnumerable<ActivityTable> GetListApproval()
         {
             return ActivityRepository.GetListActivity();
         }

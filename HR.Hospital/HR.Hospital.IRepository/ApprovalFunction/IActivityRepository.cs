@@ -6,6 +6,6 @@ namespace HR.Hospital.IRepository.ApprovalFunction
     //活动类型表查询绑定下拉
     public interface IActivityRepository
     {
-        List<Activity> GetListActivity();
+        List<ActivityTable> GetListActivity();
     }
 }

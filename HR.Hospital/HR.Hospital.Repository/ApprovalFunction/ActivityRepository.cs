@@ -9,7 +9,7 @@ namespace HR.Hospital.Repository.ApprovalFunction
     public class ActivityRepository : IActivityRepository
     {
         private readonly hospitaldbContext _context = new hospitaldbContext();
-        public List<Activity> GetListActivity()
+        public List<ActivityTable> GetListActivity()
         {
             var listActivity = _context.Activity.ToList();
             return listActivity;
