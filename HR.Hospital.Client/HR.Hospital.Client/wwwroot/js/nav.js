@@ -47,7 +47,13 @@ var navs = [{
     "icon": "&#xe631;",
     "href": "/Shiftssetting/Show",
     "spread": false
-}]
+}, {
+    "title": "审批流程设置",
+    "icon": "&#xe631;",
+        "href": "/Approval/Index",
+    "spread": false
+}
+]
 
 //    , {
 //        "title": "排班规则管理",
