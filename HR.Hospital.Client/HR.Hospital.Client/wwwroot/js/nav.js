@@ -47,7 +47,26 @@ var navs = [{
     "icon": "&#xe631;",
     "href": "/Shiftssetting/Show",
     "spread": false
-}]
+    }, {
+        "title": "权限管理",
+        "icon": "&#xe61c;",
+        "href": "",
+        "spread": false,
+        "children": [
+            {
+                "title": "权限管理",
+                "icon": "&#xe631;",
+                "href": "/Permission/PermissionShow",
+                "spread": false
+            },
+            {
+                "title": "角色管理管理",
+                "icon": "&#xe631;",
+                "href": "/Clinical/Index",
+                "spread": false
+            }
+        ]
+    }]
 
 //    , {
 //        "title": "排班规则管理",

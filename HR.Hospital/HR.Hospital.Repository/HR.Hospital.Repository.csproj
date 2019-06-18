@@ -5,9 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.60.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HR.Hospital.Common\HR.Hospital.Common.csproj" />
     <ProjectReference Include="..\HR.Hospital.IRepository\HR.Hospital.IRepository.csproj" />
     <ProjectReference Include="..\HR.Hospital.Model\HR.Hospital.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>D:\小实训2\Content\Dapper.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

@@ -7,6 +7,9 @@ namespace HR.Hospital.IRepository.Roles
 {
    public interface IRoleRepository
     {
+        //角色显示
+        List<Role> GetRoles();
+
         //权限列表
         List<Permission> GetPermission(int pid = 0);
 
@@ -14,9 +17,9 @@ namespace HR.Hospital.IRepository.Roles
         int Addrole(Role roles, string ids);
 
         //回显角色
-        Role role(int id);
+        Role Roles(int id);
 
         //修改
-        int updaterole(Role roles, string ids);
+        int UpdateRole(Role roles, string ids);
     }
 }

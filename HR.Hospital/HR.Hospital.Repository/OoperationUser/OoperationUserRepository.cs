@@ -12,7 +12,7 @@ namespace HR.Hospital.Repository.OoperationUser
         //实例化上下文类
         hospitaldbContext db = new hospitaldbContext();
 
-        
+
         /// <summary>
         /// 添加手术室用户
         /// </summary>
@@ -25,15 +25,15 @@ namespace HR.Hospital.Repository.OoperationUser
             return addOoperationUser;
         }
 
-        
+
         /// <summary>
         ///能级下拉 
         /// </summary>
         /// <returns></returns>
         public List<Hierarchy> GetHierarchies()
         {
-           var list= db.Hierarchy.ToList();
-           return list;
+            var list = db.Hierarchy.ToList();
+            return list;
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace HR.Hospital.Repository.OoperationUser
             return list;
         }
 
-        
+
         /// <summary>
         /// 返填
         /// </summary>
@@ -88,8 +88,8 @@ namespace HR.Hospital.Repository.OoperationUser
             var query = from o1 in db.Ooperationuser
                         select new Model.Ooperationuser()
                         {
-                            Id=o1.Id,
-                            OoperationUserName=o1.OoperationUserName
+                            Id = o1.Id,
+                            OoperationUserName = o1.OoperationUserName
                         };
 
             var list = query.ToList();
@@ -121,7 +121,7 @@ namespace HR.Hospital.Repository.OoperationUser
                             join h in db.Hierarchy on o1.HierarchyId equals h.Id
                             into JoinedEmpDept4
                             from h in JoinedEmpDept4.DefaultIfEmpty()
-                            join o2 in db.Ooperationuser on o1.Id equals o2.Userid
+                            join o2 in db.Ooperationuser on o1.Userid equals o2.Id
                             into JoinedEmpDept5
                             from o2 in JoinedEmpDept5.DefaultIfEmpty()
                             select new Ooperationuserview
@@ -135,29 +135,29 @@ namespace HR.Hospital.Repository.OoperationUser
                                 ProfessionalName = pro.ProfessionalName,
                                 HierarchyName = h.HierarchyName,
                                 UserName = o2.OoperationUserName,
-                                Userid = o2.Userid
+                                Enrollmentdate = DateTime.Now
                             };
 
                 return query.ToList();
             }
 
-                var query1 = from o1 in db.Ooperationuser
-                            join r in db.Role on o1.Roleid equals r.Id
-                            into JoinedEmpDept1
-                            from r in JoinedEmpDept1.DefaultIfEmpty()
-                            join p in db.Position on o1.PositionId equals p.Id
-                            into JoinedEmpDept2
-                            from p in JoinedEmpDept2.DefaultIfEmpty()
-                            join pro in db.Professional on o1.ProfessionalId equals pro.Id
-                            into JoinedEmpDept3
-                            from pro in JoinedEmpDept3.DefaultIfEmpty()
-                            join h in db.Hierarchy on o1.HierarchyId equals h.Id
-                            into JoinedEmpDept4
-                            from h in JoinedEmpDept4.DefaultIfEmpty()
-                            join o2 in db.Ooperationuser on o1.Id equals o2.Userid
-                            into JoinedEmpDept5
-                            from o2 in JoinedEmpDept5.DefaultIfEmpty()
-                            where (o1.HierarchyId == hierarchyid && o1.OoperationUserName == name) ||( o1.Simplename == englishname && o1.HierarchyId == hierarchyid)
+            var query1 = from o1 in db.Ooperationuser
+                         join r in db.Role on o1.Roleid equals r.Id
+                         into JoinedEmpDept1
+                         from r in JoinedEmpDept1.DefaultIfEmpty()
+                         join p in db.Position on o1.PositionId equals p.Id
+                         into JoinedEmpDept2
+                         from p in JoinedEmpDept2.DefaultIfEmpty()
+                         join pro in db.Professional on o1.ProfessionalId equals pro.Id
+                         into JoinedEmpDept3
+                         from pro in JoinedEmpDept3.DefaultIfEmpty()
+                         join h in db.Hierarchy on o1.HierarchyId equals h.Id
+                         into JoinedEmpDept4
+                         from h in JoinedEmpDept4.DefaultIfEmpty()
+                         join o2 in db.Ooperationuser on o1.Userid equals o2.Id
+                         into JoinedEmpDept5
+                         from o2 in JoinedEmpDept5.DefaultIfEmpty()
+                         where (o1.HierarchyId == hierarchyid && o1.OoperationUserName == name) || (o1.Simplename == englishname && o1.HierarchyId == hierarchyid)
                              select new Ooperationuserview()
                             {
                                 Id = o1.Id,
@@ -169,7 +169,6 @@ namespace HR.Hospital.Repository.OoperationUser
                                 ProfessionalName = pro.ProfessionalName,
                                 HierarchyName = h.HierarchyName,
                                 UserName = o2.OoperationUserName,
-                                Userid = o2.Userid
                             };
 
                 return query1.ToList();

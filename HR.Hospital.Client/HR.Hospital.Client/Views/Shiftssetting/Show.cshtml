@@ -28,7 +28,7 @@
         <div style="margin-top:20px;">
             <table class="table table-bordered">
                 <thead>
-                    <tr style="background-color:aquamarine">
+                    <tr style="background-color:#00ced1">
                         <td>序号</td>
                         <td>班次颜色</td>
                         <td>班次名称</td>
@@ -54,7 +54,7 @@
                         <td>{{item.isclock==1?"是":"否"}}</td>
                         <td>{{item.shiftssettingtypeid==1?"工作班次":"假期班次"}}</td>
                         @*<td>{{item.shiftssettingtypeid}}</td>*@
-                        <td><a style="color:deepskyblue;font-size:20px">⬆</a> <a style="color:red;font-size:20px">⬇</a></td>
+                        <td><a style="color:deepskyblue;font-size:20px" v-on:click="Up(item.id)">⬆⬆</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:red;font-size:20px" v-on:click="Down(item.id)">⬇⬇</a></td>
                         <td>
                             <a href="#" v-on:click="Delete(item.id)">删除</a>
                             <a href="#" v-on:click="Edit(item.id)">修改</a>
@@ -99,7 +99,31 @@
                         this.pagehandler();
                     }
                 });
+            },
+            Up: function (id) {
+                axios.post("http://localhost:12345/api/Shiftssetting/Upsortid?id=" + id).then((response) => {
+                    if (response.data) {
+                        this.pagehandler();
+                    }
+                    else {
+                        alert("我已经是第一名了，不能再向前了！")
+                    }
+                });
+            },
+
+            Down: function (id) {
+                axios.post("http://localhost:12345/api/Shiftssetting/DownSortid?id=" + id).then((response) => {
+                    if (response.data) {
+                        this.pagehandler();
+                    }
+                    else {
+                        alert("我已经是最后一名了，不能再向后了！")
+                    }
+                });
             }
+
+
+
         }
     });
 

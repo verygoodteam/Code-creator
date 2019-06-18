@@ -11,7 +11,7 @@ namespace HR.Hospital.Client.Common
     {
         public PageHelper()
         {
-            PageList = new List<T>();
+            PageList = new PageHelper<T>();
         }
         /// <summary>
         /// 当前页
@@ -40,6 +40,6 @@ namespace HR.Hospital.Client.Common
         /// <summary>
         /// 查询数据集合
         /// </summary>
-        public List<T> PageList { get; set; }
+        public PageHelper<T> PageList { get; set; }
     }
 }
