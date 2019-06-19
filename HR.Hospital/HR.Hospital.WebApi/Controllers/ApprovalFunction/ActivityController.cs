@@ -58,6 +58,12 @@ namespace HR.Hospital.WebApi.Controllers.ApprovalFunction
             return ApprovalTypeRepository.GetListUserLevel();
         }
 
+        [HttpGet("GetListRole")]
+        public List<Role> GetListRole()
+        {
+            return ApprovalTypeRepository.GetListRole();
+        }
+
         // POST: api/Approval
         [HttpPost]
         public void Post([FromBody] string value)
