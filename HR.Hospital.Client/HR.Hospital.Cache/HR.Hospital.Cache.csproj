@@ -7,6 +7,7 @@
   <ItemGroup>
     <Reference Include="ServiceStack">
       <HintPath>D:\小实训2\Uiltity\ServiceStack.dll</HintPath>
+      <HintPath>..\..\HR.Hospital\Dlls\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces">
       <HintPath>..\..\HR.Hospital\Dlls\ServiceStack.Interfaces.dll</HintPath>
