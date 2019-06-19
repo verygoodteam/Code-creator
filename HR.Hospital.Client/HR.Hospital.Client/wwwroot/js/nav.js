@@ -71,7 +71,7 @@ var navs = [{
             "spread": false
         }
     ]
-}, , {
+}, {
     "title": "审批管理",
     "icon": "&#xe61c;",
     "href": "",
@@ -88,15 +88,28 @@ var navs = [{
             "icon": "&#xe631;",
             "href": "/Clinical/Index",
             "spread": false
-        },
-        {
-            "title": "审批规则设置",
-            "icon": "&#xe631;",
-            "href": "/Clinical/Index",
-            "spread": false
         }
     ]
-}]
+    }, {
+        "title": "考勤管理",
+        "icon": "&#xe61c;",
+        "href": "",
+        "spread": false,
+        "children": [
+            {
+                "title": "考勤明细",
+                "icon": "&#xe631;",
+                "href": "//",
+                "spread": false
+            },
+            {
+                "title": "考勤汇总",
+                "icon": "&#xe631;",
+                "href": "//",
+                "spread": false
+            }
+        ]
+    }]
 
 //    , {
 //        "title": "排班规则管理",
