@@ -37,7 +37,29 @@ namespace HR.Hospital.WebApi.Controllers.Group
             var list = _groupRepository.GetPagedList(pageIndex, pageSize, name);
             return list;
         }
-        
+
+        /// <summary>
+        /// 获取科室
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetDepartment")]
+        public List<Administrative> GetDepartment()
+        {
+            var list = _groupRepository.GetDepartment();
+            return list;
+        }
+
+        /// <summary>
+        /// 获取人员
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetClinical")]
+        public List<Clinicuser> GetClinical()
+        {
+            var list = _groupRepository.GetClinical();
+            return list;
+        }
+
         /// <summary>
         /// 添加
         /// </summary>

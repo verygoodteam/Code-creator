@@ -24,7 +24,6 @@ namespace HR.Hospital.Client.Common
         /// </summary>
         public int PageNum { get; set; }
 
-
         /// <summary>
         /// 每页显示几条
         /// </summary>
