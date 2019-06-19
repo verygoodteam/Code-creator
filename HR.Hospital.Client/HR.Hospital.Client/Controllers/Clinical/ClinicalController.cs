@@ -21,7 +21,17 @@ namespace HR.Hospital.Client.Controllers.Clinical
 
         public PageHelper<Clinicuser> PageList(int pageIndex = 1, int pageSize = 3, int administrativeId = 0, string englishName = "")
         {
-            var list = HttpClientApi.GetAsync<PageHelper<Clinicuser>>("http://localhost:12345/api/clinical/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&administrativeId=" + administrativeId + "&englishName=" + englishName);
+            var list = HttpClientApi.GetAsync<Common.PageHelper<Clinicuser>>("http://localhost:12345/api/clinical/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&administrativeId=" + administrativeId + "&englishName=" + englishName);
+            return list;
+        }
+
+        /// <summary>
+        /// 获取科室
+        /// </summary>
+        /// <returns></returns>
+        public List<Administrative> GetDepartment()
+        {
+            var list = HttpClientApi.GetAsync<List<Administrative>>("http://localhost:12345/api/clinical/GetDepartment");
             return list;
         }
 

@@ -20,7 +20,27 @@ namespace HR.Hospital.Client.Controllers.Group
         }
         public PageHelper<Professionalgroup> PageList(int pageIndex = 1, int pageSize = 3, string name = "")
         {
-            var list = HttpClientApi.GetAsync<PageHelper<Professionalgroup>>("http://localhost:12345/api/Group/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize  + "&name=" + name);
+            var list = HttpClientApi.GetAsync<Common.PageHelper<Professionalgroup>>("http://localhost:12345/api/Group/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize  + "&name=" + name);
+            return list;
+        }
+
+        /// <summary>
+        /// 获取科室
+        /// </summary>
+        /// <returns></returns>
+        public List<Administrative> GetDepartment()
+        {
+            var list = HttpClientApi.GetAsync<List<Administrative>>("http://localhost:12345/api/Group/GetDepartment");
+            return list;
+        }
+
+        /// <summary>
+        /// 获取人员
+        /// </summary>
+        /// <returns></returns>
+        public List<Clinicuser> GetClinical()
+        {
+            var list = HttpClientApi.GetAsync<List<Clinicuser>>("http://localhost:12345/api/Group/GetClinical");
             return list;
         }
 
@@ -51,22 +71,32 @@ namespace HR.Hospital.Client.Controllers.Group
         }
 
         /// <summary>
-        /// 获取单条数据
+        /// 修改
         /// </summary>
         /// <returns></returns>
         public ActionResult Update(int id)
         {
-            var list = HttpClientApi.GetAsync<Professionalgroup>("http://localhost:12345/api/Group/GetModel?id=" + id);
-            return View(list);
+            ViewBag.Id = id;
+            return View();
         }
 
         /// <summary>
-        /// 修改
+        /// 获取单条数据
+        /// </summary>
+        /// <returns></returns>
+        public Professionalgroup UpdateData(int id)
+        {
+            var list = HttpClientApi.GetAsync<Professionalgroup>("http://localhost:12345/api/Group/GetModel?id=" + id);
+            return list;
+        }
+        
+        /// <summary>
+        /// 修改方法
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Update(Professionalgroup model)
+        public ActionResult UpdateGroup(Professionalgroup model)
         {
             var i = HttpClientApi.PutAsync<Professionalgroup, int>(model, "http://localhost:12345/api/Group/update");
             return Redirect("/Group/Index");

@@ -15,6 +15,18 @@ namespace HR.Hospital.IRepository.Group
         PageHelper<Professionalgroup> GetPagedList(int pageIndex, int pageSize, string name);
 
         /// <summary>
+        /// 获取科室
+        /// </summary>
+        /// <returns></returns>
+        List<Administrative> GetDepartment();
+
+        /// <summary>
+        /// 获取人员
+        /// </summary>
+        /// <returns></returns>
+        List<Clinicuser> GetClinical();
+
+        /// <summary>
         /// 添加
         /// </summary>
         /// <param name="model"></param>

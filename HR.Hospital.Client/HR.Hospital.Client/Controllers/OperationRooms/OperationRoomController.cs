@@ -15,7 +15,7 @@ namespace HR.Hospital.Client.Controllers.OperationRooms
         /// <returns></returns>
         public IActionResult IndexRoom()
         {
-            var areaList = HttpClientApi.GetAsync<List<AreaDto>>("http://localhost:12345/api/OperationRoom/GetListArea");
+            var areaList = HttpClientApi.GetAsync<System.Collections.Generic.List<AreaDto>>("http://localhost:12345/api/OperationRoom/GetListArea");
             ViewBag.AreaList = areaList;
             return View();
         }
@@ -27,7 +27,7 @@ namespace HR.Hospital.Client.Controllers.OperationRooms
         public JsonResult IndexRoomAction(int pageIndex = 1, int pageSize = 2, int areaId = 3, string operationName = "")
         {
           
-            var result = HttpClientApi.GetAsync<PageHelper<AreaRoomDto>>("http://localhost:12345/api/OperationRoom/GetListOperationRoom?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&areaId=" + areaId + "&operationName=" + operationName);
+            var result = HttpClientApi.GetAsync<Common.PageHelper<AreaRoomDto>>("http://localhost:12345/api/OperationRoom/GetListOperationRoom?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&areaId=" + areaId + "&operationName=" + operationName);
             return Json(result, new JsonSerializerSettings());
         }
 
@@ -46,7 +46,7 @@ namespace HR.Hospital.Client.Controllers.OperationRooms
         /// <returns></returns>
         public JsonResult GetListArea()
         {
-            var result = HttpClientApi.GetAsync<List<AreaDto>>("http://localhost:12345/api/OperationRoom/GetListArea");
+            var result = HttpClientApi.GetAsync<System.Collections.Generic.List<AreaDto>>("http://localhost:12345/api/OperationRoom/GetListArea");
             return Json(result, new JsonSerializerSettings());
         }
 

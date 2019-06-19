@@ -1,3 +1,4 @@
+using HR.Hospital.IRepository.ApprovalFunction;
 using HR.Hospital.IRepository.Areas;
 using HR.Hospital.IRepository.Clinical;
 using HR.Hospital.IRepository.Department;
@@ -7,6 +8,8 @@ using HR.Hospital.IRepository.OoperationUser;
 using HR.Hospital.IRepository.OperationRooms;
 using HR.Hospital.IRepository.Shiftssettings;
 using HR.Hospital.Model;
+using HR.Hospital.IRepository.Roles;
+using HR.Hospital.Repository.Roles;
 using HR.Hospital.IRepository.Permissions;
 using HR.Hospital.Repository.Permissions;
 using HR.Hospital.Repository.Areas;
@@ -25,6 +28,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using HR.Hospital.Repository.ApprovalFunction;
 
 namespace HR.Hospital.WebApi
 {
@@ -79,6 +83,16 @@ namespace HR.Hospital.WebApi
             services.AddScoped<IShiftssettingRepository, ShiftssettingsRepository>();
             //权限映射关系
             services.AddScoped<IPermissionRepository, PermissionRepository>();
+            //角色映射关系
+            services.AddScoped<IRoleRepository, RoleRepository>();
+
+            //审批活动映射关系
+            services.AddScoped<IActivityRepository, ActivityRepository>();
+
+            //审批类型映射关系
+            services.AddScoped<IApprovalTypeRepository, ApprovalTypeRepository>();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

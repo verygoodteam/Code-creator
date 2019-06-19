@@ -119,6 +119,23 @@ namespace HR.Hospital.Model
         /// </summary>
         public virtual DbSet<UserRole> UserRole { get; set; }
 
+
+        /// <summary>
+        /// 获取审批活动表信息
+        /// </summary>
+        public virtual DbSet<ActivityTable> Activity { get; set; }
+
+        /// <summary>
+        /// 获取审批类型信息
+        /// </summary>
+        public virtual DbSet<ApprovalType> ApprovalType { get; set; }
+
+        /// <summary>
+        /// 获取审批级别信息
+        /// </summary>
+        public virtual DbSet<UserLevel> UserLevel { get; set; }
+        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -142,6 +159,45 @@ namespace HR.Hospital.Model
 
                 entity.Property(e => e.Isoperation).HasColumnType("int(11)");
             });
+
+            //自己添加的审批活动表
+            modelBuilder.Entity<ActivityTable>(entity =>
+            {
+                entity.ToTable("ActivityTable");
+
+                entity.Property(e => e.Id).HasColumnType("int(12)");
+
+                entity.Property(e => e.ActivityName).HasColumnType("varchar(255)");
+
+            });
+
+            //自己添加的审批类型表
+            modelBuilder.Entity<ApprovalType>(entity =>
+            {
+                entity.ToTable("approvalType");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.TypeName).HasColumnType("varchar(100)");
+
+            });
+
+            //审批级别表
+            modelBuilder.Entity<UserLevel>(entity =>
+            {
+                entity.ToTable("userLevel");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.LevelName).HasColumnType("varchar(66)");
+
+                entity.Property(e => e.UserId).HasColumnType("int(11)");
+
+                entity.Property(e => e.PositionId).HasColumnType("int(11)");
+
+
+            });
+            
 
             modelBuilder.Entity<Area>(entity =>
             {

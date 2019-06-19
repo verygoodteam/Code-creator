@@ -1,0 +1,74 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RoleShows</title>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+
+<body>
+    <input id="Button1" type="button" value="添加" onclick="add()" />
+    <table class="table table-bordered">
+        <tr>
+            <td>角色id</td>
+            <td>角色名称</td>
+            <td>权限名称</td>
+            <td>是否启用</td>
+            <td>操作</td>
+        </tr>
+        <tbody id="tb">
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.RoleName</td>
+                        <td>@item.PermissionName</td>
+                        <td><a href='javascript:void(0)' onclick='State(this,@item.Id,@item.Isnable)'>@(item.Isnable == 0 ? "启用" : "禁用")</a></td>
+                        <td><a href="/Role/UpdateView?id=@item.Id">编辑</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+<script>
+
+    //跳转添加页面
+    function add() {
+        location.href = '/Role/AddView';
+    }
+
+
+    //状态
+    function State(obj, id, Isnables) {
+        $.ajax({
+            url: '/Role/IsanbleUpdate',
+            type: 'post',
+            data: { id: id, Isnable: Isnables == 0 ? 1 : 0 },
+            dataType: 'json',
+            success: function (data) {
+                if (data > 0) {
+                   var text = $(obj).html();
+                    if (text == "启用") {
+                        $(obj).html("启用");
+                        $(obj).text("禁用")
+                    }
+                    else {
+                        $(obj).html("禁用");
+                        $(obj).text("启用")
+                    }
+                }
+            }
+        })
+    }
+
+</script>

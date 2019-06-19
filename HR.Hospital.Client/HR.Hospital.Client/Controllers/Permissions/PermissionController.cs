@@ -33,7 +33,7 @@ namespace HR.Hospital.Client.Controllers.Permissions
         /// <returns></returns>
         public ActionResult PermissionShows(int pageIndex = 1, int pageSize = 3)
         {
-            var pagePermission = HttpClientApi.GetAsync<PageHelper<PermissionDto>>("http://localhost:12345/api/Permission/GetPermmission?pageIndex=" + pageIndex + "&pageSize=" + pageSize);
+            var pagePermission = HttpClientApi.GetAsync<Common.PageHelper<PermissionDto>>("http://localhost:12345/api/Permission/GetPermmission?pageIndex=" + pageIndex + "&pageSize=" + pageSize);
             return Json(pagePermission, new JsonSerializerSettings());
         }
 

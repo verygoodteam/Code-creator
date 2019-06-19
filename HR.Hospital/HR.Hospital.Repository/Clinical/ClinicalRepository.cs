@@ -39,9 +39,9 @@ namespace HR.Hospital.Repository.Clinical
                 total = db.Clinicuser.Count(p => p.Aadministrativeid == administrativeId && p.ClinicUserName.Contains(englishName));
             }
 
-            pageList.PageSizes = total;//总页数
-            pageList.PageList = list;//数据
-            pageList.PageNum = (pageList.PageSizes / pageSize);//总条数
+            pageList.PageSizes = total;//总条数
+            pageList.PageList = list;//查询数据集合
+            pageList.PageNum = (pageList.PageSizes / pageSize);//总页数
 
             return pageList;
         }
