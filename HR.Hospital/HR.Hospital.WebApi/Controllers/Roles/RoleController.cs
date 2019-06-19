@@ -29,8 +29,8 @@ namespace HR.Hospital.WebApi.Controllers.Roles
         [HttpGet("GetRoles")]
         public List<Role> GetRoles()
         {
-            var show = RoleRepository.GetRoles();
-            return show;
+            var getrole = RoleRepository.GetRoles();
+            return getrole;
         }
 
         /// <summary>
@@ -41,8 +41,8 @@ namespace HR.Hospital.WebApi.Controllers.Roles
         [HttpGet("PerList")]
         public List<Permission> PerList(int pid = 0)
         {
-            var show = RoleRepository.GetPermission(pid);
-            return show;
+            var getpermission = RoleRepository.GetPermission(pid);
+            return getpermission;
         }
 
         /// <summary>
@@ -53,8 +53,8 @@ namespace HR.Hospital.WebApi.Controllers.Roles
         [HttpGet("RoilRoles")]
         public Role RoilRoles(int id)
         {
-            var show = RoleRepository.Roles(id);
-            return show;
+            var getrole = RoleRepository.Roles(id);
+            return getrole;
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace HR.Hospital.WebApi.Controllers.Roles
         [HttpPost("AddRoles")]
         public int AddRoles(Role roles, string ids)
         {
-            var add = RoleRepository.Addrole(roles, ids);
-            return add;
+            var addrole = RoleRepository.Addrole(roles, ids);
+            return addrole;
         }
 
         /// <summary>
@@ -77,8 +77,24 @@ namespace HR.Hospital.WebApi.Controllers.Roles
         [HttpPost("UpdateRoles")]
         public int UpdateRoles([FromBody]Role roles, string ids)
         {
-            var update = RoleRepository.UpdateRole(roles, ids);
-            return update;
+            var updaterole = RoleRepository.UpdateRole(roles, ids);
+            return updaterole;
+        }
+
+        //修改状态
+        [HttpPost("UpdateIsable")]
+        public int UpdateIsable([FromBody]Role role)
+        {
+            var updateenable = RoleRepository.Updateenable(role);
+            return updateenable;
+        }
+
+        //查询角色权限
+        [HttpGet("GetRolePer")]
+        public List<RolePermission> GetRolePer(int id)
+        {
+            var getroleper = RoleRepository.RolePerList(id);
+            return getroleper;
         }
     }
 }

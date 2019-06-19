@@ -26,8 +26,89 @@ namespace HR.Hospital.Client.Controllers.Roles
         /// <returns></returns>
         public ActionResult RoleShows()
         {
-            var pagePermission = HttpClientApi.GetAsync<List<Role>>("http://localhost:12345/api/Role/GetRoles");
-            return View(pagePermission);
+            var roleshow = HttpClientApi.GetAsync<List<Role>>("http://localhost:12345/api/Role/GetRoles");
+            return View(roleshow);
         }
+      
+        /// <summary>
+        /// 添加视图
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AddView()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 添加方法
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public int AddRole(Role roles, string ids)
+        {
+            var addrole = HttpClientApi.PostAsync<Role,int>(roles,"http://localhost:12345/api/Role/AddRoles?ids="+ids);
+            return addrole;
+        }
+
+        /// <summary>
+        /// 修改视图
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult UpdateView(int id)
+        {
+            ViewBag.id = id;
+            return View();
+        }
+
+        /// <summary>
+        /// 返填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult Roill(int id)
+        {
+            var roill = HttpClientApi.GetAsync<Role>("http://localhost:12345/api/Role/RoilRoles?id="+id);
+            return Json(roill, new JsonSerializerSettings());
+        }
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public int Updaterole(Role roles, string ids)
+        {
+            var updaterole = HttpClientApi.PostAsync<Role, int>(roles, "http://localhost:12345/api/Role/UpdateRoles?ids=" + ids);
+            return updaterole;
+        }
+
+        /// <summary>
+        /// 编辑状态
+        /// </summary>
+        /// <returns></returns>
+        public int IsanbleUpdate(Permission permission)
+        {
+            var isanbleupdate = HttpClientApi.PostAsync<Permission, int>(permission, "http://localhost:12345/api/Role/UpdateIsable");
+            return isanbleupdate;
+        }
+
+        /// <summary>
+        /// 查询角色权限
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetRolePer(int id)
+        {
+            var getroleper = HttpClientApi.GetAsync<List<RolePermission>>("http://localhost:12345/api/Role/GetRolePer?id=" + id);
+            return Json(getroleper, new JsonSerializerSettings());
+        }
+
     }
 }

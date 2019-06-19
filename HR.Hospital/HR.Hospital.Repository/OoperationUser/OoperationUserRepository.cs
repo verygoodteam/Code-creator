@@ -18,7 +18,7 @@ namespace HR.Hospital.Repository.OoperationUser
         /// </summary>
         /// <param name="operuser"></param>
         /// <returns></returns>
-        public int AddOoperationUser(Model.Ooperationuser operuser)
+        public int AddOoperationUser(Ooperationuser operuser)
         {
             db.Ooperationuser.Add(operuser);
             var addOoperationUser = db.SaveChanges();
@@ -32,8 +32,8 @@ namespace HR.Hospital.Repository.OoperationUser
         /// <returns></returns>
         public List<Hierarchy> GetHierarchies()
         {
-            var list = db.Hierarchy.ToList();
-            return list;
+            var gethierarchies = db.Hierarchy.ToList();
+            return gethierarchies;
         }
 
         /// <summary>
@@ -42,8 +42,8 @@ namespace HR.Hospital.Repository.OoperationUser
         /// <returns></returns>
         public List<Position> GetPositions()
         {
-            var list = db.Position.ToList();
-            return list;
+            var getpositions = db.Position.ToList();
+            return getpositions;
         }
 
         /// <summary>
@@ -52,8 +52,8 @@ namespace HR.Hospital.Repository.OoperationUser
         /// <returns></returns>
         public List<Professional> GetProfessionals()
         {
-            var list = db.Professional.ToList();
-            return list;
+            var getprofessionals = db.Professional.ToList();
+            return getprofessionals;
         }
 
         /// <summary>
@@ -62,8 +62,8 @@ namespace HR.Hospital.Repository.OoperationUser
         /// <returns></returns>
         public List<Role> GetRoles()
         {
-            var list = db.Role.ToList();
-            return list;
+            var getroles = db.Role.ToList();
+            return getroles;
         }
 
 
@@ -85,15 +85,15 @@ namespace HR.Hospital.Repository.OoperationUser
         public List<Model.Ooperationuser> GetOoperationusers()
         {
 
-            var query = from o1 in db.Ooperationuser
+            var operationusers = from o1 in db.Ooperationuser
                         select new Model.Ooperationuser()
                         {
                             Id = o1.Id,
                             OoperationUserName = o1.OoperationUserName
                         };
 
-            var list = query.ToList();
-            return list;
+            var getoperationusers = operationusers.ToList();
+            return getoperationusers;
         }
 
 
@@ -108,7 +108,7 @@ namespace HR.Hospital.Repository.OoperationUser
         {
             if (hierarchyid == 0 && name == "" || name == null && englishname == "" || englishname == null)
             {
-                var query = from o1 in db.Ooperationuser
+                var operation = from o1 in db.Ooperationuser
                             join r in db.Role on o1.Roleid equals r.Id
                             into JoinedEmpDept1
                             from r in JoinedEmpDept1.DefaultIfEmpty()
@@ -138,10 +138,10 @@ namespace HR.Hospital.Repository.OoperationUser
                                 Enrollmentdate = DateTime.Now
                             };
 
-                return query.ToList();
+                return operation.ToList();
             }
 
-            var query1 = from o1 in db.Ooperationuser
+            var operations = from o1 in db.Ooperationuser
                          join r in db.Role on o1.Roleid equals r.Id
                          into JoinedEmpDept1
                          from r in JoinedEmpDept1.DefaultIfEmpty()
@@ -171,7 +171,7 @@ namespace HR.Hospital.Repository.OoperationUser
                                 UserName = o2.OoperationUserName,
                             };
 
-                return query1.ToList();
+                return operations.ToList();
 
         }
 
@@ -181,7 +181,7 @@ namespace HR.Hospital.Repository.OoperationUser
         /// </summary>
         /// <param name="operuser"></param>
         /// <returns></returns>
-        public int UpdateOoperationUser(Model.Ooperationuser operuser)
+        public int UpdateOoperationUser(Ooperationuser operuser)
         {
             var oopuserinfo = db.Ooperationuser.FirstOrDefault(p => p.Id == operuser.Id);
             oopuserinfo.OoperationUserName = operuser.OoperationUserName;
