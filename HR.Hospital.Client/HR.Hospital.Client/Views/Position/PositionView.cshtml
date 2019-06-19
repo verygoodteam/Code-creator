@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>职务页面</title>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+
+<body>
+    <input id="Button1" type="button" value="添加" onclick="add()"/>
+    <table class="table table-bordered">
+        <tr>
+            <td>编号</td>
+            <td>职务名称</td>
+            <td>操作</td>
+        </tr>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.PositionName</td>
+                        <td><a href="#" onclick="deleteposition(@item.Id)">删除</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+<script>
+
+    //跳转添加页面
+    function add() {
+        location.href = '/Position/AddView';
+    }
+
+    function deleteposition(id) {
+        if (confirm('确认删除吗？')) {
+            $.ajax({
+                url: '/Position/DeletePosition?id=' + id,
+                type: 'delete',
+                dataType: 'json',
+                success: function (data) {
+                    if (data > 0) {
+                        alert('删除成功')
+                        location.href = '/Position/PositionView';
+                    }
+                    else {
+                        alert('删除失败')
+                    }
+                }
+            })
+        }
+    }
+</script>

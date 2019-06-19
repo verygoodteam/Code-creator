@@ -10,6 +10,10 @@ using HR.Hospital.IRepository.Shiftssettings;
 using HR.Hospital.Model;
 using HR.Hospital.IRepository.Roles;
 using HR.Hospital.Repository.Roles;
+using HR.Hospital.IRepository.Hierarchys;
+using HR.Hospital.Repository.Hierarchys;
+using HR.Hospital.Repository.Positions;
+using HR.Hospital.IRepository.Positions;
 using HR.Hospital.IRepository.Permissions;
 using HR.Hospital.Repository.Permissions;
 using HR.Hospital.Repository.Areas;
@@ -29,6 +33,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using HR.Hospital.Repository.ApprovalFunction;
+using HR.Hospital.IRepository.RuleSetting;
+using HR.Hospital.Repository.RuleSetting;
 
 namespace HR.Hospital.WebApi
 {
@@ -81,6 +87,8 @@ namespace HR.Hospital.WebApi
             services.AddScoped<IUserRepository, UserRepository>();
             //班次设置映射关系
             services.AddScoped<IShiftssettingRepository, ShiftssettingsRepository>();
+            //规则映射关系
+            services.AddScoped<IRuleSettingRepository, RuleSettingRepository>();
             //权限映射关系
             services.AddScoped<IPermissionRepository, PermissionRepository>();
             //角色映射关系
@@ -91,8 +99,11 @@ namespace HR.Hospital.WebApi
 
             //审批类型映射关系
             services.AddScoped<IApprovalTypeRepository, ApprovalTypeRepository>();
+            //能级映射关系
+            services.AddScoped<IHierarchyRepository, HierarchyRepository>();
+            //职务映射关系
+            services.AddScoped<IPositionRepository, PositionRepository>();
 
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
