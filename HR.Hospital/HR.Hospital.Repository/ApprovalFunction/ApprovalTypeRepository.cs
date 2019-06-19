@@ -35,5 +35,15 @@ namespace HR.Hospital.Repository.ApprovalFunction
             var listUserLevel = _context.UserLevel.ToList();
             return listUserLevel;
         }
+
+        /// <summary>
+        /// 角色的显示
+        /// </summary>
+        /// <returns></returns>
+        public List<Role> GetListRole()
+        {
+            var listRole = _context.Role.ToList();
+            return listRole;
+        }
     }
 }

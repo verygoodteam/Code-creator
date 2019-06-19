@@ -7,33 +7,74 @@
 
 <html>
 <head>
+    <title>审批流程</title>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/layer-v3.1.1/layer/layer.js"></script>
 </head>
 <body>
-    <div style="margin:25px">
-        <div style="border:  solid #00bfff;padding: 35px; margin: 20px;">
-            审批类型:
-            <select id="Select1">
-                <option selected="selected">补卡审批</option>
+    <div style="margin: 25px">
 
+        <div style="border: solid #00bfff; padding: 35px; margin: 20px;">
+            审批类型:
+            <select id="ActivitySelect" class="form-control" style="width: 200px; display: inline" onchange="ActivityClick()">
+                @foreach (var item in @ViewBag.Activity)
+                {
+                    <option value="@item.Id">@item.ActivityName</option>
+                }
             </select>
         </div>
-        <div style="border:  solid ; margin: 40px 20px 0px 20px;height: 630px">
-            <p style="text-align: center; background-color: #E2F5F5; margin: 0; font-size: 30px;border-bottom: black solid">补卡流程设置</p>
+        <div style="border: solid; margin: 40px 20px 0px 20px; height: 630px">
+            <p style="text-align: center; background-color: #E2F5F5; margin: 0; font-size: 30px; border-bottom: black solid" id="settingText"></p>
             <br />
             <br />
-            <span style="font-size: 30px;float:left;padding: 0px 0px 0px 120px;">默认审批流程</span>
+            <span style="font-size: 30px; float: left; padding: 0px 0px 0px 120px; font-weight: bold">默认审批流程</span>
 
-            <div style="border: #00bfff solid; margin-left: 315px; height: 500px; ">
+            <div style="border: #000000 0.5px solid; margin-left: 315px; height: 500px; /* float: right; */width: 65%;">
+                <p style="font-size: 25px; padding: 60px; text-align: center">默认审批人：<input id="Button1" type="button" value="默认主管" style="background-color: dodgerblue; color: #e2f5f5" disabled="disabled" class="btn layui-btn" /></p>
+                <p style="font-size: 25px; padding: 60px; text-align: center">审批方式：依次审批</p>
+                <p style="font-size: 25px; text-align: center">
+                    <input id="123" type="button" value="+" style="background-color: dodgerblue; color: #e2f5f5; padding: 0px 50px; font-size: 60px;" class="btn layui-btn" onclick="save()" />
+                </p>
 
             </div>
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            &nbsp;
+            <div style="width: 200px">
+
+            </div>
+
+
         </div>
 
     </div>
 </body>
 </html>
+<script>
+    var text = null;
+    $(function () {
+        ActivityClick();
+    });
+    function ActivityClick() {
+        text = $("#ActivitySelect").find("option:selected").text();
+        $("#settingText").html(text + "流程配置");
+
+    }
+    function save() {
+        //location.href = '/Approval/Add?Id=' + $("#ActivitySelect").val();
+        layer.open({
+            type: 2,
+            title: text, //表头
+            closeBtn: 1, //不显示关闭按钮
+            maxmin: true,
+            area: ["1000px", " 600px"], //宽高
+            shift: 2,
+            content: ["/Approval/Add?id=" + $("#ActivitySelect").val(), 'yes'],//iframe的url，no代表不显示滚动条
+            end: function () {
+                if (true);
+            }
+        });
+        //弹出一个iframe层
+
+
+    }
+</script>

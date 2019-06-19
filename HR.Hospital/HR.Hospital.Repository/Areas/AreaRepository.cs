@@ -17,6 +17,8 @@ namespace HR.Hospital.Repository.Areas
         /// <returns></returns>
         public int AddArea(Area area)
         {
+            //附一个初始值
+            area.Isnable = 0;
             _context.Add(area);
             var result = _context.SaveChanges();
             return result;
