@@ -19,7 +19,7 @@
     <None Include="wwwroot\Content\layui-admin\js\main.js" />
     <None Include="wwwroot\Content\layui-admin\js\nav.js" />
     <None Include="wwwroot\Content\layui-admin\layui\font\iconfont.svg" />
-    <None Include="wwwroot\Content\layui-admin\layui\layui.js" />
+    <None Include="wwwroot\js\layui.js" />
     <None Include="wwwroot\Content\layui-admin\layui\lay\dest\layui.all.js" />
     <None Include="wwwroot\Content\layui-admin\layui\lay\modules\code.js" />
     <None Include="wwwroot\Content\layui-admin\layui\lay\modules\element.js" />
