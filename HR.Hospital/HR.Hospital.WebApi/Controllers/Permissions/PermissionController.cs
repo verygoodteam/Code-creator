@@ -28,7 +28,7 @@ namespace HR.Hospital.WebApi.Controllers.Permissions
         [HttpGet("GetPermmission")]
         public PageHelper<PermissionDto> GetPermmission(int pageIndex = 1, int pageSize = 3)
         {
-            var show = PermissionRepository.getpermission(pageIndex,pageSize);
+            var show = PermissionRepository.Getpermission(pageIndex,pageSize);
             return show;
         }
 
@@ -36,7 +36,7 @@ namespace HR.Hospital.WebApi.Controllers.Permissions
         [HttpGet("RoilPermmissionList")]
         public Permission RoilPermmissionList(int id)
         {
-            var roil = PermissionRepository.roilpermission(id);
+            var roil = PermissionRepository.Roilpermission(id);
             return roil;
         }
 
@@ -44,7 +44,7 @@ namespace HR.Hospital.WebApi.Controllers.Permissions
         [HttpGet("GetPermmissionList")]
         public List<Permission> GetPermmissionList()
         {
-            var list = PermissionRepository.getlist();
+            var list = PermissionRepository.Getlist();
             return list;
         }
 
@@ -52,7 +52,7 @@ namespace HR.Hospital.WebApi.Controllers.Permissions
         [HttpPost("UpdateIsable")]
         public int UpdateIsable([FromBody]Permission permission)
         {
-            var updateenable = PermissionRepository.updateenable(permission);
+            var updateenable = PermissionRepository.Updateenable(permission);
             return updateenable;
         }
 
@@ -60,7 +60,7 @@ namespace HR.Hospital.WebApi.Controllers.Permissions
         [HttpPost("UpdatePermmission")]
         public int UpdatePermmission([FromBody]Permission permission)
         {
-            var updatepermission = PermissionRepository.updatepermission(permission);
+            var updatepermission = PermissionRepository.Updatepermission(permission);
             return updatepermission;
         }
 
@@ -68,7 +68,7 @@ namespace HR.Hospital.WebApi.Controllers.Permissions
         [HttpPost("AddPermmission")]
         public int AddPermmission(Permission permission)
         {
-            var addpermission = PermissionRepository.addpermission(permission);
+            var addpermission = PermissionRepository.Addpermission(permission);
             return addpermission;
         }
     }

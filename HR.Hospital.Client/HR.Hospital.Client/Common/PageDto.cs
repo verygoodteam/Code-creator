@@ -12,6 +12,6 @@ namespace HR.Hospital.Client.Common
         /// <summary>
         /// 分页数据
         /// </summary>
-        public List<T> PageList { get; set; }
+        public PageHelper<T> PageList { get; set; }
     }
 }

@@ -19,9 +19,9 @@ namespace HR.Hospital.Client.Controllers.Clinical
             return View();
         }
 
-        public List<Clinicuser> PageList(int pageIndex = 1, int pageSize = 3, int administrativeId = 0, string englishName = "")
+        public PageHelper<Clinicuser> PageList(int pageIndex = 1, int pageSize = 3, int administrativeId = 0, string englishName = "")
         {
-            var list = HttpClientApi.GetAsync<Common.List<Clinicuser>>("http://localhost:12345/api/clinical/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&administrativeId=" + administrativeId + "&englishName=" + englishName);
+            var list = HttpClientApi.GetAsync<Common.PageHelper<Clinicuser>>("http://localhost:12345/api/clinical/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&administrativeId=" + administrativeId + "&englishName=" + englishName);
             return list;
         }
 

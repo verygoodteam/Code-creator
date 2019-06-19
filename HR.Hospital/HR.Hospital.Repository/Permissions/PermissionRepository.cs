@@ -19,11 +19,11 @@ namespace HR.Hospital.Repository.Permissions
         /// </summary>
         /// <param name="permission"></param>
         /// <returns></returns>
-        public int addpermission(Permission permission)
+        public int Addpermission(Permission permission)
         {
             db.Permission.Add(permission);
-            var sql = db.SaveChanges();
-            return sql;
+            var i = db.SaveChanges();
+            return i;
 
         }
 
@@ -32,7 +32,7 @@ namespace HR.Hospital.Repository.Permissions
         /// </summary>
         /// <param name="permission"></param>
         /// <returns></returns>
-        public List<Permission> getlist()
+        public List<Permission> Getlist()
         {
             var list = db.Permission.ToList();
             return list;
@@ -43,7 +43,7 @@ namespace HR.Hospital.Repository.Permissions
         /// </summary>
         /// <param name="permission"></param>
         /// <returns></returns>
-        public PageHelper<PermissionDto> getpermission(int pageIndex = 1, int pageSize = 3)
+        public PageHelper<PermissionDto> Getpermission(int pageIndex = 1, int pageSize = 3)
         {
             var page = new PageHelper<PermissionDto>();
 
@@ -72,7 +72,7 @@ namespace HR.Hospital.Repository.Permissions
         }
 
         //回显
-        public Permission roilpermission(int id)
+        public Permission Roilpermission(int id)
         {
             var roil = db.Permission.FirstOrDefault(p=>p.Id==id);
             return roil;
@@ -83,12 +83,12 @@ namespace HR.Hospital.Repository.Permissions
         /// </summary>
         /// <param name="permission"></param>
         /// <returns></returns>
-        public int updateenable(Permission permission)
+        public int Updateenable(Permission permission)
         {
             var info = db.Permission.FirstOrDefault(p => p.Id == permission.Id);
             info.Isnable = permission.Isnable;
-            var sql = db.SaveChanges();
-            return sql;
+            var i = db.SaveChanges();
+            return i;
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace HR.Hospital.Repository.Permissions
         /// </summary>
         /// <param name="permission"></param>
         /// <returns></returns>
-        public int updatepermission(Permission permission)
+        public int Updatepermission(Permission permission)
         {
             var info = db.Permission.FirstOrDefault(p => p.Id == permission.Id);
             info.Pid = permission.Pid;
@@ -105,8 +105,8 @@ namespace HR.Hospital.Repository.Permissions
             info.Url = permission.Url;
             info.Createtime = DateTime.Now;
 
-            var sql = db.SaveChanges();
-            return sql;
+            var i = db.SaveChanges();
+            return i;
         }
 
     }

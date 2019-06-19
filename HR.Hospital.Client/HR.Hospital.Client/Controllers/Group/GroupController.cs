@@ -18,9 +18,9 @@ namespace HR.Hospital.Client.Controllers.Group
         {
             return View();
         }
-        public List<Professionalgroup> PageList(int pageIndex = 1, int pageSize = 3, string name = "")
+        public PageHelper<Professionalgroup> PageList(int pageIndex = 1, int pageSize = 3, string name = "")
         {
-            var list = HttpClientApi.GetAsync<Common.List<Professionalgroup>>("http://localhost:12345/api/Group/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize  + "&name=" + name);
+            var list = HttpClientApi.GetAsync<Common.PageHelper<Professionalgroup>>("http://localhost:12345/api/Group/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize  + "&name=" + name);
             return list;
         }
 

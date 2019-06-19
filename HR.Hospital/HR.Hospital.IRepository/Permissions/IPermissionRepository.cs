@@ -9,21 +9,21 @@ namespace HR.Hospital.IRepository.Permissions
    public interface IPermissionRepository
     {
         //权限显示
-        PageHelper<PermissionDto> getpermission(int pageIndex = 1, int pageSize = 3);
+        PageHelper<PermissionDto> Getpermission(int pageIndex = 1, int pageSize = 3);
 
         //权限回显
-        Model.Permission roilpermission(int id);
+        Model.Permission Roilpermission(int id);
 
         //权限下拉
-        List<Model.Permission> getlist();
+        List<Model.Permission> Getlist();
 
         //权限添加
-        int addpermission(Model.Permission permission);
+        int Addpermission(Model.Permission permission);
 
         //修改状态
-        int updateenable(Model.Permission permission);
+        int Updateenable(Model.Permission permission);
 
         //权限修改
-        int updatepermission(Model.Permission permission);
+        int Updatepermission(Model.Permission permission);
     }
 }

@@ -81,6 +81,10 @@
                     alert("权限名不能为空")
                     return;
                 }
+                if (this.Url == "") {
+                    alert("权限名不能为空")
+                    return;
+                }
                 var parms = new URLSearchParams();
                 parms.append("PermissionsName", this.PermissionsName);
                 parms.append("Pid", this.Pid);

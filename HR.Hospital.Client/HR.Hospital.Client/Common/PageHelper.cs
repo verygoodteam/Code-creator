@@ -7,9 +7,9 @@ namespace HR.Hospital.Client.Common
     /// ∑÷“≥¿‡
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class List<T> where T : class
+    public sealed class PageHelper<T> where T : class
     {
-        public List()
+        public PageHelper()
         {
             PageList = new List<T>();
         }
