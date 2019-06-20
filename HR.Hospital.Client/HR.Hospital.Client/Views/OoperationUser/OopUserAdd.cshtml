@@ -94,7 +94,7 @@
             </tr>
         </table>
         <input id="Button1" type="button" value="确定" class="btn btn-group-lg" v-on:click="Determine()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input id="Button2" type="button" value="取消" class="btn btn-group-lg" />
+        <input id="Button2" type="button" value="取消" class="btn btn-group-lg" v-on:click="Cancels()" />
     </div>
 </body>
 
@@ -186,6 +186,11 @@
                         this.Prodata = response.data;
                     }
                 )
+            },
+
+            //取消
+            Cancels: function () {
+                location.href = '/OoperationUser/OopUserShow';
             },
 
             //添加

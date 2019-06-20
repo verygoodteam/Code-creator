@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace HR.Hospital.Model
+namespace HR.Hospital.Model.Dto
 {
-    /// <summary>
-    /// 规则设置类
-    /// </summary>
-    public partial class Rulesettings
+   public class RulesettingsDto
     {
         /// <summary>
         /// 编号
@@ -22,6 +20,16 @@ namespace HR.Hospital.Model
         /// 班次2
         /// </summary>
         public int? TwoShiftsId { get; set; }
+
+        /// <summary>
+        /// 班次1名称
+        /// </summary>
+        public string OneShiftsIdName { get; set; }
+
+        /// <summary>
+        /// 班次2名称
+        /// </summary>
+        public string TwoShiftsName { get; set; }
 
         /// <summary>
         /// 时间一

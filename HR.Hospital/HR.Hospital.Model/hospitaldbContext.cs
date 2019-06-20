@@ -428,7 +428,7 @@ namespace HR.Hospital.Model
 
                 entity.Property(e => e.OneTime).HasColumnType("datetime");
 
-                entity.Property(e => e.ShiftsId).HasColumnType("int(11)");
+                entity.Property(e => e.TwoShiftsId).HasColumnType("int(11)");
 
                 entity.Property(e => e.ThreeTime).HasColumnType("datetime");
 

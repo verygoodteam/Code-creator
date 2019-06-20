@@ -1,0 +1,52 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>添加界面</title>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    职务名称：
+    <input id="Text1" type="text" /> <br /> <br /><br /><br /><br />&nbsp;&nbsp;&nbsp;
+    <input id="Button1" type="button" value="确定" onclick="add()" /> &nbsp;&nbsp;&nbsp;
+    <input id="Button1" type="button" value="取消" onclick="cancels()" />
+</body>
+</html>
+<script>
+
+    //添加
+    function add() {
+        if ($("#Text1").val() == "") {
+            alert('职务名称不能为空')
+            return;
+        }
+        $.ajax({
+            url: '/Position/AddPosition',
+            type: 'post',
+            data: { PositionName: $("#Text1").val() },
+            dataType: 'json',
+            success: function (data) {
+                if (data > 0) {
+                    alert('添加成功')
+                    location.href = '/Position/PositionView';
+                }
+                else {
+                    alert('添加失败')
+                    return;
+                }
+            }
+        })
+    }
+
+    //取消
+    function cancels() {
+        location.href = '/Position/PositionView';
+    }
+</script>

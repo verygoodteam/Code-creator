@@ -34,6 +34,7 @@
     $(function () {
         getjurs();
         roilrole();
+        inputper();
     })
 
     //权限
@@ -41,32 +42,15 @@
         $.ajax({
             url: "http://localhost:12345/api/Role/PerList",
             type: 'get',
-            async: false,
             dataType: 'json',
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
                     var p0 = '<td>'
-                        + '<input id = "Checkbox2" type = "checkbox" name="ck" value="' + data[i].id+'" />'
+                        + '<input id = "Checkbox' + data[i].id+'" type = "checkbox" name="ck" value="' + data[i].id+'" />'
                         + '<input id="Hidden1" type="hidden" value="' + data[i].id + '"/>'
                         + '<a href="#">' + data[i].permissionsName + '</a>'
                         + '</td>'
                     $("#tr1").append(p0);
-
-                    $.ajax({
-                        url: '/Role/GetRolePer?id=' +@ViewBag.id,
-                        type: 'get',
-                        async: false,
-                        dataType: 'json',
-                        success: function (result) {
-                            alert(result)
-                            for (var x = 0; x < result.length; x++) {
-                                if (data[i].id == result[x].pid) {
-                                    $("#Checkbox2").prop("checked", true);
-                                }
-                            }
-
-                        }
-                    })
                 }
             }
         })
@@ -79,7 +63,6 @@
             type: 'get',
             dataType: 'json',
             success: function (data) {
-                
                 if (data != null) {
                     $("#txtname").val(data.RoleName)
                     if (data.Isnable == 0) {
@@ -88,11 +71,26 @@
                     else {
                         $("#Radio2").prop("checked", true);
                     }
-
                 }
             }
         })
     }
+
+    //权限返填
+    function inputper() {
+        $.ajax({
+            url: '/Role/GetRolePer?id=' +@ViewBag.id,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {              
+                for (var x = 0; x < result.length; x++) {
+                    $("#Checkbox" + result[x].Pid + "").prop("checked", true);
+                }
+
+            }
+        })
+    }
+
 
     //正反选
     function qx() {

@@ -1,0 +1,63 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>能级页面</title>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <input id="Button1" type="button" value="添加" onclick="add()" />
+    <table class="table table-bordered">
+        <tr>
+            <td>编号</td>
+            <td>能级名称</td>
+            <td>操作</td>
+        </tr>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.HierarchyName</td>
+                        <td><a href="#" onclick="deletehierarchie(@item.Id)">删除</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+  <script>
+
+      //跳转添加页面
+      function add() {
+          location.href = '/Hierarchy/AddView';
+      }
+
+      function deletehierarchie(id) {
+          if (confirm('确认删除吗？')) {
+              $.ajax({
+                  url: '/Hierarchy/DeleteHierarchie?id=' + id,
+                  type: 'delete',
+                  dataType: 'json',
+                  success: function (data) {
+                      if (data > 0) {
+                          alert('删除成功')
+                          location.href = '/Hierarchy/HierarchieView';
+                      }
+                      else {
+                          alert('删除失败')
+                      }
+                  }
+              })
+          }
+      }
+  </script>
