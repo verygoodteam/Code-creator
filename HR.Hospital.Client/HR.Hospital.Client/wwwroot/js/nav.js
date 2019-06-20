@@ -27,7 +27,7 @@ var navs = [{
         }, {
             "title": "专业组设置",
             "icon": "&#xe631;",
-            "href": "/Group/Index",
+            "href": "/Group/",
             "spread": false
         }, {
             "title": "接龙设置",
@@ -37,7 +37,7 @@ var navs = [{
         }, {
             "title": "审批规则设置",
             "icon": "&#xe631;",
-            "href": "//",
+            "href": "/Approval/Index",
             "spread": false
         }
     ]

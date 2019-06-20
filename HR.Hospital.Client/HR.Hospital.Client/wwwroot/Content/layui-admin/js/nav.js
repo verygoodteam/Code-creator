@@ -37,7 +37,7 @@ var navs = [{
         }, {
             "title": "审批规则设置",
             "icon": "&#xe631;",
-            "href": "//",
+            "href": "/Approval/Index",
             "spread": false
         }
     ]
