@@ -34,7 +34,7 @@
 
 
         <p style="font-size: 30px; padding: 20px">审批方式:依次审批</p>
-        <input id="Submit1" type="button" value="保存" class="btn btn-group-justified" style="font-size: 20px" />
+        <input id="Submit1" type="button" value="保存" class="btn btn-group-justified" style="font-size: 20px"  />
     </div>
 </body>
 </html>
@@ -65,22 +65,25 @@
             $("#ClassA").hide();
             $("#TwoLevel").show();
             $("#TwoLevel").empty();
-            $("#TwoLevel").append('<input id="saveUser" type="button" value="+"style="background-color: #80D4C7; color: #e2f5f5; padding: 0px 30px; font-size: 30px;" class="btn layui-btn" /><span style="font-size: 20px">(可添加人员的数量)</span>');
+            $("#TwoLevel").append('<input id="saveUser" onclick="saveUser()" type="button"  value="+" style="background-color: #80D4C7; color: #e2f5f5; padding: 0px 30px; font-size: 30px;" class="btn layui-btn" />');
         }
     }
 
-    $("#saveUser").click(function () {
+    function saveUser() {
+        alert(1);
         layer.open({
             type: 2,
             title: "角色人员添加", //表头
             closeBtn: 1, //不显示关闭按钮
             maxmin: true,
-            area: ["500px", " 700px"], //宽高
+            area: ["500px", " 500px"], //宽高
             shift: 2,
             content: ["/Approval/AddUser", 'yes'],//iframe的url，no代表不显示滚动条
             end: function () {
                 if (true);
             }
         });
-    });
+    }
+
+  
 </script>
