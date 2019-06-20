@@ -8,7 +8,12 @@ namespace HR.Hospital.Client.Controllers.Schedulings
 {
     public class SchedulingController : Controller
     {
-        public IActionResult Index()
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Add()
         {
             return View();
         }

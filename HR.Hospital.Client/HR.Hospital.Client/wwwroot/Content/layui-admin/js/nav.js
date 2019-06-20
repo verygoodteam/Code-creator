@@ -48,6 +48,11 @@ var navs = [{
     "spread": false,
     "children": [
         {
+            "title": "月排班",
+            "icon": "&#xe631;",
+            "href": "/Scheduling/Index",
+            "spread": false
+        }, {
             "title": "安排手术间（次日）",
             "icon": "&#xe631;",
             "href": "//",
@@ -62,12 +67,12 @@ var navs = [{
             "icon": "&#xe631;",
             "href": "//",
             "spread": false
-        },{
+        }, {
             "title": "安排人员",
             "icon": "&#xe631;",
             "href": "//",
             "spread": false
-        },{
+        }, {
             "title": "变更人员",
             "icon": "&#xe631;",
             "href": "//",
@@ -85,12 +90,12 @@ var navs = [{
             "icon": "&#xe631;",
             "href": "/Department/Index",
             "spread": false
-        },{
+        }, {
             "title": "手术室用户管理",
             "icon": "&#xe631;",
             "href": "/OoperationUser/OopUserShow",
             "spread": false
-        },{
+        }, {
             "title": "临床用户管理",
             "icon": "&#xe631;",
             "href": "/Clinical/Index",
@@ -108,7 +113,7 @@ var navs = [{
             "icon": "&#xe631;",
             "href": "/Permission/PermissionShow",
             "spread": false
-        },{
+        }, {
             "title": "角色管理管理",
             "icon": "&#xe631;",
             "href": "/Clinical/Index",
@@ -126,7 +131,7 @@ var navs = [{
             "icon": "&#xe631;",
             "href": "//",
             "spread": false
-        },{
+        }, {
             "title": "换班审批",
             "icon": "&#xe631;",
             "href": "//",
@@ -144,7 +149,7 @@ var navs = [{
             "icon": "&#xe631;",
             "href": "//",
             "spread": false
-        },{
+        }, {
             "title": "考勤汇总",
             "icon": "&#xe631;",
             "href": "//",

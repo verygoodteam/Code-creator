@@ -134,6 +134,11 @@ namespace HR.Hospital.Model
         /// 获取审批级别信息
         /// </summary>
         public virtual DbSet<UserLevel> UserLevel { get; set; }
+
+        /// <summary>
+        /// 排班表
+        /// </summary>
+        public virtual DbSet<Scheduling> Schedulings { get; set; }
         
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -426,15 +431,19 @@ namespace HR.Hospital.Model
 
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
-                entity.Property(e => e.OneTime).HasColumnType("datetime");
+                entity.Property(e => e.OneShiftsId).HasColumnType("int(11)");
 
                 entity.Property(e => e.TwoShiftsId).HasColumnType("int(11)");
 
-                entity.Property(e => e.ThreeTime).HasColumnType("datetime");
+                entity.Property(e => e.OneTime).HasColumnType("varchar(50)");
 
-                entity.Property(e => e.TwoTime).HasColumnType("datetime");
+                entity.Property(e => e.TwoTime).HasColumnType("varchar(50)");
 
-                entity.Property(e => e.Types).HasColumnType("bit(1)");
+                entity.Property(e => e.ThreeTime).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.Types).HasColumnType("int(11)");
+
+                entity.Property(e => e.Iseffec).HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Shiftssetting>(entity =>
@@ -488,6 +497,21 @@ namespace HR.Hospital.Model
                 entity.Property(e => e.Rid).HasColumnType("int(11)");
 
                 entity.Property(e => e.Uid).HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Scheduling>(entity =>
+            {
+                entity.ToTable("scheduling");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.Uid).HasColumnType("int(11)");
+
+                entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Week).HasColumnType("varchar(50)");
+
+                entity.Property(e => e.ShiftssettingId).HasColumnType("int(11)");
             });
         }
     }

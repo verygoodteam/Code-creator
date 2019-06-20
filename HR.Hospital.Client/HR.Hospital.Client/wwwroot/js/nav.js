@@ -48,6 +48,11 @@ var navs = [{
     "spread": false,
     "children": [
         {
+            "title": "月排班",
+            "icon": "&#xe631;",
+            "href": "/Scheduling/Index",
+            "spread": false
+        }, {
             "title": "安排手术间（次日）",
             "icon": "&#xe631;",
             "href": "//",

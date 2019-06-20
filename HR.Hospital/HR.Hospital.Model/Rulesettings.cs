@@ -46,6 +46,6 @@ namespace HR.Hospital.Model
         /// <summary>
         /// 是否生效
         /// </summary>
-        public int? Iseffec { get; set; }
+        public int Iseffec { get; set; }
     }
 }
