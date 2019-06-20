@@ -8,8 +8,6 @@ namespace HR.Hospital.Model
 {
     public partial class hospitaldbContext : DbContext
     {
-
-
         public hospitaldbContext()
         {
         }
@@ -139,7 +137,22 @@ namespace HR.Hospital.Model
         /// 排班表
         /// </summary>
         public virtual DbSet<Scheduling> Schedulings { get; set; }
+
+        /// <summary>
+        /// 接龙设置
+        /// </summary>
+        public virtual DbSet<SolitaireSet> SolitaireSet { get; set; }
         
+        /// <summary>
+        /// 考勤明细
+        /// </summary>
+        public virtual DbSet<AttendanceDetail> AttendanceDetail { get; set; }
+
+        /// <summary>
+        /// 考勤汇总
+        /// </summary>
+        public virtual DbSet<AttendanceSummary> AttendanceSummary { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
