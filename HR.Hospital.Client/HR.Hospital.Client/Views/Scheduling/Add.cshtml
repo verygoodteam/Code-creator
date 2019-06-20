@@ -54,39 +54,41 @@
             loaddata();
         })
         function loaddata() {
-            $.ajax({
-                url: "",
-                type: "Get",
-                data: {},
-                success: function (data) {
-                    $("#tb tr").eq(0).nextAll().remove();
-                    var tr;
-                    $.each(data, function (Index, row) {
-                        tr = "<tr>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "</tr > "
-                        $("#tb").append(tr);
-                    })
-                }
-            })
+            //$.ajax({
+            //    url: "",
+            //    type: "Get",
+            //    data: {},
+            //    success: function (data) {
+            //        $("#tb tr").eq(0).nextAll().remove();
+            //        var tr;
+            //        $.each(data, function (Index, row) {
+            //            tr = "<tr>"
+            //                + "<td>" + row + "</td>"
+            //                + "<td>" + row + "</td>"
+            //                + "<td>" + row + "</td>"
+            //                + "<td>" + row + "</td>"
+            //                + "<td>" + row + "</td>"
+            //                + "<td>" + row + "</td>"
+            //                + "<td>" + row + "</td>"
+            //                + "<td>" + row + "</td>"
+            //                + "<td>" + row + "</td>"
+            //                + "</tr > "
+            //            $("#tb").append(tr);
+            //        })
+            //    }
+            //})
             $.ajax({
                 url: "http://localhost:12345/api/Shiftssetting/GetList",
                 type: "Get",
                 success: function (data) {
+                    console.log(data)
                     $("#tb2 tr").eq(0).nextAll().remove();
                     var tr;
                     $.each(data, function (Index, row) {
                         tr = "<tr>"
-                            + "<td style='background - color: " + row.Shiftssettingcolour + "'>" + row.ShiftssettingName + "</td>"
+                            + "<td style='{background-color: row.shiftssettingcolour}'>" + row.shiftssettingName + "</td>"
                             + "</tr>"
+                        $("#tb2").append(tr);
                     })
                 }
             })
