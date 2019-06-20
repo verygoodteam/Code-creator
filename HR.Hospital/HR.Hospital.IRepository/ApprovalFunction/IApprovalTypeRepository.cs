@@ -27,5 +27,11 @@ namespace HR.Hospital.IRepository.ApprovalFunction
         /// </summary>
         /// <returns></returns>
         List<Role> GetListRole();
+
+        /// <summary>
+        /// 查看角色用户联动
+        /// </summary>
+        /// <returns></returns>
+        List<Ooperationuser> GetListUser(int roleId);
     }
 }

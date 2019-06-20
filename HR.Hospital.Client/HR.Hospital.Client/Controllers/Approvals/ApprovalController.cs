@@ -51,11 +51,21 @@ namespace HR.Hospital.Client.Controllers.Approvals
         /// <returns></returns>
         public IActionResult AddUser()
         {
-
+            var listRole = HttpClientApi.GetAsync<List<Role>>(HttpHelper.Url + "Activity/GetListRole");
+            ViewBag.Role = listRole;
             return View();
         }
 
-
+        /// <summary>
+        /// 二级联动用户
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public JsonResult GetUser(int roleId)
+        {
+            var listRoleUser = HttpClientApi.GetAsync<List<Ooperationuser>>(HttpHelper.Url + "Activity/GetListOperaTinUser?roleId=" + roleId);
+            return Json(listRoleUser, new JsonSerializerSettings());
+        }
 
     }
 }

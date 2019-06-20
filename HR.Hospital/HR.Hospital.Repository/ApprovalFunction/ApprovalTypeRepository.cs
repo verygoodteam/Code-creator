@@ -45,5 +45,16 @@ namespace HR.Hospital.Repository.ApprovalFunction
             var listRole = _context.Role.ToList();
             return listRole;
         }
+
+        /// <summary>
+        /// 角色用户二级联动
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public List<Ooperationuser> GetListUser(int roleId)
+        {
+            var listUser = _context.Ooperationuser.Where(p => p.Roleid == roleId).ToList();
+            return listUser;
+        }
     }
 }

@@ -8,17 +8,47 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>AddUser</title>
+    <title>添加指定角色</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
 </head>
 <body>
     <div>
         <p style="font-size: 26px; background-color: #00ced1;text-align: center">角色及人员添加</p>
-        <div style="float: left;border: solid 0.5px #000000;width: 40%;height: 600px;margin: 0 0 0 60px;">
-            <p style="text-align: center;">选择角色</p>
+        @*<div style="float: left;border: solid 0.5px #000000;width: 40%;height: 600px;margin: 0 0 0 60px;">*@
+        <div style=" border: solid 0.5px #000000;width: 25%;height: 600px;margin:auto;">
+            <p style="text-align: center; font-size: 30px">选择角色</p>
+            <select id="SelectRole" class="form-control" style="width: 100px; margin: auto" onchange="userClick(this.value)">
+                @foreach (var item in @ViewBag.Role)
+                {
+                    <option value="@item.Id">@item.RoleName</option>
+                }
+                @*<option>护士长</option>
+                    <option>院长</option>
+                    <option>医生</option>*@
+            </select>
+            <select id="SelectUser" class="form-control" style="width: 100px; margin: auto"></select>
+            @*<option></option>*@
         </div>
-        <div style="margin: 0 60px;float: right;border: solid 0.5px #000000;width: 40%;height: 600px;">
+        @*<div style="margin: 0 60px;float: right;border: solid 0.5px #000000;width: 40%;height: 600px;">
 
-        </div>
+            </div>*@
     </div>
 </body>
 </html>
+<script>
+    $(function () {
+
+    })
+
+    function userClick(id) {
+        $.ajax({
+            url: "/Approval/GetUser?roleId=" + id,
+            success: function (data) {
+                $(data).each(function () {
+                    $("#SelectUser").append("<option value=" + this.Id + ">" + this.OoperationUserName + "</option>");
+                });
+            }
+        });
+    }
+</script>

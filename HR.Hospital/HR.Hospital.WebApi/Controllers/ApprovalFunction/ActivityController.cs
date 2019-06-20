@@ -58,16 +58,25 @@ namespace HR.Hospital.WebApi.Controllers.ApprovalFunction
             return ApprovalTypeRepository.GetListUserLevel();
         }
 
+        /// <summary>
+        /// 获取角色列表
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetListRole")]
         public List<Role> GetListRole()
         {
             return ApprovalTypeRepository.GetListRole();
         }
 
-        // POST: api/Approval
-        [HttpPost]
-        public void Post([FromBody] string value)
+        /// <summary>
+        /// 获取二级联动角色
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        [HttpGet("GetListOperaTinUser")]
+        public List<Model.Ooperationuser> GetListOperaTinUser(int roleId)
         {
+            return ApprovalTypeRepository.GetListUser(roleId);
         }
 
         // PUT: api/Approval/5
