@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div style="float:left;width:1000px">
             <table id="tb" class="table table-bordered">
                 <tr>
                     <td>序号</td>
@@ -40,8 +40,8 @@
             </table>
         </div>
     </div>
-    <div>
-        <table id="tb2">
+    <div style="float:left;width:200px;margin-left:10px">
+        <table id="tb2" class="table table-bordered">
             <tr>
                 <td>班次</td>
             </tr>
@@ -52,31 +52,65 @@
     <script>
         $(function () {
             loaddata();
+
+            //拖拽复制体
+            $('td[id^="draggable"]').draggable({
+                helper: "clone",
+                cursor: "move"
+            });
+            alert(111)
+            //释放后
+            $('td[id^="target"]').droppable({
+                drop: function (event, ui) {
+                    $(this).children().remove();
+                    var source = ui.draggable.clone();
+                    $('<img/>', {
+                        src: 'btn_delete.png',
+                        style: 'display:none',
+                        click: function () {
+                            source.remove();
+                        }
+                    }).appendTo(source);
+
+
+                    source.mouseenter(function () {
+                        $(this).find("img").show();
+                    });
+
+                    source.mouseleave(function () {
+                        $(this).find("img").hide();
+                    });
+
+                    $(this).append(source);
+
+                }
+            });
         })
         function loaddata() {
-            //$.ajax({
-            //    url: "",
-            //    type: "Get",
-            //    data: {},
-            //    success: function (data) {
-            //        $("#tb tr").eq(0).nextAll().remove();
-            //        var tr;
-            //        $.each(data, function (Index, row) {
-            //            tr = "<tr>"
-            //                + "<td>" + row + "</td>"
-            //                + "<td>" + row + "</td>"
-            //                + "<td>" + row + "</td>"
-            //                + "<td>" + row + "</td>"
-            //                + "<td>" + row + "</td>"
-            //                + "<td>" + row + "</td>"
-            //                + "<td>" + row + "</td>"
-            //                + "<td>" + row + "</td>"
-            //                + "<td>" + row + "</td>"
-            //                + "</tr > "
-            //            $("#tb").append(tr);
-            //        })
-            //    }
-            //})
+            $.ajax({
+                url: "http://localhost:12345/api/Ooperationuser/GetOoperuser?hierarchyid=0",
+                type: "Get",
+                data: {},
+                success: function (data) {
+                    console.log(data)
+                    $("#tb tr").eq(0).nextAll().remove();
+                    var tr;
+                    $.each(data, function (Index, row) {
+                        tr = "<tr>"
+                            + "<td>" + row.id + "</td>"
+                            + "<td>" + row.ooperationUserName + "</td>"
+                            + "<td></td>"
+                            + "<td></td>"
+                            + "<td></td>"
+                            + "<td></td>"
+                            + "<td></td>"
+                            + "<td>休</td>"
+                            + "<td>休</td>"
+                            + "</tr > "
+                        $("#tb").append(tr);
+                    })
+                }
+            })
             $.ajax({
                 url: "http://localhost:12345/api/Shiftssetting/GetList",
                 type: "Get",
@@ -85,8 +119,9 @@
                     $("#tb2 tr").eq(0).nextAll().remove();
                     var tr;
                     $.each(data, function (Index, row) {
+                        var color = row.shiftssettingcolour;
                         tr = "<tr>"
-                            + "<td style='{background-color: row.shiftssettingcolour}'>" + row.shiftssettingName + "</td>"
+                            + "<td id='draggable1' style='background-color:" + color + " '>" + row.shiftssettingName + "</td>"
                             + "</tr>"
                         $("#tb2").append(tr);
                     })
