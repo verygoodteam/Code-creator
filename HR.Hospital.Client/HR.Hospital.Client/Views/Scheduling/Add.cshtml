@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -8,13 +7,16 @@
 <html>
 <head>
     <title>Index</title>
-    <script src="~/Content/layui-admin/layui/layui.js"></script>
-    <link href="~/Content/layui-admin/layui/css/modules/layer/default/layer.css" rel="stylesheet" />
-    <link href="~/Content/layui-admin/layui/css/layui.css" rel="stylesheet" />
+    @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+    <script src="~/js/jQuery UI表格内容拖拽代码/jQuery1.11.3.min.js"></script>
+    <script src="~/js/jQuery UI表格内容拖拽代码/jquery-ui.js"></script>
+
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" />
 </head>
+
 <body>
+
     <div>
         <div style="background-color:#0094ff">
             <div class="layui-inline">
@@ -24,74 +26,115 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div style="float:left;width:1000px">
             <table id="tb" class="table table-bordered">
                 <tr>
-                    <td>序号</td>
-                    <td>姓名</td>
-                    <td>星期一</td>
-                    <td>星期二</td>
-                    <td>星期三</td>
-                    <td>星期四</td>
-                    <td>星期五</td>
-                    <td>星期六</td>
-                    <td>星期日</td>
+                    <td name="tdtdtd">序号</td>
+                    <td name="tdtdtd">姓名</td>
+                    <td name="tdtdtd">星期一</td>
+                    <td name="tdtdtd">星期二</td>
+                    <td name="tdtdtd">星期三</td>
+                    <td name="tdtdtd">星期四</td>
+                    <td name="tdtdtd">星期五</td>
+                    <td name="tdtdtd">星期六</td>
+                    <td name="tdtdtd">星期日</td>
                 </tr>
             </table>
         </div>
     </div>
-    <div>
-        <table id="tb2">
+    <div style="float:left;width:100px;margin-left:10px">
+        <table id="tb2"style="width:80px;height:300px;" >
             <tr>
-                <td>班次</td>
+                <td name="tdtd">班次</td>
             </tr>
         </table>
     </div>
 
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script>
+    <script type="text/javascript">
         $(function () {
             loaddata();
         })
         function loaddata() {
             $.ajax({
-                url: "",
+                url: "http://localhost:12345/api/Ooperationuser/GetOoperuser?hierarchyid=0",
+                async: false,
                 type: "Get",
                 data: {},
                 success: function (data) {
                     $("#tb tr").eq(0).nextAll().remove();
                     var tr;
                     $.each(data, function (Index, row) {
-                        tr = "<tr>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "</tr > "
+                        tr = '<tr>'
+                            + '<td name="tdtdtd">' + row.id + '</td>'
+                            + '<td name="tdtdtd">' + row.ooperationUserName + '</td>'
+                            + '<td name="tdtdtd"></td>'
+                            + '<td name="tdtdtd"></td>'
+                            + '<td name="tdtdtd"></td>'
+                            + '<td name="tdtdtd"></td>'
+                            + '<td name="tdtdtd"></td>'
+                            + '<td name="tdtdtd">休</td>'
+                            + '<td name="tdtdtd">休</td>'
+                            + '</tr > '
                         $("#tb").append(tr);
                     })
                 }
             })
+
             $.ajax({
                 url: "http://localhost:12345/api/Shiftssetting/GetList",
+                async: false,
                 type: "Get",
                 success: function (data) {
                     $("#tb2 tr").eq(0).nextAll().remove();
                     var tr;
                     $.each(data, function (Index, row) {
-                        tr = "<tr>"
-                            + "<td style='background - color: " + row.Shiftssettingcolour + "'>" + row.ShiftssettingName + "</td>"
-                            + "</tr>"
+                        var color = row.shiftssettingcolour;
+                        tr = '<tr>'
+                            + '<td name="tdtd" style="background-color:' + color + ';width:80px;height:auto;">' + row.shiftssettingName + '</td>'
+                            + '</tr>'
+                        $("#tb2").append(tr);
                     })
                 }
             })
-        }
 
+        }
+    </script>
+    <script type="text/javascript" language="javascript">
+        //在页面加载完之后加载jquery
+        $().ready(function (e) {
+
+            //拖拽复制体
+            $('td[name^="tdtd"]').draggable({
+                helper: "clone",
+                cursor: "move"
+            });
+
+            //释放后
+            $('td[name^="tdtdtd"]').droppable({
+                drop: function (event, ui) {
+                    $(this).children().remove();
+                    var source = ui.draggable.clone();
+                    $('<img/>', {
+                        src: '/js/jQuery UI表格内容拖拽代码/btn_delete.png',
+                        style: 'display:none',
+                        click: function () {
+                            source.remove();
+                        }
+                    }).appendTo(source);
+
+
+                    source.mouseenter(function () {
+                        $(this).find("img").show();
+                    });
+
+                    source.mouseleave(function () {
+                        $(this).find("img").hide();
+                    });
+
+                    $(this).append(source);
+                }
+            });
+        });
     </script>
 </body>
 </html>

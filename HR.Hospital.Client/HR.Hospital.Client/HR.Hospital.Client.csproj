@@ -19,6 +19,8 @@
     <None Include="wwwroot\Content\layui-admin\js\main.js" />
     <None Include="wwwroot\Content\layui-admin\js\nav.js" />
     <None Include="wwwroot\Content\layui-admin\layui\font\iconfont.svg" />
+    <None Include="wwwroot\js\jquery-ui.js" />
+    <None Include="wwwroot\js\jQuery1.11.3.min.js" />
     <None Include="wwwroot\js\layui.js" />
     <None Include="wwwroot\Content\layui-admin\layui\lay\dest\layui.all.js" />
     <None Include="wwwroot\Content\layui-admin\layui\lay\modules\code.js" />

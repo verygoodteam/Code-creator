@@ -56,5 +56,7 @@ namespace HR.Hospital.Repository.ApprovalFunction
             var listUser = _context.Ooperationuser.Where(p => p.Roleid == roleId).ToList();
             return listUser;
         }
+
+
     }
 }

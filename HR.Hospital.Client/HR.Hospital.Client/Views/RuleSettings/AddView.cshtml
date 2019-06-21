@@ -1,0 +1,134 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>规则设置添加页面</title>
+
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div>
+        <p class="bg-primary">排班规则设置</p>
+        <br />
+        <br />
+        <p>固定相连班次设置</p>
+        <table class="table table-bordered">
+            <tr>
+                <td>序号</td>
+                <td>时间1</td>
+                <td>班次1</td>
+                <td>时间2</td>
+                <td>时间3</td>
+                <td>班次2</td>
+                <td><a href="#" onclick="connected()">+</a></td>
+            </tr>
+            <tbody id="tb1"></tbody>
+        </table>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div>
+        <br />
+        <br />
+        <p>固定不相连班次设置</p>
+        <table class="table-bordered table">
+            <tr>
+                <td>序号</td>
+                <td>时间1</td>
+                <td>班次1</td>
+                <td>时间2</td>
+                <td>时间3</td>
+                <td>班次2</td>
+                <td><a href="#" onclick="disjoint()">+</a></td>
+            </tr>
+            <tbody id="tb2"></tbody>
+        </table>
+    </div>
+    <br />
+    <br />
+    <br />
+    <input id="Button1"  type="button" value="保存" class="btn btn-primary" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input id="Button1" type="button" value="取消" class="btn btn-primary" />
+
+
+</body>
+
+</html>
+<script>
+
+    var Num1 = 1;
+    var Num2 = 1;
+
+    //固定相连班次添加下一行
+    function connected() {
+        var i = "<tr>"
+            + "<td>" + Num1++ + "</td>"
+            + "<td></td>"
+            + "<td></td>"
+            + "<td>"
+            + " <select id='twodate'>"
+            + "<option value ='1'> 第二天</option >" 
+            + "<option value='2'>隔日</option>"  
+            + "<option value='3'>下周</option>"   
+            + " </select >"
+            + "</td > "
+            + "<td>"
+            + " <select id='threedate1'>"
+            + "<option value = '1'> 周一</option >"
+            + "<option value='2'>周二</option>"
+            + "<option value='3'>周三</option>"
+            + "<option value = '4'> 周四</option >"
+            + "<option value='5'>周五</option>"
+            + "<option value='6'>周六</option>"
+            + "<option value='7'>周日</option>"
+            + " </select >"
+            + "</td >" 
+            + "<td></td>"
+            + "<td><a href='#' onclick='connected()'>+</a></td>"
+            + "</tr>"
+
+        $("#tb1").append(i);
+    }
+
+    //固定不相连班次添加下一行
+    function disjoint() {
+        var i = "<tr>"
+            + "<td>" + Num2++ + "</td>"
+            + "<td></td>"
+            + "<td></td>"
+            + "<td>"
+            + " <select id='twodate'>"
+            + "<option value='1'> 第二天</option >"
+            + "<option value='2'>隔日</option>"
+            + "<option value='3'>下周</option>"
+            + " </select >"
+            + "</td >" 
+            + "<td>"
+            + " <select id='threedate2'>"
+            + "<option value = '1'> 周一</option >"
+            + "<option value='2'>周二</option>"
+            + "<option value='3'>周三</option>"
+            + "<option value = '4'> 周四</option >"
+            + "<option value='5'>周五</option>"
+            + "<option value='6'>周六</option>"
+            + "<option value='7'>周日</option>"
+            + " </select >"
+            + "</td >" 
+            + "<td></td>"
+            + "<td><a href='#' onclick='disjoint()'>+</a></td>"
+            + "</tr>"
+
+        $("#tb2").append(i);
+    }
+
+
+</script>
