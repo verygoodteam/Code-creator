@@ -2,6 +2,7 @@ using HR.Hospital.IRepository.ApprovalFunction;
 using HR.Hospital.IRepository.Areas;
 using HR.Hospital.IRepository.Clinical;
 using HR.Hospital.IRepository.Department;
+using HR.Hospital.IRepository.Detail;
 using HR.Hospital.IRepository.Group;
 using HR.Hospital.IRepository.Login;
 using HR.Hospital.IRepository.OoperationUser;
@@ -34,7 +35,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using HR.Hospital.Repository.ApprovalFunction;
 using HR.Hospital.IRepository.RuleSetting;
+using HR.Hospital.IRepository.Solitaire;
+using HR.Hospital.IRepository.Summary;
+using HR.Hospital.Repository.Detail;
 using HR.Hospital.Repository.RuleSetting;
+using HR.Hospital.Repository.Solitaire;
+using HR.Hospital.Repository.Summary;
 
 namespace HR.Hospital.WebApi
 {
@@ -93,23 +99,20 @@ namespace HR.Hospital.WebApi
             services.AddScoped<IPermissionRepository, PermissionRepository>();
             //角色映射关系
             services.AddScoped<IRoleRepository, RoleRepository>();
-
             //审批活动映射关系
             services.AddScoped<IActivityRepository, ActivityRepository>();
-
             //审批类型映射关系
             services.AddScoped<IApprovalTypeRepository, ApprovalTypeRepository>();
-
             //能级映射关系
             services.AddScoped<IHierarchyRepository, HierarchyRepository>();
-
             //职务映射关系
             services.AddScoped<IPositionRepository, PositionRepository>();
-
-            //配置表映射关系
-            services.AddScoped<IApprovalConfigurationRepository, ApprovalConfigurationRepository>();
-
-
+            //接龙设置映射关系
+            services.AddScoped<ISolitaireRepository, SolitaireRepository>();
+            //考勤明细映射关系
+            services.AddScoped<IDetailRepository, DetailRepository>();
+            //考勤汇总映射关系
+            services.AddScoped<ISummaryRepository, SummaryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

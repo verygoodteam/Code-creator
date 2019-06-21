@@ -32,7 +32,7 @@ var navs = [{
         }, {
             "title": "接龙设置",
             "icon": "&#xe631;",
-            "href": "//",
+            "href": "/Solitaire/Index",
             "spread": false
         }, {
             "title": "审批规则设置",
@@ -147,12 +147,12 @@ var navs = [{
         {
             "title": "考勤明细",
             "icon": "&#xe631;",
-            "href": "//",
+            "href": "/Detail/Index",
             "spread": false
         }, {
             "title": "考勤汇总",
             "icon": "&#xe631;",
-            "href": "//",
+            "href": "/Summary/Index",
             "spread": false
         }
     ]

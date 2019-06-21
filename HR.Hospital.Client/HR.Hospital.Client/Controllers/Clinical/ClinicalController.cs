@@ -21,7 +21,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
 
         public PageHelper<Clinicuser> PageList(int pageIndex = 1, int pageSize = 3, int administrativeId = 0, string englishName = "")
         {
-            var list = HttpClientApi.GetAsync<Common.PageHelper<Clinicuser>>("http://localhost:12345/api/clinical/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&administrativeId=" + administrativeId + "&englishName=" + englishName);
+            var list = HttpClientApi.GetAsync<Common.PageHelper<Clinicuser>>(HttpHelper.Url + "Clinical/GetPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&administrativeId=" + administrativeId + "&englishName=" + englishName);
             return list;
         }
 
@@ -31,7 +31,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
         /// <returns></returns>
         public List<Administrative> GetDepartment()
         {
-            var list = HttpClientApi.GetAsync<List<Administrative>>("http://localhost:12345/api/clinical/GetDepartment");
+            var list = HttpClientApi.GetAsync<List<Administrative>>(HttpHelper.Url + "Clinical/GetDepartment");
             return list;
         }
 
@@ -46,7 +46,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
         [HttpPost]
         public ActionResult Add(Clinicuser model)
         {
-            var i = HttpClientApi.PostAsync<Clinicuser,int>(model, "http://localhost:12345/api/clinical/Add");
+            var i = HttpClientApi.PostAsync<Clinicuser,int>(model, HttpHelper.Url + "Clinical/Add");
             return Redirect("/Clinical/Index");
         }
 
@@ -57,7 +57,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
         /// <returns></returns>
         public ActionResult Delete(int id)
         {
-            var i = HttpClientApi.DeleteAsync<int>("http://localhost:12345/api/clinical/delete?id=" + id);
+            var i = HttpClientApi.DeleteAsync<int>(HttpHelper.Url + "Clinical/Delete?id=" + id);
             return Redirect("/Clinical/Index");
         }
 
@@ -68,7 +68,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
         /// <returns></returns>
         public ActionResult Enable(int id)
         {
-            var i = HttpClientApi.DeleteAsync<int>("http://localhost:12345/api/clinical/enable?id=" + id);
+            var i = HttpClientApi.DeleteAsync<int>(HttpHelper.Url + "Clinical/Enable?id=" + id);
             return Redirect("/Clinical/Index");
         }
 
@@ -88,7 +88,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
         /// <returns></returns>
         public Clinicuser UpdateData(int id)
         {
-            var list = HttpClientApi.GetAsync<Clinicuser>("http://localhost:12345/api/clinical/GetModel?id=" + id);
+            var list = HttpClientApi.GetAsync<Clinicuser>(HttpHelper.Url + "Clinical/GetModel?id=" + id);
             return list;
         }
 
@@ -100,7 +100,7 @@ namespace HR.Hospital.Client.Controllers.Clinical
         [HttpPost]
         public ActionResult UpdateClinical(Clinicuser model)
         {
-            var i = HttpClientApi.PutAsync<Clinicuser,int>(model, "http://localhost:12345/api/clinical/update");
+            var i = HttpClientApi.PutAsync<Clinicuser,int>(model, HttpHelper.Url + "Clinical/Update");
             return Redirect("/Clinical/Index");
         }
     }
