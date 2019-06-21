@@ -137,9 +137,15 @@ namespace HR.Hospital.Model
         /// 排班表
         /// </summary>
         public virtual DbSet<Scheduling> Schedulings { get; set; }
-        
+
+        public virtual DbSet<ApprovalConfiguration> ApprovalConfiguration { get; set; }
+
 
         
+        public virtual DbSet<AttendanceDetail> AttendanceDetail { get; set; }
+        public virtual DbSet<AttendanceSummary> AttendanceSummary { get; set; }
+        public virtual DbSet<SolitaireSet> SolitaireSet { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
