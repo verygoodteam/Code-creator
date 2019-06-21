@@ -8,8 +8,6 @@ namespace HR.Hospital.Model
 {
     public partial class hospitaldbContext : DbContext
     {
-
-
         public hospitaldbContext()
         {
         }
@@ -139,11 +137,7 @@ namespace HR.Hospital.Model
         /// 排班表
         /// </summary>
         public virtual DbSet<Scheduling> Schedulings { get; set; }
-
-        /// <summary>
-        /// 配置表
-        /// </summary>
-        public virtual DbSet<ApprovalConfiguration> ApprovalConfiguration { get; set; }
+        
 
         
 
@@ -192,8 +186,6 @@ namespace HR.Hospital.Model
 
                 entity.Property(e => e.UserId).HasColumnType("int(11)");
 
-                entity.Property(e => e.RoleId).HasColumnType("int(11)");
-                
             });
 
             //自己添加的审批活动表
