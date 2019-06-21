@@ -114,9 +114,9 @@ var navs = [{
             "href": "/Permission/PermissionShow",
             "spread": false
         }, {
-            "title": "角色管理管理",
+            "title": "角色管理",
             "icon": "&#xe631;",
-            "href": "/Clinical/Index",
+            "href": "/Role/RoleShows",
             "spread": false
         }
     ]
@@ -156,4 +156,22 @@ var navs = [{
             "spread": false
         }
     ]
-}]
+    }, {
+        "title": "辅助功能",
+        "icon": "&#xe61c;",
+        "href": "",
+        "spread": false,
+        "children": [
+            {
+                "title": "能级管理",
+                "icon": "&#xe631;",
+                "href": "/Hierarchy/HierarchieView",
+                "spread": false
+            }, {
+                "title": "职务管理",
+                "icon": "&#xe631;",
+                "href": "/Position/PositionView",
+                "spread": false
+            }
+        ]
+    }]
