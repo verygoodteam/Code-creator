@@ -1,5 +1,5 @@
 ﻿
-@{ 
+@{
     Layout = null;
 }
 
@@ -10,16 +10,8 @@
     <meta name="viewport" content="width=device-width" />
     <title>规则设置添加页面</title>
 
-    <script type="text/javascript"  src="~/wwwroot/js/jquery.min.js"></script>
-    <script type="text/javascript"  src="~/wwwroot/js/select.js"></script>
-
-
-    <script src="~/wwwroot/js/fselect.js"></script>
-    <link href="~/wwwroot/css/fselect.css" rel="stylesheet" />
     <script src="~/js/jquery-3.3.1.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <script src="~/wwwroot/Content/layui-admin/layui/layui.js"></script>
-    <link href="~/wwwroot/Content/layui-admin/layui/css/layui.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -64,46 +56,42 @@
     <br />
     <br />
     <br />
-    <input id="Button1" type="button" value="保存" class="btn btn-primary" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input id="Button1"  type="button" value="保存" class="btn btn-primary" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input id="Button1" type="button" value="取消" class="btn btn-primary" />
-
-    <select id="mySelect" multiple="multiple">
-
-    </select>
-
 
 
 </body>
+
 </html>
 <script>
-    $(function () {
-        var mySelect = $("#mySelect").mySelect({
-            mult: true,//true为多选,false为单选
-            option: [//选项数据
-                { label: "选项1", value: 0 },
-                { label: "选项2", value: 1 },
-                { label: "选项3", value: 2 },
-                { label: "选项4", value: 3 },
-                { label: "选项5", value: 4 },
-                { label: "选项6", value: 5 }
-            ],
-            onChange: function (res) {//选择框值变化返回结果
-                console.log(res)
-            }
-        });
-        mySelect.setResult(["1", "2"]);
 
-
-    var Num = 1;
+    var Num1 = 1;
+    var Num2 = 1;
 
     //固定相连班次添加下一行
     function connected() {
         var i = "<tr>"
-            + "<td>" + Num++ + "</td>"
+            + "<td>" + Num1++ + "</td>"
             + "<td></td>"
             + "<td></td>"
-            + "<td></td>"
-            + "<td></td>"
+            + "<td>"
+            + " <select id='twodate'>"
+            + "<option value ='1'> 第二天</option >" 
+            + "<option value='2'>隔日</option>"  
+            + "<option value='3'>下周</option>"   
+            + " </select >"
+            + "</td > "
+            + "<td>"
+            + " <select id='threedate1'>"
+            + "<option value = '1'> 周一</option >"
+            + "<option value='2'>周二</option>"
+            + "<option value='3'>周三</option>"
+            + "<option value = '4'> 周四</option >"
+            + "<option value='5'>周五</option>"
+            + "<option value='6'>周六</option>"
+            + "<option value='7'>周日</option>"
+            + " </select >"
+            + "</td >" 
             + "<td></td>"
             + "<td><a href='#' onclick='connected()'>+</a></td>"
             + "</tr>"
@@ -114,15 +102,33 @@
     //固定不相连班次添加下一行
     function disjoint() {
         var i = "<tr>"
-            + "<td>" + Num++ + "</td>"
+            + "<td>" + Num2++ + "</td>"
             + "<td></td>"
             + "<td></td>"
-            + "<td></td>"
-            + "<td></td>"
+            + "<td>"
+            + " <select id='twodate'>"
+            + "<option value='1'> 第二天</option >"
+            + "<option value='2'>隔日</option>"
+            + "<option value='3'>下周</option>"
+            + " </select >"
+            + "</td >" 
+            + "<td>"
+            + " <select id='threedate2'>"
+            + "<option value = '1'> 周一</option >"
+            + "<option value='2'>周二</option>"
+            + "<option value='3'>周三</option>"
+            + "<option value = '4'> 周四</option >"
+            + "<option value='5'>周五</option>"
+            + "<option value='6'>周六</option>"
+            + "<option value='7'>周日</option>"
+            + " </select >"
+            + "</td >" 
             + "<td></td>"
             + "<td><a href='#' onclick='disjoint()'>+</a></td>"
             + "</tr>"
 
         $("#tb2").append(i);
     }
+
+
 </script>
