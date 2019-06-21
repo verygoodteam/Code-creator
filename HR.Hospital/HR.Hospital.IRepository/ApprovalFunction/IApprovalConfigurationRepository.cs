@@ -12,7 +12,7 @@ namespace HR.Hospital.IRepository.ApprovalFunction
         /// </summary>
         /// <param name="approvalConfiguration"></param>
         /// <returns></returns>
-        int AddApprovalConfiguration(ApprovalConfiguration approvalConfiguration);
+        int AddApprovalConfiguration(List<ApprovalConfiguration> approvalConfiguration);
 
         /// <summary>
         /// 显示配置信息
@@ -29,5 +29,11 @@ namespace HR.Hospital.IRepository.ApprovalFunction
         /// <param name="approvalConfiguration"></param>
         /// <returns></returns>
         int UpdateApprovalConfiguration(ApprovalConfiguration approvalConfiguration);
+
+        /// <summary>
+        /// 获取活动的Id
+        /// </summary>
+        /// <returns></returns>
+        List<int> GetActivityId();
     }
 }
