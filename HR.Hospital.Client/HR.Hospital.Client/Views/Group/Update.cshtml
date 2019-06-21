@@ -28,76 +28,75 @@
 </head>
 <body>
     <h3 style="margin-left: 15px">专业组设置</h3>
-    <div id="app">
-        <table class="table table-bordered">
-            <tr>
-                <td>专业组名称:</td>
-                <td>
-                    <input type="text" v-model="Name" />
-                </td>
-            </tr>
-            <tr>
-                <td>专业组颜色:</td>
-                <td>
-                    <input type="color" v-model="Color" />
-                </td>
-            </tr>
-            <tr>
-                <td>相关科室:</td>
-                <td>
-                    <select id="Select1" v-model="Department">
-                        <option value="0">--请选择--</option>
-                        <option v-for="item in departmentList" :value="item.Id">{{item.administrativeName}}</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>组员设置:</td>
-                <td>
-                    <select id="Select2" v-model="People">
-                        <option value="0">--请选择--</option>
-                        <option v-for="item in peopleList" :value="item.Id">{{item.clinicUserName}}</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
+<div id="app">
+    <input id="Hidden1" type="hidden" value="@ViewBag.Id"/>
+    <table class="table table-bordered">
+        <tr>
+            <td>专业组名称:</td>
+            <td>
+                <input type="text" v-model="Name"/>
+            </td>
+        </tr>
+        <tr>
+            <td>专业组颜色:</td>
+            <td>
+                <input type="color" v-model="Color"/>
+            </td>
+        </tr>
+        <tr>
+            <td>相关科室:</td>
+            <td>
+                <select id="Select1" v-model="Department">
+                    <option value="0">--请选择--</option>
+                    <option v-for="item in departmentList" :value="item.Id">{{item.administrativeName}}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>组员设置:</td>
+            <td>
+                <select id="Select2" v-model="People">
+                    <option value="0">--请选择--</option>
+                    <option v-for="item in peopleList" :value="item.Id">{{item.clinicUserName}}</option>
+                </select>
+            </td>
+        </tr>
+    </table>
 
-        <table class="table table-bordered">
-            <tr style="background-color:darkgray">
-                <td>序号</td>
-                <td>项目</td>
-                <td>组长</td>
-                <td>带教</td>
-                <td>操作</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>李晨</td>
-                <td>
-                    <input id="Radio1" type="radio" name="Radio" value="0" v-model="TeachingId" /><span>是</span>
-                    <input id="Radio2" type="radio" name="Radio" value="1" v-model="TeachingId" /><span>否</span>
-                </td>
-                <td>
-                    <input id="Radio3" type="radio" name="Radio" value="0" v-model="GroupLeader" /><span>是</span>
-                    <input id="Radio4" type="radio" name="Radio" value="1" v-model="GroupLeader" /><span>否</span>
-                </td>
-                <td>
-                    <div>
-                        <a href="#" v-on:click="DeleteById()">删除</a>
-                    </div>
-                </td>
-            </tr>
-        </table>
+    <table class="table table-bordered">
+        <tr style="background-color: darkgray">
+            <td>序号</td>
+            <td>项目</td>
+            <td>组长</td>
+            <td>带教</td>
+            <td>操作</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>{{People}}</td>
+            <td>
+                <input id="Radio1" type="radio" name="Radio" value="0" v-model="TeachingId"/><span>是</span>
+            </td>
+            <td>
+                <input id="Radio3" type="radio" name="Radio" value="0" v-model="GroupLeader"/><span>是</span>
+            </td>
+            <td>
+                <div>
+                    <a href="#" v-on:click="DeleteById()">删除</a>
+                </div>
+            </td>
+        </tr>
+    </table>
 
-        <table class="table table-bordered">
-            <tr>
-                <td style="text-align: center;">
-                    <button type="button" v-on:click="addGroup()" class="btn btn-default">添加</button>
-                    <button type="button" v-on:click="back()" style="margin-left: 20px" class="btn btn-default">返回</button>
-                </td>
-            </tr>
-        </table>
-    </div>
+    <table class="table table-bordered">
+        <tr>
+            <td style="text-align: center;">
+                <button type="button" v-on:click="addGroup()" class="btn btn-default">添加</button>
+                <button type="button" v-on:click="back()" style="margin-left: 20px" class="btn btn-default">返回</button>
+            </td>
+        </tr>
+    </table>
+</div>
     <script type="text/javascript">
     var vm = new Vue({
         el: "#app",
@@ -107,13 +106,44 @@
             Department: 0,
             People: 0,
             departmentList: [],
-            peopleList: []
+            peopleList: [],
+            Id: @ViewBag.Id
         },
         mounted() {
             this.getDepartment();
             this.getPeople();
+            this.getGroup(@ViewBag.Id);
         },
         methods: {
+            getDepartment: function () {
+                axios.get("/Group/GetDepartment")
+                    .then((response) => {
+                        this.departmentList = response.data;
+                    });
+            },
+
+            getPeople: function () {
+                axios.get("/Group/GetClinical")
+                    .then((response) => {
+                        this.peopleList = response.data;
+                    });
+            },
+
+            //获取数据
+            getGroup: function(id) {
+                axios.get("/Group/UpdateData",
+                    {
+                        params: { id: id }
+                    }).then((response) => {
+                    this.Name = response.data.professionalGroupName;
+                    this.Colcor = response.data.professionalGroupColore;
+                    this.Department = response.data.departmentId;
+                    this.TeachingId = response.data.teachingId;
+                    this.GroupLeader = response.data.groupLeader;
+                    this.TeamMember = response.data.teamMember;
+                });
+            },
+
             addGroup: function() {
                 axios.post('@Url.Action("UpdateGroup", "Group")',
                     {
@@ -136,19 +166,6 @@
                 });
             },
 
-            getDepartment: function () {
-                axios.get("/Group/GetDepartment")
-                    .then((response) => {
-                        this.departmentList = response.data;
-                    });
-            },
-
-            getPeople: function () {
-                axios.get("/Group/GetClinical")
-                    .then((response) => {
-                        this.peopleList = response.data;
-                    });
-            },
 
             back: function() {
                 location.href = '/Group/Index';

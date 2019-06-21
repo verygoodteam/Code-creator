@@ -106,5 +106,40 @@ namespace HR.Hospital.WebApi.Controllers.Solitaire
             return i;
         }
 
+        /// <summary>
+        /// 获取最大id
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetMaxId")]
+        public int GetMaxId()
+        {
+            int i = _solitaireRepository.GetMaxId();
+            return i;
+        }
+
+        /// <summary>
+        /// 向上调整排序编号
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost("UpdateSortId")]
+        public bool UpdateSortId(int id)
+        {
+            bool b = _solitaireRepository.UpdateSortId(id);
+            return b;
+        }
+
+        /// <summary>
+        /// 向上调整排序编号
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost("DownSortId")]
+        public bool DownSortId(int id)
+        {
+            bool b = _solitaireRepository.DownSortId(id);
+            return b;
+        }
+
     }
 }
