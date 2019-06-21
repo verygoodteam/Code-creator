@@ -138,12 +138,24 @@ namespace HR.Hospital.Model
         /// </summary>
         public virtual DbSet<Scheduling> Schedulings { get; set; }
 
+        /// <summary>
+        /// 配置表
+        /// </summary>
         public virtual DbSet<ApprovalConfiguration> ApprovalConfiguration { get; set; }
 
-
-        
+        /// <summary>
+        /// 考勤明细
+        /// </summary>
         public virtual DbSet<AttendanceDetail> AttendanceDetail { get; set; }
+
+        /// <summary>
+        /// 考勤汇总
+        /// </summary>
         public virtual DbSet<AttendanceSummary> AttendanceSummary { get; set; }
+
+        /// <summary>
+        /// 接龙配置表
+        /// </summary>
         public virtual DbSet<SolitaireSet> SolitaireSet { get; set; }
 
 
