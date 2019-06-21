@@ -103,6 +103,9 @@ namespace HR.Hospital.WebApi
             services.AddScoped<IActivityRepository, ActivityRepository>();
             //审批类型映射关系
             services.AddScoped<IApprovalTypeRepository, ApprovalTypeRepository>();
+
+            //审批配置表映射关系
+            services.AddScoped<IApprovalConfigurationRepository, ApprovalConfigurationRepository>();
             //能级映射关系
             services.AddScoped<IHierarchyRepository, HierarchyRepository>();
             //职务映射关系
@@ -113,6 +116,13 @@ namespace HR.Hospital.WebApi
             services.AddScoped<IDetailRepository, DetailRepository>();
             //考勤汇总映射关系
             services.AddScoped<ISummaryRepository, SummaryRepository>();
+
+
+            
+
+          
+           
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

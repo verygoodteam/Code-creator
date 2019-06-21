@@ -91,10 +91,21 @@ namespace HR.Hospital.WebApi.Controllers.ApprovalFunction
         /// <param name="approvalConfiguration"></param>
         /// <returns></returns>
         [HttpPost("AddApprovalConfiguration")]
-        public int AddApprovalConfiguration(ApprovalConfiguration approvalConfiguration)
+        public int AddApprovalConfiguration([FromBody] List<ApprovalConfiguration> approvalConfiguration)
         {
             var result = ApprovalConfigurationRepository.AddApprovalConfiguration(approvalConfiguration);
             return result;
+        }
+
+        /// <summary>
+        /// 获取配置表中的活动Id
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetActivityId")]
+        public List<int> GetActivityId()
+        {
+            var activityListId = ApprovalConfigurationRepository.GetActivityId();
+            return activityListId;
         }
 
         // DELETE: api/ApiWithActions/5
