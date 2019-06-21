@@ -102,12 +102,14 @@
     var vm = new Vue({
         el: "#app",
         data: {
+            departmentList: [],
+            peopleList: [],
             Name: "",
             Color: "",
             Department: 0,
             People: 0,
-            departmentList: [],
-            peopleList: []
+            TeachingId: 0,
+            GroupLeader:0
         },
         mounted() {
             this.getDepartment();
@@ -115,12 +117,12 @@
         },
         methods: {
             addGroup: function () {
-                alert(this.Name); alert(this.Colcor);
+                alert(this.Name); alert(this.Color);
                 axios.post('@Url.Action("Add", "Group")',
                     {
                         model: {
                             ProfessionalGroupName: this.Name,
-                            ProfessionalGroupColore: this.Colcor,
+                            ProfessionalGroupColore: this.Color,
                             DepartmentId: this.Department,
                             TeachingId: this.TeachingId,
                             GroupLeader: this.People,
@@ -160,8 +162,6 @@
             }
         }
     });
-
-
 </script>
 </body>
 </html>
