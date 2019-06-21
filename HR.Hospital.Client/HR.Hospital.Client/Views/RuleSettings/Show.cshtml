@@ -1,0 +1,59 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>排班规则显示</title>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <input id="Button1" type="button" value="增加" onclick="add()" />
+    <table class="table table-bordered">
+        <tr class="bg-primary">
+            <td>序号</td>
+            <td>排班规则</td>
+            <td>是否生效</td>
+        </tr>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.OneTime@item.OneShiftsIdName@item.TwoTime@item.ThreeTime@item.TwoShiftsName</td>
+                    <td> <input id="Radio1" type="radio" checked="checked" onclick="iseffec(@item.Id,@item.Iseffec)" />@(item.Iseffec==0?"否":"是")</td>
+                </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</body>
+</html>
+<script>
+
+
+    //是否生效
+    function iseffec(id, obj) {
+        $.ajax({
+            url: 'http://localhost:12345/api/RuleSetting/Iseffec?id=' + id,
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                if (data > 0) {
+                    location.href = '/RuleSettings/Show';
+                }
+            }
+        })
+    }
+
+    //跳转添加
+    function add() {
+        location.href = '/RuleSettings/AddView';
+    }
+</script>                                                                  

@@ -36,7 +36,7 @@ namespace HR.Hospital.Repository.RuleSetting
         {
             using (MySqlConnection con=new MySqlConnection(_conn))
             {
-                var getruleset = @"SELECT r.Id,r.OneTime,r.TwoTime,r.ThreeTime,r.Types,r.OneShiftsId,r.TwoShiftsId,s1.ShiftssettingName OneShiftsIdName,
+                var getruleset = @"SELECT r.Id,r.OneTime,r.TwoTime,r.ThreeTime,r.Types,r.Iseffec,r.OneShiftsId,r.TwoShiftsId,s1.ShiftssettingName OneShiftsIdName,
                                   s2.ShiftssettingName TwoShiftsName
                                   from rulesettings r JOIN shiftssetting s1
                                   on r.OneShiftsId = s1.Id
