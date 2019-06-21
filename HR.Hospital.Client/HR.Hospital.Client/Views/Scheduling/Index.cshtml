@@ -77,19 +77,6 @@
                     })
                 }
             })
-            $.ajax({
-                url: "http://localhost:12345/api/Shiftssetting/GetList",
-                type: "Get",
-                success: function (data) {
-                    $("#tb2 tr").eq(0).nextAll().remove();
-                    var tr;
-                    $.each(data, function (Index, row) {
-                        tr = "<tr>"
-                            + "<td style='background - color: " + row.Shiftssettingcolour + "'>" + row.ShiftssettingName + "</td>"
-                            + "</tr>"
-                    })
-                }
-            })
         }
 
     </script>
