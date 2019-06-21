@@ -21,6 +21,8 @@ namespace HR.Hospital.Client.Controllers.Approvals
             var listActivity = HttpClientApi.GetAsync<List<ActivityTable>>(HttpHelper.Url + "Activity/GetListApproval");
             var activity = listActivity.FirstOrDefault(p => p.Id == id);
             if (activity != null) ViewBag.Title = activity.ActivityName;
+            if (activity != null) ViewBag.TitleId = activity.Id;
+
             ViewBag.RadioType = HttpClientApi.GetAsync<List<ApprovalType>>(HttpHelper.Url + "Activity/GetApprovalType");
             return View();
         }
