@@ -22,12 +22,12 @@ var navs = [{
         }, {
             "title": "排班规则设置",
             "icon": "&#xe631;",
-            "href": "//",
+            "href": "/RuleSettings/Show",
             "spread": false
         }, {
             "title": "专业组设置",
             "icon": "&#xe631;",
-            "href": "/Group/",
+            "href": "/Group/Index",
             "spread": false
         }, {
             "title": "接龙设置",
