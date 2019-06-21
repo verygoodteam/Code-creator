@@ -40,45 +40,43 @@
     <p></p>
     <div id="divClinical">
         <span style="margin-left: 16px">科室：</span>
-        <select id="Select1" v-model="department">
-            <option value="0">请选择</option>
-            <option value="1">胸外科室</option>
-            <option value="2">肠胃科</option>
-            <option value="3">耳喉鼻科</option>
+        <select id="Select1" v-model="Department">
+            <option value="0">--请选择--</option>
+            <option v-for="item in departmentList" :value="item.id">{{item.administrativeName}}</option>
         </select>
-        <span style="margin-left: 10px">姓名：</span><input type="text" v-model="clinicUserName"/>
+        <span style="margin-left: 10px">姓名：</span><input type="text" v-model="clinicUserName" />
         <button type="button" v-on:click="getUser()" style="margin-left: 5px" class="btn btn-default">查询</button>
         <button type="button" v-on:click="addUser()" style="margin-left: 20px" class="btn btn-default">添加</button>
         <table class="table table-bordered">
             <thead>
-            <tr style="background-color:#00ced1">
-                <td>序号</td>
-                <td>姓名</td>
-                <td>性别</td>
-                <td>所属科室</td>
-                <td>工号</td>
-                <td>备注</td>
-                <td>是否启用</td>
-                <td>操作</td>
-            </tr>
+                <tr style="background-color:#00ced1">
+                    <td>序号</td>
+                    <td>姓名</td>
+                    <td>性别</td>
+                    <td>所属科室</td>
+                    <td>工号</td>
+                    <td>备注</td>
+                    <td>是否启用</td>
+                    <td>操作</td>
+                </tr>
             </thead>
             <tbody>
-            <tr v-for="data in userList">
-                <td>{{data.id}}</td>
-                <td>{{data.clinicUserName}}</td>
-                <td>{{data.sex==1?"男":"女"}}</td>
-                <td>{{data.aadministrativeid}}</td>
-                <td>{{data.jobnumber}}</td>
-                <td>{{data.clinicUserRemark}}</td>
-                <td>{{data.isEnable==0?"是":"否"}}</td>
-                <td>
-                    <div>
-                        <a href="#" v-on:click="UpdateById(data.id)">编辑</a> |
-                        <a href="#" v-on:click="DeleteById(data.id)">禁用</a> |
-                        <a href="#" v-on:click="EnableById(data.id)">启用</a>
-                    </div>
-                </td>
-            </tr>
+                <tr v-for="data in userList">
+                    <td>{{data.id}}</td>
+                    <td>{{data.clinicUserName}}</td>
+                    <td>{{data.sex==1?"男":"女"}}</td>
+                    <td>{{data.aadministrativeid}}</td>
+                    <td>{{data.jobnumber}}</td>
+                    <td>{{data.clinicUserRemark}}</td>
+                    <td>{{data.isEnable==0?"是":"否"}}</td>
+                    <td>
+                        <div>
+                            <a href="#" v-on:click="UpdateById(data.id)">编辑</a> |
+                            <a href="#" v-on:click="DeleteById(data.id)">禁用</a> |
+                            <a href="#" v-on:click="EnableById(data.id)">启用</a>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
@@ -98,13 +96,23 @@
             pageSize: 12,//每页数据
             total: 10,//总条数
             maxPage: 9,//总页数
-            department: 0,
+            departmentList:[],
+            Department: 0,
             clinicUserName:""
         },
         mounted() {
             this.getUser();
+            this.getDepartment();
         },
         methods: {
+            //获取科室
+            getDepartment: function () {
+                axios.get("/Clinical/GetDepartment")
+                    .then((response) => {
+                        this.departmentList = response.data;
+                    });
+            },
+
             getUser: function (page) {
                 this.page = page,
                     axios.get("/Clinical/PageList",
@@ -112,7 +120,7 @@
                             params: {
                                 pageIndex: page,
                                 pageSize: this.pageSize,
-                                administrativeId: this.department,
+                                administrativeId: this.Department,
                                 englishName: this.clinicUserName
                             }
                         }).then((response) => {
@@ -122,22 +130,23 @@
                     });
             },
 
-            addUser: function() {
+            //添加
+            addUser: function () {
                 location.href = '/Clinical/Add';
             },
 
+            //禁用
             DeleteById: function (id) {
-                //alert(id);
                 location.href = '/Clinical/Delete?id=' + id;
             },
 
+            //启用
             EnableById: function (id) {
-                //alert(id);
                 location.href = '/Clinical/Enable?id=' + id;
             },
 
+            //编辑
             UpdateById: function (id) {
-                //alert(id);
                 location.href = '/Clinical/Update?id=' + id;
             }
         }
