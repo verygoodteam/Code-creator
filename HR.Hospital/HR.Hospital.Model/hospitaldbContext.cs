@@ -139,6 +139,12 @@ namespace HR.Hospital.Model
         /// 排班表
         /// </summary>
         public virtual DbSet<Scheduling> Schedulings { get; set; }
+
+        /// <summary>
+        /// 配置表
+        /// </summary>
+        public virtual DbSet<ApprovalConfiguration> ApprovalConfiguration { get; set; }
+
         
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -163,6 +169,29 @@ namespace HR.Hospital.Model
                 entity.Property(e => e.AdministrativeRemark).HasColumnType("varchar(100)");
 
                 entity.Property(e => e.Isoperation).HasColumnType("int(11)");
+            });
+
+            //添加配置表中字段信息
+            modelBuilder.Entity<ApprovalConfiguration>(entity =>
+            {
+                entity.ToTable("approvalConfiguration");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.ActivityId).HasColumnType("int(11)");
+
+                entity.Property(e => e.UserLevelId).HasColumnType("int(11)");
+
+                entity.Property(e => e.DownId).HasColumnType("int(11)");
+
+                entity.Property(e => e.Start).HasColumnType("varchar(255)");
+
+                entity.Property(e => e.SortId).HasColumnType("int(11)");
+
+                entity.Property(e => e.CreateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.UserId).HasColumnType("int(11)");
+
             });
 
             //自己添加的审批活动表
@@ -202,7 +231,7 @@ namespace HR.Hospital.Model
 
 
             });
-            
+
 
             modelBuilder.Entity<Area>(entity =>
             {
