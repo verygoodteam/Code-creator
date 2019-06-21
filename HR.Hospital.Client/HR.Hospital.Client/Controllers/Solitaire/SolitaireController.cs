@@ -106,5 +106,7 @@ namespace HR.Hospital.Client.Controllers.Solitaire
             var i = HttpClientApi.PutAsync<SolitaireSet, int>(model, HttpHelper.Url + "Solitaire/Update");
             return i;
         }
+
+
     }
 }

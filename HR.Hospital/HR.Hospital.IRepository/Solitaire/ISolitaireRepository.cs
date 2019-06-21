@@ -51,5 +51,28 @@ namespace HR.Hospital.IRepository.Solitaire
         /// <param name="model"></param>
         int Update(SolitaireSet model);
 
+        /// <summary>
+        /// 更改排序id 向前
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        bool UpdateSortId(int id);
+
+
+        /// <summary>
+        /// 获取最大编号
+        /// </summary>
+        /// <returns></returns>
+        int GetMaxId();
+
+
+        /// <summary>
+        /// 更改排序id 向后
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        bool DownSortId(int id);
+
+
     }
 }

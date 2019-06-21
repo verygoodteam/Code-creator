@@ -13,6 +13,10 @@
     <script src="~/js/jquery-3.3.1.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
+    <link href="~/jquery-easyui/easyui.css" rel="stylesheet" />
+    <script src="~/jquery-easyui/jquery.min.js"></script>
+    <script src="~/jquery-easyui/jquery.easyui.min.js"></script>
+
 </head>
 <body>
     <div>
@@ -56,78 +60,189 @@
     <br />
     <br />
     <br />
-    <input id="Button1"  type="button" value="保存" class="btn btn-primary" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input id="Button1" type="button" value="保存" onclick="Prese()" class="btn btn-primary" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input id="Button1" type="button" value="取消" class="btn btn-primary" />
+
 
 
 </body>
 
 </html>
-<script>
+<script type="text/javascript" class="easyui-combotree">
 
     var Num1 = 1;
     var Num2 = 1;
 
-    //固定相连班次添加下一行
-    function connected() {
-        var i = "<tr>"
-            + "<td>" + Num1++ + "</td>"
-            + "<td></td>"
-            + "<td></td>"
-            + "<td>"
-            + " <select id='twodate'>"
-            + "<option value ='1'> 第二天</option >" 
-            + "<option value='2'>隔日</option>"  
-            + "<option value='3'>下周</option>"   
-            + " </select >"
-            + "</td > "
-            + "<td>"
-            + " <select id='threedate1'>"
-            + "<option value = '1'> 周一</option >"
-            + "<option value='2'>周二</option>"
-            + "<option value='3'>周三</option>"
-            + "<option value = '4'> 周四</option >"
-            + "<option value='5'>周五</option>"
-            + "<option value='6'>周六</option>"
-            + "<option value='7'>周日</option>"
-            + " </select >"
-            + "</td >" 
-            + "<td></td>"
-            + "<td><a href='#' onclick='connected()'>+</a></td>"
-            + "</tr>"
-
-        $("#tb1").append(i);
+    //相连时间1下拉
+    function List1() {
+        $('#ddlLine1' + Num1 + '').combotree({
+            valueField: "id", //Value字段
+            textField: "text", //Text字段
+            multiple: true,
+            data: [{ "id": "周一", "text": "周一" }, { "id": "周二", "text": "周二" }, { "id": "周三", "text": "周三" }, { "id": "周四", "text": "周四" },
+            { "id": "周五", "text": "周五" }, { "id": "周六", "text": "周六" }, { "id": "周日", "text": "周日" }],
+            //  url: "tree_data2.json", //数据源
+            onCheck: function (node, checked) {
+                //让全选不显示
+                $('#ddlLine1' + Num1 + '').combotree("setText", $('#ddlLine1' + Num1 + '').combobox("getText").toString().replace("全选,", ""));
+            },
+            onClick: function (node, checked) {
+                //让全选不显示
+                $('#ddlLine1' + Num1 + '').combotree("setText", $('#ddlLine1' + Num1 + '').combobox("getText").toString().replace("全选,", ""));
+            }
+        })
     }
 
-    //固定不相连班次添加下一行
-    function disjoint() {
-        var i = "<tr>"
-            + "<td>" + Num2++ + "</td>"
-            + "<td></td>"
-            + "<td></td>"
-            + "<td>"
-            + " <select id='twodate'>"
-            + "<option value='1'> 第二天</option >"
-            + "<option value='2'>隔日</option>"
-            + "<option value='3'>下周</option>"
-            + " </select >"
-            + "</td >" 
-            + "<td>"
-            + " <select id='threedate2'>"
-            + "<option value = '1'> 周一</option >"
-            + "<option value='2'>周二</option>"
-            + "<option value='3'>周三</option>"
-            + "<option value = '4'> 周四</option >"
-            + "<option value='5'>周五</option>"
-            + "<option value='6'>周六</option>"
-            + "<option value='7'>周日</option>"
-            + " </select >"
-            + "</td >" 
-            + "<td></td>"
-            + "<td><a href='#' onclick='disjoint()'>+</a></td>"
-            + "</tr>"
+    //不相连时间1下拉
+    function List2() {
+        $('#ddlLine2' + Num2 + '').combotree({
+            valueField: "id", //Value字段
+            textField: "text", //Text字段
+            multiple: true,
+            data: [{ "id": "周一", "text": "周一" }, { "id": "周二", "text": "周二" }, { "id": "周三", "text": "周三" }, { "id": "周四", "text": "周四" },
+                { "id": "周五", "text": "周五" }, { "id": "周六", "text": "周六" }, { "id": "周日", "text": "周日" }],
+            //  url: "tree_data2.json", //数据源
+            onCheck: function (node, checked) {
+                //让全选不显示
+                $('#ddlLine2' + Num2 + '').combotree("setText", $('#ddlLine2' + Num2 + '').combobox("getText").toString().replace("全选,", ""));
+            },
+            onClick: function (node, checked) {
+                //让全选不显示
+                $('#ddlLine2' + Num2 + '').combotree("setText", $('#ddlLine2' + Num2 + '').combobox("getText").toString().replace("全选,", ""));
+            }
+        })
+    }
 
+    //绑定相连班次
+    function Shifts1() {
+        $.ajax({
+            url: 'http://localhost:12345/api/ruleSetting/GetShiftssettings',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                $("#shifts1" + Num1 + "").empty();
+                $("#shifts2" + Num1 + "").empty();
+                for (var i = 0; i < data.length; i++) {
+                    var x = "<option value='" + data[i].id + "'>" + data[i].shiftssettingName + "</option>";
+                    $("#shifts1" + Num1 + "").append(x);
+                    $("#shifts2" + Num1 + "").append(x);
+                }
+            }
+        })
+    }
+
+    //绑定不相连班次
+    function Shifts2() {
+        $.ajax({
+            url: 'http://localhost:12345/api/ruleSetting/GetShiftssettings',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                $("#shifts3" + Num2 + "").empty();
+                $("#shifts4" + Num2 + "").empty();
+                for (var i = 0; i < data.length; i++) {
+                    var x = "<option value='" + data[i].id + "'>" + data[i].shiftssettingName + "</option>";
+                    $("#shifts3" + Num2 + "").append(x);
+                    $("#shifts4" + Num2 + "").append(x);
+                }
+            }
+        })
+    }
+
+    //固定相连班次添加下一行
+    function connected() {
+
+        var i = "";
+        i += "<tr>"
+        i += "<td>" + Num1++ + "</td>"
+        i += "<td>"
+        i += "<select id='ddlLine1" + Num1 + "' class='easyui-combotree' style='width: 205px; height: 24px;'>"
+        i += "</select>"
+        i += "</td>"
+        i += "<td>"
+        i += "<select id='shifts1" + Num1 + "' class='easyui- combotree' style='width: 205px; height: 24px;'>"
+        i += Shifts1()
+        i += "</select > "
+        i += "</td> "
+        i += "<td>"
+        i += "<select id='twodate1'>"
+        i += "<option value ='隔日'> 隔日</option >"
+        i += "<option value='第二天'>第二天</option>"
+        i += "<option value='下周'>下周</option>"
+        i += "</select >"
+        i += "</td > "
+        i += "<td>"
+        i += "<select id='threedate1'>"
+        i += "<option value = '周一'> 周一</option >"
+        i += "<option value='周二'>周二</option>"
+        i += "<option value='周三'>周三</option>"
+        i += "<option value = '周四'> 周四</option >"
+        i += "<option value='周五'>周五</option>"
+        i += "<option value='周六'>周六</option>"
+        i += "<option value='周日'>周日</option>"
+        i += "</select >"
+        i += "</td >"
+        i += "<td>"
+        i += "<select id='shifts2" + Num1 + "'>"
+        i += Shifts1()
+        i += "</select >"
+        i += "</td> "
+        i += "<td><a href='#' onclick='connected()'>+</a></td>"
+        i += "</tr>"
+        $("#tb1").append(i);
+
+        List1();
+    }
+
+    固定不相连班次添加下一行
+    function disjoint() {
+        var i = "";
+        i += "<tr>"
+        i += "<td>" + Num2++ + "</td>"
+        i += "<td>"
+        i += "<select id='ddlLine2" + Num2 + "' class='easyui-combotree' style='width: 205px; height: 24px;'>"
+        i += List2()
+        i += "</select>"
+        i += "</td>"
+        i += "<td>"
+        i += "<select id='shifts3" + Num2 + "' class='easyui-combotree' style='width: 205px; height: 24px;'>"
+        i += Shifts2()
+        i += "</select >"
+        i += "</td> "
+        i += "<td>"
+        i += "<select id='twodate2'>"
+        i += "<option value='隔日'> 隔日</option >"
+        i += "<option value='第二天'>第二天</option>"
+        i += "<option value='下周'>下周</option>"
+        i += "</select >"
+        i += "</td >"
+        i += "<td>"
+        i += "<select id='threedate2'>"
+        i += "<option value = '周一'> 周一</option >"
+        i += "<option value='周二'>周二</option>"
+        i += "<option value='周三'>周三</option>"
+        i += "<option value = '周四'> 周四</option >"
+        i += "<option value='周五'>周五</option>"
+        i += "<option value='周六'>周六</option>"
+        i += "<option value='周日'>周日</option>"
+        i += "</select >"
+        i += "</td >"
+        i += "<td>"
+        i += "<select id='shifts4" + Num2 + "'>"
+        i += Shifts2()
+        i += "</select >"
+        i += "</td> "
+        i += "<td><a href='#' onclick='disjoint()'>+</a></td>"
+        i += "</tr>"
         $("#tb2").append(i);
+
+        List2();
+    }
+
+    //保存
+    function Prese() {
+        alert(0)
+        alert($("#select1").text())
     }
 
 
