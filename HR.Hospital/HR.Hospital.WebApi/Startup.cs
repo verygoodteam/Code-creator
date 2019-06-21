@@ -99,10 +99,16 @@ namespace HR.Hospital.WebApi
 
             //审批类型映射关系
             services.AddScoped<IApprovalTypeRepository, ApprovalTypeRepository>();
+
             //能级映射关系
             services.AddScoped<IHierarchyRepository, HierarchyRepository>();
+
             //职务映射关系
             services.AddScoped<IPositionRepository, PositionRepository>();
+
+            //配置表映射关系
+            services.AddScoped<IApprovalConfigurationRepository, ApprovalConfigurationRepository>();
+
 
         }
 

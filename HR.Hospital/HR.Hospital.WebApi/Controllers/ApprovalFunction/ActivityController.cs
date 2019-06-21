@@ -17,18 +17,24 @@ namespace HR.Hospital.WebApi.Controllers.ApprovalFunction
 
         public IApprovalTypeRepository ApprovalTypeRepository { get; set; }
 
+        public IApprovalConfigurationRepository ApprovalConfigurationRepository { get; set; }
+
         /// <summary>
         ///  构造函数注入
         /// </summary>
         /// <param name="activityRepository"></param>
         /// <param name="approvalTypeRepository"></param>
-        public ActivityController(IActivityRepository activityRepository, IApprovalTypeRepository approvalTypeRepository)
+        /// <param name="approvalConfigurationRepository"></param>
+        public ActivityController(IActivityRepository activityRepository, IApprovalTypeRepository approvalTypeRepository, IApprovalConfigurationRepository approvalConfigurationRepository)
         {
             //活动主表的构造函数注入
             ActivityRepository = activityRepository;
 
             //活动类型的构造函数注入
             ApprovalTypeRepository = approvalTypeRepository;
+
+            //活动配置表的构造函数注入
+            ApprovalConfigurationRepository = approvalConfigurationRepository;
         }
 
         // GET: api/Approval
@@ -79,10 +85,16 @@ namespace HR.Hospital.WebApi.Controllers.ApprovalFunction
             return ApprovalTypeRepository.GetListUser(roleId);
         }
 
-        // PUT: api/Approval/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        /// <summary>
+        /// 配置表的信息
+        /// </summary>
+        /// <param name="approvalConfiguration"></param>
+        /// <returns></returns>
+        [HttpPost("AddApprovalConfiguration")]
+        public int AddApprovalConfiguration(ApprovalConfiguration approvalConfiguration)
         {
+            var result = ApprovalConfigurationRepository.AddApprovalConfiguration(approvalConfiguration);
+            return result;
         }
 
         // DELETE: api/ApiWithActions/5

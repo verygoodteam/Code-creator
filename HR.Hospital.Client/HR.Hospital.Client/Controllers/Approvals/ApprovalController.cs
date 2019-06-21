@@ -69,5 +69,18 @@ namespace HR.Hospital.Client.Controllers.Approvals
             return Json(listRoleUser, new JsonSerializerSettings());
         }
 
+        /// <summary>
+        /// 添加配置方法
+        /// </summary>
+        /// <param name="approvalConfiguration"></param>
+        /// <returns></returns>
+        public JsonResult AddApprovalConfiguration(ApprovalConfiguration approvalConfiguration)
+        {
+            approvalConfiguration.Start = "未审批";
+            var result = HttpClientApi.PostAsync<ApprovalConfiguration, int>(approvalConfiguration, HttpHelper.Url + "Activity/AddApprovalConfiguration");
+            return Json(new { result }, new JsonSerializerSettings());
+        }
+
+
     }
 }
