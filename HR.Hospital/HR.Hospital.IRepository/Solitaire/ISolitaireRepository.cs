@@ -21,6 +21,12 @@ namespace HR.Hospital.IRepository.Solitaire
         List<Shiftssetting> GetShift();
 
         /// <summary>
+        /// 获取人员
+        /// </summary>
+        /// <returns></returns>
+        PageHelper<Clinicuser> GetPerson(int pageIndex, int pageSize, string name);
+
+        /// <summary>
         /// 添加
         /// </summary>
         /// <param name="model"></param>

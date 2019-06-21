@@ -22,7 +22,7 @@ namespace HR.Hospital.Repository.Solitaire
             var list = db.SolitaireSet.OrderBy(p => p.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             var total = db.SolitaireSet.Count();
 
-            //根据人名称查询
+            //根据班次查询
             if (shift != null)
             {
                 list = db.SolitaireSet.OrderBy(p => p.Id).Where(p => p.Shift.Contains(shift)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
@@ -47,6 +47,29 @@ namespace HR.Hospital.Repository.Solitaire
                 List<Shiftssetting> list = db.Shiftssetting.ToList();
                 return list;
             }
+        }
+
+        /// <summary>
+        /// 获取人员
+        /// </summary>
+        /// <returns></returns>
+        public PageHelper<Clinicuser> GetPerson(int pageIndex, int pageSize, string name)
+        {
+            hospitaldbContext db = new hospitaldbContext();
+            var pageList = new PageHelper<Clinicuser>();
+            var list = db.Clinicuser.OrderBy(p => p.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            var total = db.Clinicuser.Count();
+            //根据人员名称查询
+            if (name != null)
+            {
+                list = db.Clinicuser.OrderBy(p => p.Id).Where(p => p.ClinicUserName.Contains(name)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                total = db.Clinicuser.Count(p => p.ClinicUserName.Contains(name));
+            }
+            pageList.PageSizes = total;//总条数
+            pageList.PageList = list;//查询数据集合
+            pageList.PageNum = (pageList.PageSizes / pageSize);//总页数
+
+            return pageList;
         }
 
         /// <summary>

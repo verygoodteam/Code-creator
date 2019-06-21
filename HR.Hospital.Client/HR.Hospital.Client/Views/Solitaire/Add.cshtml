@@ -43,15 +43,16 @@
                     <div>
                         <p>
                             开始时间：
-                            <select id="SelectStartTime" v-model="StartTime">
-                                <option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option>
+                            <select id="SelectStartTime" v-model="StartYear">
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
                             </select>
-                            <select id="SelectStartTime2" v-model="StartTime2">
+                            <select id="SelectStartTime2" v-model="StartMonth">
                                 <option v-for="month in monthList" v-bind:value="month">
                                     {{month}}
                                 </option>
                             </select>
-                            <select id="SelectStartTime3" v-model="StartTime3">
+                            <select id="SelectStartTime3" v-model="StartDay">
                                 <option v-for="day in dayList" v-bind:value="day">
                                     {{day}}
                                 </option>
@@ -59,21 +60,25 @@
                         </p>
                         <p>
                             结束时间：
-                            <select id="SelectEndTime" v-model="EndTime">
-                                <option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option>
+                            <select id="SelectEndTime" v-model="EndYear">
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
                             </select>
-                            <select id="SelectEndTime2" v-model="EndTime2">
+                            <select id="SelectEndTime2" v-model="EndMonth">
                                 <option v-for="month in monthList" v-bind:value="month">
                                     {{month}}
                                 </option>
                             </select>
-                            <select id="SelectEndTime3" v-model="EndTime3">
+                            <select id="SelectEndTime3" v-model="EndDay">
                                 <option v-for="day in dayList" v-bind:value="day">
                                     {{day}}
                                 </option>
                             </select>
                         </p>
                     </div>
+                    <input id="StartTime" type="hidden" v-model="StartTime" />
+                    <input id="EndTime" type="hidden" v-model="EndTime" />
+                    <input id="CycleTime" type="hidden" v-model="CycleTime" />
                 </td>
             </tr>
         </table>
@@ -94,6 +99,7 @@
                 </td>
             </tr>
         </table>
+        
 
         <table class="table table-bordered">
             <tr>
@@ -105,33 +111,47 @@
         </table>
     </div>
     <script type="text/javascript">
-    var vm = new Vue({
-        el: "#app",
-        data: {
-            shiftList: [],
-            Shift: 0,
-            People: 0,
-            monthList: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-            dayList: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30','31']
-
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                shiftList: [],
+                Shift: 0,
+                monthList: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                dayList: [
+                    '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16',
+                    '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
+                ],
+                StartYear: 2019, StartMonth: 6, StartDay: 21,
+                EndYear: 2019, EndMonth: 6, EndDay: 21,
+                StartTime: "",
+                EndTime: "",
+                CycleTime:""
         },
         mounted() {
             this.getShift();
-            this.getPeople();
         },
-        methods: {
+            methods: {
+            //获取班次
             getShift: function () {
                 axios.get("/Solitaire/GetShift")
                     .then((response) => {
                         this.shiftList = response.data;
                     });
             },
-
-            addSolitaire: function() {
+            //添加方法
+                addSolitaire: function () {
+                    this.StartTime = this.StartYear + "年" + this.StartMonth + "月" + this.StartDay + "日";
+                    this.EndTime = this.EndYear + "年" + this.EndMonth + "月" + this.EndDay + "日";
+                    this.CycleTime = this.StartTime + " " + this.EndTime;
+                    //alert(this.CycleTime);
                 axios.post('@Url.Action("Add", "Solitaire")',
                     {
                         model: {
-                            Shift: this.Shift
+                            Shift: this.Shift,
+                            SolitaireCycle: this.CycleTime,
+                            SolitaireGroupId: 1,
+                            GroupMember: 1,
+                            GroupLeader: 1
                         }
                     }).then((response) => {
                         alert("添加成功");
@@ -143,21 +163,16 @@
                     alert(response);
                 });
             },
-
-
-
-            getPeople: function () {
-                axios.get("/Solitaire/")
-                    .then((response) => {
-                        this.peopleList = response.data;
-                    });
-            },
+   
+            addPerson: function() {
+                location.href = '/Solitaire/PersonIndex';
+                },
 
             back: function() {
                 location.href = '/Solitaire/Index';
             }
         }
     });
-</script>
+    </script>
 </body>
 </html>

@@ -35,6 +35,20 @@ namespace HR.Hospital.Client.Controllers.Solitaire
             return list;
         }
 
+        public ActionResult PersonIndex()
+        {
+            return View();
+        }
+        /// <summary>
+        /// 获取人员
+        /// </summary>
+        /// <returns></returns>
+        public PageHelper<Clinicuser> GetPerson(int pageIndex = 1, int pageSize = 3, string name = "")
+        {
+            var list = HttpClientApi.GetAsync<PageHelper<Clinicuser>>(HttpHelper.Url + "Solitaire/GetPerson?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&name=" + name);
+            return list;
+        }
+
         /// <summary>
         /// 添加
         /// </summary>

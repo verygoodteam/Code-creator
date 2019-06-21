@@ -49,7 +49,18 @@ namespace HR.Hospital.WebApi.Controllers.Solitaire
             var list = _solitaireRepository.GetShift();
             return list;
         }
-        
+
+        /// <summary>
+        /// 获取人员
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetPerson")]
+        public PageHelper<Clinicuser> GetPerson(int pageIndex = 1, int pageSize = 3, string name = null)
+        {
+            var list = _solitaireRepository.GetPerson(pageIndex, pageSize, name);
+            return list;
+        }
+
         /// <summary>
         /// 添加
         /// </summary>
