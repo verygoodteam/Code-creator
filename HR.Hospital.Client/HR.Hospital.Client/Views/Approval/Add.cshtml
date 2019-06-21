@@ -16,6 +16,7 @@
 <body>
     <div style="width: 900px; height: 500px; border: solid 0.5px; margin: auto; text-align: center">
         <p style="width: 100%; text-align: center; background-color: aquamarine;font-size: 26px"> @ViewBag.Title<span>流程设置</span></p>
+        <input id="titleId" type="hidden" value="@ViewBag.TitleId" />
         <p style="font-size: 30px; padding: 20px">
             审批类型：
             @foreach (var item in @ViewBag.RadioType)
@@ -34,11 +35,12 @@
 
 
         <p style="font-size: 30px; padding: 20px">审批方式:依次审批</p>
-        <input id="Submit1" type="button" value="保存" class="btn btn-group-justified" style="font-size: 20px"  />
+        <input id="Submit1" onclick="saveToConfigure()" type="button" value="保存" class="btn btn-group-justified" style="font-size: 20px" />
     </div>
 </body>
 </html>
 <script>
+    //就绪函数
     $(function () {
         $("#ClassA").hide();
         $("#TwoLevel").hide();
@@ -56,9 +58,7 @@
                     $(data).each(function () {
                         $("#SelectLevel").append("<option value=" + this.Id + ">" + this.LevelName + "</option>");
                     });
-
                 }
-
             });
         }
         if (id == 2) {
@@ -69,21 +69,92 @@
         }
     }
 
+    var roleId = null;
+    var userId = null;
     function saveUser() {
-        alert(1);
-        layer.open({
-            type: 2,
-            title: "角色人员添加", //表头
-            closeBtn: 1, //不显示关闭按钮
+        window.IspPoint = false;
+        parent.layer.open({
+            type: 2,//弹窗类型 ['dialog', 'page', 'iframe', 'loading', 'tips']
+            area: ["500px", " 500px"],
             maxmin: true,
-            area: ["500px", " 500px"], //宽高
-            shift: 2,
-            content: ["/Approval/AddUser", 'yes'],//iframe的url，no代表不显示滚动条
-            end: function () {
-                if (true);
+            shift: 2,//可选动画类型0-6
+            scrollbar: false,
+            title: '角色人员添加',
+            closeBtn: false,
+            content: ["/Approval/AddUser", "no"],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //需要回显的值
+                //layero为当前的DOM对象，去找打开的iframe转成DOM对象调用子页面其中的function (callbackdata)
+                var res = $(layero).find("iframe")[0].contentWindow.callBackData();
+                //把回显的值赋给需要显示的地方
+                roleId = res.roleId;
+                userId = res.userId;
+                //console.log(roleId);
+                //console.log(userId);
+                //关闭子页面
+                parent.layer.close(index);
             }
+
+
         });
+
     }
 
-  
+    function saveToConfigure() {
+        //类型的Id
+        var num = $("#SelectLevel").val();
+        //活动标题的Id
+        var titleId = $("#titleId").val();
+        //单选的选中的Id
+        var radio = $("[name=RadioButton]:checked").val();
+        //单选类型Id
+        console.log(radio);
+        //标题Id
+        console.log(titleId);
+        //级别的Id
+        console.log(num);
+        //角色Id
+        console.log(roleId);
+        //用户Id
+        console.log(userId);
+        var approvalConfiguration = {
+            ActivityId: titleId,
+            UserLevelId: num,
+            RoleId: roleId,
+            UserId: userId
+        }
+
+        $.ajax({
+            url: '/Approval/AddApprovalConfiguration',
+            data: { approvalConfiguration: approvalConfiguration },
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                if (data.result > 0) {
+                    layer.msg('添加成功');
+
+                    CloseWindows();
+                } else {
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    parent.layer.close(index); //再执行关闭
+                    location.href = '/Approval/Index';
+                }
+                CloseWindows();
+            }
+        });
+
+
+    }
+
+    function CloseWindows() {
+        setTimeout(function () {
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            //location.href = '/GoalManage/GoalManageShow';
+        }, 1000);
+    }
+
+
+
 </script>

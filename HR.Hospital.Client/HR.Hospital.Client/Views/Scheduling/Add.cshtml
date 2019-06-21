@@ -1,32 +1,38 @@
 ﻿@{
     Layout = null;
-}}
+}
 
 <!DOCTYPE html>
 
 <html>
 <head>
     <title>Index</title>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/js/jQuery1.11.3.min.js"></script>
-    <script src="~/js/jquery-ui.js"></script>
-    <script src="~/Content/layui-admin/layui/layui.js"></script>
-    <link href="~/Content/layui-admin/layui/css/modules/layer/default/layer.css" rel="stylesheet" />
-    <link href="~/Content/layui-admin/layui/css/layui.css" rel="stylesheet" />
+    @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+    <script src="~/js/jQuery UI表格内容拖拽代码/jQuery1.11.3.min.js"></script>
+    <script src="~/js/jQuery UI表格内容拖拽代码/jquery-ui.js"></script>
+    <link href="~/layui-v2.5.4/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/layui-v2.5.4/layui/layui.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" />
 </head>
+
 <body>
+
     <div>
-        <div style="background-color:#0094ff">
-            <div class="layui-inline">
-                <label style="width:100px" class="layui-form-label">请选择范围</label>
-                <div class="layui-input-inline">
-                    <input class="layui-input" id="test16" type="text" placeholder="开始 到 结束">
+        <div>
+            <div class="layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">日期范围</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" id="test6" type="text" placeholder=" - ">
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
-        <div style="float:left;width:1000px">
+        <div style="float:left;width:1400px">
             <table id="tb" class="table table-bordered">
                 <tr>
                     <td>序号</td>
@@ -42,24 +48,75 @@
             </table>
         </div>
     </div>
-    <div style="float:left;width:200px;margin-left:10px">
-        <table id="tb2" class="table table-bordered">
+    <div style="float:left;width:100px;margin-left:10px">
+        <table id="tb2" style="width:80px;height:300px;">
             <tr>
-                <td>班次</td>
+                <td name="tdtd">班次</td>
             </tr>
         </table>
     </div>
+
+    <script type="text/javascript">
+        $(function () {
+            loaddata();
+        })
+        function loaddata() {
+            $.ajax({
+                url: "http://localhost:12345/api/Ooperationuser/GetOoperuser?hierarchyid=0",
+                async: false,
+                type: "Get",
+                data: {},
+                success: function (data) {
+                    $("#tb tr").eq(0).nextAll().remove();
+                    var tr;
+                    $.each(data, function (Index, row) {
+                        tr = '<tr>'
+                            + '<td>' + row.id + '</td>'
+                            + '<td>' + row.ooperationUserName + '</td>'
+                            + '<td name="tdtdtd"></td>'
+                            + '<td name="tdtdtd"></td>'
+                            + '<td name="tdtdtd"></td>'
+                            + '<td name="tdtdtd"></td>'
+                            + '<td name="tdtdtd"></td>'
+                            + '<td name="tdtdtd">休</td>'
+                            + '<td name="tdtdtd">休</td>'
+                            + '</tr > '
+                        $("#tb").append(tr);
+                    })
+                }
+            })
+
+            $.ajax({
+                url: "http://localhost:12345/api/Shiftssetting/GetList",
+                async: false,
+                type: "Get",
+                success: function (data) {
+                    $("#tb2 tr").eq(0).nextAll().remove();
+                    var tr;
+                    $.each(data, function (Index, row) {
+                        var color = row.shiftssettingcolour;
+                        tr = '<tr>'
+                            + '<td name="tdtd" style="background-color:' + color + ';width:80px;height:auto;">' + row.shiftssettingName + '</td>'
+                            + '</tr>'
+                        $("#tb2").append(tr);
+                    })
+                }
+            })
+
+        }
+    </script>
     <script type="text/javascript" language="javascript">
         //在页面加载完之后加载jquery
         $().ready(function (e) {
+
             //拖拽复制体
-            $('td[id^="draggable"]').draggable({
+            $('td[name^="tdtd"]').draggable({
                 helper: "clone",
                 cursor: "move"
             });
 
             //释放后
-            $('td[id^="target"]').droppable({
+            $('td[name^="tdtdtd"]').droppable({
                 drop: function (event, ui) {
                     $(this).children().remove();
                     var source = ui.draggable.clone();
@@ -81,54 +138,21 @@
                     });
 
                     $(this).append(source);
-
                 }
             });
         });
+    </script>
 
-        $(function () {
-            loaddata();
-        })
-        function loaddata() {
-            $.ajax({
-                url: "http://localhost:12345/api/Ooperationuser/GetOoperuser?hierarchyid=0",
-                type: "Get",
-                data: {},
-                success: function (data) {
-                    $("#tb tr").eq(0).nextAll().remove();
-                    var tr;
-                    $.each(data, function (Index, row) {
-                        tr = "<tr>"
-                            + "<td>" + row.id + "</td>"
-                            + "<td>" + row.ooperationUserName + "</td>"
-                            + "<td id='target'></td>"
-                            + "<td id='target'></td>"
-                            + "<td id='target'></td>"
-                            + "<td id='target'></td>"
-                            + "<td id='target'></td>"
-                            + "<td id='target'>休</td>"
-                            + "<td id='target'>休</td>"
-                            + "</tr > "
-                        $("#tb").append(tr);
-                    })
-                }
-            })
-            $.ajax({
-                url: "http://localhost:12345/api/Shiftssetting/GetList",
-                type: "Get",
-                success: function (data) {
-                    $("#tb2 tr").eq(0).nextAll().remove();
-                    var tr;
-                    $.each(data, function (Index, row) {
-                        var color = row.shiftssettingcolour;
-                        tr = "<tr>"
-                            + "<td id='draggable1' style='background-color:" + color + " '>" + row.shiftssettingName + "</td>"
-                            + "</tr>"
-                        $("#tb2").append(tr);
-                    })
-                }
-            })
-        }
+    <script>
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //时间范围
+            laydate.render({
+                elem: '#test9'
+                , type: 'time'
+                , range: true
+            });
+        });
     </script>
 
 </body>

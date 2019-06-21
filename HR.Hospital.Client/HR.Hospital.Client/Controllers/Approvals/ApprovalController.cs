@@ -21,6 +21,8 @@ namespace HR.Hospital.Client.Controllers.Approvals
             var listActivity = HttpClientApi.GetAsync<List<ActivityTable>>(HttpHelper.Url + "Activity/GetListApproval");
             var activity = listActivity.FirstOrDefault(p => p.Id == id);
             if (activity != null) ViewBag.Title = activity.ActivityName;
+            if (activity != null) ViewBag.TitleId = activity.Id;
+
             ViewBag.RadioType = HttpClientApi.GetAsync<List<ApprovalType>>(HttpHelper.Url + "Activity/GetApprovalType");
             return View();
         }
@@ -66,6 +68,19 @@ namespace HR.Hospital.Client.Controllers.Approvals
             var listRoleUser = HttpClientApi.GetAsync<List<Ooperationuser>>(HttpHelper.Url + "Activity/GetListOperaTinUser?roleId=" + roleId);
             return Json(listRoleUser, new JsonSerializerSettings());
         }
+
+        /// <summary>
+        /// 添加配置方法
+        /// </summary>
+        /// <param name="approvalConfiguration"></param>
+        /// <returns></returns>
+        public JsonResult AddApprovalConfiguration(ApprovalConfiguration approvalConfiguration)
+        {
+            approvalConfiguration.Start = "未审批";
+            var result = HttpClientApi.PostAsync<ApprovalConfiguration, int>(approvalConfiguration, HttpHelper.Url + "Activity/AddApprovalConfiguration");
+            return Json(new { result }, new JsonSerializerSettings());
+        }
+
 
     }
 }

@@ -30,9 +30,9 @@
             <br />
             <br />
             @*<option></option>*@
-            <p style="width: 100px; margin: auto">
-                <input id="Button1" type="button" value="添加角色" class="btn btn-default" />
-            </p>
+            @*<p style="width: 100px; margin: auto">
+                <input id="button123" onclick="addUser()" type="button" value="添加角色" class="btn btn-default" />
+            </p>*@
         </div>
         @*<div style="margin: 0 60px;float: right;border: solid 0.5px #000000;width: 40%;height: 600px;">
 
@@ -42,19 +42,38 @@
 </html>
 <script>
     $(function () {
+        //就绪之后选中
         userClick($("#SelectRole").val());
     });
-
+    //获取角色用户
     function userClick(id) {
         $.ajax({
             url: "/Approval/GetUser?roleId=" + id,
             success: function (data) {
+                //清空下拉框
                 $("#SelectUser").empty();
-
+                //循环绑定下拉框
                 $(data).each(function () {
                     $("#SelectUser").append("<option value=" + this.Id + ">" + this.OoperationUserName + "</option>");
                 });
             }
         });
     }
+    //function addUser() {
+    //    parent.layer.close(index);
+    //}
+    /*子页面 回显data */
+    var callBackData = function () {
+        var roleId = $("#SelectRole").val();
+        var userId = $("#SelectUser").val();
+        var data = {
+            roleId: roleId ,
+            userId: userId
+        };
+        return data;	
+    }
+
+
+
+
 </script>

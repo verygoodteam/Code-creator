@@ -16,17 +16,20 @@
 </head>
 <body>
     <div>
-        <div style="background-color:#0094ff">
-            <div class="layui-inline">
+        <div>
+            <div style="float:left;" class="layui-inline">
                 <label style="width:100px" class="layui-form-label">请选择范围</label>
                 <div class="layui-input-inline">
                     <input class="layui-input" id="test16" type="text" placeholder="开始 到 结束">
                 </div>
             </div>
+            <div style="float:left;margin-left:50px;margin-top:10px">
+                <button onclick="location.href='/Scheduling/Add'">月排班</button>
+            </div>
         </div>
         <div>
             <table id="tb" class="table table-bordered">
-                <tr>
+                <tr style="background-color: #00ced1">
                     <td>序号</td>
                     <td>姓名</td>
                     <td>星期一</td>
@@ -40,13 +43,7 @@
             </table>
         </div>
     </div>
-    <div>
-        <table id="tb2">
-            <tr>
-                <td>班次</td>
-            </tr>
-        </table>
-    </div>
+ 
 
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script>
@@ -74,19 +71,6 @@
                             + "<td>" + row + "</td>"
                             + "</tr > "
                         $("#tb").append(tr);
-                    })
-                }
-            })
-            $.ajax({
-                url: "http://localhost:12345/api/Shiftssetting/GetList",
-                type: "Get",
-                success: function (data) {
-                    $("#tb2 tr").eq(0).nextAll().remove();
-                    var tr;
-                    $.each(data, function (Index, row) {
-                        tr = "<tr>"
-                            + "<td style='background - color: " + row.Shiftssettingcolour + "'>" + row.ShiftssettingName + "</td>"
-                            + "</tr>"
                     })
                 }
             })

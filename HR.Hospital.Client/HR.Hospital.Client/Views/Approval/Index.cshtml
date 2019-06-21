@@ -16,7 +16,7 @@
 <body>
     <div style="margin: 25px">
 
-        <div style="border: solid #00bfff; padding: 35px; margin: 20px;">
+        <div style="border: solid #00bfff; padding: 25px; margin: 20px;">
             审批类型:
             <select id="ActivitySelect" class="form-control" style="width: 200px; display: inline" onchange="ActivityClick()">
                 @foreach (var item in @ViewBag.Activity)
@@ -25,7 +25,7 @@
                 }
             </select>
         </div>
-        <div style="border: solid; margin: 40px 20px 0px 20px; height: 630px">
+        <div style="border: solid; margin: 40px 20px 0px 20px; height: 605px">
             <p style="text-align: center; background-color: #E2F5F5; margin: 0; font-size: 30px; border-bottom: black solid" id="settingText"></p>
             <br />
             <br />
@@ -74,6 +74,30 @@
             }
         });
         //弹出一个iframe层
+
+
+        //window.IspPoint = false;
+        //parent.layer.open({
+        //    type : 2,//弹窗类型 ['dialog', 'page', 'iframe', 'loading', 'tips']
+        //    area : [ '610px', '320px' ],
+        //    shift : 2,//可选动画类型0-6
+        //    scrollbar : false,
+        //    title : false,
+        //    closeBtn : false,
+        //    content: "/Approval/Add?id=" + $("#ActivitySelect").val(),
+        //    btn: ['确定','取消'],
+               
+        //    yes:function(index,layero){
+        //        //需要回显的值
+        //        //layero为当前的DOM对象，去找打开的iframe转成DOM对象调用子页面其中的function (callbackdata)
+        //        var res = $(layero).find("iframe")[0].contentWindow.callbackdata();
+        //        //把回显的值赋给需要显示的地方
+        //        alert(res.data_name);
+        //        //关闭子页面
+        //        parent.layer.close(index);
+        //    }
+        //});
+
 
 
     }

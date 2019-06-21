@@ -39,7 +39,6 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
             return list;
         }
 
-
         /// <summary>
         /// 获取科室
         /// </summary>
