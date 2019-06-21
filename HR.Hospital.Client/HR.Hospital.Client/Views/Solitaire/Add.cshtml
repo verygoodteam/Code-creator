@@ -1,0 +1,163 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add</title>
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/axios.js"></script>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+    <style>
+        table, td {
+            border: 1px solid #cccccc;
+            border-collapse: collapse;
+        }
+
+        table {
+            margin-left: 15px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h3 style="margin-left: 15px">专业组设置</h3>
+    <div id="app">
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    <h4>接龙班次</h4>
+                    <select id="Select1" v-model="Shift">
+                        <option value="0">--请选择--</option>
+                        <option v-for="item in shiftList" :value="item.shiftssettingName">{{item.shiftssettingName}}</option>
+                    </select>
+                </td>
+                <td>
+                    <h4>接龙周期</h4>
+                    <div>
+                        <p>
+                            开始时间：
+                            <select id="SelectStartTime" v-model="StartTime">
+                                <option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option>
+                            </select>
+                            <select id="SelectStartTime2" v-model="StartTime2">
+                                <option v-for="month in monthList" v-bind:value="month">
+                                    {{month}}
+                                </option>
+                            </select>
+                            <select id="SelectStartTime3" v-model="StartTime3">
+                                <option v-for="day in dayList" v-bind:value="day">
+                                    {{day}}
+                                </option>
+                            </select>
+                        </p>
+                        <p>
+                            结束时间：
+                            <select id="SelectEndTime" v-model="EndTime">
+                                <option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option>
+                            </select>
+                            <select id="SelectEndTime2" v-model="EndTime2">
+                                <option v-for="month in monthList" v-bind:value="month">
+                                    {{month}}
+                                </option>
+                            </select>
+                            <select id="SelectEndTime3" v-model="EndTime3">
+                                <option v-for="day in dayList" v-bind:value="day">
+                                    {{day}}
+                                </option>
+                            </select>
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <table class="table table-bordered">
+            <tr style="background-color: darkgray">
+                <td>组序</td>
+                <td>人员</td>
+                <td>组长</td>
+                <td></td>
+            </tr>
+            <tr id="tr">
+                <td>1</td>
+                <td>{{People}}</td>
+                <td>{{People}}</td>
+                <td>
+                    <a href="#" v-on:click="addPerson()">➕</a>
+                </td>
+            </tr>
+        </table>
+
+        <table class="table table-bordered">
+            <tr>
+                <td style="text-align: center;">
+                    <button type="button" v-on:click="addSolitaire()" class="btn btn-default">添加</button>
+                    <button type="button" v-on:click="back()" class="btn btn-default" style="margin-left: 20px">返回</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            shiftList: [],
+            Shift: 0,
+            People: 0,
+            monthList: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+            dayList: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30','31']
+
+        },
+        mounted() {
+            this.getShift();
+            this.getPeople();
+        },
+        methods: {
+            getShift: function () {
+                axios.get("/Solitaire/GetShift")
+                    .then((response) => {
+                        this.shiftList = response.data;
+                    });
+            },
+
+            addSolitaire: function() {
+                axios.post('@Url.Action("Add", "Solitaire")',
+                    {
+                        model: {
+                            Shift: this.Shift
+                        }
+                    }).then((response) => {
+                        alert("添加成功");
+                        location.href = '/Solitaire/Index';
+                    },(response) => {
+                        alert(response.status);
+                    }
+                ).catch(function(response) {
+                    alert(response);
+                });
+            },
+
+
+
+            getPeople: function () {
+                axios.get("/Solitaire/")
+                    .then((response) => {
+                        this.peopleList = response.data;
+                    });
+            },
+
+            back: function() {
+                location.href = '/Solitaire/Index';
+            }
+        }
+    });
+</script>
+</body>
+</html>

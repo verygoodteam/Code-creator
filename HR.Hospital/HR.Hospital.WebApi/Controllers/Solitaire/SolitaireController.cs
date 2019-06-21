@@ -38,5 +38,62 @@ namespace HR.Hospital.WebApi.Controllers.Solitaire
             var list = _solitaireRepository.GetPagedList(pageIndex, pageSize, shift);
             return list;
         }
+
+        /// <summary>
+        /// 获取班次
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetShift")]
+        public List<Shiftssetting> GetShift()
+        {
+            var list = _solitaireRepository.GetShift();
+            return list;
+        }
+        
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="model"></param>
+        [HttpPost("Add")]
+        public int Add([FromBody]SolitaireSet model)
+        {
+            var i = _solitaireRepository.Add(model);
+            return i;
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        [HttpDelete("Delete")]
+        public int Delete(int id)
+        {
+            var i = _solitaireRepository.Delete(id);
+            return i;
+        }
+
+        /// <summary>
+        /// 获取单条数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("GetModel")]
+        public SolitaireSet GetModel(int id)
+        {
+            var model = _solitaireRepository.GetModel(id);
+            return model;
+        }
+
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="model"></param>
+        [HttpPut("Update")]
+        public int Update([FromBody]SolitaireSet model)
+        {
+            var i = _solitaireRepository.Update(model);
+            return i;
+        }
+
     }
 }

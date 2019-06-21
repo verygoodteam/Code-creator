@@ -35,5 +35,77 @@ namespace HR.Hospital.Repository.Solitaire
 
             return pageList;
         }
+
+        /// <summary>
+        /// 获取班次
+        /// </summary>
+        /// <returns></returns>
+        public List<Shiftssetting> GetShift()
+        {
+            using (hospitaldbContext db = new hospitaldbContext())
+            {
+                List<Shiftssetting> list = db.Shiftssetting.ToList();
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="model"></param>
+        public int Add(SolitaireSet model)
+        {
+            using (hospitaldbContext db = new hospitaldbContext())
+            {
+                db.SolitaireSet.Add(model);
+                return db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        public int Delete(int id)
+        {
+            using (hospitaldbContext db = new hospitaldbContext())
+            {
+                var model = db.SolitaireSet.FirstOrDefault(p => p.Id == id);
+                db.SolitaireSet.Remove(model);
+                return db.SaveChanges();
+            }
+        }
+        
+        /// <summary>
+        /// 获取单条数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public SolitaireSet GetModel(int id)
+        {
+            using (hospitaldbContext db = new hospitaldbContext())
+            {
+                var model = db.SolitaireSet.FirstOrDefault(p => p.Id == id);
+                return model;
+            }
+        }
+
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="model"></param>
+        public int Update(SolitaireSet model)
+        {
+            using (hospitaldbContext db = new hospitaldbContext())
+            {
+                var info = db.SolitaireSet.FirstOrDefault(p => p.Id == model.Id);
+                info.Shift = model.Shift; //班次
+                info.SolitaireCycle = model.SolitaireCycle; //周期
+                info.SolitaireGroupId = model.SolitaireGroupId; //组序
+                info.GroupMember = model.GroupMember; //成员
+                info.GroupLeader = model.GroupLeader; //组长
+                return db.SaveChanges();
+            }
+        }
     }
 }
