@@ -56,7 +56,7 @@
             <td>
                 <select id="Select2" v-model="People" v-on:change="getName">
                     <option value="0">--请选择--</option>
-                    <option v-for="item in peopleList" :value="item.Id">{{item.clinicUserName}}</option>
+                    <option v-for="item in peopleList" :value="item.clinicUserName">{{item.clinicUserName}}</option>
                 </select>
             </td>
         </tr>
@@ -65,7 +65,7 @@
     <table class="table table-bordered">
         <tr style="background-color: darkgray">
             <td>序号</td>
-            <td>项目</td>
+            <td>姓名</td>
             <td>组长</td>
             <td>带教</td>
             <td>操作</td>
@@ -75,9 +75,11 @@
             <td>{{People}}</td>
             <td>
                 <input id="Radio1" type="radio" name="Radio" value="0" v-model="TeachingId" /><span>是</span>
+                <input id="Radio2" type="radio" name="Radio" value="1" v-model="TeachingId" /><span>否</span>
             </td>
             <td>
-                <input id="Radio3" type="radio" name="Radio" value="0" v-model="GroupLeader" /><span>是</span>
+                <input id="Radio3" type="radio" name="Radio3" value="0" v-model="GroupLeader" /><span>是</span>
+                <input id="Radio4" type="radio" name="Radio3" value="1" v-model="GroupLeader" /><span>否</span>
             </td>
             <td>
                 <div>
@@ -112,7 +114,8 @@
             this.getPeople();
         },
         methods: {
-            addGroup: function() {
+            addGroup: function () {
+                alert(this.Name); alert(this.Colcor);
                 axios.post('@Url.Action("Add", "Group")',
                     {
                         model: {
@@ -120,8 +123,8 @@
                             ProfessionalGroupColore: this.Colcor,
                             DepartmentId: this.Department,
                             TeachingId: this.TeachingId,
-                            GroupLeader: this.GroupLeader,
-                            TeamMember: this.TeamMember
+                            GroupLeader: this.People,
+                            TeamMember: this.People
                         }
                     }).then((response) => {
                         alert("添加成功");
