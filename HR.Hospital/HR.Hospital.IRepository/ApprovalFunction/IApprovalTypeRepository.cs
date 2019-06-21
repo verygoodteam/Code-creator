@@ -33,5 +33,7 @@ namespace HR.Hospital.IRepository.ApprovalFunction
         /// </summary>
         /// <returns></returns>
         List<Ooperationuser> GetListUser(int roleId);
+
+      
     }
 }

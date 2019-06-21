@@ -21,7 +21,7 @@ namespace HR.Hospital.Client.Controllers.Department
         
         public PageHelper<Administrative> PageList(int pageIndex = 1, int pageSize = 3, int isOperation = 0, string name = "")
         {
-            var list = HttpClientApi.GetAsync<Common.PageHelper<Administrative>>("http://localhost:12345/api/Department/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&isOperation=" + isOperation + "&name=" + name);
+            var list = HttpClientApi.GetAsync<Common.PageHelper<Administrative>>(HttpHelper.Url + "Department /GetPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&isOperation=" + isOperation + "&name=" + name);
             return list;
         }
 
@@ -36,7 +36,7 @@ namespace HR.Hospital.Client.Controllers.Department
         [HttpPost]
         public ActionResult Add(Administrative model)
         {
-            var i = HttpClientApi.PostAsync<Administrative, int>(model, "http://localhost:12345/api/Department/Add");
+            var i = HttpClientApi.PostAsync<Administrative, int>(model, HttpHelper.Url + "Department/Add");
             return Redirect("/Department/Index");
         }
 
@@ -47,7 +47,7 @@ namespace HR.Hospital.Client.Controllers.Department
         /// <returns></returns>
         public ActionResult Delete(int id)
         {
-            var i = HttpClientApi.DeleteAsync<int>("http://localhost:12345/api/Department/delete?id=" + id);
+            var i = HttpClientApi.DeleteAsync<int>(HttpHelper.Url + "Department/Delete?id=" + id);
             return Redirect("/Department/Index");
         }
 
@@ -58,7 +58,7 @@ namespace HR.Hospital.Client.Controllers.Department
         /// <returns></returns>
         public ActionResult Enable(int id)
         {
-            var i = HttpClientApi.DeleteAsync<int>("http://localhost:12345/api/Department/enable?id=" + id);
+            var i = HttpClientApi.DeleteAsync<int>(HttpHelper.Url + "Department/Enable?id=" + id);
             return Redirect("/Department/Index");
         }
 
@@ -78,7 +78,7 @@ namespace HR.Hospital.Client.Controllers.Department
         /// <returns></returns>
         public Administrative UpdateData(int id)
         {
-            var list = HttpClientApi.GetAsync<Administrative>("http://localhost:12345/api/Department/GetModel?id=" + id);
+            var list = HttpClientApi.GetAsync<Administrative>(HttpHelper.Url + "Department/GetModel?id=" + id);
             return list;
         }
 
@@ -90,7 +90,7 @@ namespace HR.Hospital.Client.Controllers.Department
         [HttpPost]
         public ActionResult UpdateDepartment(Administrative model)
         {
-            var i = HttpClientApi.PutAsync<Administrative, int>(model, "http://localhost:12345/api/Department/Update");
+            var i = HttpClientApi.PutAsync<Administrative, int>(model, HttpHelper.Url + "Department/Update");
             return Redirect("/Department/Index");
         }
     }

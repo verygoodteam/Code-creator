@@ -1,0 +1,131 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/css/zpageNav.css" rel="stylesheet" />
+
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/axios.js"></script>
+    <script src="~/js/zpageNav.js"></script>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+    <style>
+        table, td {
+            border: 1px solid #cccccc;
+            border-collapse: collapse;
+        }
+
+        table {
+            margin-left: 15px;
+            margin-top: 15px;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h3 style="margin-left: 15px">接龙设置表</h3>
+    <div id="app">
+        <p></p>
+        <p></p>
+        <div id="divSolitaire">
+            <span style="margin-left: 10px">班次：</span><input type="text" v-model="shift" />
+            <button type="button" style="margin-left: 5px" class="btn btn-default" v-on:click="getSolitaire()">查询</button>
+            <button type="button" style="margin-left: 20px" class="btn btn-default" v-on:click="add()">添加</button>
+            <table class="table table-bordered">
+                <thead>
+                    <tr style="background-color: #00ced1">
+                        <td>序号</td>
+                        <td>接龙班次</td>
+                        <td>接龙周期</td>
+                        <td>接龙组序</td>
+                        <td>组内人员</td>
+                        <td>组长</td>
+                        <td>轮转排序</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="data in solitaireList">
+                        <td>{{data.id}}</td>
+                        <td>{{data.shift}}</td>
+                        <td>{{data.solitaireCycle}}</td>
+                        <td>{{data.solitaireGroupId}}</td>
+                        <td>{{data.groupMember}}</td>
+                        <td>{{data.groupLeader}}</td>
+                        <td>
+                            @*{{data.SortId}}*@
+                            <a style="color:deepskyblue;font-size:20px" v-on:click="Up(data.id)">⬆</a>
+                            <a style="color:red; font-size: 20px;margin-left: 5px" v-on:click="Down(data.id)">⬇</a>
+                        </td>
+                        <td>
+                            <a href="#" v-on:click="UpdateById(data.id)">编辑</a> |
+                            <a href="#" v-on:click="DeleteById(data.id)">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
+                      v-bind:max-page="maxPage" v-on:pagehandler="getSolitaire">
+            </zpagenav>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            solitaireList: [],//数据
+            page: 1,//起始页
+            pageSize: 12,//每页数据
+            total: 10,//总条数
+            maxPage: 9,//总页数
+            shift: ""
+        },
+        mounted() {
+            this.getSolitaire();
+        },
+        methods: {
+            getSolitaire: function (page) {
+                this.page = page,
+                    axios.get("/Solitaire/PageList",
+                        {
+                            params: {
+                                pageIndex: page,
+                                pageSize: this.pageSize,
+                                shift: this.shift
+                            }
+                        }).then((response) => {
+                        this.solitaireList = response.data.pageList;
+                        this.total = response.data.pageSizes;
+                        this.maxPage = response.data.PageNum;
+                    });
+            },
+
+            add: function() {
+                location.href = '/Solitaire/Add';
+            },
+
+            DeleteById: function (id) {
+                location.href = '/Solitaire/Delete?id=' + id;
+            },
+
+            UpdateById: function (id) {
+                location.href = '/Solitaire/Update?id=' + id;
+            }
+
+        }
+    })
+</script>

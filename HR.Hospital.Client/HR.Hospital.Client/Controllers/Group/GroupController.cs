@@ -20,7 +20,7 @@ namespace HR.Hospital.Client.Controllers.Group
         }
         public PageHelper<Professionalgroup> PageList(int pageIndex = 1, int pageSize = 3, string name = "")
         {
-            var list = HttpClientApi.GetAsync<Common.PageHelper<Professionalgroup>>("http://localhost:12345/api/Group/getPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize  + "&name=" + name);
+            var list = HttpClientApi.GetAsync<Common.PageHelper<Professionalgroup>>(HttpHelper.Url + "Group/GetPagedList?pageIndex=" + pageIndex + "&pageSize=" + pageSize  + "&name=" + name);
             return list;
         }
 
@@ -30,7 +30,7 @@ namespace HR.Hospital.Client.Controllers.Group
         /// <returns></returns>
         public List<Administrative> GetDepartment()
         {
-            var list = HttpClientApi.GetAsync<List<Administrative>>("http://localhost:12345/api/Group/GetDepartment");
+            var list = HttpClientApi.GetAsync<List<Administrative>>(HttpHelper.Url + "Group/GetDepartment");
             return list;
         }
 
@@ -40,7 +40,7 @@ namespace HR.Hospital.Client.Controllers.Group
         /// <returns></returns>
         public List<Clinicuser> GetClinical()
         {
-            var list = HttpClientApi.GetAsync<List<Clinicuser>>("http://localhost:12345/api/Group/GetClinical");
+            var list = HttpClientApi.GetAsync<List<Clinicuser>>(HttpHelper.Url + "Group/GetClinical");
             return list;
         }
 
@@ -55,7 +55,7 @@ namespace HR.Hospital.Client.Controllers.Group
         [HttpPost]
         public ActionResult Add(Professionalgroup model)
         {
-            var i = HttpClientApi.PostAsync<Professionalgroup, int>(model, "http://localhost:12345/api/Group/add");
+            var i = HttpClientApi.PostAsync<Professionalgroup, int>(model, HttpHelper.Url + "Group/add");
             return Redirect("/Group/Index");
         }
         
@@ -66,7 +66,7 @@ namespace HR.Hospital.Client.Controllers.Group
         /// <returns></returns>
         public ActionResult Delete(int id)
         {
-            var i = HttpClientApi.DeleteAsync<int>("http://localhost:12345/api/Group/delete?id=" + id);
+            var i = HttpClientApi.DeleteAsync<int>(HttpHelper.Url + "Group/delete?id=" + id);
             return Redirect("/Group/Index");
         }
 
@@ -86,7 +86,7 @@ namespace HR.Hospital.Client.Controllers.Group
         /// <returns></returns>
         public Professionalgroup UpdateData(int id)
         {
-            var list = HttpClientApi.GetAsync<Professionalgroup>("http://localhost:12345/api/Group/GetModel?id=" + id);
+            var list = HttpClientApi.GetAsync<Professionalgroup>(HttpHelper.Url + "Group/GetModel?id=" + id);
             return list;
         }
         
@@ -98,7 +98,7 @@ namespace HR.Hospital.Client.Controllers.Group
         [HttpPost]
         public ActionResult UpdateGroup(Professionalgroup model)
         {
-            var i = HttpClientApi.PutAsync<Professionalgroup, int>(model, "http://localhost:12345/api/Group/update");
+            var i = HttpClientApi.PutAsync<Professionalgroup, int>(model, HttpHelper.Url + "Group/update");
             return Redirect("/Group/Index");
         }
     }

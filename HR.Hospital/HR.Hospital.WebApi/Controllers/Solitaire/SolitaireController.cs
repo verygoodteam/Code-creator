@@ -3,29 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HR.Hospital.Common;
-using HR.Hospital.IRepository.Clinical;
+using HR.Hospital.IRepository.Solitaire;
 using HR.Hospital.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HR.Hospital.WebApi.Controllers.Clinical
+namespace HR.Hospital.WebApi.Controllers.Solitaire
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClinicalController : ControllerBase
+    public class SolitaireController : ControllerBase
     {
         /// <summary>
         /// 定义私有变量
         /// </summary>
-        private readonly IClinicalRepository _clinicalRepository;
+        private readonly ISolitaireRepository _solitaireRepository;
 
         /// <summary>
         /// 构造函数注入
         /// </summary>
-        /// <param name="clinicalRepository"></param>
-        public ClinicalController(IClinicalRepository clinicalRepository)
+        /// <param name="solitaireRepository"></param>
+        public SolitaireController(ISolitaireRepository solitaireRepository)
         {
-            _clinicalRepository = clinicalRepository;
+            _solitaireRepository = solitaireRepository;
         }
 
         /// <summary>
@@ -33,20 +33,31 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetPagedList")]
-        public PageHelper<Clinicuser> GetPagedList(int pageIndex=1, int pageSize=3, int administrativeId=0, string englishName="")
+        public PageHelper<SolitaireSet> GetPagedList(int pageIndex = 1, int pageSize = 3, string shift = null)
         {
-            var list = _clinicalRepository.GetPagedList(pageIndex, pageSize, administrativeId, englishName);
+            var list = _solitaireRepository.GetPagedList(pageIndex, pageSize, shift);
             return list;
         }
 
         /// <summary>
-        /// 获取科室
+        /// 获取班次
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetDepartment")]
-        public List<Administrative> GetDepartment()
+        [HttpGet("GetShift")]
+        public List<Shiftssetting> GetShift()
         {
-            var list = _clinicalRepository.GetDepartment();
+            var list = _solitaireRepository.GetShift();
+            return list;
+        }
+
+        /// <summary>
+        /// 获取人员
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetPerson")]
+        public PageHelper<Clinicuser> GetPerson(int pageIndex = 1, int pageSize = 3, string name = null)
+        {
+            var list = _solitaireRepository.GetPerson(pageIndex, pageSize, name);
             return list;
         }
 
@@ -55,31 +66,20 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// </summary>
         /// <param name="model"></param>
         [HttpPost("Add")]
-        public int Add([FromBody]Clinicuser model)
+        public int Add([FromBody]SolitaireSet model)
         {
-            var i = _clinicalRepository.Add(model);
+            var i = _solitaireRepository.Add(model);
             return i;
         }
 
         /// <summary>
-        /// 禁用
+        /// 删除
         /// </summary>
         /// <param name="id"></param>
         [HttpDelete("Delete")]
         public int Delete(int id)
         {
-            var i = _clinicalRepository.Delete(id);
-            return i;
-        }
-
-        /// <summary>
-        /// 启用
-        /// </summary>
-        /// <returns></returns>
-        [HttpDelete("Enable")]
-        public int Enable(int id)
-        {
-            var i = _clinicalRepository.Enable(id);
+            var i = _solitaireRepository.Delete(id);
             return i;
         }
 
@@ -89,9 +89,9 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("GetModel")]
-        public Clinicuser GetModel(int id)
+        public SolitaireSet GetModel(int id)
         {
-            var model = _clinicalRepository.GetModel(id);
+            var model = _solitaireRepository.GetModel(id);
             return model;
         }
 
@@ -100,10 +100,11 @@ namespace HR.Hospital.WebApi.Controllers.Clinical
         /// </summary>
         /// <param name="model"></param>
         [HttpPut("Update")]
-        public int Update([FromBody]Clinicuser model)
+        public int Update([FromBody]SolitaireSet model)
         {
-            var i = _clinicalRepository.Update(model);
+            var i = _solitaireRepository.Update(model);
             return i;
         }
+
     }
 }
