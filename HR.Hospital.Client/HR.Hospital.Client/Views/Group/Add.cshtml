@@ -116,6 +116,22 @@
             this.getPeople();
         },
         methods: {
+            //获取科室
+            getDepartment: function () {
+                axios.get("/Group/GetDepartment")
+                    .then((response) => {
+                        this.departmentList = response.data;
+                    });
+            },
+
+            //获取人员
+            getPeople: function () {
+                axios.get("/Group/GetClinical")
+                    .then((response) => {
+                        this.peopleList = response.data;
+                    });
+            },
+
             addGroup: function () {
                 alert(this.Name); alert(this.Color);
                 axios.post('@Url.Action("Add", "Group")',
@@ -125,7 +141,7 @@
                             ProfessionalGroupColore: this.Color,
                             DepartmentId: this.Department,
                             TeachingId: this.TeachingId,
-                            GroupLeader: this.People,
+                            GroupLeader: this.GroupLeader,
                             TeamMember: this.People
                         }
                     }).then((response) => {
@@ -137,20 +153,6 @@
                 ).catch(function(response) {
                     alert(response);
                 });
-            },
-
-            getDepartment: function () {
-                axios.get("/Group/GetDepartment")
-                    .then((response) => {
-                        this.departmentList = response.data;
-                    });
-            },
-
-            getPeople: function () {
-                axios.get("/Group/GetClinical")
-                    .then((response) => {
-                        this.peopleList = response.data;
-                    });
             },
 
             getName: function () {
