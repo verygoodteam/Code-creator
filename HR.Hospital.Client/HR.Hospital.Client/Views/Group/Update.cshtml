@@ -147,21 +147,21 @@
                 });
             },
 
-            addGroup: function() {
+            addGroup: function () {
+                alert(this.Name); alert(this.Color);
+                var model = new URLSearchParams();
+                model.append('ProfessionalGroupName', this.Name);
+                model.append('ProfessionalGroupColore', this.Color);
+                model.append('DepartmentId', this.Department);
+                model.append('TeachingId', this.TeachingId);
+                model.append('GroupLeader', this.GroupLeader);
+                model.append('TeamMember', this.People);
                 axios.post('@Url.Action("UpdateGroup", "Group")',
-                    {
-                        model: {
-                            ProfessionalGroupName: this.Name,
-                            ProfessionalGroupColore: this.Color,
-                            DepartmentId: this.Department,
-                            TeachingId: this.TeachingId,
-                            GroupLeader: this.GroupLeader,
-                            TeamMember: this.People
-                        }
-                    }).then((response) => {
+                    model).then((response) => {
                         alert("编辑成功");
                         location.href = '/Group/Index';
-                    },(response) => {
+                    },
+                    (response) => {
                         alert(response.status);
                     }
                 ).catch(function(response) {
