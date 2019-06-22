@@ -78,29 +78,36 @@ namespace HR.Hospital.Repository.ApprovalFunction
 
         public List<ApprovalConfigurationDto> GetApprovalConfigurations()
         {
-            var sql = $"select a.CreateTime,a.`Start`,a.Id,b.ActivityName,d.OoperationUserName,e.RoleName,a.DownId from approvalconfiguration a join activitytable b on a.ActivityId=b.Id join ooperationuser d on a.UserId=d.Id join role e on a.RoleId=e.Id";
+            var sql = $"select a.CreateTime,a.`Start`,a.Id,b.ActivityName,d.OoperationUserName,e.RoleName,a.DownId from approvalconfiguration a join activitytable b on a.ActivityId=b.Id join ooperationuser d on a.UserId=d.Id join role e on a.RoleId=e.Id where a.IsEnable=0";
             var listApprovalConfigurationDto = _context.QueryApprovalConfigurationDto.FromSql(sql).ToList();
             return listApprovalConfigurationDto;
         }
 
-        /// <summary>
-        /// 修改配置表信息
-        /// </summary>
-        /// <param name="approvalConfiguration"></param>
-        /// <returns></returns>
-        public int UpdateApprovalConfiguration(ApprovalConfiguration approvalConfiguration)
-        {
-            throw new NotImplementedException();
-        }
+
 
         /// <summary>
         /// 单独查询活动Id
         /// </summary>
         /// <returns></returns>
-        public List<int> GetActivityId()
+        public List<ApprovalConfiguration> GetActivityId()
         {
-            var activityIdList = _context.ApprovalConfiguration.Select(p => p.ActivityId).ToList();
+            var activityIdList = _context.ApprovalConfiguration.ToList();
             return activityIdList;
+        }
+
+
+        /// <inheritdoc />
+        /// <summary>
+        /// 删除配置表信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int EnableApprovalConfiguration(int id)
+        {
+            var firstOrDefault = _context.ApprovalConfiguration.FirstOrDefault(p => p.Id == id);
+            if (firstOrDefault != null) firstOrDefault.IsEnable = 1;
+            var result = _context.SaveChanges();
+            return result;
         }
     }
 }

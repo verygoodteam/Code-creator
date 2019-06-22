@@ -210,6 +210,7 @@ namespace HR.Hospital.Model
 
                 entity.Property(e => e.UserId).HasColumnType("int(11)");
 
+                entity.Property(e => e.IsEnable).HasColumnType("int(4)");
             });
 
             //自己添加的审批活动表

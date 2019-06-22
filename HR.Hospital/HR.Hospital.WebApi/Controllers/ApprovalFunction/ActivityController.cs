@@ -103,7 +103,7 @@ namespace HR.Hospital.WebApi.Controllers.ApprovalFunction
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetActivityId")]
-        public List<int> GetActivityId()
+        public List<ApprovalConfiguration> GetActivityId()
         {
             var activityListId = ApprovalConfigurationRepository.GetActivityId();
             return activityListId;
@@ -120,11 +120,16 @@ namespace HR.Hospital.WebApi.Controllers.ApprovalFunction
             return getApprovalConfigurations;
         }
 
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        /// <summary>
+        /// 禁用配置信息(删除配置信息)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("EnableApprovalConfiguration")]
+        public int EnableApprovalConfiguration(int id)
         {
+            var result = ApprovalConfigurationRepository.EnableApprovalConfiguration(id);
+            return result;
         }
     }
 }

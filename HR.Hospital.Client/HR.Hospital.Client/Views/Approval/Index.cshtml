@@ -24,6 +24,8 @@
                     <option value="@item.Id">@item.ActivityName</option>
                 }
             </select>
+
+            <input id="Buttonshow" class="btn btn-default" type="button" value="显示配置流程" onclick="location.href='/Approval/ApprovalConfigurationDtoIndex'" style="float: right" />
         </div>
         <div style="border: solid; margin: 40px 20px 0px 20px; height: 605px">
             <p style="text-align: center; background-color: #E2F5F5; margin: 0; font-size: 30px; border-bottom: black solid" id="settingText"></p>
@@ -86,7 +88,7 @@
         //    closeBtn : false,
         //    content: "/Approval/Add?id=" + $("#ActivitySelect").val(),
         //    btn: ['确定','取消'],
-               
+
         //    yes:function(index,layero){
         //        //需要回显的值
         //        //layero为当前的DOM对象，去找打开的iframe转成DOM对象调用子页面其中的function (callbackdata)
