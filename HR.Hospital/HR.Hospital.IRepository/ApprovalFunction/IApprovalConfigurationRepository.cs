@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using HR.Hospital.Model.Dto;
 
 namespace HR.Hospital.IRepository.ApprovalFunction
 {
@@ -17,23 +18,20 @@ namespace HR.Hospital.IRepository.ApprovalFunction
         /// <summary>
         /// 显示配置信息
         /// </summary>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="name"></param>
         /// <returns></returns>
-        List<ApprovalConfiguration> GetApprovalConfigurations(int pageIndex, int pageSize, string name);
+        List<ApprovalConfigurationDto> GetApprovalConfigurations();
 
         /// <summary>
-        /// 修改配置信息
+        /// 删除配置信息
         /// </summary>
-        /// <param name="approvalConfiguration"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        int UpdateApprovalConfiguration(ApprovalConfiguration approvalConfiguration);
+        int EnableApprovalConfiguration(int  id);
 
         /// <summary>
         /// 获取活动的Id
         /// </summary>
         /// <returns></returns>
-        List<int> GetActivityId();
+        List<ApprovalConfiguration> GetActivityId();
     }
 }

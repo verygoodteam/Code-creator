@@ -1,0 +1,95 @@
+﻿@model IEnumerable<HR.Hospital.Client.Models.Dto.ApprovalConfigurationDto>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ApprovalConfigurationDtoIndex</title>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/js/layer-v3.1.1/layer/layer.js"></script>
+
+</head>
+<body>
+    @*<p>
+            <a asp-action="Create">Create New</a>
+        </p>*@
+
+    <div style="padding: 20px;">
+        <input id="Buttonshow" class="btn btn-default" type="button" value="返回配置" onclick="location.href='/Approval/Index'" />
+        <br />
+        <br />
+        <table class="table table-bordered">
+            <thead style="background-color: darkturquoise">
+                <tr>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.ActivityName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OoperationUserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RoleName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Start)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DownId)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ActivityName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OoperationUserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoleName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Start)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DownId)
+                        </td>
+                        <td>
+                            @*@Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+                                @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |*@
+                            @Html.ActionLink("删除", "EnableApprovalConfiguration", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+@*<script>
+    $(function () {
+        layer.msg('玩命提示中');
+    })
+</script>*@

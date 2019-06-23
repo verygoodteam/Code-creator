@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HR.Hospital.IRepository.ApprovalFunction;
 using HR.Hospital.Model;
+using HR.Hospital.Model.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -102,16 +103,33 @@ namespace HR.Hospital.WebApi.Controllers.ApprovalFunction
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetActivityId")]
-        public List<int> GetActivityId()
+        public List<ApprovalConfiguration> GetActivityId()
         {
             var activityListId = ApprovalConfigurationRepository.GetActivityId();
             return activityListId;
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        /// <summary>
+        /// 获取配置表中的活动Id
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetApprovalConfigurations")]
+        public List<ApprovalConfigurationDto> GetApprovalConfigurations()
         {
+            var getApprovalConfigurations = ApprovalConfigurationRepository.GetApprovalConfigurations();
+            return getApprovalConfigurations;
+        }
+
+        /// <summary>
+        /// 禁用配置信息(删除配置信息)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("EnableApprovalConfiguration")]
+        public int EnableApprovalConfiguration(int id)
+        {
+            var result = ApprovalConfigurationRepository.EnableApprovalConfiguration(id);
+            return result;
         }
     }
 }
