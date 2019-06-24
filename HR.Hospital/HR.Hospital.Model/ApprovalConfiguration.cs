@@ -46,6 +46,9 @@ namespace HR.Hospital.Model
         /// <summary>
         /// 角色Id
         /// </summary>
-        public int RoleId { get; set; }  
+        public int RoleId { get; set; }
+
+        public int IsEnable { get; set; }
+
     }
 }

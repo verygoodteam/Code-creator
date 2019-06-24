@@ -130,5 +130,96 @@ namespace HR.Hospital.Repository.Solitaire
                 return db.SaveChanges();
             }
         }
+
+        /// <summary>
+        /// 更改排序id 向前
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool UpdateSortId(int id)
+        {
+            using (hospitaldbContext db = new hospitaldbContext())
+            {
+                int sortId = db.SolitaireSet.Find(id).SortId;
+                if (sortId <= 1)
+                {
+                    return false;
+                }
+                else
+                {
+                    int ii = db.SolitaireSet.OrderByDescending(u => u.SortId).First(u => u.SortId < sortId).SortId;
+
+                    SolitaireSet solitaireSet = db.SolitaireSet.Find(id);
+                    solitaireSet.SortId = ii;
+
+                    SolitaireSet solitaireSete = db.SolitaireSet.FirstOrDefault(u => u.SortId == ii);
+                    solitaireSete.SortId = sortId;
+                    bool b2 = db.SaveChanges() > 0;
+
+                    if (b2)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// 获取最大编号
+        /// </summary>
+        /// <returns></returns>
+        public int GetMaxId()
+        {
+            using (hospitaldbContext db = new hospitaldbContext())
+            {
+                int id = db.SolitaireSet.OrderBy(u => u.Id).FirstOrDefault().Id;
+                return id;
+            }
+        }
+
+        /// <summary>
+        /// 更改排序id 向后
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool DownSortId(int id)
+        {
+            using (hospitaldbContext db = new hospitaldbContext())
+            {
+                int maxId = GetMaxId();
+                int sortId = db.SolitaireSet.Find(id).SortId;
+                if (sortId >= maxId)
+                {
+                    return false;
+                }
+                else
+                {
+                    int ii = db.SolitaireSet.OrderBy(u => u.SortId).First(u => u.SortId > sortId).SortId;
+
+                    SolitaireSet solitaireSet = db.SolitaireSet.Find(id);
+                    solitaireSet.SortId = ii;
+
+                    SolitaireSet solitaireSete = db.SolitaireSet.FirstOrDefault(u => u.SortId == ii);
+                    solitaireSete.SortId = sortId;
+                    bool b2 = db.SaveChanges() > 0;
+
+                    if (b2)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+            }
+        }
+
     }
 }

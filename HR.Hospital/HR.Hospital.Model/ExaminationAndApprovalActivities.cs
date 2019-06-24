@@ -1,18 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace HR.Hospital.Client.Models
+namespace HR.Hospital.Model
 {
-    public class ApprovalConfiguration
+    public class ExaminationAndApprovalActivities
     {
         public int Id { get; set; }
 
         /// <summary>
-        /// 活动Id
+        ///配置表Id
+        /// </summary>
+        public int ApprovalConfigurationId { get; set; }
+
+        /// <summary>
+        /// 活动表Id
         /// </summary>
         public int ActivityId { get; set; }
 
         /// <summary>
-        /// 级别Id
+        /// 级别表Id
         /// </summary>
         public int UserLevelId { get; set; }
 
@@ -22,7 +29,7 @@ namespace HR.Hospital.Client.Models
         public int DownId { get; set; }
 
         /// <summary>
-        /// 状态
+        /// 审批状态
         /// </summary>
         public string Start { get; set; }
 
@@ -47,8 +54,24 @@ namespace HR.Hospital.Client.Models
         public int RoleId { get; set; }
 
         /// <summary>
-        /// 是否启用状态
+        /// 是否开启
         /// </summary>
         public int IsEnable { get; set; }
-    }
+
+        /// <summary>
+        /// 申请人Id
+        /// </summary>
+        public int ApplicantId { get; set; }
+
+        /// <summary>
+        /// 状态Id
+        /// </summary>
+        public int TypeId { get; set; }
+
+        /// <summary>
+        /// 被换班人Id
+        /// </summary>
+        public int ShiftChangerPeople { get; set; }
+
+    } 
 }

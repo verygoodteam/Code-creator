@@ -175,7 +175,8 @@ namespace HR.Hospital.Repository.OoperationUser
                              from h in JoinedEmpDept4.DefaultIfEmpty()
                              join o2 in db.Ooperationuser on o1.Userid equals o2.Id
                              into JoinedEmpDept5
-                             from o2 in JoinedEmpDept5.DefaultIfEmpty()                             
+                             from o2 in JoinedEmpDept5.DefaultIfEmpty()
+                             where (o1.HierarchyId == hierarchyid && o1.OoperationUserName == name) || (o1.Simplename == englishname && o1.HierarchyId == hierarchyid)
                              select new Ooperationuserview()
                              {
                                  Id = o1.Id,
@@ -202,9 +203,9 @@ namespace HR.Hospital.Repository.OoperationUser
                 operations = operations.Where(p => p.Simplename.Contains(english));
             }
             //能级下拉查询
-            if (hierarchyid!=0)
+            if (hierarchyid != 0)
             {
-                operations = operations.Where(p => p.HierarchyId==hierarchyid);
+                operations = operations.Where(p => p.HierarchyId == hierarchyid);
             }
 
             return operations.ToList();
@@ -212,35 +213,35 @@ namespace HR.Hospital.Repository.OoperationUser
         }
 
 
-        /// <summary>
-        /// 修改
-        /// </summary>
-        /// <param name="operuser"></param>
-        /// <returns></returns>
-        public int UpdateOoperationUser(Ooperationuser operuser)
-        {
-            var oopuserinfo = db.Ooperationuser.FirstOrDefault(p => p.Id == operuser.Id);
-            oopuserinfo.OoperationUserName = operuser.OoperationUserName;
-            oopuserinfo.Account = operuser.Account;
-            oopuserinfo.Jobnumber = operuser.Jobnumber;
-            oopuserinfo.Pwd = operuser.Pwd;
-            oopuserinfo.Sex = operuser.Sex;
-            oopuserinfo.Phone = operuser.Phone;
-            oopuserinfo.Simplename = operuser.Simplename;
-            oopuserinfo.Isarrange = operuser.Isarrange;
-            oopuserinfo.Roleid = operuser.Roleid;
-            oopuserinfo.Userid = operuser.Userid;
-            oopuserinfo.PositionId = operuser.PositionId;
-            oopuserinfo.ProfessionalId = operuser.ProfessionalId;
-            oopuserinfo.HierarchyId = operuser.HierarchyId;
-            oopuserinfo.Workage = operuser.Workage;
-            oopuserinfo.Enrollmentdate = operuser.Enrollmentdate;
-            oopuserinfo.Annualdays = operuser.Annualdays;
-            oopuserinfo.Grade = operuser.Grade;
-            oopuserinfo.OoperationUserRemark = operuser.OoperationUserRemark;
-            var updateOoperationUser = db.SaveChanges();
-            return updateOoperationUser;
-        }
-
+    /// <summary>
+    /// 修改
+    /// </summary>
+    /// <param name="operuser"></param>
+    /// <returns></returns>
+    public int UpdateOoperationUser(Ooperationuser operuser)
+    {
+        var oopuserinfo = db.Ooperationuser.FirstOrDefault(p => p.Id == operuser.Id);
+        oopuserinfo.OoperationUserName = operuser.OoperationUserName;
+        oopuserinfo.Account = operuser.Account;
+        oopuserinfo.Jobnumber = operuser.Jobnumber;
+        oopuserinfo.Pwd = operuser.Pwd;
+        oopuserinfo.Sex = operuser.Sex;
+        oopuserinfo.Phone = operuser.Phone;
+        oopuserinfo.Simplename = operuser.Simplename;
+        oopuserinfo.Isarrange = operuser.Isarrange;
+        oopuserinfo.Roleid = operuser.Roleid;
+        oopuserinfo.Userid = operuser.Userid;
+        oopuserinfo.PositionId = operuser.PositionId;
+        oopuserinfo.ProfessionalId = operuser.ProfessionalId;
+        oopuserinfo.HierarchyId = operuser.HierarchyId;
+        oopuserinfo.Workage = operuser.Workage;
+        oopuserinfo.Enrollmentdate = operuser.Enrollmentdate;
+        oopuserinfo.Annualdays = operuser.Annualdays;
+        oopuserinfo.Grade = operuser.Grade;
+        oopuserinfo.OoperationUserRemark = operuser.OoperationUserRemark;
+        var updateOoperationUser = db.SaveChanges();
+        return updateOoperationUser;
     }
+
+}
 }

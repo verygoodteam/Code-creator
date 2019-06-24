@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HR.Hospital.Client.Common;
 using HR.Hospital.Client.Models;
+using HR.Hospital.Client.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -76,11 +77,70 @@ namespace HR.Hospital.Client.Controllers.Approvals
         /// <returns></returns>
         public JsonResult AddApprovalConfiguration(ApprovalConfiguration approvalConfiguration)
         {
+            var listApprovalConfiguration = new List<ApprovalConfiguration>();
+            //查询活动表所有的活动Id
+            var listRoleUser = HttpClientApi.GetAsync<List<ApprovalConfiguration>>(HttpHelper.Url + "Activity/GetActivityId");
+            //linq进行筛选是否配置
+            var firstOrDefault = listRoleUser.Count(p => p.ActivityId.Equals(approvalConfiguration.ActivityId) && p.IsEnable == 0);
+            //若配置则返回0
+            if (firstOrDefault > 0) return Json(new { result = 0 }, new JsonSerializerSettings());
+            //拿出级别的Id
+            var level = approvalConfiguration.UserLevelId;
+            if (level != 0)
+            {
+                //获取所有的活动级别
+                var listUserLevel = HttpClientApi.GetAsync<List<UserLevel>>(HttpHelper.Url + "Activity/GetListUserLevel");
+                var allLevels = listUserLevel.Where(p => p.Id <= level).ToList();
+                foreach (var userLevel in allLevels)
+                {
+                    var configuration = new ApprovalConfiguration()
+                    {
+                        ActivityId = approvalConfiguration.ActivityId,
+                        CreateTime = DateTime.Now,
+                        DownId = 0,
+                        Start = "未审批",
+                        RoleId = userLevel.RoleId,
+                        UserLevelId = level,
+                        UserId = userLevel.UserId,
+                        IsEnable = 0
+                    };
+                    listApprovalConfiguration.Add(configuration);
+                }
+                var results = HttpClientApi.PostAsync<List<ApprovalConfiguration>, int>(listApprovalConfiguration, HttpHelper.Url + "Activity/AddApprovalConfiguration");
+                return Json(new { results }, new JsonSerializerSettings());
+            }
+            //没有则添加一个状态
             approvalConfiguration.Start = "未审批";
-            var result = HttpClientApi.PostAsync<ApprovalConfiguration, int>(approvalConfiguration, HttpHelper.Url + "Activity/AddApprovalConfiguration");
+            //进行一个时间的赋值
+            approvalConfiguration.CreateTime = DateTime.Now;
+            approvalConfiguration.IsEnable = 0;
+            listApprovalConfiguration.Add(approvalConfiguration);
+            var result = HttpClientApi.PostAsync<List<ApprovalConfiguration>, int>(listApprovalConfiguration, HttpHelper.Url + "Activity/AddApprovalConfiguration");
             return Json(new { result }, new JsonSerializerSettings());
         }
 
+        public IActionResult ApprovalConfigurationDtoIndex()
+        {
+            var listApprovalConfigurationDto = HttpClientApi.GetAsync<List<ApprovalConfigurationDto>>(HttpHelper.Url + "Activity/GetApprovalConfigurations");
+            return View(listApprovalConfigurationDto);
+        }
+
+        /// <summary>
+        /// 删除配置
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IActionResult EnableApprovalConfiguration(int id)
+        {
+            var result = HttpClientApi.DeleteAsync<int>(HttpHelper.Url + "Activity/EnableApprovalConfiguration?id=" + id);
+            //var result = 0;
+            //if (result > 0)
+            //{
+            //    return Redirect("/Approval/Index");
+            //}
+            return Redirect("/Approval/ApprovalConfigurationDtoIndex");
+            //return Content("<script>$(function() {layer.msg('玩命提示中'); })</ script > ");
+        }
 
     }
 }

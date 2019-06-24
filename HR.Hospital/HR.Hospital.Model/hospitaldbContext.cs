@@ -23,6 +23,11 @@ namespace HR.Hospital.Model
         public DbQuery<AreaDto> QueryAreaDto { get; set; }
 
         /// <summary>
+        /// 配置表进行联查
+        /// </summary>
+        public DbQuery<ApprovalConfigurationDto> QueryApprovalConfigurationDto { get; set; }
+
+        /// <summary>
         /// 执行两表联查
         /// </summary>
         public DbQuery<AreaRoomDto> QueryAreaRoomDto { get; set; }
@@ -164,7 +169,8 @@ namespace HR.Hospital.Model
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("Server=169.254.224.180;User Id=root;Password=123456;Database=hospitaldb");
+                //optionsBuilder.UseMySql("Server=127.0.0.1;Database=hospitaldb;Uid=root;Pwd=2278866266");
+                optionsBuilder.UseMySql("Server=169.254.224.180;Database=hospitaldb;Uid=root;Pwd=123456");
             }
         }
 
@@ -204,6 +210,7 @@ namespace HR.Hospital.Model
 
                 entity.Property(e => e.UserId).HasColumnType("int(11)");
 
+                entity.Property(e => e.IsEnable).HasColumnType("int(4)");
             });
 
             //自己添加的审批活动表
@@ -239,7 +246,7 @@ namespace HR.Hospital.Model
 
                 entity.Property(e => e.UserId).HasColumnType("int(11)");
 
-                entity.Property(e => e.PositionId).HasColumnType("int(11)");
+                entity.Property(e => e.RoleId).HasColumnType("int(11)");
 
 
             });

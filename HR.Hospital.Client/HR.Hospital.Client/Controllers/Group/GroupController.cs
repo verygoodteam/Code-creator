@@ -55,7 +55,7 @@ namespace HR.Hospital.Client.Controllers.Group
         [HttpPost]
         public ActionResult Add(Professionalgroup model)
         {
-            var i = HttpClientApi.PostAsync<Professionalgroup, int>(model, HttpHelper.Url + "Group/add");
+            var i = HttpClientApi.PostAsync<Professionalgroup, int>(model, HttpHelper.Url + "Group/Add");
             return Redirect("/Group/Index");
         }
         

@@ -21,6 +21,6 @@ namespace HR.Hospital.Model
         /// <summary>
         /// 职务Id
         /// </summary>
-        public int PositionId { get; set; }
+        public int RoleId { get; set; }
     }
 }

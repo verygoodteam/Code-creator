@@ -24,35 +24,34 @@ namespace HR.Hospital.Client.Controllers
         }
 
         [HttpPost]
-        public IActionResult LoginDo(Models.Ooperationuser ooperationuser, string returnUrl = null)
+        public ActionResult LoginDo(Models.Ooperationuser ooperationuser, string returnUrl = null)
         {
             //验证用户是否登录
-            const string errorMessage = "用户名或密码错误！";
+            //const string errorMessage = "用户名或密码错误！";
             if (ooperationuser == null)
             {
-                return BadRequest(errorMessage);
+                return RedirectToAction(nameof(LoginController.Login), "Login");
             }
             var tmpUser = Common.HttpClientApi.GetAsync<List<Models.Ooperationuser>>("http://localhost:12345/api/Login/Get").FirstOrDefault(m => m.OoperationUserName == ooperationuser.OoperationUserName && m.Pwd == ooperationuser.Pwd);
             if (tmpUser?.Pwd != ooperationuser.Pwd)
             {
-                return BadRequest(errorMessage);
+                return RedirectToAction(nameof(LoginController.Login), "Login");
             }
 
             //写入缓存
             WriteCookie(tmpUser);
 
             //判断是否返回前页
-            if (returnUrl == null)
-            {
-                returnUrl = TempData["returnUrl"]?.ToString();
-            }
-            if (returnUrl != null)
-            {
-                return Redirect(returnUrl);
-            }
+            //if (returnUrl == null)
+            //{
+            //    returnUrl = TempData["returnUrl"]?.ToString();
+            //}
+            //if (returnUrl != null)
+            //{
+            //    return Redirect(returnUrl);
+            //}
 
             return RedirectToAction(nameof(HomeController.MainIndex), "Home");
-
         }
 
         /// <summary>

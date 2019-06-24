@@ -65,8 +65,8 @@
                         <td>{{data.groupLeader}}</td>
                         <td>
                             @*{{data.SortId}}*@
-                            <a style="color:deepskyblue;font-size:20px" v-on:click="Up(data.id)">⬆</a>
-                            <a style="color:red; font-size: 20px;margin-left: 5px" v-on:click="Down(data.id)">⬇</a>
+                            <a style="color:deepskyblue; font-size:20px" v-on:click="Up(data.id)">⬆</a>
+                            <a style="color:red; font-size: 20px; margin-left: 5px" v-on:click="Down(data.id)">⬇</a>
                         </td>
                         <td>
                             <a href="#" v-on:click="UpdateById(data.id)">编辑</a> |
@@ -124,7 +124,30 @@
 
             UpdateById: function (id) {
                 location.href = '/Solitaire/Update?id=' + id;
+            },
+
+            Up: function (id) {
+                axios.post("http://localhost:12345/api/Solitaire/UpdateSortId?id=" + id).then((response) => {
+                    if (response.data) {
+                        this.pagehandler();
+                    }
+                    else {
+                        alert("我已经是第一名了，不能再向前了！");
+                    }
+                });
+            },
+
+            Down: function (id) {
+                axios.post("http://localhost:12345/api/Solitaire/DownSortId?id=" + id).then((response) => {
+                    if (response.data) {
+                        this.pagehandler();
+                    }
+                    else {
+                        alert("我已经是最后一名了，不能再向后了！");
+                    }
+                });
             }
+
 
         }
     })

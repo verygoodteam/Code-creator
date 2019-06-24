@@ -48,9 +48,8 @@
             <td>部门:</td>
             <td>
                 <select id="Select1" v-model="Department">
-                    <option value="1">胸外科室</option>
-                    <option value="2">肠胃科</option>
-                    <option value="3">耳喉鼻科</option>
+                    <option value="0">--请选择--</option>
+                    <option v-for="item in departmentList" :value="item.id">{{item.administrativeName}}</option>
                 </select>
             </td>
         </tr>
@@ -88,8 +87,18 @@
         },
         mounted() {
             this.getUser(@ViewBag.Id);
+            this.getDepartment();
         },
         methods: {
+            //获取科室
+            getDepartment: function () {
+                axios.get("/Clinical/GetDepartment")
+                    .then((response) => {
+                        this.departmentList = response.data;
+                    });
+            },
+
+            //获取数据
             getUser: function(id) {
                 axios.get("/Clinical/UpdateData",
                     {
@@ -103,6 +112,7 @@
                 });
             },
 
+            //修改
             addUser: function() {
                 if (this.Name == "") {
                     alert("名称不能为空");
@@ -110,6 +120,10 @@
                 };
                 if (this.JobNum == "") {
                     alert("工号不能为空");
+                    return false;
+                };
+                if (this.JobNum.length != 7) {
+                    alert("工号必须是7位数");
                     return false;
                 };
                 var model = new URLSearchParams();

@@ -10,11 +10,10 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <link href="~/css/zpageNav.css" rel="stylesheet" />
-
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
     <script src="~/js/zpageNav.js"></script>
-
+    <script src="~/js/jquery-3.3.1.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
     <style>
@@ -42,24 +41,24 @@
             <span style="margin-left: 10px">姓名：</span><input type="text" v-model="clinicUserName" />
             <button type="button" v-on:click="getUser()" style="margin-left: 5px" class="btn btn-default">查询</button>
             <button type="button" v-on:click="addUser()" style="margin-left: 20px" class="btn btn-default">添加</button>
+            <table class="table table-bordered">
+                <thead>
+                    <tr style="background-color:#cccccc">
+                        <td><input id="ck" type="checkbox" onclick="checkAll()" /></td>
+                        <td>序号</td>
+                        <td>姓名</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="data in userList">
+                        <td><input id='chk' type='checkbox' name='name' value="data.clinicUserName" /></td>
+                        <td>{{data.id}}</td>
+                        <td>{{data.clinicUserName}}</td>
+                </tbody>
+            </table>
             <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
                       v-bind:max-page="maxPage" v-on:pagehandler="getUser">
             </zpagenav>
-            <table class="table table-bordered">
-                <thead>
-                <tr style="background-color:#cccccc">
-                    <td><input id="Checkbox" type="checkbox" /></td>
-                    <td>序号</td>
-                    <td>姓名</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="data in userList">
-                    <td><input id="Checkbox1" type="checkbox" /></td>
-                    <td>{{data.id}}</td>
-                    <td>{{data.clinicUserName}}</td>
-                </tbody>
-            </table>
             <table class="table table-bordered">
                 <tr>
                     <td>
@@ -78,11 +77,11 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            userList: [],//数据
-            page: 1,//起始页
-            pageSize: 12,//每页数据
-            total: 10,//总条数
-            maxPage: 9,//总页数
+            userList: [], //数据
+            page: 1, //起始页
+            pageSize: 12, //每页数据
+            total: 10, //总条数
+            maxPage: 9, //总页数
             clinicUserName: "",
             Person: ""
         },
@@ -100,20 +99,45 @@
                                 englishName: this.clinicUserName
                             }
                         }).then((response) => {
-                        this.userList = response.data.pageList;
-                        this.total = response.data.pageSizes;
-                        this.maxPage = response.data.PageNum;
-                    });
+                            this.userList = response.data.pageList;
+                            this.total = response.data.pageSizes;
+                            this.maxPage = response.data.PageNum;
+                        });
             }
         },
 
-        add: function() {
+        add: function () {
             location.href = '/Solitaire/Add';
         },
 
-        back: function() {
+        back: function () {
             location.href = '/Solitaire/Add';
         }
 
-    })
+    });
+
+    //全选的实现
+    function checkAll() {
+        $("[name='name']").prop("checked", $("#ck").prop("checked"));
+    };
+
+    //批量选中
+    function deleteAll() {
+        var ids = [];
+        $("[name='name']:checked").each(function () {
+            ids.push(this.value);
+        });
+
+        //$.ajax({
+        //    url: apiUrl + "//",
+        //    data: { ids: ids.toString() },
+        //    success: function (data) {
+        //        if (data > 0) {
+        //            $("[name='email']:checked").each(function () {
+        //                $(this).parent().parent().remove();
+        //            });
+        //        }
+        //    }
+        //});
+    };
 </script>

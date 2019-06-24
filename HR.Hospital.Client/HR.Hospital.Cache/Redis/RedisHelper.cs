@@ -117,7 +117,7 @@ namespace HR.Hospital.Cache.Redis
         /// <summary>
         /// redis配置文件信息
         /// </summary>
-        private readonly string _redisServiceUrl = "169.254.224.180";
+        private readonly string _redisServiceUrl = "127.0.0.1";
         private readonly int _redisServicePortNum = 6379;
 
         //redis缓存对象
@@ -239,14 +239,25 @@ namespace HR.Hospital.Cache.Redis
         /// </summary>
         public bool Set<T>(string key, T t)
         {
+            //try
+            //{
+            //    Redis.Set<T>(key, t, DateTime.Now.AddHours(12));
+            //    Save();
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
+            //return true;
             try
             {
                 Redis.Set<T>(key, t, DateTime.Now.AddHours(12));
                 Save();
             }
-            catch
+            catch (Exception)
             {
-                return false;
+
+                throw;
             }
             return true;
         }
