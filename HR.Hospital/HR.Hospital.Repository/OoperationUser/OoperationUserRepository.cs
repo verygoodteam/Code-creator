@@ -86,11 +86,11 @@ namespace HR.Hospital.Repository.OoperationUser
         {
 
             var operationusers = from o1 in db.Ooperationuser
-                        select new Model.Ooperationuser()
-                        {
-                            Id = o1.Id,
-                            OoperationUserName = o1.OoperationUserName
-                        };
+                                 select new Model.Ooperationuser()
+                                 {
+                                     Id = o1.Id,
+                                     OoperationUserName = o1.OoperationUserName
+                                 };
 
             var getoperationusers = operationusers.ToList();
             return getoperationusers;
@@ -109,73 +109,73 @@ namespace HR.Hospital.Repository.OoperationUser
             if (hierarchyid == 0 && name == "" || name == null && englishname == "" || englishname == null)
             {
                 var operation = from o1 in db.Ooperationuser
-                            join r in db.Role on o1.Roleid equals r.Id
-                            into JoinedEmpDept1
-                            from r in JoinedEmpDept1.DefaultIfEmpty()
-                            join p in db.Position on o1.PositionId equals p.Id
-                            into JoinedEmpDept2
-                            from p in JoinedEmpDept2.DefaultIfEmpty()
-                            join pro in db.Professional on o1.ProfessionalId equals pro.Id
-                            into JoinedEmpDept3
-                            from pro in JoinedEmpDept3.DefaultIfEmpty()
-                            join h in db.Hierarchy on o1.HierarchyId equals h.Id
-                            into JoinedEmpDept4
-                            from h in JoinedEmpDept4.DefaultIfEmpty()
-                            join o2 in db.Ooperationuser on o1.Userid equals o2.Id
-                            into JoinedEmpDept5
-                            from o2 in JoinedEmpDept5.DefaultIfEmpty()
-                            select new Ooperationuserview
-                            {
-                                Id = o1.Id,
-                                Jobnumber = o1.Jobnumber,
-                                OoperationUserName = o1.OoperationUserName,
-                                Phone = o1.Phone,
-                                Sex = o1.Sex,
-                                PositionName = p.PositionName,
-                                ProfessionalName = pro.ProfessionalName,
-                                HierarchyName = h.HierarchyName,
-                                UserName = o2.OoperationUserName,
-                                Enrollmentdate = DateTime.Now
-                            };
+                                join r in db.Role on o1.Roleid equals r.Id
+                                into JoinedEmpDept1
+                                from r in JoinedEmpDept1.DefaultIfEmpty()
+                                join p in db.Position on o1.PositionId equals p.Id
+                                into JoinedEmpDept2
+                                from p in JoinedEmpDept2.DefaultIfEmpty()
+                                join pro in db.Professional on o1.ProfessionalId equals pro.Id
+                                into JoinedEmpDept3
+                                from pro in JoinedEmpDept3.DefaultIfEmpty()
+                                join h in db.Hierarchy on o1.HierarchyId equals h.Id
+                                into JoinedEmpDept4
+                                from h in JoinedEmpDept4.DefaultIfEmpty()
+                                join o2 in db.Ooperationuser on o1.Userid equals o2.Id
+                                into JoinedEmpDept5
+                                from o2 in JoinedEmpDept5.DefaultIfEmpty()
+                                select new Ooperationuserview
+                                {
+                                    Id = o1.Id,
+                                    Jobnumber = o1.Jobnumber,
+                                    OoperationUserName = o1.OoperationUserName,
+                                    Phone = o1.Phone,
+                                    Sex = o1.Sex,
+                                    PositionName = p.PositionName,
+                                    ProfessionalName = pro.ProfessionalName,
+                                    HierarchyName = h.HierarchyName,
+                                    UserName = o2.OoperationUserName,
+                                    Enrollmentdate = DateTime.Now
+                                };
 
                 return operation.ToList();
             }
 
             var operations = from o1 in db.Ooperationuser
-                         join r in db.Role on o1.Roleid equals r.Id
-                         into JoinedEmpDept1
-                         from r in JoinedEmpDept1.DefaultIfEmpty()
-                         join p in db.Position on o1.PositionId equals p.Id
-                         into JoinedEmpDept2
-                         from p in JoinedEmpDept2.DefaultIfEmpty()
-                         join pro in db.Professional on o1.ProfessionalId equals pro.Id
-                         into JoinedEmpDept3
-                         from pro in JoinedEmpDept3.DefaultIfEmpty()
-                         join h in db.Hierarchy on o1.HierarchyId equals h.Id
-                         into JoinedEmpDept4
-                         from h in JoinedEmpDept4.DefaultIfEmpty()
-                         join o2 in db.Ooperationuser on o1.Userid equals o2.Id
-                         into JoinedEmpDept5
-                         from o2 in JoinedEmpDept5.DefaultIfEmpty()
-                         where (o1.HierarchyId == hierarchyid && o1.OoperationUserName == name) || (o1.Simplename == englishname && o1.HierarchyId == hierarchyid)
+                             join r in db.Role on o1.Roleid equals r.Id
+                             into JoinedEmpDept1
+                             from r in JoinedEmpDept1.DefaultIfEmpty()
+                             join p in db.Position on o1.PositionId equals p.Id
+                             into JoinedEmpDept2
+                             from p in JoinedEmpDept2.DefaultIfEmpty()
+                             join pro in db.Professional on o1.ProfessionalId equals pro.Id
+                             into JoinedEmpDept3
+                             from pro in JoinedEmpDept3.DefaultIfEmpty()
+                             join h in db.Hierarchy on o1.HierarchyId equals h.Id
+                             into JoinedEmpDept4
+                             from h in JoinedEmpDept4.DefaultIfEmpty()
+                             join o2 in db.Ooperationuser on o1.Userid equals o2.Id
+                             into JoinedEmpDept5
+                             from o2 in JoinedEmpDept5.DefaultIfEmpty()
+                             where (o1.HierarchyId == hierarchyid && o1.OoperationUserName == name) || (o1.Simplename == englishname && o1.HierarchyId == hierarchyid)
                              select new Ooperationuserview()
-                            {
-                                Id = o1.Id,
-                                Jobnumber = o1.Jobnumber,
-                                OoperationUserName = o1.OoperationUserName,
-                                Phone = o1.Phone,
-                                Sex = o1.Sex,
-                                PositionName = p.PositionName,
-                                ProfessionalName = pro.ProfessionalName,
-                                HierarchyName = h.HierarchyName,
-                                UserName = o2.OoperationUserName,
-                            };
+                             {
+                                 Id = o1.Id,
+                                 Jobnumber = o1.Jobnumber,
+                                 OoperationUserName = o1.OoperationUserName,
+                                 Phone = o1.Phone,
+                                 Sex = o1.Sex,
+                                 PositionName = p.PositionName,
+                                 ProfessionalName = pro.ProfessionalName,
+                                 HierarchyName = h.HierarchyName,
+                                 UserName = o2.OoperationUserName,
+                             };
 
-                return operations.ToList();
+            return operations.ToList();
 
         }
 
-        
+
         /// <summary>
         /// 修改
         /// </summary>
