@@ -127,7 +127,7 @@
             },
 
             Up: function (id) {
-                axios.post("http://localhost:12345/api/Solitaire/Upsortid?id=" + id).then((response) => {
+                axios.post("http://localhost:12345/api/Solitaire/UpdateSortId?id=" + id).then((response) => {
                     if (response.data) {
                         this.pagehandler();
                     }
@@ -138,7 +138,7 @@
             },
 
             Down: function (id) {
-                axios.post("http://localhost:12345/api/Solitaire/DownSortid?id=" + id).then((response) => {
+                axios.post("http://localhost:12345/api/Solitaire/DownSortId?id=" + id).then((response) => {
                     if (response.data) {
                         this.pagehandler();
                     }

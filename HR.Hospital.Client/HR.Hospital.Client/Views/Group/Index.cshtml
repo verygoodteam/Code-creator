@@ -61,8 +61,8 @@
                 <td :style="{backgroundColor:data.professionalGroupColore}"></td>
                 <td>{{data.professionalGroupName}}</td>
                 <td>{{data.departmentId}}</td>
-                <td>{{data.teachingId}}</td>
-                <td>{{data.groupLeader}}</td>
+                <td>{{data.teachingId==0?"是":"否"}}</td>
+                <td>{{data.groupLeader==0?"是":"否"}}</td>
                 <td>{{data.teamMember}}</td>
                 <td>
                     <div>

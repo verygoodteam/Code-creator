@@ -7,8 +7,6 @@
   <ItemGroup>
     <Content Remove="wwwroot\js\bodyTab.js" />
     <Content Remove="wwwroot\js\index.js" />
-    <Content Remove="wwwroot\js\jquery-ui.js" />
-    <Content Remove="wwwroot\js\jQuery1.11.3.min.js" />
     <Content Remove="wwwroot\js\leftNav.js" />
     <Content Remove="wwwroot\js\main.js" />
     <Content Remove="wwwroot\js\nav.js" />
@@ -21,6 +19,8 @@
     <None Include="wwwroot\Content\layui-admin\js\main.js" />
     <None Include="wwwroot\Content\layui-admin\js\nav.js" />
     <None Include="wwwroot\Content\layui-admin\layui\font\iconfont.svg" />
+    <None Include="wwwroot\js\jquery-ui.js" />
+    <None Include="wwwroot\js\jQuery1.11.3.min.js" />
     <None Include="wwwroot\js\layui.js" />
     <None Include="wwwroot\Content\layui-admin\layui\lay\dest\layui.all.js" />
     <None Include="wwwroot\Content\layui-admin\layui\lay\modules\code.js" />
@@ -60,33 +60,6 @@
     <None Include="wwwroot\js\layer-v3.1.1\文档\layer文档.url" />
     <None Include="wwwroot\js\layer-v3.1.1\文档\layui社区.url" />
     <None Include="wwwroot\js\layer-v3.1.1\文档\获得layim.url" />
-    <None Include="wwwroot\layui-v2.5.4\layui\font\iconfont.svg" />
-    <None Include="wwwroot\layui-v2.5.4\layui\font\iconfont.woff2" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\carousel.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\code.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\colorpicker.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\element.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\flow.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\form.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\jquery.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\laydate.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\layedit.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\layer.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\laypage.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\laytpl.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\mobile.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\rate.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\slider.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\table.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\transfer.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\tree.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\upload.js" />
-    <None Include="wwwroot\layui-v2.5.4\layui\lay\modules\util.js" />
-    <None Include="wwwroot\layui-v2.5.4\文档与示例\GitHub.url" />
-    <None Include="wwwroot\layui-v2.5.4\文档与示例\Git码云.url" />
-    <None Include="wwwroot\layui-v2.5.4\文档与示例\在线示例.url" />
-    <None Include="wwwroot\layui-v2.5.4\文档与示例\快速上手.url" />
-    <None Include="wwwroot\layui-v2.5.4\更新日志.url" />
   </ItemGroup>
 
   <ItemGroup>
@@ -94,7 +67,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.Caching.Redis.Core" Version="1.0.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
-    <PackageReference Include="Mindbox.Data.Linq" Version="2.0.7" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="7.6.0" />
   </ItemGroup>
 
   <ItemGroup>
