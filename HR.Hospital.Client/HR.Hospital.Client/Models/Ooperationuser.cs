@@ -26,5 +26,6 @@ namespace HR.Hospital.Client.Models
         public int? Annualdays { get; set; }
         public string Grade { get; set; }
         public string OoperationUserRemark { get; set; }
+        public List<Permission> PermissionList { get; set; }
     }
 }

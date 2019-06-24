@@ -27,19 +27,19 @@ namespace HR.Hospital.Client.Filter
                     //获取访问路径
                     var path = filterContext.HttpContext.Request.Path.ToString();
 
-                    //验证是否有访问权限
-                    //var result = tmpUser.PermissionList.Exists(m => m.Url.ToLower() == path.ToLower());
-                    //if (!result)
-                    //{
-                    //    filterContext.Result = new RedirectResult("/Login/Login");
-                    //}
+                    ////验证是否有访问权限
+                    var result = tmpUser.PermissionList.Exists(m => m.Url.ToLower() == path.ToLower());
+                    if (!result)
+                    {
+                        filterContext.Result = new RedirectResult("/Login/Login");
+                    }
                 }
             }
             else
             {
                 filterContext.Result = new RedirectResult("/Login/Login");
             }
-            base.OnActionExecuting(filterContext);
+           base.OnActionExecuting(filterContext);
         }
     }
 }

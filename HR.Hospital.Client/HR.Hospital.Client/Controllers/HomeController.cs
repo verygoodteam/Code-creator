@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HR.Hospital.Client.Models;
+using HR.Hospital.Client.Filter;
 
 namespace HR.Hospital.Client.Controllers
 {
@@ -14,6 +15,7 @@ namespace HR.Hospital.Client.Controllers
         {
             return View();
         }
+        //[MyActionFilter]
         public IActionResult MainIndex()
         {
             return View();

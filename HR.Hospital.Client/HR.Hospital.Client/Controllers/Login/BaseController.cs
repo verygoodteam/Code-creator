@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using HR.Hospital.Cache.Redis;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace HR.Hospital.Client.Controllers.Login
         /// <summary>
         /// 用户信息
         /// </summary>
-        public Models.Ooperationuser ooperationuser
+        public Models.Ooperationuser userInfo
         {
             get
             {
@@ -32,18 +33,18 @@ namespace HR.Hospital.Client.Controllers.Login
         /// 
         /// </summary>
         /// <param name="tmpUser"></param>
-        public void WriteCookie(Models.Ooperationuser tmpUser)
+        public void WriteCookie(Models.Ooperationuser ooperationuser)
         {
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-            identity.AddClaim(new Claim(ClaimTypes.Name, tmpUser.OoperationUserName));
+            identity.AddClaim(new Claim(ClaimTypes.Name, ooperationuser.OoperationUserName));
              
             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
 
             //存储redis
-           Cache.Redis.RedisHelper.Set<Models.Ooperationuser>(tmpUser.OoperationUserName, tmpUser);
+           Cache.Redis.RedisHelper.Set<Models.Ooperationuser>(ooperationuser.OoperationUserName, ooperationuser);
 
-            ////取Redis-测试
-            //var tmpUser = RedisHelper.Get<UserInfo>(tmpUser.UserName);
+            //取Redis-测试
+            var tmpUser = RedisHelper.Get<Models.Ooperationuser>(ooperationuser.OoperationUserName);
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace HR.Hospital.Client.Controllers.Login
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var controller = filterContext.Controller as Controller;
-            controller.ViewBag.LoginInfo = ooperationuser;
+            controller.ViewBag.LoginInfo = userInfo;
             base.OnActionExecuting(filterContext);
         }
 
