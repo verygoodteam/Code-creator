@@ -13,7 +13,7 @@ namespace HR.Hospital.IRepository.RuleSetting
         /// 排班规则添加
         /// </summary>
         /// <returns></returns>
-        int AddRuleSetting(Rulesettings rulesettings);
+        int AddRuleSetting(List<Rulesettings> rulesettings);
 
         /// <summary>
         /// 显示规则

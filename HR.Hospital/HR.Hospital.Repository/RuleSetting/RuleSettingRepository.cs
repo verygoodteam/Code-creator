@@ -23,9 +23,20 @@ namespace HR.Hospital.Repository.RuleSetting
         /// 添加规则
         /// </summary>
         /// <returns></returns>
-        public int AddRuleSetting(Rulesettings rulesettings)
+        public int AddRuleSetting(List<Rulesettings> rulesettings)
         {
-            throw new NotImplementedException();
+            int i = 0;
+            using (MySqlConnection con = new MySqlConnection(_conn))
+            {
+                foreach (var item in rulesettings)
+                {
+                   string addrulesetting = $@"INSERT INTO rulesettings(OneShiftsId, TwoShiftsId, OneTime, TwoTime, ThreeTime, Types) VALUES
+                                      ('{item.OneShiftsId}', '{item.TwoShiftsId}', '{item.OneTime}', '{item.TwoTime}', '{item.ThreeTime}', '{item.Types}')";
+                    i=  con.Execute(addrulesetting);
+                }
+                
+                return i;
+            }                
         }
 
         /// <summary>
