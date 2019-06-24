@@ -112,6 +112,7 @@
 
         }
     </script>
+
     @*页面拖拽的事件*@
     <script type="text/javascript" language="javascript">
         //在页面加载完之后加载jquery
@@ -139,11 +140,18 @@
 
                     source.mouseenter(function () {
                         $(this).find("img").show();
+                        //找到当前td的tr的第一个td的值
+                        //alert($(this).parent().parent().children().first().text())
                     });
 
                     source.mouseleave(function () {
                         $(this).find("img").hide();
                     });
+
+                    //点击当前元素,找到当前td的tr的第一个td的值
+                    source.click(function () {
+                        alert($(this).parent().parent().children().first().text())
+                    })
 
                     $(this).append(source);
                 }
