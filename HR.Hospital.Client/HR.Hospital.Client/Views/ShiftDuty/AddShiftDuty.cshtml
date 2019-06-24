@@ -1,0 +1,60 @@
+﻿@model HR.Hospital.Client.Models.ShiftDuty
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>换班</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+
+    <h4 style="text-align: center">换班</h4>
+    <hr />
+    <div class="row">
+        <div style="width: 300px;margin: auto">
+            <form asp-action="AddShiftDuty">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="ShiftChangerId" class="control-label"></label>
+                    <input asp-for="ShiftChangerId" class="form-control" />
+                    <span asp-validation-for="ShiftChangerId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Reason" class="control-label"></label>
+                    <input asp-for="Reason" class="form-control" />
+                    <span asp-validation-for="Reason" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Duration" class="control-label"></label>
+                    <input asp-for="Duration" class="form-control" />
+                    <span asp-validation-for="Duration" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ApplicationTime" class="control-label"></label>
+                    <input asp-for="ApplicationTime" class="form-control" />
+                    <span asp-validation-for="ApplicationTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="换班" class="btn btn-default" />
+                    <input type="submit" value="返回主页" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @*<div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</body>
+</html>
