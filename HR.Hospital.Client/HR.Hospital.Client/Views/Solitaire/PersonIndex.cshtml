@@ -108,6 +108,7 @@
                             this.maxPage = response.data.PageNum;
                         });
             },
+
             //保存添加人员
             add: function () {
                 var names = []; var leader = [];
@@ -121,6 +122,7 @@
                 //alert(leader.toString());
                 location.href = '/Solitaire/Add?name=' + names.toString() /*+ '&leader' + leader.toString()*/;
             },
+
             //反回添加页面
             back: function () {
                 location.href = '/Solitaire/Add?name=' + 1 /*+ '&leader'+ 1*/;
