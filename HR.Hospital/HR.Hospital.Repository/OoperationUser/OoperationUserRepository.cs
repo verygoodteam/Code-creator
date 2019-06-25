@@ -106,7 +106,8 @@ namespace HR.Hospital.Repository.OoperationUser
         /// <returns></returns>
         public List<Ooperationuserview> ShowOoperationUser(int hierarchyid = 0, string name = "", string englishname = "")
         {
-            if (hierarchyid == 0 && name == "" || name == null && englishname == "" || englishname == null)
+
+            if (hierarchyid == 0 && (name == "" || name == null) && (englishname == "" || englishname == null))
             {
                 var operation = from o1 in db.Ooperationuser
                                 join r in db.Role on o1.Roleid equals r.Id
@@ -135,10 +136,28 @@ namespace HR.Hospital.Repository.OoperationUser
                                     ProfessionalName = pro.ProfessionalName,
                                     HierarchyName = h.HierarchyName,
                                     UserName = o2.OoperationUserName,
-                                    Enrollmentdate = DateTime.Now
+                                    Enrollmentdate = DateTime.Now,
+                                    HierarchyId = o1.HierarchyId,
+                                    Simplename = o1.Simplename
                                 };
 
                 return operation.ToList();
+            }
+
+            string chinese = "";
+            string english = "";
+            //判断是汉字还是拼音
+            if (name != null && name != "")
+            {
+                bool res = System.Text.RegularExpressions.Regex.IsMatch(name, @"[\u4e00-\u9fbb]");
+                if (res)
+                {
+                    chinese = name;
+                }
+                else
+                {
+                    english = name;
+                }
             }
 
             var operations = from o1 in db.Ooperationuser
@@ -169,42 +188,60 @@ namespace HR.Hospital.Repository.OoperationUser
                                  ProfessionalName = pro.ProfessionalName,
                                  HierarchyName = h.HierarchyName,
                                  UserName = o2.OoperationUserName,
+                                 HierarchyId = o1.HierarchyId,
+                                 Simplename = o1.Simplename
                              };
+
+            //中文查询
+            if (!string.IsNullOrEmpty(chinese))
+            {
+                operations = operations.Where(p => p.OoperationUserName.Contains(chinese));
+            }
+            //拼音查询
+            if (!string.IsNullOrEmpty(english))
+            {
+                operations = operations.Where(p => p.Simplename.Contains(english));
+            }
+            //能级下拉查询
+            if (hierarchyid != 0)
+            {
+                operations = operations.Where(p => p.HierarchyId == hierarchyid);
+            }
 
             return operations.ToList();
 
         }
 
 
-        /// <summary>
-        /// 修改
-        /// </summary>
-        /// <param name="operuser"></param>
-        /// <returns></returns>
-        public int UpdateOoperationUser(Ooperationuser operuser)
-        {
-            var oopuserinfo = db.Ooperationuser.FirstOrDefault(p => p.Id == operuser.Id);
-            oopuserinfo.OoperationUserName = operuser.OoperationUserName;
-            oopuserinfo.Account = operuser.Account;
-            oopuserinfo.Jobnumber = operuser.Jobnumber;
-            oopuserinfo.Pwd = operuser.Pwd;
-            oopuserinfo.Sex = operuser.Sex;
-            oopuserinfo.Phone = operuser.Phone;
-            oopuserinfo.Simplename = operuser.Simplename;
-            oopuserinfo.Isarrange = operuser.Isarrange;
-            oopuserinfo.Roleid = operuser.Roleid;
-            oopuserinfo.Userid = operuser.Userid;
-            oopuserinfo.PositionId = operuser.PositionId;
-            oopuserinfo.ProfessionalId = operuser.ProfessionalId;
-            oopuserinfo.HierarchyId = operuser.HierarchyId;
-            oopuserinfo.Workage = operuser.Workage;
-            oopuserinfo.Enrollmentdate = operuser.Enrollmentdate;
-            oopuserinfo.Annualdays = operuser.Annualdays;
-            oopuserinfo.Grade = operuser.Grade;
-            oopuserinfo.OoperationUserRemark = operuser.OoperationUserRemark;
-            var updateOoperationUser = db.SaveChanges();
-            return updateOoperationUser;
-        }
-
+    /// <summary>
+    /// 修改
+    /// </summary>
+    /// <param name="operuser"></param>
+    /// <returns></returns>
+    public int UpdateOoperationUser(Ooperationuser operuser)
+    {
+        var oopuserinfo = db.Ooperationuser.FirstOrDefault(p => p.Id == operuser.Id);
+        oopuserinfo.OoperationUserName = operuser.OoperationUserName;
+        oopuserinfo.Account = operuser.Account;
+        oopuserinfo.Jobnumber = operuser.Jobnumber;
+        oopuserinfo.Pwd = operuser.Pwd;
+        oopuserinfo.Sex = operuser.Sex;
+        oopuserinfo.Phone = operuser.Phone;
+        oopuserinfo.Simplename = operuser.Simplename;
+        oopuserinfo.Isarrange = operuser.Isarrange;
+        oopuserinfo.Roleid = operuser.Roleid;
+        oopuserinfo.Userid = operuser.Userid;
+        oopuserinfo.PositionId = operuser.PositionId;
+        oopuserinfo.ProfessionalId = operuser.ProfessionalId;
+        oopuserinfo.HierarchyId = operuser.HierarchyId;
+        oopuserinfo.Workage = operuser.Workage;
+        oopuserinfo.Enrollmentdate = operuser.Enrollmentdate;
+        oopuserinfo.Annualdays = operuser.Annualdays;
+        oopuserinfo.Grade = operuser.Grade;
+        oopuserinfo.OoperationUserRemark = operuser.OoperationUserRemark;
+        var updateOoperationUser = db.SaveChanges();
+        return updateOoperationUser;
     }
+
+}
 }

@@ -20,7 +20,18 @@ namespace HR.Hospital.WebApi.Controllers.RuleSetting
         //构造函数注入
         public RuleSettingController(IRuleSettingRepository ruleSettingRepository)
         {
-            RuleSettingRepository = ruleSettingRepository;
+            RuleSettingRepository = ruleSettingRepository;                                                                                                   
+        }
+
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("AddRulesettings")]
+        public int AddRulesettings([FromBody]List<Rulesettings> rulesettings)
+        {
+            var addruleset = RuleSettingRepository.AddRuleSetting(rulesettings);
+            return addruleset;
         }
 
         /// <summary>

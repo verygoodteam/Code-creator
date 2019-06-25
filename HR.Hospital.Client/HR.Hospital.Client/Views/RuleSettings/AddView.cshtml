@@ -70,8 +70,10 @@
 </html>
 <script type="text/javascript" class="easyui-combotree">
 
-    var Num1 = 1;
-    var Num2 = 1;
+    var Num1 = 0;
+    var Num2 = 0;
+    var Num3 = [];
+    var Num4 = [];
 
     //相连时间1下拉
     function List1() {
@@ -79,8 +81,8 @@
             valueField: "id", //Value字段
             textField: "text", //Text字段
             multiple: true,
-            data: [{ "id": "周一", "text": "周一" }, { "id": "周二", "text": "周二" }, { "id": "周三", "text": "周三" }, { "id": "周四", "text": "周四" },
-            { "id": "周五", "text": "周五" }, { "id": "周六", "text": "周六" }, { "id": "周日", "text": "周日" }],
+            data: [{ "id": 1, "text": "周一" }, { "id": 2, "text": "周二" }, { "id": 3, "text": "周三" }, { "id": 4, "text": "周四" },
+            { "id": 5, "text": "周五" }, { "id": 6, "text": "周六" }, { "id": 7, "text": "周日" }],
             //  url: "tree_data2.json", //数据源
             onCheck: function (node, checked) {
                 //让全选不显示
@@ -100,7 +102,7 @@
             textField: "text", //Text字段
             multiple: true,
             data: [{ "id": "周一", "text": "周一" }, { "id": "周二", "text": "周二" }, { "id": "周三", "text": "周三" }, { "id": "周四", "text": "周四" },
-                { "id": "周五", "text": "周五" }, { "id": "周六", "text": "周六" }, { "id": "周日", "text": "周日" }],
+            { "id": "周五", "text": "周五" }, { "id": "周六", "text": "周六" }, { "id": "周日", "text": "周日" }],
             //  url: "tree_data2.json", //数据源
             onCheck: function (node, checked) {
                 //让全选不显示
@@ -154,25 +156,25 @@
 
         var i = "";
         i += "<tr>"
-        i += "<td>" + Num1++ + "</td>"
+        i += "<td>" + ++Num1 + "</td>"
         i += "<td>"
-        i += "<select id='ddlLine1" + Num1 + "' class='easyui-combotree' style='width: 205px; height: 24px;'>"
+        i += "<select id='ddlLine1" + Num1 + "' name='ddlLine1' class='easyui-combotree' style='width: 205px; height: 24px;'>"
         i += "</select>"
         i += "</td>"
         i += "<td>"
-        i += "<select id='shifts1" + Num1 + "' class='easyui- combotree' style='width: 205px; height: 24px;'>"
+        i += "<select id='shifts1" + Num1 + "' name='shifts1' class='easyui- combotree' style='width: 205px; height: 24px;'>"
         i += Shifts1()
         i += "</select > "
         i += "</td> "
         i += "<td>"
-        i += "<select id='twodate1'>"
+        i += "<select id='twodate1" + Num1 + "' name='twodate1'>"
         i += "<option value ='隔日'> 隔日</option >"
         i += "<option value='第二天'>第二天</option>"
         i += "<option value='下周'>下周</option>"
         i += "</select >"
         i += "</td > "
         i += "<td>"
-        i += "<select id='threedate1'>"
+        i += "<select id='threedate1" + Num1 + "' name='threedate1'>"
         i += "<option value = '周一'> 周一</option >"
         i += "<option value='周二'>周二</option>"
         i += "<option value='周三'>周三</option>"
@@ -183,7 +185,7 @@
         i += "</select >"
         i += "</td >"
         i += "<td>"
-        i += "<select id='shifts2" + Num1 + "'>"
+        i += "<select id='shifts2" + Num1 + "' name='shifts2'>"
         i += Shifts1()
         i += "</select >"
         i += "</td> "
@@ -192,32 +194,33 @@
         $("#tb1").append(i);
 
         List1();
+
+        Num3.push(Num1);
     }
 
-    固定不相连班次添加下一行
+    //固定不相连班次添加下一行
     function disjoint() {
         var i = "";
         i += "<tr>"
-        i += "<td>" + Num2++ + "</td>"
+        i += "<td>" + ++Num2 + "</td>"
         i += "<td>"
-        i += "<select id='ddlLine2" + Num2 + "' class='easyui-combotree' style='width: 205px; height: 24px;'>"
-        i += List2()
+        i += "<select id='ddlLine2" + Num2 + "' name='ddlLine2' class='easyui-combotree' style='width: 205px; height: 24px;'>"
         i += "</select>"
         i += "</td>"
         i += "<td>"
-        i += "<select id='shifts3" + Num2 + "' class='easyui-combotree' style='width: 205px; height: 24px;'>"
+        i += "<select id='shifts3" + Num2 + "' name='shifts3' class='easyui-combotree' style='width: 205px; height: 24px;'>"
         i += Shifts2()
         i += "</select >"
         i += "</td> "
         i += "<td>"
-        i += "<select id='twodate2'>"
+        i += "<select id='twodate2" + Num2 + "' name='twodate2'>"
         i += "<option value='隔日'> 隔日</option >"
         i += "<option value='第二天'>第二天</option>"
         i += "<option value='下周'>下周</option>"
         i += "</select >"
         i += "</td >"
         i += "<td>"
-        i += "<select id='threedate2'>"
+        i += "<select id='threedate2" + Num2 + "' name='threedate2'>"
         i += "<option value = '周一'> 周一</option >"
         i += "<option value='周二'>周二</option>"
         i += "<option value='周三'>周三</option>"
@@ -228,7 +231,7 @@
         i += "</select >"
         i += "</td >"
         i += "<td>"
-        i += "<select id='shifts4" + Num2 + "'>"
+        i += "<select id='shifts4" + Num2 + "' name='shifts4'>"
         i += Shifts2()
         i += "</select >"
         i += "</td> "
@@ -237,13 +240,54 @@
         $("#tb2").append(i);
 
         List2();
+
+        Num4.push(Num2);
     }
 
     //保存
     function Prese() {
-        alert(0)
-        alert($("#select1").text())
+
+        var data = [];
+
+        for (var i = 0; i < Num3.length; i++) {
+            data.push({
+                OneShiftsId: $("#shifts1" + Num3[i] + "").val(),
+                TwoShiftsId: $("#shifts2" + Num3[i] + "").val(),
+                OneTime: $("#ddlLine1" + Num3[i] + "").combobox('getText'),
+                TwoTime: $("#twodate1" + Num3[i] + "").val(),
+                ThreeTime: $("#threedate1" + Num3[i] + "").val(),
+                Types: 0
+            })
+        }
+
+
+        for (var i = 0; i < Num4.length; i++) {
+            data.push({
+                OneShiftsId: $("#shifts3" + Num4[i] + "").val(),
+                TwoShiftsId: $("#shifts4" + Num4[i] + "").val(),
+                OneTime: $("#ddlLine2" + Num4[i] + "").combobox('getText'),
+                TwoTime: $("#twodate2" + Num4[i] + "").val(),
+                ThreeTime: $("#threedate2" + Num4[i] + "").val(),
+                Types: 1
+            })
+        }
+        alert(JSON.stringify(data))
+        $.ajax({
+            url: '/RuleSettings/AddRulesetting',
+            type: 'post',
+            data: { rulesettings: JSON.stringify(data) },
+            dataType: 'json',
+            success: function (text) {
+                if (text > 0) {
+                    alert('添加成功')
+                    location.href = '/RuleSettings/Show';
+                }
+                else {
+                    alert('添加失败');
+                    return;
+                }
+
+            }
+        })
     }
-
-
 </script>
