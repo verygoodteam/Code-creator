@@ -29,13 +29,22 @@
 <body>
     <h3 style="margin-left: 15px">专业组设置</h3>
     <div id="app">
+        <input id="Hidden1" type="hidden" value="@ViewBag.Name" />
+        @*<input id="Hidden2" type="hidden" value="@ViewBag.Leader" />*@
         <table class="table table-bordered">
             <tr>
                 <td>
                     <h4>接龙班次</h4>
                     <select id="Select1" v-model="Shift">
                         <option value="0">--请选择--</option>
-                        <option v-for="item in shiftList" :value="item.shiftssettingName">{{item.shiftssettingName}}</option>
+                        <option value="早班">早班</option>
+                        <option value="二线班">二线班</option>
+                        <option value="夜班">夜班</option>
+                        <option value="下夜班">下夜班</option>
+                        <option value="备班">备班</option>
+                        <option value="周末值班">周末值班</option>
+                        <option value="值班">值班</option>
+                        @*<option v-for="item in shiftList" :value="item.id">{{item.shiftssettingName}}</option>*@
                     </select>
                 </td>
                 <td>
@@ -46,16 +55,60 @@
                             <select id="SelectStartTime" v-model="StartYear">
                                 <option value="2019">2019</option>
                                 <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
                             </select>
                             <select id="SelectStartTime2" v-model="StartMonth">
-                                <option v-for="month in monthList" v-bind:value="month">
-                                    {{month}}
-                                </option>
+                                @*<option v-for="month in monthList" v-bind:value="month">
+                                        {{month}}
+                                    </option>*@
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
                             </select>
                             <select id="SelectStartTime3" v-model="StartDay">
-                                <option v-for="day in dayList" v-bind:value="day">
-                                    {{day}}
-                                </option>
+                                @*<option v-for="day in dayList" v-bind:value="day">
+                                        {{day}}
+                                    </option>*@
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
                             </select>
                         </p>
                         <p>
@@ -63,16 +116,62 @@
                             <select id="SelectEndTime" v-model="EndYear">
                                 <option value="2019">2019</option>
                                 <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
                             </select>
                             <select id="SelectEndTime2" v-model="EndMonth">
-                                <option v-for="month in monthList" v-bind:value="month">
-                                    {{month}}
-                                </option>
+                                @*<option v-for="month in monthList" v-bind:value="month">
+                                        {{month}}
+                                    </option>*@
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
                             </select>
                             <select id="SelectEndTime3" v-model="EndDay">
-                                <option v-for="day in dayList" v-bind:value="day">
-                                    {{day}}
-                                </option>
+                                @*<option v-for="day in dayList" v-bind:value="day">
+                                        {{day}}
+                                    </option>*@
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
                             </select>
                         </p>
                     </div>
@@ -92,14 +191,15 @@
             </tr>
             <tr id="tr">
                 <td>1</td>
-                <td>{{People}}</td>
-                <td>{{People}}</td>
+                <td>@ViewBag.Name</td>
+                <td>1</td>
                 <td>
                     <a href="#" v-on:click="addPerson()">➕</a>
                 </td>
             </tr>
+
         </table>
-        
+
 
         <table class="table table-bordered">
             <tr>
@@ -116,13 +216,13 @@
             data: {
                 shiftList: [],
                 Shift: 0,
-                monthList: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-                dayList: [
-                    '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16',
-                    '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
-                ],
-                StartYear: 2019, StartMonth: 6, StartDay: 21,
-                EndYear: 2019, EndMonth: 6, EndDay: 21,
+                //monthList: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                //dayList: [
+                //    '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16',
+                //    '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
+                //],
+                //StartYear: 2019, StartMonth: 6, StartDay: 24,
+                //EndYear: 2019, EndMonth: 6, EndDay: 24,
                 StartTime: "",
                 EndTime: "",
                 CycleTime:""
@@ -130,7 +230,7 @@
         mounted() {
             this.getShift();
         },
-            methods: {
+        methods: {
             //获取班次
             getShift: function () {
                 axios.get("/Solitaire/GetShift")
@@ -139,21 +239,22 @@
                     });
             },
             //添加方法
-                addSolitaire: function () {
-                    this.StartTime = this.StartYear + "年" + this.StartMonth + "月" + this.StartDay + "日";
-                    this.EndTime = this.EndYear + "年" + this.EndMonth + "月" + this.EndDay + "日";
-                    this.CycleTime = this.StartTime + " " + this.EndTime;
-                    //alert(this.CycleTime);
+            addSolitaire: function () {
+                this.StartTime = this.StartYear + "年" + this.StartMonth + "月" + this.StartDay + "日";
+                this.EndTime = this.EndYear + "年" + this.EndMonth + "月" + this.EndDay + "日";
+                this.CycleTime = this.StartTime + " " + this.EndTime;
+                alert(this.CycleTime);
+
+                var model = new URLSearchParams();
+                model.append('Shift', this.Shift);
+                model.append('SolitaireCycle', this.CycleTime);
+                model.append('SolitaireGroupId', 1);
+                model.append('GroupMember', @ViewBag.Name);
+                model.append('GroupLeader', 1);
+                model.append('SortId', 1);
+
                 axios.post('@Url.Action("Add", "Solitaire")',
-                    {
-                        model: {
-                            Shift: this.Shift,
-                            SolitaireCycle: this.CycleTime,
-                            SolitaireGroupId: 1,
-                            GroupMember: 1,
-                            GroupLeader: 1
-                        }
-                    }).then((response) => {
+                    model).then((response) => {
                         alert("添加成功");
                         location.href = '/Solitaire/Index';
                     },(response) => {
@@ -163,11 +264,13 @@
                     alert(response);
                 });
             },
-   
-            addPerson: function() {
-                location.href = '/Solitaire/PersonIndex';
-                },
 
+            //添加人员
+            addPerson: function () {
+                //alert(0);
+                location.href = '/Solitaire/PersonIndex';
+            },
+            //返回主页
             back: function() {
                 location.href = '/Solitaire/Index';
             }

@@ -27,6 +27,10 @@ namespace HR.Hospital.WebApi.Controllers.Login
            return  _userRepository.ooperationusers();
         }
 
-      
+        [HttpGet("GetUserRolePermissionDtos")]
+        public IEnumerable<Model.Dto.UserRolePermissionDto> GetUserRolePermissionDtos(int id)
+        {
+            return _userRepository.userRolePermissionDtos(id);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HR.Hospital.Client.Models.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +27,6 @@ namespace HR.Hospital.Client.Models
         public int? Annualdays { get; set; }
         public string Grade { get; set; }
         public string OoperationUserRemark { get; set; }
-        public List<Permission> PermissionList { get; set; }
+        public virtual List<UserRolePermissionDto> PermissionList { get; set; }
     }
 }

@@ -177,7 +177,7 @@ namespace HR.Hospital.Repository.Solitaire
         {
             using (hospitaldbContext db = new hospitaldbContext())
             {
-                int id = db.SolitaireSet.OrderBy(u => u.Id).FirstOrDefault().Id;
+                int id = db.SolitaireSet.OrderBy(u => u.Id).FirstOrDefault().Id; 
                 return id;
             }
         }

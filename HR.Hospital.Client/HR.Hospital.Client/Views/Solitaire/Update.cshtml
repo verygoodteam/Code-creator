@@ -124,10 +124,10 @@
                 ],
                 StartYear: 2019,
                 StartMonth: 6,
-                StartDay: 21,
+                StartDay: 24,
                 EndYear: 2019,
                 EndMonth: 6,
-                EndDay: 21,
+                EndDay: 24,
                 StartTime: "",
                 EndTime: "",
                 CycleTime: "",
@@ -162,16 +162,17 @@
                     this.EndTime = this.EndYear + "年" + this.EndMonth + "月" + this.EndDay + "日";
                     this.CycleTime = this.StartTime + " " + this.EndTime;
                     //alert(this.CycleTime);
+
+                    var model = new URLSearchParams();
+                    model.append('Shift', this.Shift);
+                    model.append('SolitaireCycle', this.CycleTime);
+                    model.append('SolitaireGroupId', 1);
+                    model.append('GroupMember', @ViewBag.Name);
+                    model.append('GroupLeader', 1);
+                    model.append('SortId', 1);
+
                     axios.post('@Url.Action("Update", "Solitaire")',
-                        {
-                            model: {
-                                Shift: this.Shift,
-                                SolitaireCycle: this.CycleTime,
-                                SolitaireGroupId: 1,
-                                GroupMember: 1,
-                                GroupLeader: 1
-                            }
-                        }).then((response) => {
+                        model).then((response) => {
                             alert("编辑成功");
                             location.href = '/Solitaire/Index';
                         },

@@ -23,6 +23,12 @@ namespace HR.Hospital.Model
         public DbQuery<AreaDto> QueryAreaDto { get; set; }
 
         /// <summary>
+        /// 执行查询用户角色表权限
+        /// </summary>
+        public DbQuery<UserRolePermissionDto> QueryUserRolePermissionDto { get; set; }
+
+
+        /// <summary>
         /// 配置表进行联查
         /// </summary>
         public DbQuery<ApprovalConfigurationDto> QueryApprovalConfigurationDto { get; set; }
