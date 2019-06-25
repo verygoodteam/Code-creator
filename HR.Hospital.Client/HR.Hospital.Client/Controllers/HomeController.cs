@@ -20,6 +20,17 @@ namespace HR.Hospital.Client.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 获取登录人的权限
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult GetMenus()
+        {
+            return View();
+        }
+
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
