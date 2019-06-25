@@ -67,6 +67,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.Caching.Redis.Core" Version="1.0.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+    <PackageReference Include="ServiceStack.Core" Version="5.5.0" />
+    <PackageReference Include="ServiceStack.Interfaces.Core" Version="5.5.0" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="7.6.0" />
   </ItemGroup>
 
@@ -75,6 +77,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="ServiceStack">
+      <HintPath>..\Dlls\ServiceStack.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Interfaces">
       <HintPath>bin\Debug\netcoreapp2.1\ServiceStack.Interfaces.dll</HintPath>
     </Reference>

@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ServiceStack.Redis.Complete" Version="1.0.0" />
+    <PackageReference Include="ServiceStack.Core" Version="5.5.0" />
+    <PackageReference Include="ServiceStack.Interfaces.Core" Version="5.5.0" />
+    <PackageReference Include="ServiceStack.Redis" Version="5.5.0" />
+    <PackageReference Include="ZayniFramework.Caching.RedisClient" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>

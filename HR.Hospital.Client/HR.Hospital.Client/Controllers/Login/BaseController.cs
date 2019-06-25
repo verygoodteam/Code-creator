@@ -41,10 +41,10 @@ namespace HR.Hospital.Client.Controllers
             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
 
             //存储redis
-           Cache.Redis.RedisHelper.Set<Models.Ooperationuser>(ooperationuser.OoperationUserName, ooperationuser);
+           Cache.Redis.RedisHelper.Set<Models.Ooperationuser>("123", ooperationuser);
 
             //取Redis-测试
-            var tmpUser = RedisHelper.Get<Models.Ooperationuser>(ooperationuser.OoperationUserName);
+            var tmpUser = RedisHelper.Get<Models.Ooperationuser>("123");
         }
 
         /// <summary>
