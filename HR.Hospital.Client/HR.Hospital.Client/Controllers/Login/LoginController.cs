@@ -33,6 +33,13 @@ namespace HR.Hospital.Client.Controllers
                 return RedirectToAction(nameof(LoginController.Login), "Login");
             }
             var tmpUser = Common.HttpClientApi.GetAsync<List<Models.Ooperationuser>>("http://localhost:12345/api/Login/Get").FirstOrDefault(m => m.OoperationUserName == ooperationuser.OoperationUserName && m.Pwd == ooperationuser.Pwd);
+            if (tmpUser != null)
+            {
+                var id = tmpUser.Id;
+                var role = Common.HttpClientApi.GetAsync<List<Models.Dto.UserRolePermissionDto>>("http://localhost:12345/api/Login/GetUserRolePermissionDtos?id=" + id);
+                tmpUser.PermissionList = role;
+            }
+
             if (tmpUser?.Pwd != ooperationuser.Pwd)
             {
                 return RedirectToAction(nameof(LoginController.Login), "Login");

@@ -15,10 +15,10 @@ namespace HR.Hospital.Client.Controllers
         {
             return View();
         }
-      //  [MyActionFilter]
+        [MyActionFilter]
         public IActionResult MainIndex()
         {
-            //var user = UserInfo.Account;
+            ViewBag.name = UserInfo.OoperationUserName;
             return View();
         }
         public IActionResult About()

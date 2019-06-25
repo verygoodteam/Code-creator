@@ -12,6 +12,20 @@ namespace HR.Hospital.IRepository.Login
         /// <returns></returns>
         int Login(Model.Ooperationuser ooperationuser);
 
+        /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        /// <returns></returns>
         List<Model.Ooperationuser> ooperationusers();
+
+        /// <summary>
+        /// 获取角色权限列表
+        /// </summary>
+        /// <returns></returns>
+        List<Model.Dto.UserRolePermissionDto> userRolePermissionDtos(int id);
+
+
+
+
     }
 }
