@@ -72,7 +72,5 @@ namespace HR.Hospital.IRepository.Solitaire
         /// <param name="id"></param>
         /// <returns></returns>
         bool DownSortId(int id);
-
-
     }
 }

@@ -35,14 +35,15 @@ namespace HR.Hospital.Client.Controllers.Solitaire
             return list;
         }
 
+        /// <summary>
+        /// 人员选择页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult PersonIndex()
         {
             return View();
         }
-        /// <summary>
-        /// 获取人员
-        /// </summary>
-        /// <returns></returns>
+
         public PageHelper<Clinicuser> GetPerson(int pageIndex = 1, int pageSize = 3, string name = "")
         {
             var list = HttpClientApi.GetAsync<PageHelper<Clinicuser>>(HttpHelper.Url + "Solitaire/GetPerson?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&name=" + name);
@@ -53,8 +54,11 @@ namespace HR.Hospital.Client.Controllers.Solitaire
         /// 添加
         /// </summary>
         /// <returns></returns>
-        public ActionResult Add()
+        public ActionResult Add(string name)
         {
+            ViewBag.Name = name;
+            //string leader
+            //ViewBag.Leader = leader;
             return View();
         }
         [HttpPost]
