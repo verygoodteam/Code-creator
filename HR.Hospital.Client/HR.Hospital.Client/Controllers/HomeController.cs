@@ -18,7 +18,7 @@ namespace HR.Hospital.Client.Controllers
         [MyActionFilter]
         public IActionResult MainIndex()
         {
-            ViewBag.name = UserInfo.OoperationUserName;
+            //ViewBag.name = UserInfo.OoperationUserName;
             return View();
         }
 
