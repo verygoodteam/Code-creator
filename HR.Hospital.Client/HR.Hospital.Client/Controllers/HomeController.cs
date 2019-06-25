@@ -21,6 +21,17 @@ namespace HR.Hospital.Client.Controllers
             ViewBag.name = UserInfo.OoperationUserName;
             return View();
         }
+
+        /// <summary>
+        /// 获取登录人的权限
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult GetMenus()
+        {
+            return View();
+        }
+
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
