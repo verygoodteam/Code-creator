@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace HR.Hospital.Client.Controllers.Login
+namespace HR.Hospital.Client.Controllers
 {
     public class BaseController : Controller
     {
         /// <summary>
         /// 用户信息
         /// </summary>
-        public Models.Ooperationuser userInfo
+        public Models.Ooperationuser UserInfo
         {
             get
             {
@@ -54,7 +54,7 @@ namespace HR.Hospital.Client.Controllers.Login
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var controller = filterContext.Controller as Controller;
-            controller.ViewBag.LoginInfo = userInfo;
+            controller.ViewBag.LoginInfo = UserInfo;
             base.OnActionExecuting(filterContext);
         }
 

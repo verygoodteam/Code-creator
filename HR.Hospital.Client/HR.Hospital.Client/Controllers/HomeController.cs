@@ -9,15 +9,16 @@ using HR.Hospital.Client.Filter;
 
 namespace HR.Hospital.Client.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {
             return View();
         }
-        //[MyActionFilter]
+      //  [MyActionFilter]
         public IActionResult MainIndex()
         {
+            //var user = UserInfo.Account;
             return View();
         }
         public IActionResult About()
