@@ -114,18 +114,22 @@
                     });
             },
 
+            //添加跳转
             add: function() {
                 location.href = '/Solitaire/Add?name=' + 1 /*+ '&leader' + 1*/;
             },
 
+            //删除
             DeleteById: function (id) {
                 location.href = '/Solitaire/Delete?id=' + id;
             },
 
+            //编辑
             UpdateById: function (id) {
                 location.href = '/Solitaire/Update?id=' + id;
             },
 
+            //向上排序
             Up: function (id) {
                 axios.post("http://localhost:12345/api/Solitaire/UpdateSortId?id=" + id).then((response) => {
                     if (response.data) {
@@ -137,6 +141,7 @@
                 });
             },
 
+            //向下排序
             Down: function (id) {
                 axios.post("http://localhost:12345/api/Solitaire/DownSortId?id=" + id).then((response) => {
                     if (response.data) {

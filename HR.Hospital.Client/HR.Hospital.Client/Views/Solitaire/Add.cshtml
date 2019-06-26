@@ -44,7 +44,6 @@
                         <option value="备班">备班</option>
                         <option value="周末值班">周末值班</option>
                         <option value="值班">值班</option>
-                        @*<option v-for="item in shiftList" :value="item.id">{{item.shiftssettingName}}</option>*@
                     </select>
                 </td>
                 <td>
@@ -60,9 +59,6 @@
                                 <option value="2023">2023</option>
                             </select>
                             <select id="SelectStartTime2" v-model="StartMonth">
-                                @*<option v-for="month in monthList" v-bind:value="month">
-                                        {{month}}
-                                    </option>*@
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -76,9 +72,6 @@
                                 <option value="12">12</option>
                             </select>
                             <select id="SelectStartTime3" v-model="StartDay">
-                                @*<option v-for="day in dayList" v-bind:value="day">
-                                        {{day}}
-                                    </option>*@
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -121,9 +114,6 @@
                                 <option value="2023">2023</option>
                             </select>
                             <select id="SelectEndTime2" v-model="EndMonth">
-                                @*<option v-for="month in monthList" v-bind:value="month">
-                                        {{month}}
-                                    </option>*@
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -138,9 +128,6 @@
                                 <option value="12">12</option>
                             </select>
                             <select id="SelectEndTime3" v-model="EndDay">
-                                @*<option v-for="day in dayList" v-bind:value="day">
-                                        {{day}}
-                                    </option>*@
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -197,9 +184,7 @@
                     <a href="#" v-on:click="addPerson()">➕</a>
                 </td>
             </tr>
-
         </table>
-
 
         <table class="table table-bordered">
             <tr>
@@ -216,13 +201,6 @@
             data: {
                 shiftList: [],
                 Shift: 0,
-                //monthList: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-                //dayList: [
-                //    '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16',
-                //    '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
-                //],
-                //StartYear: 2019, StartMonth: 6, StartDay: 24,
-                //EndYear: 2019, EndMonth: 6, EndDay: 24,
                 StartTime: "",
                 EndTime: "",
                 CycleTime:""
@@ -238,6 +216,7 @@
                         this.shiftList = response.data;
                     });
             },
+
             //添加方法
             addSolitaire: function () {
                 this.StartTime = this.StartYear + "年" + this.StartMonth + "月" + this.StartDay + "日";
@@ -251,7 +230,7 @@
                 model.append('SolitaireGroupId', 1);
                 model.append('GroupMember', @ViewBag.Name);
                 model.append('GroupLeader', 1);
-                model.append('SortId', 1);
+                model.append('SortId', 0);
 
                 axios.post('@Url.Action("Add", "Solitaire")',
                     model).then((response) => {
@@ -270,6 +249,7 @@
                 //alert(0);
                 location.href = '/Solitaire/PersonIndex';
             },
+
             //返回主页
             back: function() {
                 location.href = '/Solitaire/Index';

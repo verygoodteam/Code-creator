@@ -21,7 +21,7 @@ namespace HR.Hospital.Client.Controllers
         {
             var tmpUser = RedisHelper.Get<Models.Ooperationuser>("123");
             ViewBag.name = tmpUser.OoperationUserName;
-
+            //ViewBag.name = UserInfo.OoperationUserName;
             return View();
         }
 
