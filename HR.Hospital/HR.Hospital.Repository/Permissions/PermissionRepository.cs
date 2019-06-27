@@ -6,6 +6,7 @@ using HR.Hospital.Common;
 using System.Linq;
 using HR.Hospital.Model.Dto;
 using HR.Hospital.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace HR.Hospital.Repository.Permissions
 {
@@ -30,7 +31,6 @@ namespace HR.Hospital.Repository.Permissions
         /// <summary>
         /// 权限下拉
         /// </summary>
-        /// <param name="permission"></param>
         /// <returns></returns>
         public List<Permission> Getlist()
         {
@@ -38,43 +38,76 @@ namespace HR.Hospital.Repository.Permissions
             return list;
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// 显示权限
         /// </summary>
-        /// <param name="permission"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
-        public PageHelper<PermissionDto> Getpermission(int pageIndex = 1, int pageSize = 3)
+        public PageHelper<PermissionDto> GetPermissionList(int pageIndex, int pageSize, string name)
         {
             var page = new PageHelper<PermissionDto>();
-
-            var query = from p1 in db.Permission
-                        join p2 in db.Permission on  p1.Pid equals p2.Id
-                        into JoinedEmpDept1
-                        from p2 in JoinedEmpDept1.DefaultIfEmpty()
-                        select new PermissionDto
-                        {
-                            Id = p1.Id,
-                            PermissionsName = p1.PermissionsName,
-                            Pid = p1.Pid,
-                            Isnable=p1.Isnable,
-                            FatherName=p2.PermissionsName
-                        };
-
-            var perlist = query.OrderBy(p => p.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-            var total = db.Permission.Count();
-
-            page.PageSizes = total;
-            page.PageList = perlist;
+            var query = (from p1 in db.Permission
+                         join p2 in db.Permission on p1.Pid equals p2.Id
+                         into joinedEmpDept1
+                         from p2 in joinedEmpDept1.DefaultIfEmpty()
+                         select new PermissionDto
+                         {
+                             Id = p1.Id,
+                             PermissionsName = p1.PermissionsName,
+                             Pid = p1.Pid,
+                             IsEnable = p1.Isnable,
+                             FatherName = p2.PermissionsName
+                         }).ToList();
+            if (name != null)
+            {
+                var pageList = query.OrderBy(p => p.Id).Where(p => p.PermissionsName.Contains(name)).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                var total = pageList.Count();
+                page.PageSizes = total;
+                page.PageList = pageList;
+                page.PageNum = (page.PageSizes / pageSize);
+            }
+            var pageListPermissionDto = query.OrderBy(p => p.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            var totalCount = pageListPermissionDto.Count();
+            page.PageSizes = totalCount;
+            page.PageList = pageListPermissionDto;
             page.PageNum = (page.PageSizes / pageSize);
-
             return page;
-
         }
+        //public PageHelper<PermissionDto> Getpermission(int pageIndex = 1, int pageSize = 3)
+        //{
+        //    var page = new PageHelper<PermissionDto>();
+
+        //    var query = from p1 in db.Permission
+        //                join p2 in db.Permission on  p1.Pid equals p2.Id
+        //                into JoinedEmpDept1
+        //                from p2 in JoinedEmpDept1.DefaultIfEmpty()
+        //                select new PermissionDto
+        //                {
+        //                    Id = p1.Id,
+        //                    PermissionsName = p1.PermissionsName,
+        //                    Pid = p1.Pid,
+        //                    Isnable=p1.Isnable,
+        //                    FatherName=p2.PermissionsName
+        //                };
+
+        //    var perlist = query.OrderBy(p => p.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        //    var total = db.Permission.Count();
+
+        //    page.PageSizes = total;
+        //    page.PageList = perlist;
+        //    page.PageNum = (page.PageSizes / pageSize);
+
+        //    return page;
+
+        //}
 
         //回显
         public Permission Roilpermission(int id)
         {
-            var roil = db.Permission.FirstOrDefault(p=>p.Id==id);
+            var roil = db.Permission.FirstOrDefault(p => p.Id == id);
             return roil;
         }
 
@@ -109,10 +142,7 @@ namespace HR.Hospital.Repository.Permissions
             return i;
         }
 
-        public PageHelper<PermissionDto> GetPermissionList(int pageIndex = 1, int pageSize = 3, string name = "")
-        {
-            throw new NotImplementedException();
-        }
+
 
         /// <summary>
         /// 获取权限单个对象

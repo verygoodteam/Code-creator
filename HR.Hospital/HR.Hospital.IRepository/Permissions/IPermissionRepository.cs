@@ -16,7 +16,7 @@ namespace HR.Hospital.IRepository.Permissions
         /// <param name="pageSize"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        PageHelper<PermissionDto> GetPermissionList(int pageIndex = 1, int pageSize = 3, string name = "");
+        PageHelper<PermissionDto> GetPermissionList(int pageIndex, int pageSize, string name);
 
         /// <summary>
         /// 获取权限 对象

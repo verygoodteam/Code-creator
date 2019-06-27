@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HR.Hospital.Model.Dto
 {
-   public class PermissionDto
+    public class PermissionDto
     {
         /// <summary>
         /// 编号
@@ -29,16 +29,16 @@ namespace HR.Hospital.Model.Dto
         /// <summary>
         /// 父级编号
         /// </summary>
-        public int? Pid { get; set; }
+        public int ?Pid { get; set; }
 
         /// <summary>
         /// 是否启用
         /// </summary>
-        public int? Isnable { get; set; }
+        public int ?IsEnable { get; set; }
 
         /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime? Createtime { get; set; }
+        public DateTime? CreateTime { get; set; }
     }
 }
