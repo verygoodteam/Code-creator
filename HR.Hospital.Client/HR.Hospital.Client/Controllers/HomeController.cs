@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HR.Hospital.Client.Models;
 using HR.Hospital.Client.Filter;
+using HR.Hospital.Cache.Redis;
 
 namespace HR.Hospital.Client.Controllers
 {
@@ -18,6 +19,8 @@ namespace HR.Hospital.Client.Controllers
         [MyActionFilter]
         public IActionResult MainIndex()
         {
+            var tmpUser = RedisHelper.Get<Models.Ooperationuser>("123");
+            ViewBag.name = tmpUser.OoperationUserName;
             //ViewBag.name = UserInfo.OoperationUserName;
             return View();
         }
