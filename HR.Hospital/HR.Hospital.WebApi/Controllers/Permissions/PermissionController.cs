@@ -11,7 +11,7 @@ using HR.Hospital.Model.Dto;
 
 namespace HR.Hospital.WebApi.Controllers.Permissions
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class PermissionController : ControllerBase
     {
@@ -24,52 +24,53 @@ namespace HR.Hospital.WebApi.Controllers.Permissions
             PermissionRepository = permissionRepository;
         }
 
-        ////显示
-        //[HttpGet("GetPermmission")]
-        //public PageHelper<PermissionDto> GetPermmission(int pageIndex = 1, int pageSize = 3)
+        //显示
+        //[HttpGet("GetPageList")]
+        //public PageHelper<PermissionDto> GetPageList(int pageIndex = 1, int pageSize = 3)
         //{
-        //    var show = PermissionRepository.Getpermission(pageIndex,pageSize);
+        //    var show = PermissionRepository.GetPermissionList(pageIndex, pageSize);
         //    return show;
         //}
 
-        ////回显
-        //[HttpGet("RoilPermmissionList")]
-        //public Permission RoilPermmissionList(int id)
-        //{
-        //    var roil = PermissionRepository.Roilpermission(id);
-        //    return roil;
-        //}
+        //添加
+        [HttpPost("AddPermission")]
+        public int AddPermission(Permission permission)
+        {
+            var i = PermissionRepository.AddPermission(permission);
+            return i;
+        }
+        
+        //权限下拉
+        [HttpGet("GetList")]
+        public List<Permission> GetList()
+        {
+            var list = PermissionRepository.GetList();
+            return list;
+        }
+        
+        //获取数据
+        [HttpGet("GetPermission")]
+        public Permission GetPermission(int id)
+        {
+            var roil = PermissionRepository.GetPermission(id);
+            return roil;
+        }
 
-        ////权限下拉
-        //[HttpGet("GetPermmissionList")]
-        //public List<Permission> GetPermmissionList()
-        //{
-        //    var list = PermissionRepository.Getlist();
-        //    return list;
-        //}
+        //是否启用
+        [HttpPost("EnablePermission")]
+        public int EnablePermission([FromBody]Permission permission)
+        {
+            var i = PermissionRepository.EnablePermission(permission);
+            return i;
+        }
 
-        ////修改状态
-        //[HttpPost("UpdateIsable")]
-        //public int UpdateIsable([FromBody]Permission permission)
-        //{
-        //    var updateenable = PermissionRepository.Updateenable(permission);
-        //    return updateenable;
-        //}
-
-        ////修改权限
-        //[HttpPost("UpdatePermmission")]
-        //public int UpdatePermmission([FromBody]Permission permission)
-        //{
-        //    var updatepermission = PermissionRepository.Updatepermission(permission);
-        //    return updatepermission;
-        //}
-
-        ////添加
-        //[HttpPost("AddPermmission")]
-        //public int AddPermmission(Permission permission)
-        //{
-        //    var addpermission = PermissionRepository.Addpermission(permission);
-        //    return addpermission;
-        //}
+        //修改权限
+        [HttpPost("UpdatePermission")]
+        public int UpdatePermission([FromBody]Permission permission)
+        {
+            var i = PermissionRepository.UpdatePermission(permission);
+            return i;
+        }
+        
     }
 }
