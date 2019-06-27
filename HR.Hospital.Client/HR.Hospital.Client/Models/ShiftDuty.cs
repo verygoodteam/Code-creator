@@ -42,6 +42,7 @@ namespace HR.Hospital.Client.Models
         /// 换班时长
         /// </summary>
         [Display(Name = "换班时长")]
+        [RegularExpression(@"^[0-7]*$", ErrorMessage = "请输入小于7天")]
         public int Duration { get; set; }
 
     }

@@ -14,14 +14,17 @@
     <script src="~/js/layer-v3.1.1/layer/layer.js"></script>
 </head>
 <body>
-    <div style="width: 900px; height: 500px; border: solid 0.5px; margin: auto; text-align: center">
+    <div style="width: 900px; height: 600px; border-right: solid #add8e6 0.5px; border-left: solid #add8e6 0.5px; margin: auto; text-align: center">
         <p style="width: 100%; text-align: center; background-color: aquamarine;font-size: 26px"> @ViewBag.Title<span>流程设置</span></p>
         <input id="titleId" type="hidden" value="@ViewBag.TitleId" />
         <p style="font-size: 30px; padding: 20px">
-            审批类型：
+            审批类型
+            <br />
             @foreach (var item in @ViewBag.RadioType)
             {
+                <br />
                 <input id="Radio1" onclick="checkClick(@item.Id)" type="radio" value="@item.Id" name="RadioButton" />@item.TypeName
+                <br />
             }
         </p>
         <p style="font-size: 30px; padding: 20px" id="ClassA">
@@ -30,10 +33,8 @@
                 @*  <option selected="selected">=请选择=</option>*@
             </select>
         </p>
-        <p style="font-size: 30px; padding: 20px" id="TwoLevel">
+        <p style="font-size: 30px; padding: 10px" id="TwoLevel">
         </p>
-
-
         <p style="font-size: 30px; padding: 20px">审批方式:依次审批</p>
         <input id="Submit1" onclick="saveToConfigure()" type="button" value="保存" class="btn btn-group-justified" style="font-size: 20px" />
     </div>
