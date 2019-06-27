@@ -28,11 +28,11 @@ namespace HR.Hospital.Client.Controllers.ShiftDutys
             
 
             //获取登陆人所有的信息
-            var user = RedisHelper.Get<Ooperationuser>("1");
+            var user = RedisHelper.Get<Ooperationuser>(_id.ToString());
             //获取角色Id
             var roleId = user.Roleid;
             var userList = HttpClientApi.GetAsync<List<Ooperationuser>>(HttpHelper.Url + "ShiftDuty/GetUserList?roleId=" + roleId);
-            ViewBag.userList = userList.Where(p => p.Id != 1).ToList();
+            ViewBag.userList = userList.Where(p => p.Id != _id).ToList();
             return View();
         }
 

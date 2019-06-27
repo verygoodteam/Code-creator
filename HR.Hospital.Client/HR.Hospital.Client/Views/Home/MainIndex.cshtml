@@ -19,9 +19,6 @@
     <link href="~/Content/layui-admin/layui/css/layui.css" rel="stylesheet" media="all" />
     <link href="~/Content/layui-admin/css/font_eolqem241z66flxr.css" rel="stylesheet" media="all" />
     <link href="~/Content/layui-admin/css/main.css" rel="stylesheet" media="all" />
-
-    <script src="~/js/jquery-3.3.1.js"></script>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body class="main_body">
     <div class="layui-layout layui-layout-admin">
@@ -89,32 +86,9 @@
         <div class="layui-side layui-bg-black">
             <div class="user-photo">
                 <a class="img" title="我的头像"><img src="~/Content/layui-admin/images/face.jpg" /></a>
-                <p>你好！欢迎  @ViewBag.name   登录</p>
+                <p>你好！欢迎  admin   登录</p>
             </div>
-            <br />
-            <div class="navBar layui-side-scroll" id="menu">
-                @*<ul class="layui-nav layui-nav-tree" lay-filter="demo">
-                        <li class="layui-nav-item layui-nav-itemed">
-                            <a href="javascript:;">默认展开</a>
-                            <dl class="layui-nav-child">
-                                <dd><a href="javascript:;">选项一</a></dd>
-                                <dd><a href="javascript:;">选项二</a></dd>
-                                <dd><a href="javascript:;">选项三</a></dd>
-                                <dd><a href="">跳转项</a></dd>
-                            </dl>
-                        </li>
-                        <li class="layui-nav-item">
-                                <a href="javascript:;">解决方案</a>
-                                <dl class="layui-nav-child">
-                                    <dd><a href="/RuleSettings/Show">移动模块</a></dd>
-                                    <dd><a href="">后台模版</a></dd>
-                                    <dd><a href="">电商平台</a></dd>
-                                </dl>
-                            </li>
-                        <li class="layui-nav-item"><a href="">云市场</a></li>
-                        <li class="layui-nav-item"><a href="">社区</a></li>
-                    </ul>*@
-            </div>
+            <div class="navBar layui-side-scroll"></div>
         </div>
         <!-- 右侧内容 -->
         <div class="layui-body layui-form">
@@ -146,50 +120,11 @@
 
     <script src="~/Content/layui-admin/layui/layui.js"></script>
 
-    @*
-        <script src="https://localhost:44304/Content/layui-admin/js/bodyTab.js"></script>*@
+    @*<script src="https://localhost:44304/Content/layui-admin/js/bodyTab.js"></script>*@
 
     <script src="~/Content/layui-admin/js/bodyTab.js"></script>
-    @*<script src="~/js/nav.js"></script>*@
+    <script src="~/js/nav.js"></script>
     <script src="~/Content/layui-admin/js/leftNav.js"></script>
     <script src="~/Content/layui-admin/js/index.js"></script>
 </body>
 </html>
-<script>
-            //// 文档就绪
-            //$(function () {
-            //})
-
-            ////获取登录人权限
-            //function GetMenu() {
-            //    $.ajax({
-            //        url: "/Home/GetMenus",
-            //        type: "get",
-            //        data: { pid: 0 },
-            //        async: false,
-            //        success: function (data) {
-            //            for (var i = 0; i < data.length; i++) {
-            //                str += '<ul class="layui-nav layui-nav-tree" lay-filter="demo">'
-            //                str +='<li class="layui-nav-item">';
-            //                str += '<a href="javascript:;">解决方案</a>';
-            //                $.ajax({
-            //                    url: "/Home/GetMenus",
-            //                    type: "get",
-            //                    async: false,
-            //                    data: { pid: data[i].Id },
-            //                    success: function (obj) {
-            //                        str += '<dl class="layui-nav-child">';
-            //                        for (var j = 0; j < obj.length; j++) {
-            //                            str += '<li><a data-url="' + obj[j].Url + '" data-title="' + obj[j].PermissionsName + '"  href="javascript:void(0)">' + obj[j].PermissionsName + '</a></li>';
-                                          //str += '<dd><a href="/RuleSettings/Show">移动模块</a></dd>';
-            //                        }
-            //                        str += '</dl>';
-            //                    }
-            //                });
-            //                str += '</ul>';
-            //            }
-            //            $("#menu").append(str);
-            //        }
-            //    });
-            //}
-</script>

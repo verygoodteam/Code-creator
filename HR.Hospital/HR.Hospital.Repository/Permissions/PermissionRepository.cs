@@ -109,5 +109,58 @@ namespace HR.Hospital.Repository.Permissions
             return i;
         }
 
+        public PageHelper<PermissionDto> GetPermissionList(int pageIndex = 1, int pageSize = 3, string name = "")
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 获取权限单个对象
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Permission GetPermission(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 获取权限下拉
+        /// </summary>
+        /// <returns></returns>
+        public List<Permission> GetList()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 添加权限
+        /// </summary>
+        /// <param name="permission"></param>
+        /// <returns></returns>
+        public int AddPermission(Permission permission)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 是否启用权限
+        /// </summary>
+        /// <param name="permission"></param>
+        /// <returns></returns>
+        public int EnablePermission(Permission permission)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 修改权限
+        /// </summary>
+        /// <param name="permission"></param>
+        /// <returns></returns>
+        public int UpdatePermission(Permission permission)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

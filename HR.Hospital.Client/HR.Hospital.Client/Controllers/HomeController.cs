@@ -19,7 +19,11 @@ namespace HR.Hospital.Client.Controllers
         [MyActionFilter]
         public IActionResult MainIndex()
         {
-            var tmpUser = RedisHelper.Get<Models.Ooperationuser>("123");
+            if (_id == 0)
+            {
+                return RedirectToAction(nameof(LoginController.Login), "Login");
+            }
+            var tmpUser = RedisHelper.Get<Models.Ooperationuser>(_id.ToString());
             ViewBag.name = tmpUser.OoperationUserName;
             //ViewBag.name = UserInfo.OoperationUserName;
             return View();
