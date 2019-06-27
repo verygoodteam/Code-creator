@@ -15,12 +15,18 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="app">
+    <h3 style="margin-left: 15px">权限设置</h3><p></p><p></p>
+    <div id="app" style="margin-left: 10px; margin-top: 10px">
         <table class="table table-bordered">
             <tr>
-                <td>权限名：<input id="txtPermission" type="text" v-model="PermissionsName" /></td>
+                <td>权限名：</td>
                 <td>
-                    父级权限：
+                    <input id="txtPermission" type="text" v-model="PermissionsName" />
+                </td>
+            </tr>
+            <tr>
+                <td>父级权限：</td>
+                <td>
                     <select id="Select1" v-model="Pid">
                         <option value="0">--请选择--</option>
                         <option v-for="data in Perdata" :value="data.id">{{data.permissionsName}}</option>
@@ -28,19 +34,28 @@
                 </td>
             </tr>
             <tr>
+                <td>是否启用：</td>
                 <td>
-                    是否启用：
                     <select id="Select2" v-model="Isnable">
                         <option value="0">否</option>
                         <option value="1">是</option>
                     </select>
                 </td>
+            </tr>
+            <tr>
+                <td>地址：</td>
                 <td>
-                    地址：<input id="txtUrl" type="text" v-model="Url" />
+                    <input id="txtUrl" type="text" v-model="Url" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input id="btnAdd" type="button" class="btn btn-default" value="确定" v-on:click="add()" style="margin-right: 20px" />
+                    <input id="btnBack" type="button" class="btn btn-default" value="返回" v-on:click="back()" />
                 </td>
             </tr>
         </table>
-        <input id="Button1" type="button" value="确定" v-on:click="add()" />
     </div>
 </body>
 </html>
@@ -48,12 +63,10 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            //文本框
-            PermissionsName: "",
-            //下拉
-            Perdata: [],
-            Pid: 0,
+            PermissionsName: "",//文本框
+            Perdata: [],//下拉
             Isnable: 0,
+            Pid: 0,
             Url: ""
         },
 
@@ -63,33 +76,32 @@
             this.GetPid();
         },
 
-
         methods: {
-
-            //显示下拉
+            //绑定下拉
             GetPid: function () {
                 axios.get("http://localhost:12345/api/Permission/GetPermmissionList").then(
                     (Response) => {
-                        this.Perdata = Response.data
-                    }
-                )
+                        this.Perdata = Response.data;
+                    });
             },
 
             //添加
             add: function () {
                 if (this.PermissionsName == "") {
-                    alert("权限名不能为空")
+                    alert("权限名不能为空");
                     return;
                 }
                 if (this.Url == "") {
-                    alert("权限名不能为空")
+                    alert("权限名不能为空");
                     return;
                 }
+
                 var parms = new URLSearchParams();
                 parms.append("PermissionsName", this.PermissionsName);
                 parms.append("Pid", this.Pid);
                 parms.append("Isnable", this.Isnable);
                 parms.append("Url", this.Url);
+
                 axios.post("/Permission/PermissionAdds", parms).then(
                     (Response) => {
                         if (Response.data > 0) {
@@ -97,9 +109,14 @@
                             location.href = '/Permission/PermissionShow';
                         }
                     }
-                ).catch(function () {
-                    alert(Response)
-                })
+                ).catch(function() {
+                    alert(Response);
+                });
+            },
+
+            //返回主页
+            back: function() {
+                location.href = '/Permission/PermissionShow';
             }
         }
     })
