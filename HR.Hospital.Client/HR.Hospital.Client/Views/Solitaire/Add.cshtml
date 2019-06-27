@@ -272,7 +272,20 @@
                 this.StartTime = this.StartYear + "年" + this.StartMonth + "月" + this.StartDay + "日";
                 this.EndTime = this.EndYear + "年" + this.EndMonth + "月" + this.EndDay + "日";
                 this.CycleTime = "开始时间：" + this.StartTime + " " + "结束时间：" + this.EndTime;
-                alert(this.CycleTime);
+                //alert(this.CycleTime);
+
+                if (this.Shift == 0) {
+                    alert("班次不能为空");
+                    return false;
+                };
+                if (this.CycleTime == "") {
+                    alert("周期不能为空");
+                    return false;
+                };
+                if (this.GroupMember == "") {
+                    alert("成员不能为空");
+                    return false;
+                };
 
                 var model = new URLSearchParams();
                 model.append('Shift', this.Shift);

@@ -286,6 +286,19 @@
                 this.CycleTime = "开始时间：" + this.StartTime + " " + "结束时间：" + this.EndTime;
                 alert(this.CycleTime);
 
+                if (this.Shift == 0) {
+                    alert("班次不能为空");
+                    return false;
+                };
+                if (this.CycleTime == "") {
+                    alert("周期不能为空");
+                    return false;
+                };
+                if (this.GroupMember == "") {
+                    alert("成员不能为空");
+                    return false;
+                };
+
                 var model = new URLSearchParams();
                 model.append('Shift', this.Shift);
                 model.append('SolitaireCycle', this.CycleTime);

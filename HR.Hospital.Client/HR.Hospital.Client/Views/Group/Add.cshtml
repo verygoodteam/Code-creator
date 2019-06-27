@@ -133,7 +133,17 @@
             },
 
             addGroup: function () {
-                alert(this.Name); alert(this.Color);
+                //alert(this.Name); 
+                //alert(this.Color);
+                if (this.Name == "") {
+                    alert("组名不能为空");
+                    return false;
+                };
+                if (this.People == "") {
+                    alert("成员不能为空");
+                    return false;
+                };
+
                 var model = new URLSearchParams();
                 model.append('ProfessionalGroupName', this.Name);
                 model.append('ProfessionalGroupColore', this.Color);
