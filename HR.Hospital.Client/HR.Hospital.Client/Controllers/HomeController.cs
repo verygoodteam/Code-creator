@@ -16,16 +16,17 @@ namespace HR.Hospital.Client.Controllers
         {
             return View();
         }
+
         [MyActionFilter]
         public IActionResult MainIndex()
         {
+            var tmpUser = RedisHelper.Get<Ooperationuser>(_id.ToString());
             if (_id == 0)
             {
                 return RedirectToAction(nameof(LoginController.Login), "Login");
             }
-            var tmpUser = RedisHelper.Get<Models.Ooperationuser>(_id.ToString());
             ViewBag.name = tmpUser.OoperationUserName;
-            //ViewBag.name = UserInfo.OoperationUserName;
+            ViewBag.list = RedisHelper.Get<Ooperationuser>(_id.ToString()).PermissionList;
             return View();
         }
 
