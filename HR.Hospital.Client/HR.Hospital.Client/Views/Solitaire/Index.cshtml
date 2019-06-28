@@ -10,11 +10,9 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <link href="~/css/zpageNav.css" rel="stylesheet" />
-
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
     <script src="~/js/zpageNav.js"></script>
-
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
     <style>
@@ -64,7 +62,6 @@
                         <td>{{data.groupMember}}</td>
                         <td>{{data.groupLeader}}</td>
                         <td>
-                            @*{{data.SortId}}*@
                             <a style="color:deepskyblue; font-size:20px" v-on:click="Up(data.id)">⬆</a>
                             <a style="color:red; font-size: 20px; margin-left: 5px" v-on:click="Down(data.id)">⬇</a>
                         </td>
@@ -98,6 +95,7 @@
             this.getSolitaire();
         },
         methods: {
+            //列表显示
             getSolitaire: function (page) {
                 this.page = page,
                     axios.get("/Solitaire/PageList",
@@ -121,7 +119,9 @@
 
             //删除
             DeleteById: function (id) {
-                location.href = '/Solitaire/Delete?id=' + id;
+                if (confirm("确认删除吗?")) {
+                    location.href = '/Solitaire/Delete?id=' + id;
+                }
             },
 
             //编辑
