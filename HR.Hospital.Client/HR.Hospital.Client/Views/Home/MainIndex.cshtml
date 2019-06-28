@@ -1,8 +1,11 @@
-﻿@{
+﻿@using HR.Hospital.Client.Models.Dto
+@{
     Layout = null;
 }
+
 <html>
 <head>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <script src="~/js/site.js"></script>
     <meta charset="utf-8">
     <title>医院人力资源排班系统</title>
@@ -19,6 +22,8 @@
     <link href="~/Content/layui-admin/layui/css/layui.css" rel="stylesheet" media="all" />
     <link href="~/Content/layui-admin/css/font_eolqem241z66flxr.css" rel="stylesheet" media="all" />
     <link href="~/Content/layui-admin/css/main.css" rel="stylesheet" media="all" />
+
+    <script src="~/js/jquery-3.3.1.js"></script>
 </head>
 <body class="main_body">
     <div class="layui-layout layui-layout-admin">
@@ -86,7 +91,24 @@
         <div class="layui-side layui-bg-black">
             <div class="user-photo">
                 <a class="img" title="我的头像"><img src="~/Content/layui-admin/images/face.jpg" /></a>
-                <p>你好！欢迎  admin   登录</p>
+                <p>你好！欢迎  @ViewBag.name  登录</p>
+            </div>
+            <br />
+            <div class="navBar layui-side-scroll" id="menu">
+                <ul class="layui-nav layui-nav-tree" lay-filter="demo">
+                    @foreach (var item in (ViewBag.list as List<UserRolePermissionDto>).Where(p=>p.Pid==0))
+                    {
+                        <li class="layui-nav-item">
+                            <a href="javascript:;" id="@item.PermissionId">@item.PermissionsName</a>
+                            @foreach (var items in (ViewBag.list as List<UserRolePermissionDto>).Where(p => p.Pid == item.PermissionId))
+                            {
+                                <dl class="layui-nav-child">
+                                    <dd><a href="/RuleSettings/Show">@items.PermissionsName</a></dd>
+                                </dl>
+                            }
+                        </li>
+                    }
+                </ul>
             </div>
             <div class="navBar layui-side-scroll"></div>
         </div>

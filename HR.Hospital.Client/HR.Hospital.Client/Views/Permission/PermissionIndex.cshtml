@@ -1,0 +1,89 @@
+﻿@using X.PagedList.Mvc.Common
+@using X.PagedList.Mvc.Core
+@model X.PagedList.StaticPagedList<HR.Hospital.Client.Models.Dto.PermissionDto>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PermissionIndex</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div style="padding: 30px">
+
+        @using (Html.BeginForm("PermissionIndex", "Permission", null, FormMethod.Post))
+        {
+            <a asp-action="PermissionAdd">添加权限</a>
+            @*<input id="Submit1" type="button" value="添加" class="btn btn-default" onclick="location.href='/Permission/PermissionAdds'" />*@
+            <span>&nbsp;&nbsp;&nbsp;</span>
+            <span>权限名称查询:</span>
+            <span>&nbsp;&nbsp;&nbsp;</span>
+            <input id="Text1" type="text" name="name" class="form-control" style="display: inline-block;width: 150px" />
+            <span>&nbsp;&nbsp;&nbsp;</span>
+            <input id="Submit1" type="submit" value="查询" class="btn btn-default" />
+
+        }
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th>
+                        权限名称
+                    </th>
+                    <th>
+                        父级权限名称
+                    </th>
+                    <th>
+                        路径
+                    </th>
+                    <th>
+                        是否启用
+                    </th>
+
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PermissionsName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FatherName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Url)
+                        </td>
+
+                        <td>
+                            @(item.IsEnable == 1 ? "启用" : "禁用")
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.PagedListPager(Model, pageIndex => Url.Action("PermissionIndex", new { pageIndex, pageSize = 3 }),new PagedListRenderOptions()
+        {
+            LinkToFirstPageFormat = "首页",
+            LinkToNextPageFormat = "下一页",
+            LinkToPreviousPageFormat = "上一页",
+            LinkToLastPageFormat = "尾页"
+        })
+    </div>
+</body>
+</html>
+

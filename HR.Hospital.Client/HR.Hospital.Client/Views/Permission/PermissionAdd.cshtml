@@ -106,7 +106,7 @@
                     (Response) => {
                         if (Response.data > 0) {
                             alert("添加成功");
-                            location.href = '/Permission/PermissionShow';
+                            location.href = '/Permission/PermissionIndex';
                         }
                     }
                 ).catch(function() {
@@ -116,7 +116,7 @@
 
             //返回主页
             back: function() {
-                location.href = '/Permission/PermissionShow';
+                location.href = '/Permission/PermissionIndex';
             }
         }
     })
