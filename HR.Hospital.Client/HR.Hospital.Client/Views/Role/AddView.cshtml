@@ -21,77 +21,171 @@
         <input id="Radio2" type="radio" name="userRole" value="0" />否
     </p>
     权限:
-    <input id = "Checkbox1" type = "checkbox" onclick="qx()"/>
+    <input id="Checkbox1" type="checkbox" onclick="allJurisdiction()" />
+    //表格
     <table class="table table-hover">
-        <tr id="tr1"></tr>
-        <tbody id="tb"></tbody>
+        <tr id="Jurisdiction"></tr>
     </table>
-    <input id="Button1" type="button" value="添加" onclick="insert()" />
+    <input id="Button1" type="button" value="添加" onclick="AddRoles()" class="btn btn-default" />
 </body>
 </html>
 <script>
-    //文档就绪函数
+    //就绪函数
     $(function () {
-        getjurs();
-    })
-
-    //权限
-    function getjurs() {
+        GetJurisdictsDown(0);
+    });
+    //进行一个父级权限的绑定
+    function GetJurisdictsDown(id) {
         $.ajax({
-            url: "http://localhost:12345/api/Role/PerList",
-            type: 'get',
-            dataType: 'json',
+            url: "/Role/GetJurisdictions",
+            type: "get",
+            data: { id: id },
             success: function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    var p0 = '<td>'
-                        + '<input id = "Checkbox2" type = "checkbox" name="ck" value="' + data[i].id+'" />' 
-                        + '<input id="Hidden1" type="hidden" value="' + data[i].id + '"/>'
-                        + '<a href="#">' + data[i].permissionsName + '</a>'
-                        + '</td>'
-                    $("#tr1").append(p0);
-                }
+                $(data).each(function () {
+                    $("#Jurisdiction").append('<input id="Checkbox" name="JurisdictionId' +
+                        this.Id +
+                        '" type="checkbox" value="' +
+                        this.Id +
+                        '"  onclick="bindchildrenpermission(this.checked,' +
+                        this.Id +
+                        ')"/>' +
+                        this.JurisdictionName +
+                        '<br>');
+                });
             }
-        })
+        });
     }
-
-    //正反选
-    function qx() {
-        if ($("#Checkbox1").prop("checked") == true) {
-            $("[name='ck']").prop("checked", true);
+    //当父级选中之后进行一个事件
+    function bindchildrenpermission(checked, id) {
+        //判断是否有子级绑定没有的话进行ajax绑定
+        var num = $("input[name=Jurisdchildren" + id + "]").length;
+        if (num <= 0) {
+            $.ajax({
+                url: "/Role/GetJurisdictions",
+                type: "get",
+                async: false,
+                data: { id: id },
+                success: function (data) {
+                    $(data).each(function () {
+                        $("#Jurisdiction").append('<input id="Checkbox" name="Jurisdchildren' +
+                            id +
+                            '" type="checkbox" value="' +
+                            this.Id +
+                            '" />' +
+                            this.JurisdictionName +
+                            '<br>');
+                    });
+                }
+            });
+        }
+        //判断子级是否全部选中
+        if (checked) {
+            $("input[name=Jurisdchildren" + id + "]").prop("checked", true);
         }
         else {
-            $("[name='ck']").prop("checked", false);
+            $("input[name=Jurisdchildren" + id + "]").prop("checked", false);
         }
     }
-
-    //添加
-    function insert() {
-        if ($("#txtname").val() == "") {
-            alert('角色名称不能为空')
-            return;
-        }
-        var id = $("input:checkbox[name='ck']:checked").map(function (index, elem) {
-            return $(elem).val();
-        }).get().join(',');
-        var name = $("input:checkbox[name='ck']:checked").map(function (index, elem) {
-            return $(elem).parent().text();
-        }).get().join(',');
-        if (id == 0 || name == "") {
-            alert('请选择权限')
-            return;
-        }
+    //进行一个添加
+    function AddRoles() {
+        var JName = [];
+        var JId = new Array();
+        $("input[type=Checkbox]:checked").each(function () {
+            JId.push($(this).val());
+            JName.push(this.nextSibling.nodeValue);
+        });
+        $("#title").val(JName);
+        var ids = JId.toString();
+        var objectName = {
+            Name: $("#Name").val(),
+            IsDelete: $("#IsDelete").val(),
+            JurisdictionName: JName.toString()
+        };
         $.ajax({
-            url: '/Role/Inserts',
-            type: 'post',
-            dataType: 'json',
-            data: { roleName: $("#txtname").val(), permissionName: name, isnable: $('#Radio1').prop('checked') == true ? 1 : 0, ids: id },
+            url: "/Role/AddRole",
+            type: "post",
+            data: { role: objectName, jurisdictionId: ids },
             success: function (data) {
-                alert(data)
-                if (data > 0) {
-                    alert('添加成功')
-                    location.href = '/Role/RoleShows';
+                if (data.i > 0) {
+                    alert("添加成功");
+                    location.href = "/Rbac/RoleIndex";
                 }
             }
-        })
+        });
+    }
+
+    function allJurisdiction() {
+        if ($("#Checkbox1").prop("checked") == true) {
+            $("[name='JurisdictionId']").prop("checked", true);
+        }
+        else {
+            $("[name='JurisdictionId']").prop("checked", false);
+        }
     }
 </script>
+@*<script>
+        //文档就绪函数
+        $(function () {
+            getjurs();
+        });
+
+        //权限
+        function getjurs() {
+            $.ajax({
+                url: "http://localhost:12345/api/Role/PerList",
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var p0 = '<td>'
+                            + '<input id = "Checkbox2" type = "checkbox" name="ck" value="' + data[i].id + '" />'
+                            + '<input id="Hidden1" type="hidden" value="' + data[i].id + '"/>'
+                            + '<a href="#">' + data[i].permissionsName + '</a>'
+                            + '</td>'
+                        $("#tr1").append(p0);
+                    }
+                }
+            })
+        }
+
+        //正反选
+        function qx() {
+            if ($("#Checkbox1").prop("checked") == true) {
+                $("[name='ck']").prop("checked", true);
+            }
+            else {
+                $("[name='ck']").prop("checked", false);
+            }
+        }
+
+        //添加
+        function insert() {
+            if ($("#txtname").val() == "") {
+                alert('角色名称不能为空')
+                return;
+            }
+            var id = $("input:checkbox[name='ck']:checked").map(function (index, elem) {
+                return $(elem).val();
+            }).get().join(',');
+            var name = $("input:checkbox[name='ck']:checked").map(function (index, elem) {
+                return $(elem).parent().text();
+            }).get().join(',');
+            if (id == 0 || name == "") {
+                alert('请选择权限')
+                return;
+            }
+            $.ajax({
+                url: '/Role/Inserts',
+                type: 'post',
+                dataType: 'json',
+                data: { roleName: $("#txtname").val(), permissionName: name, isnable: $('#Radio1').prop('checked') == true ? 1 : 0, ids: id },
+                success: function (data) {
+                    alert(data)
+                    if (data > 0) {
+                        alert('添加成功')
+                        location.href = '/Role/RoleShows';
+                    }
+                }
+            })
+        }
+    </script>*@
