@@ -54,11 +54,8 @@ namespace HR.Hospital.Client.Controllers.Solitaire
         /// 添加
         /// </summary>
         /// <returns></returns>
-        public ActionResult Add(string name)
+        public ActionResult Add()
         {
-            ViewBag.Name = name;
-            //string leader
-            //ViewBag.Leader = leader;
             return View();
         }
         [HttpPost]
@@ -110,7 +107,5 @@ namespace HR.Hospital.Client.Controllers.Solitaire
             var i = HttpClientApi.PutAsync<SolitaireSet, int>(model, HttpHelper.Url + "Solitaire/Update");
             return i;
         }
-
-
     }
 }

@@ -124,7 +124,6 @@ namespace HR.Hospital.Repository.Solitaire
                 var info = db.SolitaireSet.FirstOrDefault(p => p.Id == model.Id);
                 info.Shift = model.Shift; //班次
                 info.SolitaireCycle = model.SolitaireCycle; //周期
-                info.SolitaireGroupId = model.SolitaireGroupId; //组序
                 info.GroupMember = model.GroupMember; //成员
                 info.GroupLeader = model.GroupLeader; //组长
                 return db.SaveChanges();
@@ -147,16 +146,16 @@ namespace HR.Hospital.Repository.Solitaire
                 }
                 else
                 {
-                    int ii = db.SolitaireSet.OrderByDescending(u => u.SortId).First(u => u.SortId < sortId).SortId;
+                    int ids = db.SolitaireSet.OrderByDescending(u => u.SortId).First(u => u.SortId < sortId).SortId;
 
                     SolitaireSet solitaireSet = db.SolitaireSet.Find(id);
-                    solitaireSet.SortId = ii;
+                    solitaireSet.SortId = ids;
 
-                    SolitaireSet solitaireSete = db.SolitaireSet.FirstOrDefault(u => u.SortId == ii);
+                    SolitaireSet solitaireSete = db.SolitaireSet.FirstOrDefault(u => u.SortId == ids);
                     solitaireSete.SortId = sortId;
-                    bool b2 = db.SaveChanges() > 0;
-
-                    if (b2)
+                    bool b1 = db.SaveChanges() > 0;
+                    
+                    if (b1)
                     {
                         return true;
                     }
@@ -165,7 +164,6 @@ namespace HR.Hospital.Repository.Solitaire
                         return false;
                     }
                 }
-
             }
         }
 
@@ -199,12 +197,12 @@ namespace HR.Hospital.Repository.Solitaire
                 }
                 else
                 {
-                    int ii = db.SolitaireSet.OrderBy(u => u.SortId).First(u => u.SortId > sortId).SortId;
+                    int ids = db.SolitaireSet.OrderBy(u => u.SortId).First(u => u.SortId > sortId).SortId;
 
                     SolitaireSet solitaireSet = db.SolitaireSet.Find(id);
-                    solitaireSet.SortId = ii;
+                    solitaireSet.SortId = ids;
 
-                    SolitaireSet solitaireSete = db.SolitaireSet.FirstOrDefault(u => u.SortId == ii);
+                    SolitaireSet solitaireSete = db.SolitaireSet.FirstOrDefault(u => u.SortId == ids);
                     solitaireSete.SortId = sortId;
                     bool b2 = db.SaveChanges() > 0;
 

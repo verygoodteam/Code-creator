@@ -27,10 +27,10 @@ namespace HR.Hospital.Repository.Roles
         {
             using (MySqlConnection con = new MySqlConnection(_conn))
             {
-                var getpermission = "SELECT * FROM permission where Pid=" + pid;
+                var sql = "SELECT * FROM permission where Pid=" + pid;
 
-                var getlist = con.Query<Permission>(getpermission);
-                return getlist.ToList();
+                var list = con.Query<Permission>(sql);
+                return list.ToList();
             }
         }
 
@@ -43,10 +43,10 @@ namespace HR.Hospital.Repository.Roles
         {
             using (MySqlConnection con = new MySqlConnection(_conn))
             {
-                var getrole = $"SELECT * from role where Id={id}";
+                var sql = $"SELECT * from role where Id={id}";
 
-                var getlist = con.Query<Role>(getrole);
-                return getlist.FirstOrDefault();
+                var list = con.Query<Role>(sql);
+                return list.FirstOrDefault();
             }
         }
 
@@ -94,7 +94,7 @@ namespace HR.Hospital.Repository.Roles
         /// <param name="roles"></param>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public int Addrole(Role roles, string ids)
+        public int AddRole(Role roles, string ids)
         {
             var id = ids.Split(',');
             int[] array = new int[id.Length];
@@ -133,26 +133,25 @@ namespace HR.Hospital.Repository.Roles
         {
             using (MySqlConnection con = new MySqlConnection(_conn))
             {
-                var getrole = "SELECT * from role";
+                var sql = "SELECT * from role";
 
-                var getlist = con.Query<Role>(getrole);
-                return getlist.ToList();
+                var list = con.Query<Role>(sql);
+                return list.ToList();
             }
         }
 
         /// <summary>
         /// 修改状态
         /// </summary>
-        /// <param name="permission"></param>
+        /// <param name="role"></param>
         /// <returns></returns>
-        public int Updateenable(Role role)
+        public int UpdateEnable(Role role)
         {
-            var getrole = db.Role.FirstOrDefault(p => p.Id == role.Id);
-            getrole.Isnable = role.Isnable;
-            var i = db.SaveChanges();
-            return i;
+            var model = db.Role.FirstOrDefault(p => p.Id == role.Id);
+            model.Isnable = role.Isnable;
+            return db.SaveChanges();
         }
-
+        
         /// <summary>
         /// 角色权限
         /// </summary>
@@ -162,10 +161,9 @@ namespace HR.Hospital.Repository.Roles
         {
             using (MySqlConnection con = new MySqlConnection(_conn))
             {
-                var getroleper = $"SELECT * from role_permission WHERE rid={id}";
-
-                var getlist = con.Query<RolePermission>(getroleper);
-                return getlist.ToList();
+                var sql = $"SELECT * from role_permission WHERE rid={id}";
+                var list = con.Query<RolePermission>(sql);
+                return list.ToList();
             }
         }
     }

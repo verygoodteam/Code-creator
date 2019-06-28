@@ -18,6 +18,12 @@ namespace HR.Hospital.Model
         }
 
         /// <summary>
+        /// 执行权限自连接
+        /// </summary>
+        public DbQuery<PermissionDto> QueryPermissionDto { get; set; }
+
+
+        /// <summary>
         /// 执行查询院区的sql语句
         /// </summary>
         public DbQuery<AreaDto> QueryAreaDto { get; set; }

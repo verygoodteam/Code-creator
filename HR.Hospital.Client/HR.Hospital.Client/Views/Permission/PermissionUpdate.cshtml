@@ -15,69 +15,79 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="app">
-        <input id="Hidden1" type="hidden" value="@ViewBag.id" />
-        <table class="table table-bordered">
-            <tr>
-                <td>权限名：<input id="txtPermission" type="text" v-model="PermissionsName" /></td>
-                <td>
-                    父级权限：
-                    <select id="Select1" v-model="Pid">
-                        <option value="0">--请选择--</option>
-                        <option v-for="data in Perdata" :value="data.id">{{data.permissionsName}}</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    是否启用：
-                    <select id="Select2" v-model="Isnable">
-                        <option value="0">否</option>
-                        <option value="1">是</option>
-                    </select>
-                </td>
-                <td>
-                    地址：<input id="txtUrl" type="text" v-model="Url" />
-                </td>
-            </tr>
-        </table>
-        <input id="Button1" type="button" value="确定" v-on:click="update()" />
-    </div>
+<h3 style="margin-left: 15px">权限设置</h3><p></p><p></p>
+<div id="app" style="margin-left: 10px; margin-top: 10px">
+    <input id="Hidden1" type="hidden" value="@ViewBag.id"/>
+    <table class="table table-bordered">
+        <tr>
+            <td>权限名：</td>
+            <td>
+                <input id="txtPermission" type="text" v-model="PermissionsName"/>
+            </td>
+        </tr>
+        <tr>
+            <td>父级权限：</td>
+            <td>
+                <select id="Select1" v-model="Pid">
+                    <option value="0">--请选择--</option>
+                    <option v-for="data in Perdata" :value="data.id">{{data.permissionsName}}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>是否启用：</td>
+            <td>
+                <select id="Select2" v-model="Isnable">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>地址：</td>
+            <td>
+                <input id="txtUrl" type="text" v-model="Url"/>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input id="btnAdd" type="button" class="btn btn-default" value="确定" v-on:click="update()" style="margin-right: 20px"/>
+                <input id="btnBack" type="button" class="btn btn-default" value="返回" v-on:click="back()"/>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
 <script>
     var vm = new Vue({
         el: '#app',
         data: {
-            //文本框
-            PermissionsName: "",
-            //下拉
-            Perdata: [],
-            Pid: 0,
+            PermissionsName: "",//名称
+            Perdata: [],//下拉
             Isnable: 0,
+            Pid: 0,
             Url: "",
             Id: @ViewBag.id
-
         },
 
         //显示
         mounted() {
             //父级权限下拉
             this.GetPid();
-            //返填
+            //获取数据
             this.Roel(@ViewBag.id);
         },
 
-
         methods: {
-
             //显示下拉
             GetPid: function () {
                 axios.get("http://localhost:12345/api/Permission/GetPermmissionList").then(
                     (Response) => {
-                        this.Perdata = Response.data
+                        this.Perdata = Response.data;
                     }
-                )
+                );
             },
 
             //返填
@@ -90,14 +100,13 @@
                         this.Isnable = Response.data.isnable;
                         this.Url = Response.data.url;
                     }
-                )
+                );
             },
-
 
             //修改
             update: function () {
                 if (this.PermissionsName == "") {
-                    alert("权限名不能为空")
+                    alert("权限名不能为空");
                     return;
                 }
                 var parms = new URLSearchParams();
@@ -113,9 +122,14 @@
                             location.href = '/Permission/PermissionShow';
                         }
                     }
-                ).catch(function () {
-                    alert(Response)
-                })
+                ).catch(function() {
+                    alert(Response);
+                });
+            },
+
+            //返回主页
+            back: function() {
+                location.href = '/Permission/PermissionShow';
             }
         }
     })

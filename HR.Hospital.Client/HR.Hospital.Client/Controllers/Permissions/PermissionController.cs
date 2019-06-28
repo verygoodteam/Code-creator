@@ -7,13 +7,27 @@ using HR.Hospital.Client.Common;
 using HR.Hospital.Client.Models.Dto;
 using Newtonsoft.Json;
 using HR.Hospital.Client.Models;
+using X.PagedList;
+
 namespace HR.Hospital.Client.Controllers.Permissions
 {
     public class PermissionController : Controller
     {
-        public ActionResult Index()
+
+        /// <summary>
+        /// 权限的显示分页查询
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public ActionResult PermissionIndex(int pageIndex = 1, int pageSize = 3, string name = "")
         {
-            return View();
+            var pagePermission = HttpClientApi.GetAsync<Common.PageHelper<PermissionDto>>("http://localhost:12345/api/Permission/GetPageList?pageIndex=" + pageIndex + "&pageSize=" + pageSize + "&name=" + name);
+            StaticPagedList<PermissionDto> staticPagedList =
+                new StaticPagedList<PermissionDto>(pagePermission.PageList, pageIndex, pageSize,
+                    pagePermission.PageSizes);
+            return View(staticPagedList);
         }
 
         /// <summary>
@@ -22,20 +36,20 @@ namespace HR.Hospital.Client.Controllers.Permissions
         /// <returns></returns>
         public ActionResult PermissionShow()
         {
-            return View();                                                 
+            return View();
         }
 
-        /// <summary>
-        ///权限显示方法 
-        /// </summary>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
-        /// <returns></returns>
-        public ActionResult PermissionShows(int pageIndex = 1, int pageSize = 3)
-        {
-            var pagePermission = HttpClientApi.GetAsync<Common.PageHelper<PermissionDto>>("http://localhost:12345/api/Permission/GetPermmission?pageIndex=" + pageIndex + "&pageSize=" + pageSize);
-            return Json(pagePermission, new JsonSerializerSettings());
-        }
+        ///// <summary>
+        /////权限显示方法 
+        ///// </summary>
+        ///// <param name="pageIndex"></param>
+        ///// <param name="pageSize"></param>
+        ///// <returns></returns>
+        //public ActionResult PermissionShows(int pageIndex = 1, int pageSize = 3)
+        //{
+        //    var pagePermission = HttpClientApi.GetAsync<Common.PageHelper<PermissionDto>>("http://localhost:12345/api/Permission/GetPermmission?pageIndex=" + pageIndex + "&pageSize=" + pageSize);
+        //    return Json(pagePermission, new JsonSerializerSettings());
+        //}
 
         /// <summary>
         /// 权限添加

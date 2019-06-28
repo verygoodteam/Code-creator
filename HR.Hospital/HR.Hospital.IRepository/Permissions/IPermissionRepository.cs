@@ -2,28 +2,50 @@
 using System.Collections.Generic;
 using System.Text;
 using HR.Hospital.Model.Dto;
+using HR.Hospital.Model;
 using HR.Hospital.Common;
 
 namespace HR.Hospital.IRepository.Permissions
 {
-   public interface IPermissionRepository
+    public interface IPermissionRepository
     {
-        //权限显示
-        PageHelper<PermissionDto> Getpermission(int pageIndex = 1, int pageSize = 3);
+        /// <summary>
+        /// 权限显示分页查询
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        PageHelper<PermissionDto> GetPermissionList(int pageIndex, int pageSize, string name);
 
-        //权限回显
-        Model.Permission Roilpermission(int id);
+        /// <summary>
+        /// 获取权限对象
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Permission GetPermission(int id);
 
-        //权限下拉
-        List<Model.Permission> Getlist();
+        /// <summary>
+        /// 权限下拉
+        /// </summary>
+        /// <returns></returns>
+        List<Permission> GetList();
 
         //权限添加
-        int Addpermission(Model.Permission permission);
+        int AddPermission(Permission permission);
 
-        //修改状态
-        int Updateenable(Model.Permission permission);
+        /// <summary>
+        /// 删除权限(假删除)启用禁用
+        /// </summary>
+        /// <param name="permission"></param>
+        /// <returns></returns>
+        int EnablePermission(Permission permission);
 
-        //权限修改
-        int Updatepermission(Model.Permission permission);
+        /// <summary>
+        /// 权限修改
+        /// </summary>
+        /// <param name="permission"></param>
+        /// <returns></returns>
+        int UpdatePermission(Model.Permission permission);
     }
 }

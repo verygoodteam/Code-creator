@@ -4,27 +4,26 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using HR.Hospital.Cache.Redis;
+using HR.Hospital.Client.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-
 namespace HR.Hospital.Client.Controllers
 {
     public class BaseController : Controller
     {
-        protected static int id;
-
+        protected static int _id;
         /// <summary>
         /// 用户信息
         /// </summary>
-        public Models.Ooperationuser UserInfo
+        public Ooperationuser UserInfo
         {
             get
             {
                 if (User.Identity.IsAuthenticated)
                 {
-                    var tmpuserInfo = Cache.Redis.RedisHelper.Get<Models.Ooperationuser>(User.Identity.Name);
+                    var tmpuserInfo = Cache.Redis.RedisHelper.Get<Ooperationuser>(User.Identity.Name);
                     return tmpuserInfo;
                 }
                 return null;
@@ -34,21 +33,18 @@ namespace HR.Hospital.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="tmpUser"></param>
-        public void WriteCookie(Models.Ooperationuser ooperationuser)
+        public void WriteCookie(Ooperationuser ooperationuser)
         {
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
             identity.AddClaim(new Claim(ClaimTypes.Name, ooperationuser.OoperationUserName));
-             
+
             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
-
-            id = ooperationuser.Id;
-
+            _id = ooperationuser.Id;
             //存储redis
-           Cache.Redis.RedisHelper.Set<Models.Ooperationuser>(id.ToString(), ooperationuser);
+            Cache.Redis.RedisHelper.Set(_id.ToString(), ooperationuser);
 
             //取Redis-测试
-            var tmpUser = RedisHelper.Get<Models.Ooperationuser>(id.ToString());
+            var tmpUser = RedisHelper.Get<Ooperationuser>(_id.ToString());
         }
 
         /// <summary>

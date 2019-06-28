@@ -108,9 +108,11 @@
                             this.maxPage = response.data.PageNum;
                         });
             },
+
             //保存添加人员
             add: function () {
-                var names = []; var leader = [];
+                var names = [];
+                var leader = [];
                 $("[name='name']:checked").each(function () {
                     names.push(this.value);
                 });
@@ -119,23 +121,18 @@
                     leader.push(this.value);
                 });
                 //alert(leader.toString());
-                location.href = '/Solitaire/Add?name=' + names.toString() /*+ '&leader' + leader.toString()*/;
+                location.href = '/Solitaire/Add';
             },
+
             //反回添加页面
             back: function () {
-                location.href = '/Solitaire/Add?name=' + 1 /*+ '&leader'+ 1*/;
+                location.href = '/Solitaire/Add';
             }
         }
     });
 
     //全选的实现
     function checkAll() {
-        var names = [];
         $("[name='name']").prop("checked", $("#ck").prop("checked"));
-        //$("[name='name']").each(function () {
-        //    names.push(this.value);
-        //});
-        //alert(names.toString());
     };
-    
 </script>

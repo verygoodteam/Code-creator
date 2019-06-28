@@ -17,6 +17,7 @@ namespace HR.Hospital.Client.Models.Dto
         public string RoleName { get; set; }
         public int PermissionId { get; set; }
         public string PermissionsName { get; set; }
+        public int Pid { get; set; }
         public string Url { get; set; }
     }
 }

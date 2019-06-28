@@ -129,12 +129,12 @@ var navs = [{
         {
             "title": "补卡审批",
             "icon": "&#xe631;",
-            "href": "//",
+            "href": "/ShiftDuty/",
             "spread": false
         }, {
             "title": "换班审批",
             "icon": "&#xe631;",
-            "href": "//",
+            "href": "/ShiftDuty/AddShiftDuty",
             "spread": false
         }
     ]

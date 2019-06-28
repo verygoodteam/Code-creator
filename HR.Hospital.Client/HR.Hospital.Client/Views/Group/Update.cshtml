@@ -11,7 +11,7 @@
     <title>Add</title>
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
-
+    <script src="~/js/jquery-3.3.1.min.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
     <style>
@@ -27,7 +27,7 @@
     </style>
 </head>
 <body>
-    <h3 style="margin-left: 15px">专业组设置</h3>
+<h3 style="margin-left: 15px">专业组设置</h3>
 <div id="app">
     <input id="Hidden1" type="hidden" value="@ViewBag.Id"/>
     <table class="table table-bordered">
@@ -48,7 +48,9 @@
             <td>
                 <select id="Select1" v-model="Department">
                     <option value="0">--请选择--</option>
-                    <option v-for="item in departmentList" :value="item.id">{{item.administrativeName}}</option>
+                    <option v-for="item in departmentList" :value="item.id">
+                        {{item.administrativeName}}
+                    </option>
                 </select>
             </td>
         </tr>
@@ -57,7 +59,9 @@
             <td>
                 <select id="Select2" v-model="People">
                     <option value="0">--请选择--</option>
-                    <option v-for="item in peopleList" :value="item.clinicUserName">{{item.clinicUserName}}</option>
+                    <option v-for="item in peopleList" :value="item.clinicUserName">
+                        {{item.clinicUserName}}
+                    </option>
                 </select>
             </td>
         </tr>
@@ -93,13 +97,15 @@
     <table class="table table-bordered">
         <tr>
             <td style="text-align: center;">
-                <button type="button" v-on:click="addGroup()" class="btn btn-default">添加</button>
+                <button type="button" v-on:click="updateGroup()" class="btn btn-default">保存</button>
                 <button type="button" v-on:click="back()" style="margin-left: 20px" class="btn btn-default">返回</button>
             </td>
         </tr>
     </table>
 </div>
-    <script type="text/javascript">
+</body>
+</html>
+<script type="text/javascript">
     var vm = new Vue({
         el: "#app",
         data: {
@@ -132,7 +138,7 @@
                     });
             },
 
-            //获取数据
+            //根据Id获取数据
             getGroup: function(id) {
                 axios.get("/Group/UpdateData",
                     {
@@ -147,8 +153,19 @@
                 });
             },
 
-            addGroup: function () {
-                alert(this.Name); alert(this.Color);
+            //保存数据
+            updateGroup: function () {
+                //alert(this.Name);
+                //alert(this.Color);
+                if (this.Name == "") {
+                    alert("组名不能为空");
+                    return false;
+                };
+                if (this.People == "") {
+                    alert("成员不能为空");
+                    return false;
+                };
+
                 var model = new URLSearchParams();
                 model.append('ProfessionalGroupName', this.Name);
                 model.append('ProfessionalGroupColore', this.Color);
@@ -160,8 +177,7 @@
                     model).then((response) => {
                         alert("编辑成功");
                         location.href = '/Group/Index';
-                    },
-                    (response) => {
+                    },(response) => {
                         alert(response.status);
                     }
                 ).catch(function(response) {
@@ -169,12 +185,12 @@
                 });
             },
 
-
+            //返回主页
             back: function() {
                 location.href = '/Group/Index';
             }
         }
     });
-    </script>
-</body>
-</html>
+
+
+</script>
