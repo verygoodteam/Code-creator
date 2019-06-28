@@ -53,7 +53,7 @@ namespace HR.Hospital.Repository.Login
             using (Model.hospitaldbContext context = new Model.hospitaldbContext())
             {
 
-                var sql = $"select a.Id,a.OoperationUserName as UserName,c.Id as RoleId,c.RoleName,e.Id as PermissionId,e.PermissionsName,e.Url from ooperationuser a join user_role b on a.Id = b.Uid  join role c on b.Rid = c.Id join role_permission d on c.Id = d.Rid join permission e on d.Pid = e.Id WHERE a.Id ={id}";
+                var sql = $"select a.Id,a.OoperationUserName as UserName,c.Id as RoleId,c.RoleName,e.Id as PermissionId,e.PermissionsName,e.Url,e.Pid from ooperationuser a join user_role b on a.Id = b.Uid  join role c on b.Rid = c.Id join role_permission d on c.Id = d.Rid join permission e on d.Pid = e.Id WHERE a.Id ={id}";
 #pragma warning disable EF1000 // Possible SQL injection vulnerability.
                 List<UserRolePermissionDto> userRolePermissionDto = context.QueryUserRolePermissionDto.FromSql(sql).ToList();
 #pragma warning restore EF1000 // Possible SQL injection vulnerability.
