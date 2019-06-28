@@ -8,6 +8,13 @@ namespace HR.Hospital.IRepository.Roles
    public interface IRoleRepository
     {
         /// <summary>
+        /// 查询角色权限
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        List<RolePermission> RolePerList(int id);
+
+        /// <summary>
         /// 角色显示
         /// </summary>
         /// <returns></returns>
@@ -26,7 +33,7 @@ namespace HR.Hospital.IRepository.Roles
         /// <param name="roles"></param>
         /// <param name="ids"></param>
         /// <returns></returns>
-        int Addrole(Role roles, string ids);
+        int AddRole(Role roles, string ids);
 
         /// <summary>
         /// 回显角色
@@ -48,13 +55,6 @@ namespace HR.Hospital.IRepository.Roles
         /// </summary>
         /// <param name="role"></param>
         /// <returns></returns>
-        int Updateenable(Role role);
-
-        /// <summary>
-        /// 查询角色权限
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        List<RolePermission> RolePerList(int id);
+        int UpdateEnable(Role role);
     }
 }
