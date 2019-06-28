@@ -6,7 +6,6 @@
 <html>
 <head>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <script src="~/js/site.js"></script>
     <meta charset="utf-8">
     <title>医院人力资源排班系统</title>
     <meta name="renderer" content="webkit">
@@ -18,12 +17,6 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="icon" href="favicon.ico">
 
-
-    <link href="~/Content/layui-admin/layui/css/layui.css" rel="stylesheet" media="all" />
-    <link href="~/Content/layui-admin/css/font_eolqem241z66flxr.css" rel="stylesheet" media="all" />
-    <link href="~/Content/layui-admin/css/main.css" rel="stylesheet" media="all" />
-
-    <script src="~/js/jquery-3.3.1.js"></script>
 </head>
 <body class="main_body">
     <div class="layui-layout layui-layout-admin">
@@ -31,33 +24,6 @@
         <div class="layui-header header">
             <div class="layui-main">
                 <a href="#" class="logo">医院人力资源排班系统</a>
-                <!-- 搜索 -->
-                @*<div class="layui-form component">
-                        <select name="modules" lay-verify="required" lay-search="">
-                            <option value="">直接选择或搜索选择</option>
-                            <option value="1">layer</option>
-                            <option value="2">form</option>
-                            <option value="3">layim</option>
-                            <option value="4">element</option>
-                            <option value="5">laytpl</option>
-                            <option value="6">upload</option>
-                            <option value="7">laydate</option>
-                            <option value="8">laypage</option>
-                            <option value="9">flow</option>
-                            <option value="10">util</option>
-                            <option value="11">code</option>
-                            <option value="12">tree</option>
-                            <option value="13">layedit</option>
-                            <option value="14">nav</option>
-                            <option value="15">tab</option>
-                            <option value="16">table</option>
-                            <option value="17">select</option>
-                            <option value="18">checkbox</option>
-                            <option value="19">switch</option>
-                            <option value="20">radio</option>
-                        </select>
-                        <i class="layui-icon">&#xe615;</i>
-                    </div>*@
 
                 <!-- 顶部右侧菜单 -->
                 <ul class="layui-nav top_menu">
@@ -96,21 +62,21 @@
             <br />
             <div class="navBar layui-side-scroll" id="menu">
                 <ul class="layui-nav layui-nav-tree" lay-filter="demo">
-                    @foreach (var item in (ViewBag.list as List<UserRolePermissionDto>).Where(p=>p.Pid==0))
+                    @foreach (var item in (ViewBag.list as List<UserRolePermissionDto>).Where(p => p.Pid == 0))
                     {
-                        <li class="layui-nav-item">
-                            <a href="javascript:;" id="@item.PermissionId">@item.PermissionsName</a>
-                            @foreach (var items in (ViewBag.list as List<UserRolePermissionDto>).Where(p => p.Pid == item.PermissionId))
-                            {
-                                <dl class="layui-nav-child">
-                                    <dd><a href="/RuleSettings/Show">@items.PermissionsName</a></dd>
-                                </dl>
-                            }
+                        <li class="layui-nav-item layui-nav-itemed">
+                            <a href="javascript:;" id="@item.PermissionId"><i class="layui-icon" data-icon=""></i><cite>@item.PermissionsName</cite><span class="layui-nav-more"></span></a>
+                            <dl class="layui-nav-child">
+
+                                @foreach (var items in (ViewBag.list as List<UserRolePermissionDto>).Where(p => p.Pid == item.PermissionId))
+                                {
+                                    <dd><a href="javascript:;" data-url="@items.Url"><i class="layui-icon" data-icon=""></i><cite>@items.PermissionsName</cite></a></dd>
+                                }
+                            </dl>
                         </li>
-                    }
+                    }                 
                 </ul>
             </div>
-            <div class="navBar layui-side-scroll"></div>
         </div>
         <!-- 右侧内容 -->
         <div class="layui-body layui-form">
@@ -119,7 +85,7 @@
                     <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>首页</cite></li>
                 </ul>
                 <div class="layui-tab-content clildFrame">
-                    <div class="layui-tab-item layui-show">
+                    <div class="layui-tab-item layui-show" id="content">
                         @*<iframe src="page/main.html"></iframe>*@
                     </div>
                 </div>
@@ -139,7 +105,6 @@
     <!-- 移动导航 -->
     <div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
     <div class="site-mobile-shade"></div>
-
     <script src="~/Content/layui-admin/layui/layui.js"></script>
 
     @*<script src="https://localhost:44304/Content/layui-admin/js/bodyTab.js"></script>*@
@@ -148,5 +113,12 @@
     <script src="~/js/nav.js"></script>
     <script src="~/Content/layui-admin/js/leftNav.js"></script>
     <script src="~/Content/layui-admin/js/index.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/jquery-3.3.1.js"></script>
+
 </body>
 </html>
+
+<link href="~/Content/layui-admin/layui/css/layui.css" rel="stylesheet" media="all" />
+<link href="~/Content/layui-admin/css/font_eolqem241z66flxr.css" rel="stylesheet" media="all" />
+<link href="~/Content/layui-admin/css/main.css" rel="stylesheet" media="all" />
