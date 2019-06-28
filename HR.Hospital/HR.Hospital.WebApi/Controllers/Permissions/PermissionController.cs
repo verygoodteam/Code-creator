@@ -24,31 +24,48 @@ namespace HR.Hospital.WebApi.Controllers.Permissions
             PermissionRepository = permissionRepository;
         }
 
-        //显示
-        //[HttpGet("GetPageList")]
-        //public PageHelper<PermissionDto> GetPageList(int pageIndex = 1, int pageSize = 3)
-        //{
-        //    var show = PermissionRepository.GetPermissionList(pageIndex, pageSize);
-        //    return show;
-        //}
+        /// <summary>
+        /// 显示分页查询
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public PageHelper<PermissionDto> GetPageList(int pageIndex, int pageSize, string name)
+        {
+            var show = PermissionRepository.GetPermissionList(pageIndex, pageSize, name);
+            return show;
+        }
 
-        //添加
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="permission"></param>
+        /// <returns></returns>
         [HttpPost("AddPermission")]
         public int AddPermission(Permission permission)
         {
             var i = PermissionRepository.AddPermission(permission);
             return i;
         }
-        
-        //权限下拉
+
+        /// <summary>
+        /// 权限下拉
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetList")]
         public List<Permission> GetList()
         {
             var list = PermissionRepository.GetList();
             return list;
         }
-        
-        //获取数据
+
+        /// <summary>
+        /// 获取数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("GetPermission")]
         public Permission GetPermission(int id)
         {
@@ -56,7 +73,11 @@ namespace HR.Hospital.WebApi.Controllers.Permissions
             return roil;
         }
 
-        //是否启用
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        /// <param name="permission"></param>
+        /// <returns></returns>
         [HttpPost("EnablePermission")]
         public int EnablePermission([FromBody]Permission permission)
         {
@@ -64,13 +85,17 @@ namespace HR.Hospital.WebApi.Controllers.Permissions
             return i;
         }
 
-        //修改权限
+        /// <summary>
+        /// 修改权限
+        /// </summary>
+        /// <param name="permission"></param>
+        /// <returns></returns>
         [HttpPost("UpdatePermission")]
         public int UpdatePermission([FromBody]Permission permission)
         {
             var i = PermissionRepository.UpdatePermission(permission);
             return i;
         }
-        
+
     }
 }
