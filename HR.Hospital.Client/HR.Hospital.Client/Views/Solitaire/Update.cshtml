@@ -9,9 +9,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Update</title>
+    <link href="~/css/zpageNav.css" rel="stylesheet" />
     <script src="~/js/vue.js"></script>
     <script src="~/js/axios.js"></script>
-
+    <script src="~/js/zpageNav.js"></script>
+    <script src="~/js/jquery-3.3.1.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
     <style>
@@ -29,170 +31,340 @@
 <body>
     <h3 style="margin-left: 15px">专业组设置</h3>
 <div id="app">
-    <input id="Hidden1" type="hidden" value="@ViewBag.Id"/>
-    <table class="table table-bordered">
-        <tr>
-            <td>
-                <h4>接龙班次</h4>
-                <select id="Select1" v-model="Shift">
-                    <option value="0">--请选择--</option>
-                    <option v-for="item in shiftList" :value="item.shiftssettingName">{{item.shiftssettingName}}</option>
-                </select>
-            </td>
-            <td>
-                <h4>接龙周期</h4>
-                <div>
-                    <p>
-                        开始时间：
-                        <select id="SelectStartTime" v-model="StartYear">
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                        </select>
-                        <select id="SelectStartTime2" v-model="StartMonth">
-                            <option v-for="month in monthList" v-bind:value="month">
-                                {{month}}
-                            </option>
-                        </select>
-                        <select id="SelectStartTime3" v-model="StartDay">
-                            <option v-for="day in dayList" v-bind:value="day">
-                                {{day}}
-                            </option>
-                        </select>
-                    </p>
-                    <p>
-                        结束时间：
-                        <select id="SelectEndTime" v-model="EndYear">
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                        </select>
-                        <select id="SelectEndTime2" v-model="EndMonth">
-                            <option v-for="month in monthList" v-bind:value="month">
-                                {{month}}
-                            </option>
-                        </select>
-                        <select id="SelectEndTime3" v-model="EndDay">
-                            <option v-for="day in dayList" v-bind:value="day">
-                                {{day}}
-                            </option>
-                        </select>
-                    </p>
-                </div>
-                <input id="StartTime" type="hidden" v-model="StartTime"/>
-                <input id="EndTime" type="hidden" v-model="EndTime"/>
-                <input id="CycleTime" type="hidden" v-model="CycleTime"/>
-            </td>
-        </tr>
-    </table>
+<input id="Hidden1" type="hidden" value="@ViewBag.Id"/>
+<table class="table table-bordered">
+    <tr>
+        <td>
+            <h4>接龙班次</h4>
+            <select id="Select1" v-model="Shift">
+                <option value="0">--请选择--</option>
+                <option value="早班">早班</option>
+                <option value="二线班">二线班</option>
+                <option value="夜班">夜班</option>
+                <option value="下夜班">下夜班</option>
+                <option value="备班">备班</option>
+                <option value="周末值班">周末值班</option>
+                <option value="值班">值班</option>
+            </select>
+        </td>
+        <td>
+            <h4>接龙周期</h4>
+            <div>
+                <p>
+                    开始时间：
+                    <select id="SelectStartTime" v-model="StartYear">
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                    </select>
+                    <select id="SelectStartTime2" v-model="StartMonth">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <select id="SelectStartTime3" v-model="StartDay">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                    </select>
+                </p>
+                <p>
+                    结束时间：
+                    <select id="SelectEndTime" v-model="EndYear">
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                    </select>
+                    <select id="SelectEndTime2" v-model="EndMonth">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <select id="SelectEndTime3" v-model="EndDay">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                    </select>
+                </p>
+            </div>
+            <input id="StartTime" type="hidden" v-model="StartTime"/>
+            <input id="EndTime" type="hidden" v-model="EndTime"/>
+            <input id="CycleTime" type="hidden" v-model="CycleTime"/>
+        </td>
+    </tr>
+</table>
 
+<table class="table table-bordered">
+    <tr style="background-color: darkgray">
+        <td>组序</td>
+        <td>人员</td>
+        <td>组长</td>
+        <td></td>
+    </tr>
+    <tr id="tr">
+        <td>1</td>
+        <td>{{GroupMember}}</td>
+        <td>{{GroupLeader}}</td>
+        <td>
+            <a href="#" v-on:click="addPerson()">➕</a>
+        </td>
+    </tr>
+</table>
+
+<table class="table table-bordered">
+    <tr>
+        <td style="text-align: center;">
+            <button type="button" v-on:click="addSolitaire()" class="btn btn-default">添加</button>
+            <button type="button" v-on:click="back()" class="btn btn-default" style="margin-left: 20px">返回</button>
+        </td>
+    </tr>
+</table>
+
+<h3 style="margin-left: 15px">人员列表</h3>
+<p></p>
+<div id="divPerson">
+    <input id="GroupMember" type="hidden" v-model="GroupMember"/>
+    <input id="GroupLeader" type="hidden" v-model="GroupLeader"/>
+    <span style="margin-left: 10px">姓名：</span><input type="text" v-model="name"/>
+    <button type="button" v-on:click="getUser()" style="margin-left: 5px" class="btn btn-default">查询</button>
+    <button type="button" v-on:click="addUser()" style="margin-left: 20px" class="btn btn-default">添加</button>
     <table class="table table-bordered">
-        <tr style="background-color: darkgray">
-            <td>组序</td>
-            <td>人员</td>
+        <thead>
+        <tr style="background-color: #cccccc">
+            <td><input id="ck" type="checkbox" onclick="checkAll()"/></td>
+            <td>序号</td>
+            <td>姓名</td>
             <td>组长</td>
-            <td></td>
         </tr>
-        <tr id="tr">
-            <td>1</td>
-            <td>{{People}}</td>
-            <td>{{People}}</td>
-            <td>
-                <a href="#" v-on:click="addPerson()">➕</a>
-            </td>
-        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="data in userList">
+        <td><input id='chk' type='checkbox' name='name' v-bind:value="data.clinicUserName"/></td>
+        <td>{{data.id}}</td>
+        <td>{{data.clinicUserName}}</td>
+        <td><input id='chl' type='checkbox' name='leader' v-bind:value="data.clinicUserName"/></td>
+        </tbody>
     </table>
-
-
+    <zpagenav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
+              v-bind:max-page="maxPage" v-on:pagehandler="getUser">
+    </zpagenav>
     <table class="table table-bordered">
         <tr>
-            <td style="text-align: center;">
-                <button type="button" v-on:click="updateSolitaire()" class="btn btn-default">保存</button>
-                <button type="button" v-on:click="back()" class="btn btn-default" style="margin-left: 20px">返回</button>
+            <td>
+                <button type="button" v-on:click="add()" class="btn btn-default" style="margin-left: 45%">保存</button>
+                <button type="button" v-on:click="back()" class="btn btn-default" style="margin-right: 20px">取消</button>
             </td>
         </tr>
     </table>
 </div>
-    <script type="text/javascript">
-        var vm = new Vue({
-            el: "#app",
-            data: {
-                shiftList: [],
-                Shift: 0,
-                monthList: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-                dayList: [
-                    '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16',
-                    '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
-                ],
-                StartYear: 2019,
-                StartMonth: 6,
-                StartDay: 24,
-                EndYear: 2019,
-                EndMonth: 6,
-                EndDay: 24,
-                StartTime: "",
-                EndTime: "",
-                CycleTime: "",
-                Id: @ViewBag.Id
-            },
-            mounted() {
-                this.getShift();
-                this.getSolitaire(@ViewBag.Id);
-            },
-            methods: {
-                //获取班次
-                getShift: function() {
-                    axios.get("/Solitaire/GetShift")
-                        .then((response) => {
-                            this.shiftList = response.data;
-                        });
-                },
-
-                //获取数据
-                getSolitaire: function(id) {
-                    axios.get("/Solitaire/UpdateData",
-                        {
-                            params: { id: id }
-                        }).then((response) => {
-                        this.Shift = response.data.shift;
-                    });
-                },
-
-                //编辑方法
-                updateSolitaire: function() {
-                    this.StartTime = this.StartYear + "年" + this.StartMonth + "月" + this.StartDay + "日";
-                    this.EndTime = this.EndYear + "年" + this.EndMonth + "月" + this.EndDay + "日";
-                    this.CycleTime = this.StartTime + " " + this.EndTime;
-                    //alert(this.CycleTime);
-
-                    var model = new URLSearchParams();
-                    model.append('Shift', this.Shift);
-                    model.append('SolitaireCycle', this.CycleTime);
-                    model.append('SolitaireGroupId', 1);
-                    model.append('GroupMember', @ViewBag.Name);
-                    model.append('GroupLeader', 1);
-                    model.append('SortId', 1);
-
-                    axios.post('@Url.Action("Update", "Solitaire")',
-                        model).then((response) => {
-                            alert("编辑成功");
-                            location.href = '/Solitaire/Index';
-                        },
-                        (response) => {
-                            alert(response.status);
-                        }
-                    ).catch(function(response) {
-                        alert(response);
-                    });
-                },
-
-                addPerson: function() {
-                    location.href = '/Solitaire/PersonIndex';
-                },
-
-                back: function() {
-                    location.href = '/Solitaire/Index';
-                }
-            }
-        });
-    </script>
+</div>
 </body>
 </html>
+
+<script type="text/javascript">
+    var vm = new Vue({
+            el: "#app",
+            data: {
+                shiftList: [],//班次
+                Shift: 0,//班次
+                StartTime: "",//开始
+                EndTime: "",//结束
+                CycleTime: "",//周期
+                userList: [], //数据
+                page: 1, //起始页
+                pageSize: 4, //每页数据
+                total: 10, //总条数
+                maxPage: 9, //总页数
+                GroupMember:"",//成员
+                GroupLeader: "",//组长
+                name: "" //姓名查询
+        },
+        mounted() {
+            this.getShift();
+            this.getUser();
+            this.getSolitaire(@ViewBag.Id);
+        },
+        methods: {
+            //获取班次
+            getShift: function () {
+                axios.get("/Solitaire/GetShift")
+                    .then((response) => {
+                        this.shiftList = response.data;
+                    });
+            },
+
+            //获取数据
+            getSolitaire: function(id) {
+                axios.get("/Solitaire/UpdateData",
+                    {
+                        params: { id: id }
+                    }).then((response) => {
+                    this.Shift = response.data.shift;
+                });
+            },
+         
+            //添加方法
+            addSolitaire: function () {
+                this.StartTime = this.StartYear + "年" + this.StartMonth + "月" + this.StartDay + "日";
+                this.EndTime = this.EndYear + "年" + this.EndMonth + "月" + this.EndDay + "日";
+                this.CycleTime = "开始时间：" + this.StartTime + " " + "结束时间：" + this.EndTime;
+                alert(this.CycleTime);
+
+                if (this.Shift == 0) {
+                    alert("班次不能为空");
+                    return false;
+                };
+                if (this.CycleTime == "") {
+                    alert("周期不能为空");
+                    return false;
+                };
+                if (this.GroupMember == "") {
+                    alert("成员不能为空");
+                    return false;
+                };
+
+                var model = new URLSearchParams();
+                model.append('Shift', this.Shift);
+                model.append('SolitaireCycle', this.CycleTime);
+                model.append('SolitaireGroupId', 1);
+                model.append('GroupMember', this.GroupMember);
+                model.append('GroupLeader', this.GroupLeader);
+                model.append('SortId', 0);
+
+                axios.post('@Url.Action("Update", "Solitaire")',
+                    model).then((response) => {
+                        alert("添加成功");
+                        location.href = '/Solitaire/Index';
+                    },(response) => {
+                        alert(response.status);
+                    }
+                ).catch(function(response) {
+                    alert(response);
+                });
+            },
+
+            //添加人员
+            addPerson: function () {
+                location.href = '/Solitaire/PersonIndex';
+            },
+
+            //返回主页
+            back: function() {
+                location.href = '/Solitaire/Index';
+            },
+
+            //获取人员名称
+            getUser: function (page) {
+                this.page = page,
+                    axios.get("/Solitaire/GetPerson",
+                        {
+                            params: {
+                                pageIndex: page,
+                                pageSize: this.pageSize,
+                                name: this.name
+                            }
+                        }).then((response) => {
+                        this.userList = response.data.pageList;
+                        this.total = response.data.pageSizes;
+                        this.maxPage = response.data.PageNum;
+                    });
+            },
+
+            //保存添加人员
+            add: function () {
+                var names = []; var leader = [];
+                $("[name='name']:checked").each(function () {
+                    names.push(this.value);
+                });
+                //alert(names.toString());
+                $("[name='leader']:checked").each(function () {
+                    leader.push(this.value);
+                });
+                //alert(leader.toString());
+                this.GroupMember = names.toString();
+                this.GroupLeader = leader.toString();
+            }
+        }
+    });
+
+    //全选的实现
+    function checkAll() {
+        $("[name='name']").prop("checked", $("#ck").prop("checked"));
+    };
+</script>

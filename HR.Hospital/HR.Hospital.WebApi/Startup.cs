@@ -41,6 +41,8 @@ using HR.Hospital.Repository.Detail;
 using HR.Hospital.Repository.RuleSetting;
 using HR.Hospital.Repository.Solitaire;
 using HR.Hospital.Repository.Summary;
+using HR.Hospital.IRepository.ShiftDutys;
+using HR.Hospital.Repository.ShiftDutys;
 
 namespace HR.Hospital.WebApi
 {
@@ -116,12 +118,13 @@ namespace HR.Hospital.WebApi
             services.AddScoped<IDetailRepository, DetailRepository>();
             //考勤汇总映射关系
             services.AddScoped<ISummaryRepository, SummaryRepository>();
+            //换班审批的映射关系
+            services.AddScoped<IShiftDutyRepository, ShiftDutyRepository>();
 
 
-            
 
-          
-           
+
+
 
         }
 

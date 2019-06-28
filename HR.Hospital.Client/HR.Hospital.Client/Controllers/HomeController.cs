@@ -21,6 +21,10 @@ namespace HR.Hospital.Client.Controllers
         public IActionResult MainIndex()
         {
             var tmpUser = RedisHelper.Get<Ooperationuser>(_id.ToString());
+            if (_id == 0)
+            {
+                return RedirectToAction(nameof(LoginController.Login), "Login");
+            }
             ViewBag.name = tmpUser.OoperationUserName;
             ViewBag.list = RedisHelper.Get<Ooperationuser>(_id.ToString()).PermissionList;
             return View();
