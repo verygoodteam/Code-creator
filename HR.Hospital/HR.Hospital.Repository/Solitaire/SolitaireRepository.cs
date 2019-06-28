@@ -164,7 +164,6 @@ namespace HR.Hospital.Repository.Solitaire
                         return false;
                     }
                 }
-
             }
         }
 

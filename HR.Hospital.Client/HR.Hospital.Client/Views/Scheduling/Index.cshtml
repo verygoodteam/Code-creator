@@ -43,50 +43,76 @@
             </table>
         </div>
     </div>
-
-    <script src="~/layui-v2.5.4/layui/layui.js"></script>
-    <script>
+</body>
+</html>
+<script src="~/js/jquery-3.3.1.js"></script>
+<script src="~/layui-v2.5.4/layui/layui.js"></script>
+<script type="text/javascript">
+    $(function () {
+        loaddate();
+    })
+    //获取当前时间
+    //加载时间的控件，并赋当前时间所在星期的时间范围
+    function loaddate() {
+        var dateweek = new Date().getDay();
+        switch (dateweek) {
+            case 1:
+                show = getDay() + " - " + getDay(+6);
+                break;
+            case 2:
+                show = getDay(-1) + " - " + getDay(+5);
+                break;
+            case 3:
+                show = getDay(-2) + " - " + getDay(+4);
+                break;
+            case 4:
+                show = getDay(-3) + " - " + getDay(+3);
+                break;
+            case 5:
+                show = getDay(-4) + " - " + getDay(+2);
+                break;
+            case 6:
+                show = getDay(-5) + " - " + getDay(+1);
+                break;
+            case 0:
+                show = getDay(-6) + " - " + getDay();
+                break;
+            default:
+                break;
+        }
         layui.use('laydate', function () {
             var laydate = layui.laydate;
 
             //执行一个laydate实例
             laydate.render({
                 elem: '#test1', //指定元素
-                range: true //或 range: '~' 来自定义分割字符
+                range: true, //或 range: '~' 来自定义分割字符
+                calendar: true,
+                value: show,
+                done: function (value, date, endDate) {
+                    console.log(value); //得到日期生成的值，如：2017-08-18
+                    console.log(date.date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                    console.log(endDate.date); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                }
             });
         });
-    </script>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script>
-        $(function () {
-            loaddata();
-        })
-        function loaddata() {
-            $.ajax({
-                url: "",
-                type: "Get",
-                data: {},
-                success: function (data) {
-                    $("#tb tr").eq(0).nextAll().remove();
-                    var tr;
-                    $.each(data, function (Index, row) {
-                        tr = "<tr>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "<td>" + row + "</td>"
-                            + "</tr > "
-                        $("#tb").append(tr);
-                    })
-                }
-            })
+        function getDay(day) {
+            var today = new Date();
+            var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
+            today.setTime(targetday_milliseconds); //注意，这行是关键代码
+            var tYear = today.getFullYear();
+            var tMonth = today.getMonth();
+            var tDate = today.getDate();
+            tMonth = doHandleMonth(tMonth + 1);
+            tDate = doHandleMonth(tDate);
+            return tYear + "-" + tMonth + "-" + tDate;
         }
-
-    </script>
-</body>
-</html>
+        function doHandleMonth(month) {
+            var m = month;
+            if (month.toString().length == 1) {
+                m = "0" + month;
+            }
+            return m;
+        }
+    }
+</script>

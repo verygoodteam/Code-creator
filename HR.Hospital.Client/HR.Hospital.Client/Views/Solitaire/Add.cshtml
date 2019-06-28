@@ -37,13 +37,9 @@
                 <h4>接龙班次</h4>
                 <select id="Select1" v-model="Shift">
                     <option value="0">--请选择--</option>
-                    <option value="早班">早班</option>
-                    <option value="二线班">二线班</option>
-                    <option value="夜班">夜班</option>
-                    <option value="下夜班">下夜班</option>
-                    <option value="备班">备班</option>
-                    <option value="周末值班">周末值班</option>
-                    <option value="值班">值班</option>
+                    <option v-for="item in shiftList" :value="item.shiftssettingName">
+                        {{item.shiftssettingName}}
+                    </option>
                 </select>
             </td>
             <td>
@@ -52,113 +48,37 @@
                     <p>
                         开始时间：
                         <select id="SelectStartTime" v-model="StartYear">
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
+                            <option v-for="year in yearList" v-bind:value="year">
+                                {{year}}
+                            </option>
                         </select>
                         <select id="SelectStartTime2" v-model="StartMonth">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
+                            <option v-for="month in monthList" v-bind:value="month">
+                                {{month}}
+                            </option>
                         </select>
                         <select id="SelectStartTime3" v-model="StartDay">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                            <option value="24">24</option>
-                            <option value="25">25</option>
-                            <option value="26">26</option>
-                            <option value="27">27</option>
-                            <option value="28">28</option>
-                            <option value="29">29</option>
-                            <option value="30">30</option>
-                            <option value="31">31</option>
+                            <option v-for="day in dayList" v-bind:value="day">
+                                {{day}}
+                            </option>
                         </select>
                     </p>
                     <p>
                         结束时间：
                         <select id="SelectEndTime" v-model="EndYear">
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
+                            <option v-for="year in yearList" v-bind:value="year">
+                                {{year}}
+                            </option>
                         </select>
                         <select id="SelectEndTime2" v-model="EndMonth">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
+                            <option v-for="month in monthList" v-bind:value="month">
+                                {{month}}
+                            </option>
                         </select>
                         <select id="SelectEndTime3" v-model="EndDay">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                            <option value="24">24</option>
-                            <option value="25">25</option>
-                            <option value="26">26</option>
-                            <option value="27">27</option>
-                            <option value="28">28</option>
-                            <option value="29">29</option>
-                            <option value="30">30</option>
-                            <option value="31">31</option>
+                            <option v-for="day in dayList" v-bind:value="day">
+                                {{day}}
+                            </option>
                         </select>
                     </p>
                 </div>
@@ -238,21 +158,27 @@
 
 <script type="text/javascript">
     var vm = new Vue({
-            el: "#app",
-            data: {
-                shiftList: [],//班次
-                Shift: 0,//班次
-                StartTime: "",//开始
-                EndTime: "",//结束
-                CycleTime: "",//周期
-                userList: [], //数据
-                page: 1, //起始页
-                pageSize: 4, //每页数据
-                total: 10, //总条数
-                maxPage: 9, //总页数
-                GroupMember:"",//成员
-                GroupLeader: "",//组长
-                name: "" //姓名查询
+        el: "#app",
+        data: {
+            yearList: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029'],
+            monthList: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+            dayList: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16',
+                '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+            StartYear: 2019, StartMonth: 6, StartDay: 28,
+            EndYear: 2019, EndMonth: 6, EndDay: 28,
+            shiftList: [],//班次
+            Shift: 0,//班次
+            StartTime: "",//开始
+            EndTime: "",//结束
+            CycleTime: "",//周期
+            userList: [], //数据
+            page: 1, //起始页
+            pageSize: 4, //每页数据
+            total: 10, //总条数
+            maxPage: 9, //总页数
+            GroupMember:"",//成员
+            GroupLeader: "",//组长
+            name: "" //姓名查询
         },
         mounted() {
             this.getShift();

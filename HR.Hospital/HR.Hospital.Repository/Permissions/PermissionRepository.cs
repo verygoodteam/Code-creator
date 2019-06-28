@@ -25,6 +25,7 @@ namespace HR.Hospital.Repository.Permissions
                          select new PermissionDto
                          {
                              Id = p1.Id,
+                             Url = p1.Url,
                              PermissionsName = p1.PermissionsName,
                              Pid = p1.Pid,
                              IsEnable = p1.Isnable,

@@ -23,7 +23,7 @@ namespace HR.Hospital.Repository.Roles
         /// </summary>
         /// <param name="pid"></param>
         /// <returns></returns>
-        public List<Permission> GetPermission(int pid = 0)
+        public List<Permission> GetPermission(int pid)
         {
             using (MySqlConnection con = new MySqlConnection(_conn))
             {
@@ -151,7 +151,7 @@ namespace HR.Hospital.Repository.Roles
             model.Isnable = role.Isnable;
             return db.SaveChanges();
         }
-        
+
         /// <summary>
         /// 角色权限
         /// </summary>
