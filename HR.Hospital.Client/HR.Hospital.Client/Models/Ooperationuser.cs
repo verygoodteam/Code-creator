@@ -8,6 +8,10 @@ namespace HR.Hospital.Client.Models
 {
     public class Ooperationuser
     {
+        public Ooperationuser()
+        {
+
+        }
         public int Id { get; set; }
         public string OoperationUserName { get; set; }
         public string Account { get; set; }

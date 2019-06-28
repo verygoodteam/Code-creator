@@ -30,15 +30,15 @@
             <div style="float:left; width:1400px">
                 <table id="tb" class="table table-bordered">
                     <tr style="background-color:#00ced1">
-                        <td></td>
-                        <td>姓名</td>
-                        <td>星期一</td>
-                        <td>星期二</td>
-                        <td>星期三</td>
-                        <td>星期四</td>
-                        <td>星期五</td>
-                        <td>星期六</td>
-                        <td>星期日</td>
+                        <td><span id="Id"></span></td>
+                        <td><span id="name"></span></td>
+                        <td><span id="monday"></span></td>
+                        <td><span id="tuesday"></span></td>
+                        <td><span id="wednesday"></span></td>
+                        <td><span id="thursday"></span></td>
+                        <td><span id="friday"></span></td>
+                        <td><span id="saturday"></span></td>
+                        <td><span id="sunday"></span></td>
                     </tr>
                 </table>
             </div>
@@ -51,22 +51,168 @@
             </table>
         </div>
     </div>
-    <script src="~/layui-v2.5.4/layui/layui.js"></script>
-    <script>
+</body>
+</html>
+<script src="~/js/jquery-3.3.1.js"></script>
+<script src="~/layui-v2.5.4/layui/layui.js"></script>
+<script type="text/javascript">
+    $(function () {
+        loaddate();
+    })
+    //获取当前时间
+    //加载时间的控件，并赋当前时间所在星期的时间范围
+    function loaddate() {
+        var dateweek = new Date().getDay();
+        switch (dateweek) {
+            case 1:
+                show = getDay() + " - " + getDay(+6);
+                break;
+            case 2:
+                show = getDay(-1) + " - " + getDay(+5);
+                break;
+            case 3:
+                show = getDay(-2) + " - " + getDay(+4);
+                break;
+            case 4:
+                show = getDay(-3) + " - " + getDay(+3);
+                break;
+            case 5:
+                show = getDay(-4) + " - " + getDay(+2);
+                break;
+            case 6:
+                show = getDay(-5) + " - " + getDay(+1);
+                break;
+            case 0:
+                show = getDay(-6) + " - " + getDay();
+                break;
+            default:
+                break;
+        }
         layui.use('laydate', function () {
             var laydate = layui.laydate;
 
             //执行一个laydate实例
             laydate.render({
                 elem: '#test1', //指定元素
-                range: true //或 range: '~' 来自定义分割字符
+                range: true, //或 range: '~' 来自定义分割字符
+                calendar: true,
+                value: show,
+                done: function (value, date, endDate) {
+                    console.log(value); //得到日期生成的值，如：2017-08-18
+                    console.log(date.date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                    console.log(endDate.date); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                }
             });
         });
-    </script>
-    <script type="text/javascript">
+        function getDay(day) {
+            var today = new Date();
+            var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
+            today.setTime(targetday_milliseconds); //注意，这行是关键代码
+            var tYear = today.getFullYear();
+            var tMonth = today.getMonth();
+            var tDate = today.getDate();
+            tMonth = doHandleMonth(tMonth + 1);
+            tDate = doHandleMonth(tDate);
+            return tYear + "-" + tMonth + "-" + tDate;
+        }
+        function doHandleMonth(month) {
+            var m = month;
+            if (month.toString().length == 1) {
+                m = "0" + month;
+            }
+            return m;
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
         $(function () {
             loaddata();
+            //loaddate();
         })
+
+       @* function loaddate() {
+            alert(12345)
+            var show = "";
+            var dateweek = DateTime.Now.ToString("dddd");
+            switch (dateweek) {
+                case "星期一":
+                    show = DateTime.Now.ToString() + "-" + DateTime.Now.AddDays(+6).ToString();
+                    break;
+                case "星期二":
+                    show = DateTime.Now.AddDays(-1).ToString() + "-" + DateTime.Now.AddDays(+5).ToString();
+                    break;
+                case "星期三":
+                    show = DateTime.Now.AddDays(-2).ToString() + "-" + DateTime.Now.AddDays(+4).ToString();
+                    break;
+                case "星期四":
+                    show = DateTime.Now.AddDays(-3).ToString() + "-" + DateTime.Now.AddDays(+3).ToString();
+                    break;
+                case "星期五":
+                    show = DateTime.Now.AddDays(-4).ToString() + "-" + DateTime.Now.AddDays(+2).ToString();
+                    break;
+                case "星期六":
+                    show = DateTime.Now.AddDays(-5).ToString() + "-" + DateTime.Now.AddDays(+1).ToString();
+                    break;
+                case "星期日":
+                    show = DateTime.Now.AddDays(-6).ToString() + "-" + DateTime.Now.ToString();
+                    break;
+                default:
+                    break;
+            }
+            alert(54321)
+            $("#test1").val(show)
+        }*@
+
         function loaddata() {
             $.ajax({
                 url: "http://localhost:12345/api/Ooperationuser/GetOoperuser?hierarchyid=0",
@@ -109,54 +255,68 @@
                     })
                 }
             })
-
         }
-    </script>
+</script>
 
-    @*页面拖拽的事件*@
-    <script type="text/javascript" language="javascript">
-        //在页面加载完之后加载jquery
-        $().ready(function (e) {
+@*页面拖拽的事件*@
+<script type="text/javascript" language="javascript">
+    //在页面加载完之后加载jquery
+    $().ready(function (e) {
 
-            //拖拽复制体
-            $('td[name^="tdtd"]').draggable({
-                helper: "clone",
-                cursor: "move"
-            });
-
-            //释放后
-            $('td[name^="tdtdtd"]').droppable({
-                drop: function (event, ui) {
-                    $(this).children().remove();
-                    var source = ui.draggable.clone();
-                    $('<img/>', {
-                        src: '/js/jQuery UI表格内容拖拽代码/btn_delete.png',
-                        style: 'display:none',
-                        click: function () {
-                            source.remove();
-                        }
-                    }).appendTo(source);
-
-
-                    source.mouseenter(function () {
-                        $(this).find("img").show();
-                        //找到当前td的tr的第一个td的值
-                        //alert($(this).parent().parent().children().first().text())
-                    });
-
-                    source.mouseleave(function () {
-                        $(this).find("img").hide();
-                    });
-
-                    //点击当前元素,找到当前td的tr的第一个td的值
-                    source.click(function () {
-                        alert($(this).parent().parent().children().first().text())
-                    })
-
-                    $(this).append(source);
-                }
-            });
+        //拖拽复制体
+        $('td[name^="tdtd"]').draggable({
+            helper: "clone",
+            cursor: "move"
         });
-    </script>
-</body>
-</html>
+
+        //释放后
+        $('td[name^="tdtdtd"]').droppable({
+            drop: function (event, ui) {
+                $(this).children().remove();
+                var source = ui.draggable.clone();
+
+                $('<img/>', {
+                    src: '/js/jQuery UI表格内容拖拽代码/btn_delete.png',
+                    style: 'display:none',
+                    click: function () {
+                        source.remove();
+                    }
+                }).appendTo(source);
+
+                source.mouseenter(function () {
+                    $(this).find("img").show();
+                    //找到当前td的tr的第一个td的值
+                    //alert($(this).parent().parent().children().first().text())
+                });
+
+                source.mouseleave(function () {
+                    $(this).find("img").hide();
+                });
+
+                //点击当前元素,找到当前td的tr的第一个td的值
+                source.click(function () {
+
+                })
+
+                $(this).append(source);
+
+
+
+                alert(111)
+                var id = $(this).parent().parent().children().first().text();
+                $.ajax({
+                    url: "",
+                    type: "",
+                    dataType: "",
+                    data: {
+
+                    },
+                    success: function () {
+                        alert(333)
+                    }
+                })
+            }
+        });
+    });
+</script>
+

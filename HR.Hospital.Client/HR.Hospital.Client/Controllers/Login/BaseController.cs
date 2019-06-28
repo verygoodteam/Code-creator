@@ -13,6 +13,8 @@ namespace HR.Hospital.Client.Controllers
 {
     public class BaseController : Controller
     {
+        protected static int id;
+
         /// <summary>
         /// 用户信息
         /// </summary>
@@ -40,11 +42,13 @@ namespace HR.Hospital.Client.Controllers
              
             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
 
+            id = ooperationuser.Id;
+
             //存储redis
-           Cache.Redis.RedisHelper.Set<Models.Ooperationuser>("123", ooperationuser);
+           Cache.Redis.RedisHelper.Set<Models.Ooperationuser>(id.ToString(), ooperationuser);
 
             //取Redis-测试
-            var tmpUser = RedisHelper.Get<Models.Ooperationuser>("123");
+            var tmpUser = RedisHelper.Get<Models.Ooperationuser>(id.ToString());
         }
 
         /// <summary>
