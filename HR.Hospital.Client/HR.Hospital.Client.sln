@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HR.Hospital.Client", "HR.Hospital.Client\HR.Hospital.Client.csproj", "{A75A100F-2EB9-4F65-8598-41341FADF7E3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HR.Hospital.Cache", "HR.Hospital.Cache\HR.Hospital.Cache.csproj", "{FBA38DA1-3D53-4698-A0CE-B5C3D3A22354}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{777C83E6-01BF-4F9A-9962-7747D3757449}"
@@ -12,20 +10,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.filenesting.json = .filenesting.json
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR.Hospital.Client", "HR.Hospital.Client\HR.Hospital.Client.csproj", "{9F5B9447-10AB-410F-A482-CA9C6165BA3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A75A100F-2EB9-4F65-8598-41341FADF7E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A75A100F-2EB9-4F65-8598-41341FADF7E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A75A100F-2EB9-4F65-8598-41341FADF7E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A75A100F-2EB9-4F65-8598-41341FADF7E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FBA38DA1-3D53-4698-A0CE-B5C3D3A22354}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FBA38DA1-3D53-4698-A0CE-B5C3D3A22354}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBA38DA1-3D53-4698-A0CE-B5C3D3A22354}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBA38DA1-3D53-4698-A0CE-B5C3D3A22354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F5B9447-10AB-410F-A482-CA9C6165BA3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F5B9447-10AB-410F-A482-CA9C6165BA3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F5B9447-10AB-410F-A482-CA9C6165BA3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F5B9447-10AB-410F-A482-CA9C6165BA3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
