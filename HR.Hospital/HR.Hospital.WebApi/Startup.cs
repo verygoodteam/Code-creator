@@ -148,6 +148,8 @@ namespace HR.Hospital.WebApi
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+
+                //进行配置api 的首页Swagger
                 c.RoutePrefix = string.Empty;
             });
 

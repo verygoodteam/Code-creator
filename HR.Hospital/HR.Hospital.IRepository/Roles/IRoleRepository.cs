@@ -5,7 +5,7 @@ using HR.Hospital.Model;
 
 namespace HR.Hospital.IRepository.Roles
 {
-   public interface IRoleRepository
+    public interface IRoleRepository
     {
         /// <summary>
         /// 查询角色权限
@@ -25,7 +25,7 @@ namespace HR.Hospital.IRepository.Roles
         /// </summary>
         /// <param name="pid"></param>
         /// <returns></returns>
-        List<Permission> GetPermission(int pid = 0);
+        List<Permission> GetPermission(int pid);
 
         /// <summary>
         ///添加角色 
