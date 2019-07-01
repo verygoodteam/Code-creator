@@ -19,7 +19,7 @@
         <div class="layui-inline">
             <label style="width:100px" class="layui-form-label">请选择范围</label>
             <div class="layui-input-inline">
-                <input class="layui-input" id="test1" type="text" placeholder="开始 到 结束"><button id="=but">>>></button>
+                <input class="layui-input" id="test1" type="text" placeholder="开始 到 结束">
             </div>
         </div>
     </div>
@@ -31,13 +31,13 @@
                     <tr style="background-color:#00ced1">
                         <td><span id="Id">编号</span></td>
                         <td><span id="name">姓名</span></td>
-                        <td><span id="monday"></span></td>
-                        <td><span id="tuesday"></span></td>
-                        <td><span id="wednesday"></span></td>
-                        <td><span id="thursday"></span></td>
-                        <td><span id="friday"></span></td>
-                        <td><span id="saturday"></span></td>
-                        <td><span id="sunday"></span></td>
+                        <td><span data-mmm="" id="monday"></span></td>
+                        <td><span data-ttt="" id="tuesday"></span></td>
+                        <td><span data-www="" id="wednesday"></span></td>
+                        <td><span data-tttt="" id="thursday"></span></td>
+                        <td><span data-fff="" id="friday"></span></td>
+                        <td><span data-sss="" id="saturday"></span></td>
+                        <td><span data-sun="" id="sunday"></span></td>
                     </tr>
                 </table>
             </div>
@@ -57,6 +57,7 @@
     $(function () {
         loaddate();
         loaddata();
+        loadaction();
     })
     //获取当前时间
     //加载时间的控件，并赋当前时间所在星期的时间范围
@@ -74,10 +75,12 @@
                 value: areaday,
                 done: function (value, date, endDate) {
                     inputtr(value);
+                    //loadaction();
                 }
             });
         });
         inputtr(areaday);
+        //loadaction();
     }
 
     //将日期绑定在列表上
@@ -99,6 +102,8 @@
         $("#friday").html(wu + "  /  星期五");
         $("#saturday").html(liu + "  /  星期六");
         $("#sunday").html(qi + "  /  星期日");
+
+        //loadaction();
     }
 
     //$("#but").click({
@@ -107,11 +112,12 @@
 
     //显示日期，并把值赋给日期控件
     function getareaday() {
-        var show; 
+        var show;
+
         var dateweek = new Date().getDay();
         switch (dateweek) {
             case 1:
-                show = getDay() + " ~ " + getDay(+6);
+                show = getDay(0) + " ~ " + getDay(+6);
                 break;
             case 2:
                 show = getDay(-1) + " ~ " + getDay(+5);
@@ -129,7 +135,7 @@
                 show = getDay(-5) + " ~ " + getDay(+1);
                 break;
             case 0:
-                show = getDay(-6) + " ~ " + getDay();
+                show = getDay(-6) + " ~ " + getDay(0);
                 break;
             default:
                 break;
@@ -193,13 +199,13 @@
                     tr = '<tr>'
                         + '<td>' + row.id + '</td>'
                         + '<td>' + row.ooperationUserName + '</td>'
-                        + '<td name="tdtdtd"></td>'
-                        + '<td name="tdtdtd"></td>'
-                        + '<td name="tdtdtd"></td>'
-                        + '<td name="tdtdtd"></td>'
-                        + '<td name="tdtdtd"></td>'
-                        + '<td name="tdtdtd"></td>'
-                        + '<td name="tdtdtd"></td>'
+                        + '<td id="td1" name="tdtdtd" data-mmm=""></td>'
+                        + '<td id="td2" name="tdtdtd" data-mmm=""></td>'
+                        + '<td id="td3" name="tdtdtd" data-mmm=""></td>'
+                        + '<td id="td4" name="tdtdtd" data-mmm=""></td>'
+                        + '<td id="td5" name="tdtdtd" data-mmm=""></td>'
+                        + '<td id="td6" name="tdtdtd" data-mmm=""></td>'
+                        + '<td id="td7" name="tdtdtd" data-mmm=""></td>'
                         + '</tr > '
                     $("#tb").append(tr);
                 })
@@ -222,6 +228,41 @@
                 })
             }
         })
+    }
+
+    //加载自定义属性
+    function loadaction() {
+        //自定义属性赋值
+        var con1 = $("#monday").html();
+        var td1 = document.getElementById("td1");
+        td1.setAttribute("data-mmm", con1);
+
+        var con2 = $("#tuesday").html(); 
+        var td2 = document.getElementById("td2");
+        td2.setAttribute("data-mmm", con2);
+
+        var con3 = $("#wednesday").html();
+        var td3 = document.getElementById("td3");
+        td3.setAttribute("data-mmm", con3);
+
+        var con4 = $("#thursday").html();
+        var td4 = document.getElementById("td4");
+        td4.setAttribute("data-mmm", con4);
+
+        var con5 = $("#friday").html();
+        var td5 = document.getElementById("td5");
+        td5.setAttribute("data-mmm", con5);
+
+        var con6 = $("#saturday").html();
+        var td6 = document.getElementById("td6");
+        td6.setAttribute("data-mmm", con6);
+
+        var con7 = $("#sunday").html();
+        var td7 = document.getElementById("td7");
+        td7.setAttribute("data-mmm", con7);
+
+        alert(td7.getAttribute("data-mmm"));
+
     }
 
 </script>
@@ -267,9 +308,8 @@
 
                 $(this).append(source);
 
+                //setting(this);
 
-
-               
                 //var id = $(this).parent().parent().children().first().text();
                 //$.ajax({
                 //    url: "",
@@ -283,5 +323,12 @@
                 //})
             }
         });
+        //function setting(this) {
+        //    alert(321)
+        //    var td = $(this).parent();
+        //    var con = td.getAttribute("data-mmm");
+        //    alert(con)
+
+        //}
     });
 </script>
