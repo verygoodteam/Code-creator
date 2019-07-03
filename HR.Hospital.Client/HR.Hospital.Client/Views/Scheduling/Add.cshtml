@@ -7,7 +7,6 @@
 <html>
 <head>
     <title>Index</title>
-    @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
     <script src="~/js/jQuery UI表格内容拖拽代码/jQuery1.11.3.min.js"></script>
     <script src="~/js/jQuery UI表格内容拖拽代码/jquery-ui.js"></script>
     <link href="~/layui-v2.5.4/layui/css/layui.css" rel="stylesheet" />
@@ -30,15 +29,15 @@
             <div style="float:left; width:1400px">
                 <table id="tb" class="table table-bordered">
                     <tr style="background-color:#00ced1">
-                        <td><span id="Id"></span></td>
-                        <td><span id="name"></span></td>
-                        <td><span id="monday"></span></td>
-                        <td><span id="tuesday"></span></td>
-                        <td><span id="wednesday"></span></td>
-                        <td><span id="thursday"></span></td>
-                        <td><span id="friday"></span></td>
-                        <td><span id="saturday"></span></td>
-                        <td><span id="sunday"></span></td>
+                        <td><span id="Id">编号</span></td>
+                        <td><span id="name">姓名</span></td>
+                        <td><span data-mmm="" id="monday"></span></td>
+                        <td><span data-ttt="" id="tuesday"></span></td>
+                        <td><span data-www="" id="wednesday"></span></td>
+                        <td><span data-tttt="" id="thursday"></span></td>
+                        <td><span data-fff="" id="friday"></span></td>
+                        <td><span data-sss="" id="saturday"></span></td>
+                        <td><span data-sun="" id="sunday"></span></td>
                     </tr>
                 </table>
             </div>
@@ -53,211 +52,220 @@
     </div>
 </body>
 </html>
-<script src="~/js/jquery-3.3.1.js"></script>
 <script src="~/layui-v2.5.4/layui/layui.js"></script>
 <script type="text/javascript">
     $(function () {
         loaddate();
+        loaddata();
+        loadaction();
     })
     //获取当前时间
     //加载时间的控件，并赋当前时间所在星期的时间范围
     function loaddate() {
-        var dateweek = new Date().getDay();
-        switch (dateweek) {
-            case 1:
-                show = getDay() + " - " + getDay(+6);
-                break;
-            case 2:
-                show = getDay(-1) + " - " + getDay(+5);
-                break;
-            case 3:
-                show = getDay(-2) + " - " + getDay(+4);
-                break;
-            case 4:
-                show = getDay(-3) + " - " + getDay(+3);
-                break;
-            case 5:
-                show = getDay(-4) + " - " + getDay(+2);
-                break;
-            case 6:
-                show = getDay(-5) + " - " + getDay(+1);
-                break;
-            case 0:
-                show = getDay(-6) + " - " + getDay();
-                break;
-            default:
-                break;
-        }
+
+        var areaday = getareaday();
         layui.use('laydate', function () {
             var laydate = layui.laydate;
 
             //执行一个laydate实例
             laydate.render({
                 elem: '#test1', //指定元素
-                range: true, //或 range: '~' 来自定义分割字符
+                range: "~", //或 range: '~' 来自定义分割字符
                 calendar: true,
-                value: show,
+                value: areaday,
                 done: function (value, date, endDate) {
-                    console.log(value); //得到日期生成的值，如：2017-08-18
-                    console.log(date.date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
-                    console.log(endDate.date); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                    inputtr(value);
+                    //loadaction();
                 }
             });
         });
-        function getDay(day) {
-            var today = new Date();
-            var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
-            today.setTime(targetday_milliseconds); //注意，这行是关键代码
-            var tYear = today.getFullYear();
-            var tMonth = today.getMonth();
-            var tDate = today.getDate();
-            tMonth = doHandleMonth(tMonth + 1);
-            tDate = doHandleMonth(tDate);
-            return tYear + "-" + tMonth + "-" + tDate;
-        }
-        function doHandleMonth(month) {
-            var m = month;
-            if (month.toString().length == 1) {
-                m = "0" + month;
-            }
-            return m;
-        }
+        inputtr(areaday);
+        //loadaction();
     }
-</script>
 
+    //将日期绑定在列表上
+    function inputtr(obj) {
+        var startday = obj.split(' ~ ')[0];//转日期
 
+        var one = startday
+        var two = addDate(startday, 1)
+        var san = addDate(startday, 2)
+        var si = addDate(startday, 3)
+        var wu = addDate(startday, 4)
+        var liu = addDate(startday, 5)
+        var qi = addDate(startday, 6)
 
+        $("#monday").html(one + "  /  星期一");
+        $("#tuesday").html(two + "  /  星期二");
+        $("#wednesday").html(san + "  /  星期三");
+        $("#thursday").html(si + "  /  星期四");
+        $("#friday").html(wu + "  /  星期五");
+        $("#saturday").html(liu + "  /  星期六");
+        $("#sunday").html(qi + "  /  星期日");
 
+        //loadaction();
+    }
 
+    //$("#but").click({
 
+    //})
 
+    //显示日期，并把值赋给日期控件
+    function getareaday() {
+        var show;
 
+        var dateweek = new Date().getDay();
+        switch (dateweek) {
+            case 1:
+                show = getDay(0) + " ~ " + getDay(+6);
+                break;
+            case 2:
+                show = getDay(-1) + " ~ " + getDay(+5);
+                break;
+            case 3:
+                show = getDay(-2) + " ~ " + getDay(+4);
+                break;
+            case 4:
+                show = getDay(-3) + " ~ " + getDay(+3);
+                break;
+            case 5:
+                show = getDay(-4) + " ~ " + getDay(+2);
+                break;
+            case 6:
+                show = getDay(-5) + " ~ " + getDay(+1);
+                break;
+            case 0:
+                show = getDay(-6) + " ~ " + getDay(0);
+                break;
+            default:
+                break;
+        }
+        return show;
+    }
 
+    //获取特定一天所在的星期
+    function getDay(day) {
+        var today = new Date();
+        var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
+        today.setTime(targetday_milliseconds); //注意，这行是关键代码
+        var tYear = today.getFullYear();
+        var tMonth = today.getMonth();
+        var tDate = today.getDate();
+        tMonth = doHandleMonth(tMonth + 1);
+        tDate = doHandleMonth(tDate);
+        return tYear + "-" + tMonth + "-" + tDate;
+    }
+    function doHandleMonth(month) {
+        var m = month;
+        if (month.toString().length == 1) {
+            m = "0" + month;
+        }
+        return m;
+    }
 
+    //当前日期加天
+    function addDate(date, days) {
+        if (days == undefined || days == '') {
+            days = 1;
+        }
+        var date = new Date(date);
+        date.setDate(date.getDate() + days);
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        return date.getFullYear() + '-' + getFormatDate(month) + '-' + getFormatDate(day);
+    }
+    function getFormatDate(arg) {
+        if (arg == undefined || arg == '') {
+            return '';
+        }
+        var re = arg + '';
+        if (re.length < 2) {
+            re = '0' + re;
+        }
+        return re;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script type="text/javascript">
-        $(function () {
-            loaddata();
-            //loaddate();
+    //页面绑定值
+    function loaddata() {
+        $.ajax({
+            url: "http://localhost:12345/api/Ooperationuser/GetOoperuser?hierarchyid=0",
+            async: false,
+            type: "Get",
+            data: {},
+            success: function (data) {
+                $("#tb tr").eq(0).nextAll().remove();
+                var tr;
+                $.each(data, function (Index, row) {
+                    tr = '<tr>'
+                        + '<td>' + row.id + '</td>'
+                        + '<td>' + row.ooperationUserName + '</td>'
+                        + '<td id="td1" name="tdtdtd" data-mmm=""></td>'
+                        + '<td id="td2" name="tdtdtd" data-mmm=""></td>'
+                        + '<td id="td3" name="tdtdtd" data-mmm=""></td>'
+                        + '<td id="td4" name="tdtdtd" data-mmm=""></td>'
+                        + '<td id="td5" name="tdtdtd" data-mmm=""></td>'
+                        + '<td id="td6" name="tdtdtd" data-mmm=""></td>'
+                        + '<td id="td7" name="tdtdtd" data-mmm=""></td>'
+                        + '</tr > '
+                    $("#tb").append(tr);
+                })
+            }
         })
 
-       @* function loaddate() {
-            alert(12345)
-            var show = "";
-            var dateweek = DateTime.Now.ToString("dddd");
-            switch (dateweek) {
-                case "星期一":
-                    show = DateTime.Now.ToString() + "-" + DateTime.Now.AddDays(+6).ToString();
-                    break;
-                case "星期二":
-                    show = DateTime.Now.AddDays(-1).ToString() + "-" + DateTime.Now.AddDays(+5).ToString();
-                    break;
-                case "星期三":
-                    show = DateTime.Now.AddDays(-2).ToString() + "-" + DateTime.Now.AddDays(+4).ToString();
-                    break;
-                case "星期四":
-                    show = DateTime.Now.AddDays(-3).ToString() + "-" + DateTime.Now.AddDays(+3).ToString();
-                    break;
-                case "星期五":
-                    show = DateTime.Now.AddDays(-4).ToString() + "-" + DateTime.Now.AddDays(+2).ToString();
-                    break;
-                case "星期六":
-                    show = DateTime.Now.AddDays(-5).ToString() + "-" + DateTime.Now.AddDays(+1).ToString();
-                    break;
-                case "星期日":
-                    show = DateTime.Now.AddDays(-6).ToString() + "-" + DateTime.Now.ToString();
-                    break;
-                default:
-                    break;
+        $.ajax({
+            url: "http://localhost:12345/api/Shiftssetting/GetList",
+            async: false,
+            type: "Get",
+            success: function (data) {
+                $("#tb2 tr").eq(0).nextAll().remove();
+                var tr;
+                $.each(data, function (Index, row) {
+                    var color = row.shiftssettingcolour;
+                    tr = '<tr>'
+                        + '<td name="tdtd" style="background-color:' + color + ';width:80px;height:auto;">' + row.shiftssettingName + '</td>'
+                        + '</tr>'
+                    $("#tb2").append(tr);
+                })
             }
-            alert(54321)
-            $("#test1").val(show)
-        }*@
+        })
+    }
 
-        function loaddata() {
-            $.ajax({
-                url: "http://localhost:12345/api/Ooperationuser/GetOoperuser?hierarchyid=0",
-                async: false,
-                type: "Get",
-                data: {},
-                success: function (data) {
-                    $("#tb tr").eq(0).nextAll().remove();
-                    var tr;
-                    $.each(data, function (Index, row) {
-                        tr = '<tr>'
-                            + '<td>' + row.id + '</td>'
-                            + '<td>' + row.ooperationUserName + '</td>'
-                            + '<td name="tdtdtd"></td>'
-                            + '<td name="tdtdtd"></td>'
-                            + '<td name="tdtdtd"></td>'
-                            + '<td name="tdtdtd"></td>'
-                            + '<td name="tdtdtd"></td>'
-                            + '<td name="tdtdtd"></td>'
-                            + '<td name="tdtdtd"></td>'
-                            + '</tr > '
-                        $("#tb").append(tr);
-                    })
-                }
-            })
+    //加载自定义属性
+    function loadaction() {
+        //自定义属性赋值
+        var con1 = $("#monday").html();
+        var td1 = document.getElementById("td1");
+        td1.setAttribute("data-mmm", con1);
 
-            $.ajax({
-                url: "http://localhost:12345/api/Shiftssetting/GetList",
-                async: false,
-                type: "Get",
-                success: function (data) {
-                    $("#tb2 tr").eq(0).nextAll().remove();
-                    var tr;
-                    $.each(data, function (Index, row) {
-                        var color = row.shiftssettingcolour;
-                        tr = '<tr>'
-                            + '<td name="tdtd" style="background-color:' + color + ';width:80px;height:auto;">' + row.shiftssettingName + '</td>'
-                            + '</tr>'
-                        $("#tb2").append(tr);
-                    })
-                }
-            })
-        }
+        var con2 = $("#tuesday").html(); 
+        var td2 = document.getElementById("td2");
+        td2.setAttribute("data-mmm", con2);
+
+        var con3 = $("#wednesday").html();
+        var td3 = document.getElementById("td3");
+        td3.setAttribute("data-mmm", con3);
+
+        var con4 = $("#thursday").html();
+        var td4 = document.getElementById("td4");
+        td4.setAttribute("data-mmm", con4);
+
+        var con5 = $("#friday").html();
+        var td5 = document.getElementById("td5");
+        td5.setAttribute("data-mmm", con5);
+
+        var con6 = $("#saturday").html();
+        var td6 = document.getElementById("td6");
+        td6.setAttribute("data-mmm", con6);
+
+        var con7 = $("#sunday").html();
+        var td7 = document.getElementById("td7");
+        td7.setAttribute("data-mmm", con7);
+
+        alert(td7.getAttribute("data-mmm"));
+
+    }
+
 </script>
-
 @*页面拖拽的事件*@
 <script type="text/javascript" language="javascript">
     //在页面加载完之后加载jquery
@@ -300,23 +308,27 @@
 
                 $(this).append(source);
 
+                //setting(this);
 
+                //var id = $(this).parent().parent().children().first().text();
+                //$.ajax({
+                //    url: "",
+                //    type: "",
+                //    dataType: "",
+                //    data: {
 
-                alert(111)
-                var id = $(this).parent().parent().children().first().text();
-                $.ajax({
-                    url: "",
-                    type: "",
-                    dataType: "",
-                    data: {
-
-                    },
-                    success: function () {
-                        alert(333)
-                    }
-                })
+                //    },
+                //    success: function () {
+                //    }
+                //})
             }
         });
+        //function setting(this) {
+        //    alert(321)
+        //    var td = $(this).parent();
+        //    var con = td.getAttribute("data-mmm");
+        //    alert(con)
+
+        //}
     });
 </script>
-

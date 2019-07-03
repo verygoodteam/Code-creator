@@ -57,7 +57,7 @@
         var dateweek = new Date().getDay();
         switch (dateweek) {
             case 1:
-                show = getDay() + " - " + getDay(+6);
+                show = getDay(0) + " - " + getDay(+6);
                 break;
             case 2:
                 show = getDay(-1) + " - " + getDay(+5);
@@ -75,7 +75,7 @@
                 show = getDay(-5) + " - " + getDay(+1);
                 break;
             case 0:
-                show = getDay(-6) + " - " + getDay();
+                show = getDay(-6) + " - " + getDay(0);
                 break;
             default:
                 break;
