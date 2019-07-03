@@ -175,6 +175,16 @@ namespace HR.Hospital.Model
         /// </summary>
         public virtual DbSet<SolitaireSet> SolitaireSet { get; set; }
 
+        /// <summary>
+        /// 患者表
+        /// </summary>
+        public virtual DbSet<Patient> Patient { get; set; }
+
+        /// <summary>
+        /// 手术申请表
+        /// </summary>
+        public virtual DbSet<ApplicationSurgery> ApplicationSurgery { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -188,6 +198,46 @@ namespace HR.Hospital.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //患者表信息
+            modelBuilder.Entity<Patient>(entity =>
+            {
+                entity.ToTable("Patient");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.PatientName).HasColumnType("varchar(50)");
+            });
+
+            // 手术申请表信息
+            modelBuilder.Entity<ApplicationSurgery>(entity =>
+            {
+                entity.ToTable("ApplicationSurgery");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.PatientId).HasColumnType("int(11)");
+
+                entity.Property(e => e.OperationsId).HasColumnType("int(11)");
+
+                entity.Property(e => e.ApplyPerson).HasColumnType("int(11)");
+
+                entity.Property(e => e.AdministrativeId).HasColumnType("int(11)");
+
+                entity.Property(e => e.ApplyDate).HasColumnType("datetime");
+
+                entity.Property(e => e.AnesthesiologistId).HasColumnType("int(11)");
+
+                entity.Property(e => e.TourUserId).HasColumnType("int(11)");
+
+                entity.Property(e => e.ApparatusUserId).HasColumnType("int(11)");
+
+                entity.Property(e => e.OperationUserId).HasColumnType("int(11)");
+
+                entity.Property(e => e.IsSched).HasColumnType("int(11)");
+
+                entity.Property(e => e.OperationRemark).HasColumnType("varchar(50)");
+            });
+
             modelBuilder.Entity<Administrative>(entity =>
             {
                 entity.ToTable("administrative");
